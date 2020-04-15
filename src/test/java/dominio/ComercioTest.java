@@ -2,14 +2,16 @@ package dominio;
 
 import builders.ComercioBuilder;
 import model.Comercio;
+import model.RangoHorarioComercio;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 
-import java.time.LocalDateTime;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class ComercioTest {
 
@@ -47,10 +49,14 @@ public class ComercioTest {
 
     @Test
     public void unComercioNoPuedeAtenderEnUnHorarioFueraDeSuRango() {
-        /*RangoHorarioComercio horarioComercio = new RangoHorarioComercio(dia, horarioInicio, horarioFin);
-        LocalDateTime horario = LocalDateTime.of(2020, 05, 05, 14, 00,);
-        Comercio comercio = ComercioBuilder.unComercio().conHorarioDeAtencion(horarioComercio).build();
-        assertTrue(comercio.estaDisponibleEn(horario));*/
+        try{
+            List<RangoHorarioComercio> horarioComercio = Arrays.asList(new RangoHorarioComercio(DayOfWeek.FRIDAY, LocalTime.of(9,0), LocalTime.of(13, 0)));
+            Comercio comercio = ComercioBuilder.unComercio().conHorarioDeAtencion(horarioComercio).build();
+            assertFalse(comercio.estaDisponibleEn(DayOfWeek.FRIDAY, LocalTime.of(20,0)));
+        }catch(Exception e){
+            System.out.println("El horario de cierre no puede ser anterior al horario de apertura");
+        }
+
     }
 
 }

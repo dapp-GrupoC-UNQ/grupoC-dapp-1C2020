@@ -1,6 +1,7 @@
 package builders;
 
 import model.Comercio;
+import model.RangoHorarioComercio;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,10 +17,11 @@ public class ComercioBuilder {
     private String domicilioDeComercio = "Calchaqui 123";
     private Integer distanciaMaximaDePedidosEnKm = 3;
     private List<String> mediosDePagoDisponibles = Arrays.asList("Efectivo");
+    private List<RangoHorarioComercio> horarioDeAtencionComercio = new ArrayList<>();
 
 
     public Comercio build() {
-        return new Comercio(nombreDeComercio, rubroDeComercio, domicilioDeComercio, distanciaMaximaDePedidosEnKm, mediosDePagoDisponibles);
+        return new Comercio(nombreDeComercio, rubroDeComercio, domicilioDeComercio, distanciaMaximaDePedidosEnKm, mediosDePagoDisponibles, horarioDeAtencionComercio);
     }
 
     public ComercioBuilder conNombre(String unNombre) {
@@ -44,6 +46,11 @@ public class ComercioBuilder {
 
     public ComercioBuilder conMediosDePago(List<String> mediosDePago){
         mediosDePagoDisponibles = mediosDePago;
+        return this;
+    }
+
+    public ComercioBuilder conHorarioDeAtencion(List<RangoHorarioComercio> horarioComercio) {
+        horarioDeAtencionComercio = horarioComercio;
         return this;
     }
 }
