@@ -49,14 +49,9 @@ public class ComercioTest {
 
     @Test
     public void unComercioNoPuedeAtenderEnUnHorarioFueraDeSuRango() {
-        try{
-            List<RangoHorarioComercio> horarioComercio = Arrays.asList(new RangoHorarioComercio(DayOfWeek.FRIDAY, LocalTime.of(9,0), LocalTime.of(13, 0)));
-            Comercio comercio = ComercioBuilder.unComercio().conHorarioDeAtencion(horarioComercio).build();
-            assertFalse(comercio.estaDisponibleEn(DayOfWeek.FRIDAY, LocalTime.of(20,0)));
-        }catch(Exception e){
-            System.out.println("El horario de cierre no puede ser anterior al horario de apertura");
-        }
-
+        List<RangoHorarioComercio> horarioComercio = Arrays.asList(new RangoHorarioComercio(DayOfWeek.FRIDAY, LocalTime.of(9,0), LocalTime.of(13, 0)));
+        Comercio comercio = ComercioBuilder.unComercio().conHorarioDeAtencion(horarioComercio).build();
+        assertFalse(comercio.estaDisponibleEn(DayOfWeek.FRIDAY, LocalTime.of(20,0)));
     }
 
 }

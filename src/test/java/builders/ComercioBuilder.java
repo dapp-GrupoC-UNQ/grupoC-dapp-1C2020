@@ -3,6 +3,8 @@ package builders;
 import model.Comercio;
 import model.RangoHorarioComercio;
 
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +19,7 @@ public class ComercioBuilder {
     private String domicilioDeComercio = "Calchaqui 123";
     private Integer distanciaMaximaDePedidosEnKm = 3;
     private List<String> mediosDePagoDisponibles = Arrays.asList("Efectivo");
-    private List<RangoHorarioComercio> horarioDeAtencionComercio = new ArrayList<>();
+    private List<RangoHorarioComercio> horarioDeAtencionComercio = Arrays.asList(new RangoHorarioComercio(DayOfWeek.FRIDAY, LocalTime.of(9,0), LocalTime.of(15, 0)));
 
 
     public Comercio build() {
