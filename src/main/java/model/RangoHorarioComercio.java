@@ -11,8 +11,8 @@ public class RangoHorarioComercio {
     LocalTime horaDeApertura;
     LocalTime horaDeCierre;
 
-    public RangoHorarioComercio(DayOfWeek unDia, LocalTime horaInicio, LocalTime horaFin) throws HorarioNoPermitidoException {
-        if(horaFin.isBefore(horaInicio)){ throw new HorarioNoPermitidoException();   }
+    public RangoHorarioComercio(DayOfWeek unDia, LocalTime horaInicio, LocalTime horaFin) {
+        if(horaFin.isBefore(horaInicio)){ throw new HorarioNoPermitidoException(); }
         diaDeAtencion = unDia;
         horaDeApertura = horaInicio;
         horaDeCierre = horaFin;
