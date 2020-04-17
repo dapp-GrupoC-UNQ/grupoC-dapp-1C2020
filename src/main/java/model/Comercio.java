@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
 public class Comercio {
@@ -69,44 +70,30 @@ public class Comercio {
         return !listaDeProductos.isEmpty();
     }
 
-    public Integer stockPara(String unNombre, String unaMarca) {
+    private Producto encontrarProducto(String nombreProducto, String marcaProducto) {
         return listaDeProductos.stream()
-                               .filter(producto -> this.sonElMismoProducto(producto, unNombre, unaMarca))
-                               .findFirst()
-                               .orElseThrow(ProductoInexistenteEnComercioException::new)
-                               .stock();
+                .filter(producto -> this.sonElMismoProducto(producto, nombreProducto, marcaProducto))
+                .findFirst()
+                .orElseThrow(ProductoInexistenteEnComercioException::new);
+    }
 
+    public Integer stockPara(String unNombre, String unaMarca) {
+        return this.encontrarProducto(unNombre, unaMarca).stock();
     }
 
     public Double precioPara(String unNombre, String unaMarca) {
-        return listaDeProductos.stream()
-                .filter(producto -> this.sonElMismoProducto(producto, unNombre, unaMarca))
-                .findFirst()
-                .orElseThrow(ProductoInexistenteEnComercioException::new)
-                .precio();
+        return this.encontrarProducto(unNombre, unaMarca).precio();
     }
 
     public void actualizarPrecio(String nombreProducto, String marcaProducto, Double nuevoPrecio) {
-         listaDeProductos.stream()
-                .filter(producto -> this.sonElMismoProducto(producto, nombreProducto, marcaProducto))
-                .findFirst()
-                .orElseThrow(ProductoInexistenteEnComercioException::new)
-                .actualizarPrecio(nuevoPrecio);
+        this.encontrarProducto(nombreProducto, marcaProducto).actualizarPrecio(nuevoPrecio);
     }
 
     public void agregarStock(String nombreProducto, String marcaProducto, Integer stockAAgregar) {
-        listaDeProductos.stream()
-                .filter(producto -> this.sonElMismoProducto(producto, nombreProducto, marcaProducto))
-                .findFirst()
-                .orElseThrow(ProductoInexistenteEnComercioException::new)
-                .agregarStock(stockAAgregar);
+        this.encontrarProducto(nombreProducto, marcaProducto).agregarStock(stockAAgregar);
     }
 
     public void decrementarStock(String nombreProducto, String marcaProducto, Integer stockADecrementar) {
-        listaDeProductos.stream()
-                .filter(producto -> this.sonElMismoProducto(producto, nombreProducto, marcaProducto))
-                .findFirst()
-                .orElseThrow(ProductoInexistenteEnComercioException::new)
-                .decrementarStock(stockADecrementar);
+        this.encontrarProducto(nombreProducto, marcaProducto).decrementarStock(stockADecrementar);
     }
 }
