@@ -35,4 +35,16 @@ public class Producto {
     public Double precio() {
         return this.precioDeProducto;
     }
+
+    public void actualizarPrecio(Double nuevoPrecio) {
+        precioDeProducto = nuevoPrecio;
+    }
+
+    public void agregarStock(Integer stockAAgregar) {
+        stockDeProducto += stockAAgregar;
+    }
+
+    public void decrementarStock(Integer stockADecrementar) {
+        stockDeProducto -= stockADecrementar;
+    }
 }
