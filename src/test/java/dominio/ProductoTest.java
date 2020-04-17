@@ -1,8 +1,5 @@
 package dominio;
-
-import builders.ComercioBuilder;
 import builders.ProductoBuilder;
-import model.Comercio;
 import model.Producto;
 import model.excepciones.ProductoConPrecioNegativoException;
 import model.excepciones.ProductoConStockNegativoException;
@@ -11,13 +8,6 @@ import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProductoTest {
-
-    @Test
-    public void unProductoConoceAlComercioAlQuePertenece() {
-        Comercio comercio = ComercioBuilder.unComercio().build();
-        Producto fideos = ProductoBuilder.unProducto().deComercio(comercio).build();
-        assertEquals(fideos.comercio(), comercio);
-    }
 
     @Test
     public void unProductoTieneUnNombre() {
