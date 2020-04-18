@@ -1,23 +1,13 @@
 package model;
 
-import model.excepciones.HorarioNoPermitidoException;
-import model.excepciones.ProductoConPrecioNegativoException;
-import model.excepciones.ProductoConStockNegativoException;
-
 public class Producto {
 
     private String marcaDeProducto;
     private String nombreDeProducto;
-    private Double precioDeProducto;
-    private Integer stockDeProducto;
 
-    public Producto(String unNombre, String unaMarca, Double unPrecio, Integer unStock) {
-        if(unStock < 0){ throw new ProductoConStockNegativoException(); }
-        if(unPrecio < 0){ throw new ProductoConPrecioNegativoException(); }
+    public Producto(String unNombre, String unaMarca) {
         nombreDeProducto = unNombre;
         marcaDeProducto = unaMarca;
-        stockDeProducto = unStock;
-        precioDeProducto = unPrecio;
     }
 
     public String nombre() {
@@ -28,7 +18,7 @@ public class Producto {
         return this.marcaDeProducto;
     }
 
-    public Integer stock() {
+   /* public Integer stock() {
         return this.stockDeProducto;
     }
 
@@ -46,5 +36,5 @@ public class Producto {
 
     public void decrementarStock(Integer stockADecrementar) {
         stockDeProducto -= stockADecrementar;
-    }
+    }*/
 }
