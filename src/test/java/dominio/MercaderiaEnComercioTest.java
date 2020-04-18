@@ -8,7 +8,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ProductoEnComercioTest {
+public class MercaderiaEnComercioTest {
 
     @Test
     public void unComercioInicialmenteNoTieneNingunProducto() {
@@ -16,10 +16,10 @@ public class ProductoEnComercioTest {
         assertFalse(comercioNuevo.tieneProductos());
     }
 
-    @Test
-    public void cuandoUnComercioAgregaUnProductoEstePasaAFormarParteDeSuListaDeProductosConElStockYPrecioIndicados() {
+   @Test
+    public void cuandoUnComercioAgregaUnProductoEstePasaAFormarParteDeSuListaDeMercaderiasConElStockYPrecioIndicados() {
         Comercio comercio = ComercioBuilder.unComercio().build();
-        comercio.agregarProducto("Fideos", "Marolio", 34.45, 23);
+        comercio.agregarMercaderia("Fideos", "Marolio", 34.45, 23);
         assertTrue(comercio.vendeProducto("Fideos", "Marolio"));
         assertEquals(comercio.stockPara("Fideos", "Marolio"), 23);
         assertEquals(comercio.precioPara("Fideos", "Marolio"), 34.45);
@@ -41,14 +41,14 @@ public class ProductoEnComercioTest {
     public void unComercioNoPuedeAgregarElMismoProductoMasDeUnaVez() {
         //por mismo producto se entiende mismo nombre y marca
         Comercio comercio = ComercioBuilder.unComercio().build();
-        comercio.agregarProducto("Fideos", "Marolio", 34.45, 23);
-        assertThrows(ProductoRepetidoEnComercioException.class, () -> comercio.agregarProducto("Fideos", "Marolio", 34.45, 23));
+        comercio.agregarMercaderia("Fideos", "Marolio", 34.45, 23);
+        assertThrows(ProductoRepetidoEnComercioException.class, () -> comercio.agregarMercaderia("Fideos", "Marolio", 34.45, 23));
     }
 
     @Test
     public void unComercioPuedeActualizarElPrecioDeUnProductoExistente() {
         Comercio comercio = ComercioBuilder.unComercio().build();
-        comercio.agregarProducto("Fideos", "Marolio", 34.45, 23);
+        comercio.agregarMercaderia("Fideos", "Marolio", 34.45, 23);
         comercio.actualizarPrecio("Fideos", "Marolio", 36.45);
         assertEquals(comercio.precioPara("Fideos", "Marolio"), 36.45);
     }
@@ -62,10 +62,11 @@ public class ProductoEnComercioTest {
     @Test
     public void unComercioPuedeAgregarStockParaUnProductoExistente() {
         Comercio comercio = ComercioBuilder.unComercio().build();
-        comercio.agregarProducto("Fideos", "Marolio", 34.45, 23);
+        comercio.agregarMercaderia("Fideos", "Marolio", 34.45, 23);
         comercio.agregarStock("Fideos", "Marolio", 20);
         assertEquals(comercio.stockPara("Fideos", "Marolio"), 43);
     }
+
 
     @Test
     public void unComercioNoPuedeAgregarStockParaUnProductoInexistente() {
@@ -76,7 +77,7 @@ public class ProductoEnComercioTest {
     @Test
     public void unComercioPuedeDecrementarStockParaUnProductoExistente() {
         Comercio comercio = ComercioBuilder.unComercio().build();
-        comercio.agregarProducto("Fideos", "Marolio", 34.45, 23);
+        comercio.agregarMercaderia("Fideos", "Marolio", 34.45, 23);
         comercio.decrementarStock("Fideos", "Marolio", 20);
         assertEquals(comercio.stockPara("Fideos", "Marolio"), 3);
     }
