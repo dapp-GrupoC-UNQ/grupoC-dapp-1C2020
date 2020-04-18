@@ -97,7 +97,7 @@ public class Comercio {
         this.encontrarProducto(nombreProducto, marcaProducto).decrementarStock(stockADecrementar);
     }
 
-    public boolean sePuedeAbonarCon(String medioDePago) {
+    public Boolean sePuedeAbonarCon(String medioDePago) {
         return mediosDePagoDisponiblesComercio.contains(medioDePago);
     }
 }
