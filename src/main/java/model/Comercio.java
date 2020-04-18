@@ -96,4 +96,8 @@ public class Comercio {
     public void decrementarStock(String nombreProducto, String marcaProducto, Integer stockADecrementar) {
         this.encontrarProducto(nombreProducto, marcaProducto).decrementarStock(stockADecrementar);
     }
+
+    public Boolean sePuedeAbonarCon(String medioDePago) {
+        return mediosDePagoDisponiblesComercio.contains(medioDePago);
+    }
 }
