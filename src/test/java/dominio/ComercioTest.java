@@ -48,6 +48,13 @@ public class ComercioTest {
     }
 
     @Test
+    public void unComercioTieneUnDeterminadoMedioDePago() {
+        List<String> mediosDePago = Arrays.asList("Efectivo","Tarjeta de debito");
+        Comercio comercio = ComercioBuilder.unComercio().conMediosDePago(mediosDePago).build();
+        assertTrue(comercio.sePuedeAbonarCon("Tarjeta de debito"));
+    }
+
+    @Test
     public void unComercioNoPuedeAtenderEnUnHorarioFueraDeSuRango() {
         List<RangoHorarioComercio> horarioComercio = Arrays.asList(new RangoHorarioComercio(DayOfWeek.FRIDAY, LocalTime.of(9,0), LocalTime.of(13, 0)));
         Comercio comercio = ComercioBuilder.unComercio().conHorarioDeAtencion(horarioComercio).build();
