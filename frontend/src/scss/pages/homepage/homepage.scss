@@ -1,0 +1,71 @@
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #ffff7c;
+
+  .login-panel {
+    display: flex;
+    height: 50%;
+    width: 60%;
+
+    .images-subpanel {
+      width: 40%;
+      height: 100%;
+    }
+
+    .user-subpanel {
+      height: 100%;
+      width: 60%;
+
+      .welcome-text {
+        font-size: xx-large;
+        padding: 20px 20px 0px;
+      }
+
+      .lets-buy-text {
+        padding: 15px 20px;
+      }
+
+      .usuario-input, {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 20px;
+        width: 220px;
+
+        label {
+          padding-bottom: 10px;
+        }
+
+        input {
+          height: 23px;
+          border-radius: 5px;
+        }
+      }
+
+      .password-input {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 20px;
+        width: 222px;
+
+        label {
+          padding-bottom: 10px;
+        }
+
+        input {
+          height: 23px;
+          border-radius: 5px;
+        }
+      }
+    }
+    .divisor-line {
+      height: 100%;
+      width: 2px;
+      background-color: #fa7bbc;
+    }
+  }
+}
