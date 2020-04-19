@@ -1,0 +1,128 @@
+.productos {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  margin-top: 23px;
+
+  .columna-productos {
+    height: 100%;
+    width: 50%;
+  }
+}
+
+.mandarina {
+  position: relative;
+  right: 10px;
+  bottom: 5px;
+  padding: 20px;
+  img {
+    transform: rotate(357deg);
+    height: 40px;
+    width: 40px;
+  }
+}
+
+.pan {
+  position: relative;
+  left: 62px;
+  img {
+    transform: rotate(381deg);
+    height: 40px;
+    width: 40px;
+  }
+}
+
+.jabon {
+  img {
+    transform: rotate(381deg);
+    height: 40px;
+    width: 40px;
+  }
+}
+
+.cookie {
+  position: relative;
+  left: 80px;
+  bottom: 16px;
+  img {
+    transform: rotate(381deg);
+    height: 40px;
+    width: 40px;
+  }
+}
+
+.bolsas {
+  position: relative;
+  right: 24px;
+  top: -19px;
+  img {
+    transform: rotate(345deg);
+    height: 55px;
+    width: 55px;
+  }
+}
+
+.vaso {
+  position: relative;
+  left: 56px;
+  bottom: 16px;
+  img {
+    transform: rotate(347deg);
+    height: 45px;
+    width: 45px;
+  }
+}
+
+.libros {
+  position: relative;
+  left: 23px;
+  top: 4px;
+  img {
+    transform: rotate(367deg);
+    height: 45px;
+    width: 45px;
+  }
+}
+
+.hamburguesa {
+  position: relative;
+  left: 11px;
+  bottom: 11px;
+  img {
+    transform: rotate(340deg);
+    height: 45px;
+    width: 45px;
+  }
+}
+
+.manzana {
+  position: relative;
+  left: 74px;
+  bottom: 10px;
+  img {
+    transform: rotate(378deg);
+    height: 45px;
+    width: 45px;
+  }
+}
+
+.pizza {
+  position: relative;
+  bottom: 23px;
+  img {
+    transform: rotate(305deg);
+    height: 45px;
+    width: 45px;
+  }
+}
+
+.rugby {
+  position: relative;
+  left: 42px;
+  top: 36px;
+  img {
+    transform: rotate(356deg);
+    height: 45px;
+    width: 45px;
+  }
+}

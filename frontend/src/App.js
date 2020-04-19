@@ -1,16 +1,19 @@
 import React from 'react';
-import './scss/probando.scss';
+import './scss/pages/homepage/homepage.scss';
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import LoginPage from "./scss/pages/homepage/HomePage";
 
 function App() {
   return (
-      <div>
-        <div className="app fruta">
-          holis
-        </div>
-        <div className="app">
-          chau
-        </div>
-      </div>
+        <BrowserRouter>
+            <Switch>
+                <Route
+                    exact
+                    path="/"
+                    render={() => <LoginPage/>}
+                />
+            </Switch>
+        </BrowserRouter>
   );
 }
 
