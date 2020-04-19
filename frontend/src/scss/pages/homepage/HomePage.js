@@ -1,5 +1,7 @@
 import {withRouter} from "react-router-dom";
 import * as React from "react";
+import ImagenesProductos from "./imagenes-home-page/ImagenesProductos";
+
 
 class LoginPage extends React.Component {
     render() {
@@ -7,6 +9,7 @@ class LoginPage extends React.Component {
             <div className="login-page">
                 <div className="login-panel">
                     <div className="images-subpanel">
+                        <ImagenesProductos/>
                     </div>
                     <div className="divisor-line">
                     </div>
