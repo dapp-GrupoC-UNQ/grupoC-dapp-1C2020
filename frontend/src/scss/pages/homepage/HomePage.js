@@ -25,6 +25,9 @@ class LoginPage extends React.Component {
                             <label htmlFor="fname">Contraseña:</label>
                             <input type="password" id="password" name="password"/>
                         </div>
+                        <div className="login-button-field">
+                            <button className="login-button">¡Vamos!</button>
+                        </div>
                     </div>
                 </div>
             </div>
