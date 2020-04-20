@@ -8,20 +8,14 @@ public class CompraBuilder {
     }
 
     private String medioDePago;
-    private Double montoTotal;
     private String tipoDeEnvio;
 
     public Compra build(){
-        return new Compra(medioDePago, montoTotal, tipoDeEnvio);
+        return new Compra(medioDePago, tipoDeEnvio);
     }
 
     public CompraBuilder conMedioDePago(String tipoPago) {
         medioDePago = tipoPago;
-        return this;
-    }
-
-    public CompraBuilder conMontoTotal(Double monto) {
-        montoTotal = monto;
         return this;
     }
 

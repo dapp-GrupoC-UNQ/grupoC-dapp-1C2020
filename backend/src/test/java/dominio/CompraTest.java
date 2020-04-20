@@ -1,7 +1,9 @@
 package dominio;
 
 import builders.CompraBuilder;
+import builders.MercaderiaBuilder;
 import model.Compra;
+import model.Mercaderia;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,8 +18,12 @@ public class CompraTest {
 
     @Test
     public void unaCompraTieneUnMontoTotal(){
-        Compra compra = CompraBuilder.unaCompra().conMontoTotal(1525.30).build();
-        assertEquals(1525.30, compra.montoTotal());
+        Mercaderia fideos = MercaderiaBuilder.unaMercaderia().conProducto("Fideos", "Knorr").conPrecio(40.25).build();
+        Mercaderia jugo = MercaderiaBuilder.unaMercaderia().conProducto("Jugo", "Tang").conPrecio(8.0).build();
+        Compra compra = CompraBuilder.unaCompra().build();
+        compra.agregarMercaderia(fideos);
+        compra.agregarMercaderia(jugo);
+        assertEquals(48.25, compra.montoTotal());
     }
 
     @Test
@@ -25,5 +31,7 @@ public class CompraTest {
         Compra compra = CompraBuilder.unaCompra().conTipoDeEnvio("Envio a domicilio").build();
         assertEquals("Envio a domicilio", compra.tipoEnvio());
     }
+
+
 
 }

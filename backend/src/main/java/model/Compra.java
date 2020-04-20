@@ -1,14 +1,16 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Compra {
 
     private String medioDePago;
-    private Double montoTotal;
     private String tipoDeEnvio;
+    private List<Mercaderia> listaDeMercaderia = new ArrayList<>();
 
-    public Compra(String pago, Double total, String envio){
+    public Compra(String pago, String envio){
         medioDePago = pago;
-        montoTotal = total;
         tipoDeEnvio = envio;
     }
 
@@ -17,10 +19,14 @@ public class Compra {
     }
 
     public Double montoTotal() {
-        return this.montoTotal;
+       return this.listaDeMercaderia.stream().mapToDouble(Mercaderia::precio).sum();
     }
 
     public String tipoEnvio() {
         return this.tipoDeEnvio;
+    }
+
+    public void agregarMercaderia(Mercaderia mercaderia) {
+        this.listaDeMercaderia.add(mercaderia);
     }
 }
