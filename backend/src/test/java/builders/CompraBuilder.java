@@ -1,6 +1,8 @@
 package builders;
 
 import model.Compra;
+import model.EnvioADomicilio;
+import model.TipoDeEnvio;
 
 public class CompraBuilder {
     public static CompraBuilder unaCompra() {
@@ -8,7 +10,8 @@ public class CompraBuilder {
     }
 
     private String medioDePago;
-    private String tipoDeEnvio;
+    private TipoDeEnvio tipoDeEnvio;
+    private String direccionDeEnvio;
 
     public Compra build(){
         return new Compra(medioDePago, tipoDeEnvio);
@@ -19,8 +22,13 @@ public class CompraBuilder {
         return this;
     }
 
-    public CompraBuilder conTipoDeEnvio(String envio) {
+    public CompraBuilder conTipoDeEnvio(TipoDeEnvio envio) {
         tipoDeEnvio = envio;
+        return this;
+    }
+
+    public CompraBuilder conDireccionDeEnvio(String direccion) {
+        direccionDeEnvio = direccion;
         return this;
     }
 }
