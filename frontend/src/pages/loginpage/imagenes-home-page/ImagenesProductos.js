@@ -16,7 +16,7 @@ class ImagenesProductos extends React.Component {
     render() {
         return (
             <div className="productos">
-                <div class="columna-productos">
+                <div className="columna-productos">
                     <div className="mandarina">
                         <img src={mandarina}/>
                     </div>
@@ -36,7 +36,7 @@ class ImagenesProductos extends React.Component {
                         <img src={pizza}/>
                     </div>
                 </div>
-                <div class="columna-productos">
+                <div className="columna-productos">
                     <div className="pan">
                         <img src={pan}/>
                     </div>

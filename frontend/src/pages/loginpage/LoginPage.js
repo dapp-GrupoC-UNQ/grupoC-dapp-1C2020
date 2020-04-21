@@ -1,6 +1,7 @@
 import {withRouter} from "react-router-dom";
 import * as React from "react";
 import ImagenesProductos from "./imagenes-home-page/ImagenesProductos";
+import ModalRegistroUsuario from "./ModalRegistroUsuario";
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -42,10 +43,11 @@ class LoginPage extends React.Component {
                             <div className="login-button-field">
                                 <button className="login-button">¡Vamos!</button>
                             </div>
-
                         </div>
+
                     </div>
                 </div>
+                {this.state.modalRegistroUsuarioAbierto && <ModalRegistroUsuario/>}
             </div>
         )
     }
