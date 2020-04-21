@@ -1,0 +1,47 @@
+@import "../../../../node_modules/bulma/bulma";
+
+.modal {
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+  .campo-a-rellenar {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0px;
+    input {
+      width: fit-content;
+      height: 30px;
+      border-radius: 5px;
+      margin-top: 10px;
+      font-size: initial;
+    }
+  }
+
+  .boton-modal {
+    background-color: #f4e04d;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    padding: 15px 5px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+  }
+
+  .boton-modal:hover {
+    background-color: #e5c902;
+  }
+
+  .modal-card-foot {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .modal-card-body {
+    .seccion-de-campos {
+      width: 50%;
+    }
+  }
+}

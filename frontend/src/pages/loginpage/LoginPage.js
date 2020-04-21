@@ -1,7 +1,7 @@
 import {withRouter} from "react-router-dom";
 import * as React from "react";
 import ImagenesProductos from "./imagenes-home-page/ImagenesProductos";
-import ModalRegistroUsuario from "./ModalRegistroUsuario";
+import ModalRegistroUsuario from "./modalRegistro/ModalRegistroUsuario";
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -11,6 +11,9 @@ class LoginPage extends React.Component {
         }
     }
 
+    cerrarModal = () => {
+        this.setState({modalRegistroUsuarioAbierto: false})
+    }
     render() {
         return (
             <div className="login-page">
@@ -47,7 +50,7 @@ class LoginPage extends React.Component {
 
                     </div>
                 </div>
-                {this.state.modalRegistroUsuarioAbierto && <ModalRegistroUsuario/>}
+                {this.state.modalRegistroUsuarioAbierto && <ModalRegistroUsuario onClose={this.cerrarModal}/>}
             </div>
         )
     }
