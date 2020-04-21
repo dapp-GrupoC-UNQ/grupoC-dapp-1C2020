@@ -2,8 +2,14 @@ import {withRouter} from "react-router-dom";
 import * as React from "react";
 import ImagenesProductos from "./imagenes-home-page/ImagenesProductos";
 
-
 class LoginPage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            modalRegistroUsuarioAbierto: false
+        }
+    }
+
     render() {
         return (
             <div className="login-page">
@@ -28,8 +34,15 @@ class LoginPage extends React.Component {
                             <label htmlFor="fname">Contraseña:</label>
                             <input type="password" id="password" name="password"/>
                         </div>
-                        <div className="login-button-field">
-                            <button className="login-button">¡Vamos!</button>
+                        <div className="button-panel">
+                            <div className="login-button-field">
+                                <button className="login-button"
+                                        onClick={() => this.setState({modalRegistroUsuarioAbierto: true})}>¿No tenes cuenta?</button>
+                            </div>
+                            <div className="login-button-field">
+                                <button className="login-button">¡Vamos!</button>
+                            </div>
+
                         </div>
                     </div>
                 </div>

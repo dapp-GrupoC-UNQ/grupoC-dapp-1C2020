@@ -62,25 +62,30 @@
         }
       }
 
-      .login-button-field {
+      .button-panel {
         display: flex;
         flex-direction: row-reverse;
-        margin-right: 30px;
+        width: 125%;
+        height: 20%;
+        align-items: flex-end;
+        .login-button-field {
+          margin-right: 10px;
 
-        .login-button {
-          background-color: #f4e04d;
-          border: none;
-          border-radius: 5px;
-          color: black;
-          padding: 15px 15px;
-          text-align: center;
-          display: inline-block;
-          font-size: 16px;
-          transition-duration: 0.4s;
-        }
+          .login-button {
+            background-color: #f4e04d;
+            border: none;
+            border-radius: 5px;
+            color: black;
+            padding: 15px 5px;
+            text-align: center;
+            display: inline-block;
+            font-size: 16px;
+            transition-duration: 0.4s;
+          }
 
-        .login-button:hover {
-          background-color: #e5c902;
+          .login-button:hover {
+            background-color: #e5c902;
+          }
         }
       }
     }
