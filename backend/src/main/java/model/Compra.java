@@ -1,14 +1,18 @@
 package model;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Compra {
 
     private String medioDePago;
-    private Double montoTotal;
-    private String tipoDeEnvio;
+    private TipoDeEnvio tipoDeEnvio;
+    private String direccionEnvio;
+    private List<Mercaderia> listaDeMercaderia = new ArrayList<>();
 
-    public Compra(String pago, Double total, String envio){
+    public Compra(String pago, TipoDeEnvio envio){
         medioDePago = pago;
-        montoTotal = total;
         tipoDeEnvio = envio;
     }
 
@@ -17,10 +21,22 @@ public class Compra {
     }
 
     public Double montoTotal() {
-        return this.montoTotal;
+            return this.listaDeMercaderia.stream().mapToDouble(Mercaderia::precio).sum();
     }
 
-    public String tipoEnvio() {
+    public TipoDeEnvio tipoEnvio() {
         return this.tipoDeEnvio;
+    }
+
+    public void agregarMercaderia(Mercaderia mercaderia) {
+        this.listaDeMercaderia.add(mercaderia);
+    }
+
+    public String direccionDeEnvio() {
+        return tipoDeEnvio.direccionDeEnvio();
+    }
+
+    public LocalDateTime turnoDeRetiro() {
+        return this.tipoDeEnvio.horarioDeRetiro();
     }
 }
