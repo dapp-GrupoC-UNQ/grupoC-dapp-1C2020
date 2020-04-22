@@ -8,13 +8,32 @@
   .campo-a-rellenar {
     display: flex;
     flex-direction: column;
-    padding: 10px 0px;
+    padding: 10px 0;
     input {
       width: fit-content;
       height: 30px;
       border-radius: 5px;
       margin-top: 10px;
       font-size: initial;
+    }
+
+    .horarios {
+      margin-top: 10px;
+      .seleccion-horario {
+        margin-bottom: 15px;
+      }
+      .botonera-horarios {
+        margin: 5px 0;
+
+        a {
+          margin-left: 5px;
+          color: #af9b00;
+        }
+      }
+      input {
+        height: 30px;
+        margin: 0 5px;
+      }
     }
   }
 
