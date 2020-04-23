@@ -50,7 +50,7 @@ class CamposRegistroUsuario extends React.Component {
                             </label>
                             <input type="password" id="password" name="password" onChange={(event) =>this.props.onUpdate('password', event.target.value)}/>
                         </div>
-                </div>
+                    </div>
                 {this.props.esComercio &&
                 <div className="seccion-de-campos">
                     <div className="campo-a-rellenar">
