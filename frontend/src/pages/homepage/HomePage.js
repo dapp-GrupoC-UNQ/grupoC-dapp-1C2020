@@ -1,6 +1,6 @@
 import {withRouter} from "react-router-dom";
 import * as React from "react";
-import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
+import { faMapMarkerAlt, faStore } from '@fortawesome/free-solid-svg-icons'
 import "./homepage.scss"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
@@ -19,6 +19,10 @@ class HomePage extends React.Component {
                         <div className='distancia-comercio'>
                             <FontAwesomeIcon icon={faMapMarkerAlt}/>
                             <p className="distancia">a 2.5 km</p>
+                        </div>
+                        <div className="rubros-comercio">
+                            <FontAwesomeIcon icon={faStore}/>
+                            <p className="rubros">carniceria, limpieza, verduleria</p>
                         </div>
                     </div>
                     <div className="carta-comercio">
