@@ -75,6 +75,14 @@
     display: flex;
     .seccion-de-campos {
       width: 50%;
+      .user-error {
+        color: #ff0020;
+        font-weight: 600;
+
+        svg{
+          margin-right: 10px;
+        }
+      }
     }
   }
 }

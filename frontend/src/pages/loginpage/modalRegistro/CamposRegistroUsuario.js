@@ -1,4 +1,6 @@
 import * as React from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
 
 class CamposRegistroUsuario extends React.Component {
     constructor(props) {
@@ -28,7 +30,7 @@ class CamposRegistroUsuario extends React.Component {
                     <div className="seccion-de-campos">
                         <div className="campo-a-rellenar">
                             <label>
-                                Nombre y Apellido
+                                {!this.props.esComercio ? "Nombre y Apellido" : "Comercio"}
                             </label>
                             <input type="text" id="nombreYApellido" name="nombreYApellido" onChange={(event) =>this.props.onUpdate('nombreYApellido', event.target.value)}/>
                         </div>
@@ -50,7 +52,13 @@ class CamposRegistroUsuario extends React.Component {
                             </label>
                             <input type="password" id="password" name="password" onChange={(event) =>this.props.onUpdate('password', event.target.value)}/>
                         </div>
-                    </div>
+
+                        {!this.props.isValidUser &&
+                            <div className="user-error">
+                                <FontAwesomeIcon icon={faExclamationTriangle}/>
+                                Hay campos sin completar.
+                            </div>}
+                </div>
                 {this.props.esComercio &&
                 <div className="seccion-de-campos">
                     <div className="campo-a-rellenar">

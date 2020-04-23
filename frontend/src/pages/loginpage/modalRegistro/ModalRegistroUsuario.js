@@ -6,7 +6,8 @@ class ModalRegistroUsuario extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            registrandoUsuario: true
+            registrandoUsuario: true,
+            isValidUser: true
         }
     }
 
@@ -26,6 +27,10 @@ class ModalRegistroUsuario extends React.Component {
         this.setState({[clave]: valor})
     }
 
+    validarUsuario = () => {
+        this.setState({isValidUser: (!!this.state.nombreYApellido && !!this.state.direccion &&
+                !!this.state.email && !!this.state.password)})}
+
     render() {
         return(
             <div className="modal">
@@ -37,9 +42,11 @@ class ModalRegistroUsuario extends React.Component {
                     </header>
                         <CamposRegistroUsuario onUpdate={this.actualizarFormulario}
                                                onAgregarRubro={this.agregarRubro}
-                                               esComercio={!this.state.registrandoUsuario}/>
+                                               esComercio={!this.state.registrandoUsuario}
+                                               isValidUser={this.state.isValidUser}/>
+
                     <footer className="modal-card-foot">
-                        <button className="boton-modal">Registrarme</button>
+                        <button className="boton-modal" onClick={this.validarUsuario}>Registrarme</button>
                         <button className="boton-modal" onClick={this.cambiarDeEntidad}>Registrarme como {this.textoBotonRegistrarmeComo()}</button>
                     </footer>
                 </div>
