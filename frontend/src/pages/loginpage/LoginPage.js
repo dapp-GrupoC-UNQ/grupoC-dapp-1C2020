@@ -44,7 +44,7 @@ class LoginPage extends React.Component {
                                         onClick={() => this.setState({modalRegistroUsuarioAbierto: true})}>¿No tenes cuenta?</button>
                             </div>
                             <div className="login-button-field">
-                                <button className="login-button">¡Vamos!</button>
+                                <button className="login-button" onClick={() => this.props.history.push("/homepage")}>¡Vamos!</button>
                             </div>
                         </div>
 

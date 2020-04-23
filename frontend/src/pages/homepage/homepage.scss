@@ -1,0 +1,76 @@
+.homepage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #fafba4;
+
+  .comercios {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 70%;
+
+    .carta-comercio {
+      height: 300px;
+      background-color: white;
+      border-radius: 10px;
+      margin: 5px 10px;
+      overflow: hidden;
+
+      .imagen-comercio {
+        height: 200px;
+        img {
+          width: 100%;
+          height: 200px;
+        }
+      }
+
+      .nombre-comercio {
+        display: flex;
+        align-items: center;
+        font-size: large;
+        font-weight: 800;
+        padding: 8px;
+        height: 14%;
+      }
+
+      .distancia-comercio {
+        display: flex;
+        align-items: baseline;
+        height: 9%;
+        padding: 0 8px;
+
+        .distancia {
+          color: #e5c902;
+          font-size: small;
+        }
+        svg {
+          height: 21px;
+          width: 19px;
+          color: #e5c902;
+          margin: 0 5px 5px 0;
+        }
+      }
+
+      .rubros-comercio {
+        display: flex;
+        align-items: center;
+        height: 10%;
+        padding: 0 8px;
+
+        .rubros {
+          color:  #ffa372;;
+          font-size: small;
+        }
+        svg {
+          height: 21px;
+          width: 19px;
+          color: #ffa372;
+          margin: 0 5px 5px 0;
+        }
+      }
+    }
+  }
+}
