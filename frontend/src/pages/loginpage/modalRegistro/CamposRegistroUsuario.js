@@ -52,6 +52,7 @@ class CamposRegistroUsuario extends React.Component {
                             </label>
                             <input type="password" id="password" name="password" onChange={(event) =>this.props.onUpdate('password', event.target.value)}/>
                         </div>
+
                         {!this.props.isValidUser &&
                             <div className="user-error">
                                 <FontAwesomeIcon icon={faExclamationTriangle}/>
