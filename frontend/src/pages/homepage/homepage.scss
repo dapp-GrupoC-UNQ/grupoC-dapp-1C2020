@@ -35,6 +35,24 @@
         padding: 8px;
         height: 15%;
       }
+
+      .distancia-comercio {
+        display: flex;
+        align-items: baseline;
+        height: 10%;
+        padding: 0 8px;
+
+        .distancia {
+          color: #e5c902;
+          font-size: small;
+        }
+        svg {
+          height: 21px;
+          width: 19px;
+          color: #e5c902;
+          margin: 0 5px 5px 0;
+        }
+      }
     }
   }
 }

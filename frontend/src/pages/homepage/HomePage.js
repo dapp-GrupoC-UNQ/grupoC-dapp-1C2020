@@ -1,7 +1,8 @@
 import {withRouter} from "react-router-dom";
 import * as React from "react";
-import {mandarina} from '../loginpage/imagenes-home-page/mandarina.png'
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import "./homepage.scss"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 class HomePage extends React.Component {
     render() {
@@ -14,6 +15,10 @@ class HomePage extends React.Component {
                         </div>
                         <div className='nombre-comercio'>
                             Super "No hay por qué"
+                        </div>
+                        <div className='distancia-comercio'>
+                            <FontAwesomeIcon icon={faMapMarkerAlt}/>
+                            <p className="distancia">a 2.5 km</p>
                         </div>
                     </div>
                     <div className="carta-comercio">
