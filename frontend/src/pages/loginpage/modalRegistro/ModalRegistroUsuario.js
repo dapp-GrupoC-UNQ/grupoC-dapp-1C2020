@@ -26,6 +26,11 @@ class ModalRegistroUsuario extends React.Component {
         this.setState({[clave]: valor})
     }
 
+    validarUsuario = () => {
+        return (!!this.state.nombreYApellido && !!this.state.direccion &&
+               !!this.state.email && !!this.state.password) ?
+                alert("El usuario es valido") : alert("Faltan campos por completar")}
+
     render() {
         return(
             <div className="modal">
@@ -39,7 +44,7 @@ class ModalRegistroUsuario extends React.Component {
                                                onAgregarRubro={this.agregarRubro}
                                                esComercio={!this.state.registrandoUsuario}/>
                     <footer className="modal-card-foot">
-                        <button className="boton-modal">Registrarme</button>
+                        <button className="boton-modal" onClick={this.validarUsuario}>Registrarme</button>
                         <button className="boton-modal" onClick={this.cambiarDeEntidad}>Registrarme como {this.textoBotonRegistrarmeComo()}</button>
                     </footer>
                 </div>

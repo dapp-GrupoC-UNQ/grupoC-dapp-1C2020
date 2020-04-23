@@ -28,7 +28,7 @@ class CamposRegistroUsuario extends React.Component {
                     <div className="seccion-de-campos">
                         <div className="campo-a-rellenar">
                             <label>
-                                Nombre y Apellido
+                                {!this.props.esComercio ? "Nombre y Apellido" : "Comercio"}
                             </label>
                             <input type="text" id="nombreYApellido" name="nombreYApellido" onChange={(event) =>this.props.onUpdate('nombreYApellido', event.target.value)}/>
                         </div>
