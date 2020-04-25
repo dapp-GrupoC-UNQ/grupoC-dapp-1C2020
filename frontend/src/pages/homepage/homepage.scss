@@ -1,16 +1,46 @@
 .homepage {
   display: flex;
   align-items: center;
-  justify-content: center;
   position: absolute;
   width: 100%;
   height: 100%;
   background-color: #fafba4;
 
+  .side-bar {
+    height: 100%;
+    width: 20%;
+    border-right: 2px solid #f4e04d;
+
+    .bar-title {
+      font-size: x-large;
+      font-weight: 400;
+      padding: 5px 10px;
+    }
+
+    .links-container {
+      margin: 10px;
+
+      .link {
+        margin: 5px;
+
+        .link-search {
+          font-weight: 400;
+          color: #000000;
+          text-decoration-line: underline;
+          margin: 10px;
+
+        }
+      }
+    }
+  }
+
   .comercios {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    width: 70%;
+    width: 80%;
+    height: 100%;
+    align-items: center;
+    padding: 10px;
 
     .carta-comercio {
       height: 300px;

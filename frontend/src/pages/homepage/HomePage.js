@@ -1,54 +1,98 @@
 import {withRouter} from "react-router-dom";
 import * as React from "react";
-import { faMapMarkerAlt, faStore } from '@fortawesome/free-solid-svg-icons'
+import { faMapMarkerAlt, faStore, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
 import "./homepage.scss"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {categories, comercios, discounts} from "../../constants";
 
 class HomePage extends React.Component {
-    comercios = [{
-        nombreComercio: "No hay por qué",
-        distanciaComercio: '2.5km',
-        rubrosComercio: 'carniceria, limpieza, verduleria'
-    },
-        {
-            nombreComercio: "Lo de tito",
-            distanciaComercio: '0.9km',
-            rubrosComercio: 'carniceria, verduleria'
+    constructor(props){
+        super(props)
+        this.state = {
+            entities: comercios,
+            entityRenderFunction: this.renderStore
         }
-    ]
+    }
 
-    commerceCard = (commerce) => {
+    renderStore = (store) => {
         return (
             <div className="carta-comercio">
                 <div className='imagen-comercio'>
                     <img src={'https://www.memesargentinos.com.ar/wp-content/uploads/2019/02/China-Supermercado.jpg'}/>
                 </div>
                 <div className='nombre-comercio'>
-                    {commerce.nombreComercio}
+                    {store.nombreComercio}
                 </div>
                 <div className='distancia-comercio'>
                     <FontAwesomeIcon icon={faMapMarkerAlt}/>
-                    <p className="distancia">{commerce.distanciaComercio}</p>
+                    <p className="distancia">{store.distanciaComercio}</p>
                 </div>
                 <div className="rubros-comercio">
                     <FontAwesomeIcon icon={faStore}/>
-                    <p className="rubros">{commerce.rubrosComercio}</p>
+                    <p className="rubros">{store.rubrosComercio}</p>
                 </div>
             </div>
         )
     }
 
-    render() {
+
+    renderCategory = (category) => {
         return(
-            <div className="homepage">
-                <div className="comercios">
-                    {this.comercios.map(commerce => {
-                        return this.commerceCard(commerce);
-                    })}
-                </div>
+            <div className="category">
+                {category.nombreDeCategoria}
+            </div>
+        )
+
+    }
+
+    renderDiscount = (discount) => {
+        return (
+            <div className="discounts">
+                {discount.discountText}
             </div>
         )
     }
+
+    showStores = () =>{
+        this.setState({entities: comercios, entityRenderFunction: this.renderStore});
+    }
+
+    showCategories = () => {
+        this.setState({entities: categories, entityRenderFunction: this.renderCategory});
+    }
+
+    showDiscount = () => {
+        this.setState({entities: discounts, entityRenderFunction: this.renderDiscount});
+    }
+    render() {
+        return(
+            <div className="homepage">
+                <div className="side-bar">
+                    <div className="bar-title">
+                        Busca tu producto
+                    </div>
+                    <div className="links-container">
+                        <div className="link">
+                            <a className="link-search" onClick={this.showStores}>Comercios</a>
+                            <FontAwesomeIcon icon={faArrowCircleRight}/>
+                        </div>
+                        <div className="link">
+                            <a className="link-search" onClick={this.showCategories}>Rubro</a>
+                            <FontAwesomeIcon icon={faArrowCircleRight}/>
+                        </div>
+                        <div className="link">
+                            <a className="link-search" onClick={this.showDiscount}>Ofeltas</a>
+                            <FontAwesomeIcon icon={faArrowCircleRight}/>
+                        </div>
+                    </div>
+                </div>
+                  <div className="comercios">
+                      {this.state.entities.map(entity => this.state.entityRenderFunction(entity))}
+                  </div>
+            </div>
+        )
+    }
+
 }
 
 export default withRouter(HomePage);
