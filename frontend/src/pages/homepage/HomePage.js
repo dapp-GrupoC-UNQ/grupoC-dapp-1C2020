@@ -3,44 +3,16 @@ import * as React from "react";
 import { faMapMarkerAlt, faStore, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
 import "./homepage.scss"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {categories, comercios, discounts} from "../../constants";
 
 class HomePage extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            entitites: this.comercios,
+            entities: comercios,
             entityRenderFunction: this.renderStore
         }
     }
-    comercios = [{
-        nombreComercio: "No hay por qué",
-        distanciaComercio: '2.5km',
-        rubrosComercio: 'carniceria, limpieza, verduleria'
-    },
-        {
-            nombreComercio: "Lo de tito",
-            distanciaComercio: '0.9km',
-            rubrosComercio: 'carniceria, verduleria'
-        }
-    ]
-
-    categories = [{
-        nombreDeCategoria: "Almacen"
-    },
-        {
-            nombreDeCategoria: "Limpieza"
-        },
-]
-
-    discounts = [{
-        discountText: "2x1 en cerveza Brahama de 1L. Llevando 2 pagas cada una $40",
-        storeName: "Lo de tito"
-    },
-        {
-        discountText: "25% de descuento en fideos Matarazzo. Antes $100 - Ahora $75 ",
-        storeName: "No hay por que"
-    }
-    ]
 
     renderStore = (store) => {
         return (
@@ -68,7 +40,6 @@ class HomePage extends React.Component {
         return(
             <div className="category">
                 {category.nombreDeCategoria}
-                {category.storeName}
             </div>
         )
 
@@ -83,15 +54,15 @@ class HomePage extends React.Component {
     }
 
     showStores = () =>{
-        this.setState({entities: this.comercios, entityRenderFunction: this.renderStore});
+        this.setState({entities: comercios, entityRenderFunction: this.renderStore});
     }
 
     showCategories = () => {
-        this.setState({entities: this.categories, entityRenderFunction: this.renderCategory});
+        this.setState({entities: categories, entityRenderFunction: this.renderCategory});
     }
 
     showDiscount = () => {
-        this.setState({entities: this.discounts, entityRenderFunction: this.renderDiscount});
+        this.setState({entities: discounts, entityRenderFunction: this.renderDiscount});
     }
     render() {
         return(
@@ -116,7 +87,7 @@ class HomePage extends React.Component {
                     </div>
                 </div>
                   <div className="comercios">
-                      {this.state.entitites.map(entity => this.state.entityRenderFunction(entity))}
+                      {this.state.entities.map(entity => this.state.entityRenderFunction(entity))}
                   </div>
             </div>
         )
