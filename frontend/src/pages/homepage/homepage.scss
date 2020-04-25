@@ -34,7 +34,7 @@
     }
   }
 
-  .comercios {
+  .entities {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     width: 80%;
@@ -42,12 +42,31 @@
     align-items: center;
     padding: 10px;
 
-    .carta-comercio {
+    .entity-card {
       height: 300px;
       background-color: white;
       border-radius: 10px;
       margin: 5px 10px;
       overflow: hidden;
+
+      &.category-card {
+        height: 240px;
+      }
+
+
+      .discount-name {
+        display: flex;
+        align-items: center;
+        font-size: large;
+        font-weight: bolder;
+        padding: 8px;
+        height: 14%;
+      }
+      .discount-store {
+        font-weight: 400;
+        margin: 5px 7px;
+        padding: 8px;
+      }
 
       .imagen-comercio {
         height: 200px;

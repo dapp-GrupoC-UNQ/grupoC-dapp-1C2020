@@ -16,7 +16,7 @@ class HomePage extends React.Component {
 
     renderStore = (store) => {
         return (
-            <div className="carta-comercio">
+            <div className="entity-card">
                 <div className='imagen-comercio'>
                     <img src={'https://www.memesargentinos.com.ar/wp-content/uploads/2019/02/China-Supermercado.jpg'}/>
                 </div>
@@ -38,8 +38,13 @@ class HomePage extends React.Component {
 
     renderCategory = (category) => {
         return(
-            <div className="category">
-                {category.nombreDeCategoria}
+            <div className="entity-card category-card">
+                <div className='imagen-comercio'>
+                    <img src={category.categoryImageURL}/>
+                </div>
+                <div className='nombre-comercio'>
+                    {category.categoryName}
+                </div>
             </div>
         )
 
@@ -47,8 +52,17 @@ class HomePage extends React.Component {
 
     renderDiscount = (discount) => {
         return (
-            <div className="discounts">
-                {discount.discountText}
+            <div className="entity-card">
+                <div className='imagen-comercio'>
+                    <img src={discount.discountImageURL}/>
+                </div>
+                <div className='nombre-comercio'>
+                    {discount.discountText}
+                </div>
+                <div className="discount-store">
+                    <FontAwesomeIcon icon={faStore}/>
+                    {discount.storeName}
+                </div>
             </div>
         )
     }
@@ -86,7 +100,7 @@ class HomePage extends React.Component {
                         </div>
                     </div>
                 </div>
-                  <div className="comercios">
+                  <div className="entities">
                       {this.state.entities.map(entity => this.state.entityRenderFunction(entity))}
                   </div>
             </div>
