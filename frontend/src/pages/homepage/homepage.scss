@@ -53,6 +53,21 @@
         height: 240px;
       }
 
+
+      .discount-name {
+        display: flex;
+        align-items: center;
+        font-size: large;
+        font-weight: bolder;
+        padding: 8px;
+        height: 14%;
+      }
+      .discount-store {
+        font-weight: 400;
+        margin: 5px 7px;
+        padding: 8px;
+      }
+
       .imagen-comercio {
         height: 200px;
         img {

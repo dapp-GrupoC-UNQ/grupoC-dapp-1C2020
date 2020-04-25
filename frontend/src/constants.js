@@ -29,12 +29,15 @@ export const categories = [
     },
 ]
 
-export const discounts = [{
-    discountText: "2x1 en cerveza Brahama de 1L. Llevando 2 pagas cada una $40",
-    storeName: "Lo de tito"
-},
+export const discounts = [
     {
-        discountText: "25% de descuento en fideos Matarazzo. Antes $100 - Ahora $75 ",
-        storeName: "No hay por que"
+        discountText: "2x1 en cerveza Brahama six pack. Llevando 2 pagas cada uno $150",
+        storeName: "Lo de tito",
+        discountImageURL: "https://mla-s2-p.mlstatic.com/967941-MLA40766442621_022020-O.jpg"
+    },
+    {
+        discountText: "25% de descuento en fideos Matarazzo",
+        storeName: "No hay por que",
+        discountImageURL:"https://image.slidesharecdn.com/fideosmatarazzo-140428163301-phpapp02/95/proceso-de-produccin-de-los-fideos-matarazzo-1-638.jpg?cb=1398702824"
     }
 ]

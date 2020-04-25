@@ -52,8 +52,17 @@ class HomePage extends React.Component {
 
     renderDiscount = (discount) => {
         return (
-            <div className="discounts">
-                {discount.discountText}
+            <div className="entity-card">
+                <div className='imagen-comercio'>
+                    <img src={discount.discountImageURL}/>
+                </div>
+                <div className='nombre-comercio'>
+                    {discount.discountText}
+                </div>
+                <div className="discount-store">
+                    <FontAwesomeIcon icon={faStore}/>
+                    {discount.storeName}
+                </div>
             </div>
         )
     }
