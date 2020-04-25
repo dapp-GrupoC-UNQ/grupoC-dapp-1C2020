@@ -34,7 +34,7 @@
     }
   }
 
-  .comercios {
+  .entities {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     width: 80%;
@@ -42,12 +42,16 @@
     align-items: center;
     padding: 10px;
 
-    .carta-comercio {
+    .entity-card {
       height: 300px;
       background-color: white;
       border-radius: 10px;
       margin: 5px 10px;
       overflow: hidden;
+
+      &.category-card {
+        height: 240px;
+      }
 
       .imagen-comercio {
         height: 200px;

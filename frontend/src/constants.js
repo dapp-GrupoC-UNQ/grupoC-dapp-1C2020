@@ -10,11 +10,22 @@ export const comercios = [{
     }
 ]
 
-export const categories = [{
-    nombreDeCategoria: "Almacen"
-},
+export const categories = [
     {
-        nombreDeCategoria: "Limpieza"
+        categoryName: "Almacen",
+        categoryImageURL: 'https://i0.wp.com/telegrafo.com.ar/wp-content/uploads/2019/05/Productos-almacen-aceitunas-mercado.jpg?ssl=1'
+    },
+    {
+        categoryName: "Limpieza",
+        categoryImageURL: 'https://pxb.cdn.0221.com.ar/0221/012020/1578067328212.jpeg?&cw=1920&ch=950'
+    },
+    {
+        categoryName: "Verduleria",
+        categoryImageURL: 'https://www.revistacodigos.com/wp-content/uploads/2020/04/verduras-870x460.jpg'
+    },
+    {
+        categoryName: "Perfumeria",
+        categoryImageURL: 'https://www.infoveloz.com/storage/17/03/28/08/fit722x442/1563557893_1111358.jpeg'
     },
 ]
 
