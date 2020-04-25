@@ -41,6 +41,9 @@ class HomePage extends React.Component {
     render() {
         return(
             <div className="homepage">
+                <div className="side-bar">
+                    Busca tu producto
+                </div>
                 <div className="comercios">
                     {this.comercios.map(commerce => {
                         return this.commerceCard(commerce);
