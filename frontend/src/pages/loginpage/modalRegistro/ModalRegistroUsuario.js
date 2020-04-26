@@ -6,29 +6,29 @@ class ModalRegistroUsuario extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            registrandoUsuario: true,
+            registeringUser: true,
             isValidUser: true
         }
     }
 
-    entidadARegistrar = () => this.state.registrandoUsuario ? 'usuario' : 'comercio';
-    textoBotonRegistrarmeComo = () => this.state.registrandoUsuario ? 'comercio' : 'usuario';
+    entityToRegister = () => this.state.registeringUser ? 'usuario' : 'comercio';
+    registerButtonText = () => this.state.registeringUser ? 'comercio' : 'usuario';
 
-    cambiarDeEntidad = () => this.setState({registrandoUsuario: !this.state.registrandoUsuario})
+    changeEntityType = () => this.setState({registeringUser: !this.state.registeringUser})
 
-    agregarRubro = (rubro) => {
+    addCategory = (rubro) => {
         let listaActualRubros = (this.state.rubros || [])
         //agregar a la lista  si se selecciona. Si se deselecciona hay que sacarlo
         let nuevosRubros = listaActualRubros.includes(rubro) ? listaActualRubros.filter(rubroEnLista => rubroEnLista !== rubro) : listaActualRubros.concat(rubro)
         this.setState({rubros: nuevosRubros})
     }
 
-    actualizarFormulario = (clave, valor) => {
-        this.setState({[clave]: valor})
+    updateForm = (key, value) => {
+        this.setState({[key]: value})
     }
 
-    validarUsuario = () => {
-        this.setState({isValidUser: (!!this.state.nombreYApellido && !!this.state.direccion &&
+    validateUser = () => {
+        this.setState({isValidUser: (!!this.state.nameAndSurname && !!this.state.address &&
                 !!this.state.email && !!this.state.password)})}
 
     render() {
@@ -37,17 +37,17 @@ class ModalRegistroUsuario extends React.Component {
                 <div className="modal-background"></div>
                 <div className="modal-card">
                     <header className="modal-card-head">
-                        <p className="modal-card-title">Registrate como {this.entidadARegistrar()}</p>
+                        <p className="modal-card-title">Registrate como {this.entityToRegister()}</p>
                         <button className="delete" aria-label="close" onClick={this.props.onClose}></button>
                     </header>
-                        <CamposRegistroUsuario onUpdate={this.actualizarFormulario}
-                                               onAgregarRubro={this.agregarRubro}
-                                               esComercio={!this.state.registrandoUsuario}
+                        <CamposRegistroUsuario onUpdate={this.updateForm}
+                                               onAddingCategory={this.addCategory}
+                                               isStore={!this.state.registeringUser}
                                                isValidUser={this.state.isValidUser}/>
 
                     <footer className="modal-card-foot">
-                        <button className="boton-modal" onClick={this.validarUsuario}>Registrarme</button>
-                        <button className="boton-modal" onClick={this.cambiarDeEntidad}>Registrarme como {this.textoBotonRegistrarmeComo()}</button>
+                        <button className="boton-modal" onClick={this.validateUser}>Registrarme</button>
+                        <button className="boton-modal" onClick={this.changeEntityType}>Registrarme como {this.registerButtonText()}</button>
                     </footer>
                 </div>
             </div>

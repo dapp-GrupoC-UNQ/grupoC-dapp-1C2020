@@ -7,12 +7,12 @@ class LoginPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            modalRegistroUsuarioAbierto: false
+            userRegisterModalOpen: false
         }
     }
 
-    cerrarModal = () => {
-        this.setState({modalRegistroUsuarioAbierto: false})
+    closeModal = () => {
+        this.setState({userRegisterModalOpen: false})
     }
     render() {
         return (
@@ -41,7 +41,7 @@ class LoginPage extends React.Component {
                         <div className="button-panel">
                             <div className="login-button-field">
                                 <button className="login-button"
-                                        onClick={() => this.setState({modalRegistroUsuarioAbierto: true})}>¿No tenes cuenta?</button>
+                                        onClick={() => this.setState({userRegisterModalOpen: true})}>¿No tenes cuenta?</button>
                             </div>
                             <div className="login-button-field">
                                 <button className="login-button" onClick={() => this.props.history.push("/homepage")}>¡Vamos!</button>
@@ -50,7 +50,7 @@ class LoginPage extends React.Component {
 
                     </div>
                 </div>
-                {this.state.modalRegistroUsuarioAbierto && <ModalRegistroUsuario onClose={this.cerrarModal}/>}
+                {this.state.userRegisterModalOpen && <ModalRegistroUsuario onClose={this.closeModal}/>}
             </div>
         )
     }
