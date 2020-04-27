@@ -1,5 +1,7 @@
 package model;
 
+import com.example.demo.serializers.StoreJsonSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import model.excepciones.ProductoInexistenteEnComercioException;
 import model.excepciones.ProductoRepetidoEnComercioException;
 
@@ -8,6 +10,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonSerialize(using = StoreJsonSerializer.class)
 public class Comercio {
 
     String nombreDeComercio;
