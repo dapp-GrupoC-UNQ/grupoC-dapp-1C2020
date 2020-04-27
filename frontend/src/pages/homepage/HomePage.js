@@ -3,13 +3,13 @@ import * as React from "react";
 import { faMapMarkerAlt, faStore, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
 import "./homepage.scss"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {categories, comercios, discounts} from "../../constants";
+import {categories, stores, discounts} from "../../constants";
 
 class HomePage extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            entities: comercios,
+            entities: stores,
             entityRenderFunction: this.renderStore
         }
     }
@@ -21,15 +21,15 @@ class HomePage extends React.Component {
                     <img src={'https://www.memesargentinos.com.ar/wp-content/uploads/2019/02/China-Supermercado.jpg'}/>
                 </div>
                 <div className='nombre-comercio'>
-                    {store.nombreComercio}
+                    {store.storeName}
                 </div>
                 <div className='distancia-comercio'>
                     <FontAwesomeIcon icon={faMapMarkerAlt}/>
-                    <p className="distancia">{store.distanciaComercio}</p>
+                    <p className="distancia">{store.storeDistance}</p>
                 </div>
                 <div className="rubros-comercio">
                     <FontAwesomeIcon icon={faStore}/>
-                    <p className="rubros">{store.rubrosComercio}</p>
+                    <p className="rubros">{store.storeCategories}</p>
                 </div>
             </div>
         )
@@ -68,7 +68,7 @@ class HomePage extends React.Component {
     }
 
     showStores = () =>{
-        this.setState({entities: comercios, entityRenderFunction: this.renderStore});
+        this.setState({entities: stores, entityRenderFunction: this.renderStore});
     }
 
     showCategories = () => {

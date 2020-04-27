@@ -1,12 +1,12 @@
-export const comercios = [{
-    nombreComercio: "No hay por qué",
-    distanciaComercio: '2.5km',
-    rubrosComercio: 'carniceria, limpieza, verduleria'
+export const stores = [{
+    storeName: "No hay por qué",
+    storeDistance: '2.5km',
+    storeCategories: 'carniceria, limpieza, verduleria'
 },
     {
-        nombreComercio: "Lo de tito",
-        distanciaComercio: '0.9km',
-        rubrosComercio: 'carniceria, verduleria'
+        storeName: "Lo de tito",
+        storeDistance: '0.9km',
+        storeCategories: 'carniceria, verduleria'
     }
 ]
 
