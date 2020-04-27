@@ -14,13 +14,17 @@ public class ComercioBuilder {
         return new ComercioBuilder();
     }
 
+    public static List<Comercio> storeList() {
+        Comercio store = unComercio().build();
+        Comercio anotherStore = unComercio().conNombre("Coto").build();
+        return Arrays.asList(store, anotherStore);
+    }
     private String nombreDeComercio = "Jumbo";
     private String rubroDeComercio = "Supermercado";
     private String domicilioDeComercio = "Calchaqui 123";
     private Integer distanciaMaximaDePedidosEnKm = 3;
     private List<String> mediosDePagoDisponibles = Arrays.asList("Efectivo");
     private List<RangoHorarioComercio> horarioDeAtencionComercio = Arrays.asList(new RangoHorarioComercio(DayOfWeek.FRIDAY, LocalTime.of(9,0), LocalTime.of(15, 0)));
-
 
     public Comercio build() {
         return new Comercio(nombreDeComercio, rubroDeComercio, domicilioDeComercio, distanciaMaximaDePedidosEnKm, mediosDePagoDisponibles, horarioDeAtencionComercio);
