@@ -9,11 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@Qualifier("storeService")
 public class StoreService implements IStoreService {
 
     @Autowired
-    @Qualifier("storesRepository")
     private IStoreRepository storeRepository;
 
     @Override
