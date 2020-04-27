@@ -3,6 +3,7 @@ package dominio;
 import builders.ComercioBuilder;
 import model.Comercio;
 import model.RangoHorarioComercio;
+import model.excepciones.PaymentMethodNotAvailableException;
 import org.junit.Test;
 
 import java.time.DayOfWeek;
@@ -59,6 +60,13 @@ public class ComercioTest {
         List<RangoHorarioComercio> horarioComercio = Arrays.asList(new RangoHorarioComercio(DayOfWeek.FRIDAY, LocalTime.of(9,0), LocalTime.of(13, 0)));
         Comercio comercio = ComercioBuilder.unComercio().conHorarioDeAtencion(horarioComercio).build();
         assertFalse(comercio.estaDisponibleEn(DayOfWeek.FRIDAY, LocalTime.of(20,0)));
+    }
+
+    @Test
+    public void paymentMethodNotAvailableForCommerce(){
+        List<String> payment = Arrays.asList("Cash");
+        Comercio commerce = ComercioBuilder.unComercio().conMediosDePago(payment).build();
+        assertThrows(PaymentMethodNotAvailableException.class, () ->  commerce.sePuedeAbonarCon("Credit card"));
     }
 
 }

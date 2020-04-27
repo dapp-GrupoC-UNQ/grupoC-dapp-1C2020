@@ -2,6 +2,7 @@ package model;
 
 import com.example.demo.serializers.StoreJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import model.excepciones.PaymentMethodNotAvailableException;
 import model.excepciones.ProductoInexistenteEnComercioException;
 import model.excepciones.ProductoRepetidoEnComercioException;
 
@@ -97,6 +98,11 @@ public class Comercio {
     }
 
     public Boolean sePuedeAbonarCon(String medioDePago) {
-        return mediosDePagoDisponiblesComercio.contains(medioDePago);
+        if (!mediosDePagoDisponiblesComercio.contains(medioDePago)) {
+            throw new PaymentMethodNotAvailableException();
+        } else {
+            return true;
+        }
     }
+
 }
