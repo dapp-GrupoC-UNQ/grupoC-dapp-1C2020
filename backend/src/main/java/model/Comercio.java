@@ -98,11 +98,7 @@ public class Comercio {
     }
 
     public Boolean sePuedeAbonarCon(String medioDePago) {
-        if (!mediosDePagoDisponiblesComercio.contains(medioDePago)) {
-            throw new PaymentMethodNotAvailableException();
-        } else {
-            return true;
-        }
+        return mediosDePagoDisponiblesComercio.contains(medioDePago);
     }
 
 }

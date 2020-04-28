@@ -63,10 +63,10 @@ public class ComercioTest {
     }
 
     @Test
-    public void paymentMethodNotAvailableForCommerce(){
+    public void paymentMethodNotAvailableForStore(){
         List<String> payment = Arrays.asList("Cash");
-        Comercio commerce = ComercioBuilder.unComercio().conMediosDePago(payment).build();
-        assertThrows(PaymentMethodNotAvailableException.class, () ->  commerce.sePuedeAbonarCon("Credit card"));
+        Comercio store = ComercioBuilder.unComercio().conMediosDePago(payment).build();
+        assertFalse(store.sePuedeAbonarCon("Credit card"));
     }
 
 }
