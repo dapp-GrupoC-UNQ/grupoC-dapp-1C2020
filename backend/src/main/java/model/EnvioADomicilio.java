@@ -1,5 +1,7 @@
 package model;
 
+import model.excepciones.OptionNotAvailableForThisDeliveryType;
+
 import java.time.LocalDateTime;
 
 public class EnvioADomicilio implements TipoDeEnvio {
@@ -15,7 +17,5 @@ public class EnvioADomicilio implements TipoDeEnvio {
     }
 
     @Override
-    public LocalDateTime horarioDeRetiro() {
-        return null;
-    }
+    public LocalDateTime horarioDeRetiro() { throw new OptionNotAvailableForThisDeliveryType();  }
 }
