@@ -6,6 +6,7 @@ import model.Compra;
 import model.EnvioADomicilio;
 import model.Mercaderia;
 import model.RetiroEnLocal;
+import model.excepciones.OptionNotAvailableForThisDeliveryType;
 import net.bytebuddy.asm.Advice;
 import org.junit.Test;
 
@@ -50,6 +51,21 @@ public class CompraTest {
         EnvioADomicilio envio = new EnvioADomicilio("Alsina 123");
         Compra compra = CompraBuilder.unaCompra().conTipoDeEnvio(envio).build();
         assertEquals("Alsina 123", compra.direccionDeEnvio());
+    }
+
+    @Test
+    public void  aPurchaseWithStorePickUpHasNoAddress(){
+        LocalDateTime hour = LocalDateTime.of(2020,4,25,10,0);
+        RetiroEnLocal retiroEnLocal = new RetiroEnLocal(hour);
+        Compra purchase = CompraBuilder.unaCompra().conTipoDeEnvio(retiroEnLocal).build();
+        assertThrows(OptionNotAvailableForThisDeliveryType.class, () -> purchase.direccionDeEnvio());
+    }
+
+    @Test
+    public void aPurchaseWithDeliveryHasNotAPickUpDate(){
+        EnvioADomicilio delivery = new EnvioADomicilio("Alsina 123");
+        Compra purchase = CompraBuilder.unaCompra().conTipoDeEnvio(delivery).build();
+        assertThrows(OptionNotAvailableForThisDeliveryType.class, () -> purchase.turnoDeRetiro());
     }
 
 }
