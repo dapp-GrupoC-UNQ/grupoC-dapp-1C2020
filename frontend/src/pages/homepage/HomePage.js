@@ -4,9 +4,8 @@ import { faMapMarkerAlt, faStore, faArrowCircleRight } from '@fortawesome/free-s
 import "./homepage.scss"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {categories, stores, discounts} from "../../constants";
+import StoreService from "../../servicios/StoreService";
 
-import axios from "axios";
-const SERVICE_URL = 'http://localhost:8080/';
 class HomePage extends React.Component {
     constructor(props){
         super(props)
@@ -19,7 +18,7 @@ class HomePage extends React.Component {
 
     componentDidMount() {
         this.setState({ isLoading: true });
-        axios.get(`${SERVICE_URL}stores`)
+        StoreService().getAllStores()
             .then(result => {
                 this.setState({entities: result.data, isLoading: false})
             })

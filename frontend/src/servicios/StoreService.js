@@ -3,7 +3,6 @@ const SERVICE_URL = 'http://localhost:8080/';
 
 const StoreService = () => {
     const getAllStores = () => {
-        debugger
         return axios.get(`${SERVICE_URL}stores`)
     }
 
@@ -12,5 +11,5 @@ const StoreService = () => {
     }
 }
 
-export default StoreService();
+export default StoreService;
 
