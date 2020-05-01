@@ -16,6 +16,7 @@ public class StoreController {
     private IStoreService storeService;
 
     @CrossOrigin(origins = "http://localhost:3000")
+    //habilitar para cada metodo del controller
     @RequestMapping("/stores")
     public List<Comercio> getStores() throws JsonProcessingException {
         return storeService.getStores();

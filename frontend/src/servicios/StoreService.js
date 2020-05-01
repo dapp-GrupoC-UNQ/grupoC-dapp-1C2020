@@ -7,6 +7,8 @@ const StoreService = () => {
     }
 
     return {
+        //Se pasa la referencia para que solamente se hagan llamadas al backend cuando sea necesario
+        //Cada una de estas funciones al ser invocadas devuelven una promise
         getAllStores: getAllStores
     }
 }

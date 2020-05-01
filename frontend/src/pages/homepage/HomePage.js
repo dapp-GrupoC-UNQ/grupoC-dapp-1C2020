@@ -12,14 +12,16 @@ class HomePage extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            entities: [],
+            entities: [], //Tengo que inicializar mi estado entonces uso una lista vacia hasta que consiga los comercios
             loadingEntitiesState: false,
             entityRenderFunction: this.renderStore
+            //Es importante tener toda la estructura del state planteada antes de ir a buscar cosas al backend para evitar undefines.
         }
     }
 
     componentDidMount() {
-        this.setState({ isLoading: true });
+        //Esto se va a ejecutar automaticamente despues de que este componente se haya renderizado la primera vez
+        this.setState({ loadingEntitiesState: true });
         this.showStores();
     }
 
@@ -73,9 +75,13 @@ class HomePage extends React.Component {
     }
 
     showStores = () =>{
+        // Voy a hacer una llamada ASINCRONA al backend
         StoreService().getAllStores()
+            //Recien cuando el backend me responda voy a poder actualizar mi state.
+            //Voy a actualizar tanto mi lista de entidades como la funcion que uso para renderizar esas entidades
+            //Ademas actualizamos loadingEntitiesState para que se deje de ver el spinner y se empiece a ver la info
             .then(result => {
-                this.setState({entities: result.data, entityRenderFunction: this.renderStore, isLoading: false})
+                this.setState({entities: result.data, entityRenderFunction: this.renderStore, loadingEntitiesState: false})
             })
             .catch(error => {
                 alert("Uy, no pudimos cargar los comercios")
@@ -92,11 +98,14 @@ class HomePage extends React.Component {
     render() {
         return(
             <div className="homepage">
+                {/*Extraje la SideBar a otro componente para que HomePage no crezca mucho*/}
+                {/*Voy a pasarle a la SideBar las props que necesite usar para actualizar mi lista de entidades cuando el usuario haga click*/}
                   <SideBar showStores={this.showStores}
                            showCategories={this.showCategories}
                            showDiscounts={this.showDiscounts}
                   />
-                  {this.state.isLoading && <LoadingSpinner isLoading={this.state.isLoading}/>}
+                  {/*El spinner solo se renderiza cuando el estado de la homepage tenga loadingEntitiesState en true*/}
+                  {this.state.isLoading && <LoadingSpinner isLoading={this.state.loadingEntitiesState}/>}
                   {!this.state.isLoading && <div className="entities">
                       {this.state.entities.map(entity => this.state.entityRenderFunction(entity))}
                   </div>}
