@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IStoreService {
     List<Comercio> getStores();
+    public List<Comercio> getStoresWithACategory(String category);
 }
