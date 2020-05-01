@@ -1,9 +1,10 @@
 import {withRouter} from "react-router-dom";
 import * as React from "react";
-import { faMapMarkerAlt, faStore, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
+import { faMapMarkerAlt, faStore } from '@fortawesome/free-solid-svg-icons'
 import "./homepage.scss"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {categories, stores, discounts} from "../../constants";
+import SideBar from "./side-bar/SideBar";
 
 class HomePage extends React.Component {
     constructor(props){
@@ -75,31 +76,15 @@ class HomePage extends React.Component {
         this.setState({entities: categories, entityRenderFunction: this.renderCategory});
     }
 
-    showDiscount = () => {
+    showDiscounts = () => {
         this.setState({entities: discounts, entityRenderFunction: this.renderDiscount});
     }
     render() {
         return(
             <div className="homepage">
-                <div className="side-bar">
-                    <div className="bar-title">
-                        Busca tu producto
-                    </div>
-                    <div className="links-container">
-                        <div className="link">
-                            <a className="link-search" onClick={this.showStores}>Comercios</a>
-                            <FontAwesomeIcon icon={faArrowCircleRight}/>
-                        </div>
-                        <div className="link">
-                            <a className="link-search" onClick={this.showCategories}>Rubro</a>
-                            <FontAwesomeIcon icon={faArrowCircleRight}/>
-                        </div>
-                        <div className="link">
-                            <a className="link-search" onClick={this.showDiscount}>Ofeltas</a>
-                            <FontAwesomeIcon icon={faArrowCircleRight}/>
-                        </div>
-                    </div>
-                </div>
+                  <SideBar showStores={this.showStores}
+                           showCategories={this.showCategories}
+                           showDiscounts={this.showDiscounts}/>
                   <div className="entities">
                       {this.state.entities.map(entity => this.state.entityRenderFunction(entity))}
                   </div>
