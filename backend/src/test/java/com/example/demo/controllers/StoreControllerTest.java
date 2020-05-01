@@ -11,12 +11,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.hamcrest.Matchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -34,6 +35,10 @@ public class StoreControllerTest {
         List<Comercio> stores = ComercioBuilder.storeList();
         when(storeServiceMock.getStores()).thenReturn(stores);
 
-        MvcResult response = mockMvc.perform(get("/stores")).andReturn();
+        mockMvc.perform(get("/stores"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].storeName", is(stores.get(0).nombre())))
+                .andExpect(jsonPath("$[1].storeName", is(stores.get(1).nombre())));
     }
 }
