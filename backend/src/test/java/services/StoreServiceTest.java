@@ -40,7 +40,7 @@ public class StoreServiceTest {
 
     @Test
     public void whenWeAskStoreServiceForStoresWithACategoryItReturnsOnlyTheListOfStoresWithThstCategory() {
-        List<Comercio> stores = ComercioBuilder.storeWithACategoryList("Almacen");
+        List<Comercio> stores = ComercioBuilder.storeList();
         when(storeRepositoryMock.getStoresWithACategory("Almacen")).thenReturn(stores);
 
         assertEquals(stores, storeService.getStoresWithACategory("Almacen"));
