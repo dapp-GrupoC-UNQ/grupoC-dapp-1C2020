@@ -3,9 +3,10 @@ import * as React from "react";
 import { faMapMarkerAlt, faStore } from '@fortawesome/free-solid-svg-icons'
 import "./homepage.scss"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {categories, stores, discounts} from "../../constants";
+import {categories, discounts} from "../../constants";
 import SideBar from "./side-bar/SideBar";
 import StoreService from "../../servicios/StoreService";
+import LoadingSpinner from "../../components/loading-spinner/LoadingSpinner";
 
 class HomePage extends React.Component {
     constructor(props){
@@ -19,12 +20,7 @@ class HomePage extends React.Component {
 
     componentDidMount() {
         this.setState({ isLoading: true });
-        StoreService().getAllStores()
-            .then(result => {
-                this.setState({entities: result.data, isLoading: false})
-            })
-            .catch(error => {
-            });
+        this.showStores();
     }
 
     renderStore = (store) => {
@@ -77,7 +73,13 @@ class HomePage extends React.Component {
     }
 
     showStores = () =>{
-        this.setState({entities: stores, entityRenderFunction: this.renderStore});
+        StoreService().getAllStores()
+            .then(result => {
+                this.setState({entities: result.data, entityRenderFunction: this.renderStore, isLoading: false})
+            })
+            .catch(error => {
+                alert("Uy, no pudimos cargar los comercios")
+            });
     }
 
     showCategories = () => {
@@ -92,10 +94,12 @@ class HomePage extends React.Component {
             <div className="homepage">
                   <SideBar showStores={this.showStores}
                            showCategories={this.showCategories}
-                           showDiscounts={this.showDiscounts}/>
-                  <div className="entities">
+                           showDiscounts={this.showDiscounts}
+                  />
+                  {this.state.isLoading && <LoadingSpinner isLoading={this.state.isLoading}/>}
+                  {!this.state.isLoading && <div className="entities">
                       {this.state.entities.map(entity => this.state.entityRenderFunction(entity))}
-                  </div>
+                  </div>}
             </div>
         )
     }
