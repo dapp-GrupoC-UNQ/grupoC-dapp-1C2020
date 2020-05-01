@@ -16,4 +16,8 @@ public class User {
     }
 
     public String username() { return this.username; }
+
+    public String password() { return this.password; }
+
+    public Boolean isAdminOfStore() { return false;}
 }

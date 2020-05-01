@@ -1,5 +1,7 @@
 package builders;
 
+import model.Comercio;
+import model.StoreAdminUser;
 import model.User;
 
 public class UserBuilder {
@@ -23,5 +25,9 @@ public class UserBuilder {
     public UserBuilder withPassword(String aPassword) {
         password = aPassword;
         return this;
+    }
+
+    public StoreAdminUser adminOfStore(Comercio store) {
+        return new StoreAdminUser(username, password, store);
     }
 }
