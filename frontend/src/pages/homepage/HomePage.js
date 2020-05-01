@@ -5,13 +5,26 @@ import "./homepage.scss"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {categories, stores, discounts} from "../../constants";
 
+import axios from "axios";
+const SERVICE_URL = 'http://localhost:8080/';
 class HomePage extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            entities: stores,
+            entities: [],
+            loadingEntitiesState: false,
             entityRenderFunction: this.renderStore
         }
+    }
+
+    componentDidMount() {
+        this.setState({ isLoading: true });
+        axios.get(`${SERVICE_URL}stores`)
+            .then(result => {
+                this.setState({entities: result.data, isLoading: false})
+            })
+            .catch(error => {
+            });
     }
 
     renderStore = (store) => {
@@ -25,11 +38,7 @@ class HomePage extends React.Component {
                 </div>
                 <div className='distancia-comercio'>
                     <FontAwesomeIcon icon={faMapMarkerAlt}/>
-                    <p className="distancia">{store.storeDistance}</p>
-                </div>
-                <div className="rubros-comercio">
-                    <FontAwesomeIcon icon={faStore}/>
-                    <p className="rubros">{store.storeCategories}</p>
+                    <p className="distancia">{store.storeAdress}</p>
                 </div>
             </div>
         )
