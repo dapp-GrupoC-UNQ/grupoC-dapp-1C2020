@@ -47,6 +47,8 @@ public class Comercio {
         return this.rubroDeComercio;
     }
 
+    public List<String> mediosDePagoComercio() { return this.mediosDePagoDisponiblesComercio; }
+
     public Integer cantidadMediosDePago() { return mediosDePagoDisponiblesComercio.size();   }
 
     public Boolean estaDisponibleEn(DayOfWeek dia, LocalTime hora) {
@@ -100,5 +102,4 @@ public class Comercio {
     public Boolean sePuedeAbonarCon(String medioDePago) {
         return mediosDePagoDisponiblesComercio.contains(medioDePago);
     }
-
 }
