@@ -37,4 +37,13 @@ public class StoreServiceTest {
 
         assertEquals(stores, storeService.getStores());
     }
+
+    @Test
+    public void whenWeAskStoreServiceForStoresWithACategoryItReturnsOnlyTheListOfStoresWithThstCategory() {
+        List<Comercio> stores = ComercioBuilder.storeList();
+        when(storeRepositoryMock.getStoresWithACategory("Almacen")).thenReturn(stores);
+
+        assertEquals(stores, storeService.getStoresWithACategory("Almacen"));
+        assertEquals(1, stores.size());
+    }
 }

@@ -20,6 +20,7 @@ public class StoreJsonSerializer extends JsonSerializer<Comercio> {
 
         jgen.writeStartObject();
         jgen.writeStringField("storeName", comercio.nombre());
+        jgen.writeStringField("storeCategory", comercio.rubro());
         jgen.writeStringField("storeAdress", comercio.domicilio());
         jgen.writeFieldName("storePaymentMethods");
         jgen.writeStartArray();

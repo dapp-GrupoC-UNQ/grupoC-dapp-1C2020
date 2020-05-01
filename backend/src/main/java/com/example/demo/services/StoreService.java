@@ -23,4 +23,7 @@ public class StoreService implements IStoreService {
     public List<Comercio> getStores() {
         return storeRepository.getStores();
     }
+
+    @Override
+    public List<Comercio> getStoresWithACategory(String category) { return storeRepository.getStoresWithACategory(category);   }
 }

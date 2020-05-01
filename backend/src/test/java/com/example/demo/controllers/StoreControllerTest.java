@@ -41,4 +41,16 @@ public class StoreControllerTest {
                 .andExpect(jsonPath("$[0].storeName", is(stores.get(0).nombre())))
                 .andExpect(jsonPath("$[1].storeName", is(stores.get(1).nombre())));
     }
+
+    @Test
+    public void ifWeAskForStoresWithACategoryWeOnlyGetTheStoresThatHaveThatCategoryList() throws Exception {
+        List<Comercio> stores = ComercioBuilder.storeWithACategoryList("Almacen");
+        when(storeServiceMock.getStoresWithACategory("Almacen")).thenReturn(stores);
+
+        mockMvc.perform(get("/stores?category=Almacen"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].storeName", is(stores.get(0).nombre())))
+                .andExpect(jsonPath("$[0].storeCategory", is(stores.get(0).rubro())));
+    }
 }

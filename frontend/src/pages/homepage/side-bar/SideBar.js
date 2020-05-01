@@ -12,11 +12,12 @@ class SideBar extends React.Component {
                 </div>
                 <div className="links-container">
                     <div className="link">
+                        {/*Voy a usar las props para actualizar el estado de mi padre. Es decir, la lista de entidades que muestra mi padre*/}
                         <a className="link-search" onClick={this.props.showStores}>Comercios</a>
                         <FontAwesomeIcon icon={faArrowCircleRight}/>
                     </div>
                     <div className="link">
-                        <a className="link-search" onClick={this.props.showCategories}>Rubro</a>
+                        <a className="link-search" onClick={this.props.showCategories}>Rubros</a>
                         <FontAwesomeIcon icon={faArrowCircleRight}/>
                     </div>
                     <div className="link">
