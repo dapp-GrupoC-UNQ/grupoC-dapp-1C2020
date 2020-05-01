@@ -45,7 +45,7 @@ class HomePage extends React.Component {
 
     renderCategory = (category) => {
         return(
-            <div className="entity-card category-card">
+            <div className="entity-card category-card" onClick={() => this.showStoresWithACategory(category.categoryName)}>
                 <div className='imagen-comercio'>
                     <img src={category.categoryImageURL}/>
                 </div>
@@ -75,11 +75,7 @@ class HomePage extends React.Component {
     }
 
     showStores = () =>{
-        // Voy a hacer una llamada ASINCRONA al backend
         StoreService().getAllStores()
-            //Recien cuando el backend me responda voy a poder actualizar mi state.
-            //Voy a actualizar tanto mi lista de entidades como la funcion que uso para renderizar esas entidades
-            //Ademas actualizamos loadingEntitiesState para que se deje de ver el spinner y se empiece a ver la info
             .then(result => {
                 this.setState({entities: result.data, entityRenderFunction: this.renderStore, loadingEntitiesState: false})
             })
@@ -94,6 +90,16 @@ class HomePage extends React.Component {
 
     showDiscounts = () => {
         this.setState({entities: discounts, entityRenderFunction: this.renderDiscount});
+    }
+
+    showStoresWithACategory = (category) => {
+        StoreService().getAllStoresWithACategory(category)
+            .then(result => {
+                this.setState({entities: result.data, entityRenderFunction: this.renderStore, loadingEntitiesState: false})
+            })
+            .catch(error => {
+                alert("Uy, no pudimos cargar los comercios de esa categoria")
+            });
     }
     render() {
         return(

@@ -17,7 +17,7 @@ class SideBar extends React.Component {
                         <FontAwesomeIcon icon={faArrowCircleRight}/>
                     </div>
                     <div className="link">
-                        <a className="link-search" onClick={this.props.showCategories}>Rubro</a>
+                        <a className="link-search" onClick={this.props.showCategories}>Rubros</a>
                         <FontAwesomeIcon icon={faArrowCircleRight}/>
                     </div>
                     <div className="link">
