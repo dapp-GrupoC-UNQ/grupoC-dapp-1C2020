@@ -1,7 +1,10 @@
 package model;
 
+import com.example.demo.serializers.UserJsonSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import model.excepciones.InvalidUsernameOrPasswordException;
 
+@JsonSerialize(using = UserJsonSerializer.class)
 public class User {
 
     private String username;
