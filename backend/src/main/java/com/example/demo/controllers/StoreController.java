@@ -17,7 +17,7 @@ public class StoreController {
     @Autowired
     private IStoreService storeService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+
     @RequestMapping("/stores")
     public List<Comercio> getStores(@RequestParam(defaultValue = "") String category) throws JsonProcessingException {
         if(category.isEmpty()){
