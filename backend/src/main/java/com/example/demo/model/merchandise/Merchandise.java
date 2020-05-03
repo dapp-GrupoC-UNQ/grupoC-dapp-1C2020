@@ -4,7 +4,10 @@ import com.example.demo.model.excepciones.InvalidStockTypeException;
 import com.example.demo.model.excepciones.NegativePriceMerchandiseException;
 import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;
 import com.example.demo.model.excepciones.NegativeStockMerchandiseException;
+import com.example.demo.serializers.MerchandiseJsonSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+@JsonSerialize(using = MerchandiseJsonSerializer.class)
 public class Merchandise {
 
     private String merchandiseName;

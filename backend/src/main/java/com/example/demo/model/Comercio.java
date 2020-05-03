@@ -10,6 +10,7 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @JsonSerialize(using = StoreJsonSerializer.class)
 public class Comercio {
@@ -105,5 +106,9 @@ public class Comercio {
 
     public void decreaseStock(String name, String brand, Integer stockToDecrese) {
         this.encontrarMercaderia(name, brand).decreaseStock(stockToDecrese);
+    }
+
+    public List<Merchandise> listOfAvailableMerchandise() {
+        return this.merchandiseList.stream().filter(merchandise -> merchandise.stock() > 0).collect(Collectors.toList());
     }
 }

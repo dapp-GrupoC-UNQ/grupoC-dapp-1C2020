@@ -16,6 +16,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.when;
 import static org.hamcrest.Matchers.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -52,5 +53,14 @@ public class StoreControllerTest {
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].storeName", is(stores.get(0).nombre())))
                 .andExpect(jsonPath("$[0].storeCategory", is(stores.get(0).rubro())));
+    }
+
+    @Test
+    public void gettingStoreProductsListFromExistingStore() throws Exception{
+        Comercio store = ComercioBuilder.unComercio().conNombre("Coto").build();
+        store.addMerchandise("Pan", "Bimbo", 34.6, 12);
+        when(storeServiceMock.getProductsFromStore(any())).thenReturn(store.listOfAvailableMerchandise());
+
+        mockMvc.perform(get("/stores/Coto/products")).andExpect(status().isOk());
     }
 }
