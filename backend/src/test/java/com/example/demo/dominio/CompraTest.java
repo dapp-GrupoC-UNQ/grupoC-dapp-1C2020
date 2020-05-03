@@ -1,11 +1,8 @@
 package com.example.demo.dominio;
 
+import com.example.demo.builders.AdquiredProductBuilder;
 import com.example.demo.builders.CompraBuilder;
-import com.example.demo.builders.MercaderiaBuilder;
-import com.example.demo.model.Compra;
-import com.example.demo.model.EnvioADomicilio;
-import com.example.demo.model.Mercaderia;
-import com.example.demo.model.RetiroEnLocal;
+import com.example.demo.model.*;
 import com.example.demo.model.excepciones.OptionNotAvailableForThisDeliveryType;
 import org.junit.Test;
 
@@ -22,13 +19,13 @@ public class CompraTest {
     }
 
     @Test
-    public void unaCompraTieneUnMontoTotal(){
-        Mercaderia fideos = MercaderiaBuilder.unaMercaderia().conProducto("Fideos", "Knorr").conPrecio(40.25).build();
-        Mercaderia jugo = MercaderiaBuilder.unaMercaderia().conProducto("Jugo", "Tang").conPrecio(8.0).build();
+    public void aPourchaseHasATotal(){
+        AdquiredProduct fideos = AdquiredProductBuilder.aProduct().withName("Fideos").withBrand("Knorr").withPrice(40.25).build();
+        AdquiredProduct jugo = AdquiredProductBuilder.aProduct().withName("Jugo").withBrand("Tang").withPrice(40.25).withPrice(8.0).build();
         Compra compra = CompraBuilder.unaCompra().build();
-        compra.agregarMercaderia(fideos);
-        compra.agregarMercaderia(jugo);
-        assertEquals(48.25, compra.montoTotal());
+        compra.addAQuiredProduct(fideos);
+        compra.addAQuiredProduct(jugo);
+        assertEquals(48.25, compra.total());
     }
 
     @Test
@@ -42,7 +39,7 @@ public class CompraTest {
     @Test
     public void siUnaCompraNoTieneProductosEnSuListaElMontoEsCero(){
         Compra compra = CompraBuilder.unaCompra().build();
-        assertEquals(0.0, compra.montoTotal());
+        assertEquals(0.0, compra.total());
     }
 
     @Test

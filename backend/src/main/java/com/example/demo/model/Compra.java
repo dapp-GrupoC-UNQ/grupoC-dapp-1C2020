@@ -8,8 +8,7 @@ public class Compra {
 
     private String medioDePago;
     private TipoDeEnvio tipoDeEnvio;
-    private String direccionEnvio;
-    private List<Mercaderia> listaDeMercaderia = new ArrayList<>();
+    private List<AdquiredProduct> productList = new ArrayList<>();
 
     public Compra(String pago, TipoDeEnvio envio){
         medioDePago = pago;
@@ -20,16 +19,12 @@ public class Compra {
         return this.medioDePago;
     }
 
-    public Double montoTotal() {
-            return this.listaDeMercaderia.stream().mapToDouble(Mercaderia::precio).sum();
+    public Double total() {
+            return this.productList.stream().mapToDouble(AdquiredProduct::price).sum();
     }
 
     public TipoDeEnvio tipoEnvio() {
         return this.tipoDeEnvio;
-    }
-
-    public void agregarMercaderia(Mercaderia mercaderia) {
-        this.listaDeMercaderia.add(mercaderia);
     }
 
     public String direccionDeEnvio() {
@@ -41,4 +36,7 @@ public class Compra {
     }
 
 
+    public void addAQuiredProduct(AdquiredProduct product) {
+        this.productList.add(product);
+    }
 }
