@@ -37,8 +37,8 @@ public class PurchaseTest {
     @Test
     public void unaCompraTieneUnRetiroEnLocalDebeTenerUnHorarioDeRetiro(){
         LocalDateTime hora = LocalDateTime.of(2020,4,25,10,0);
-        RetiroEnLocal retiroEnLocal = new RetiroEnLocal(hora);
-        Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(retiroEnLocal).build();
+        StorePickUp storePickUp = new StorePickUp(hora);
+        Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(storePickUp).build();
         assertTrue(purchase.pickUpDate().isEqual(hora));
     }
 
@@ -50,7 +50,7 @@ public class PurchaseTest {
 
     @Test
     public void siUnaCompraTieneEnvioADomicilioDebeTenerUnaDireccion(){
-        EnvioADomicilio envio = new EnvioADomicilio("Alsina 123");
+        HomeDelivery envio = new HomeDelivery("Alsina 123");
         Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(envio).build();
         assertEquals("Alsina 123", purchase.deliveryAddress());
     }
@@ -58,14 +58,14 @@ public class PurchaseTest {
     @Test
     public void  aPurchaseWithStorePickUpHasNoAddress(){
         LocalDateTime hour = LocalDateTime.of(2020,4,25,10,0);
-        RetiroEnLocal retiroEnLocal = new RetiroEnLocal(hour);
-        Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(retiroEnLocal).build();
+        StorePickUp storePickUp = new StorePickUp(hour);
+        Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(storePickUp).build();
         assertThrows(OptionNotAvailableForThisDeliveryType.class, () -> purchase.deliveryAddress());
     }
 
     @Test
     public void aPurchaseWithDeliveryHasNotAPickUpDate(){
-        EnvioADomicilio delivery = new EnvioADomicilio("Alsina 123");
+        HomeDelivery delivery = new HomeDelivery("Alsina 123");
         Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(delivery).build();
         assertThrows(OptionNotAvailableForThisDeliveryType.class, () -> purchase.pickUpDate());
     }

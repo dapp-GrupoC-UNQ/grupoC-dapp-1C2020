@@ -7,11 +7,11 @@ import java.util.List;
 public class Purchase {
 
     private String paymentMethod;
-    private TipoDeEnvio deliveryType;
+    private DeliveryType deliveryType;
     private String storeName;
     private List<AdquiredProduct> productList = new ArrayList<>();
 
-    public Purchase(String payment, TipoDeEnvio delivery, String store){
+    public Purchase(String payment, DeliveryType delivery, String store){
         paymentMethod = payment;
         deliveryType = delivery;
         storeName = store;
@@ -25,16 +25,16 @@ public class Purchase {
             return this.productList.stream().mapToDouble(AdquiredProduct::price).sum();
     }
 
-    public TipoDeEnvio deliveryType() {
+    public DeliveryType deliveryType() {
         return this.deliveryType;
     }
 
     public String deliveryAddress() {
-        return deliveryType.direccionDeEnvio();
+        return deliveryType.deliveryAddress();
     }
 
     public LocalDateTime pickUpDate() {
-        return this.deliveryType.horarioDeRetiro();
+        return this.deliveryType.pickUpDate();
     }
 
 

@@ -1,7 +1,7 @@
 package com.example.demo.builders;
 
 import com.example.demo.model.Purchase;
-import com.example.demo.model.TipoDeEnvio;
+import com.example.demo.model.DeliveryType;
 
 public class PurchaseBuilder {
     public static PurchaseBuilder aPurchase() {
@@ -9,7 +9,7 @@ public class PurchaseBuilder {
     }
 
     private String paymentMethod;
-    private TipoDeEnvio deliveryType;
+    private DeliveryType deliveryType;
     private String deliveryAddress;
     private String storeName;
 
@@ -17,12 +17,12 @@ public class PurchaseBuilder {
         return new Purchase(paymentMethod, deliveryType, storeName);
     }
 
-    public PurchaseBuilder withPaymentMethod(String tipoPago) {
-        paymentMethod = tipoPago;
+    public PurchaseBuilder withPaymentMethod(String payment) {
+        paymentMethod = payment;
         return this;
     }
 
-    public PurchaseBuilder withDeliveryType(TipoDeEnvio delivery) {
+    public PurchaseBuilder withDeliveryType(DeliveryType delivery) {
         deliveryType = delivery;
         return this;
     }
