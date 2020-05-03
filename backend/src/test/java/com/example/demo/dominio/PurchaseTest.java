@@ -26,7 +26,7 @@ public class PurchaseTest {
         purchase.addAQuiredProduct(fideos);
         purchase.addAQuiredProduct(jugo);
         assertEquals(56.25, purchase.total());
-        assertEquals(3, purchase.productsQuality());
+        assertEquals(3, purchase.productsQuantity());
     }
 
     @Test

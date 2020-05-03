@@ -48,5 +48,5 @@ public class Purchase {
 
     public String user() { return this.userName;  }
 
-    public Integer productsQuality() { return this.productList.stream().mapToInt(AdquiredProduct::quantity).sum();  }
+    public Integer productsQuantity() { return this.productList.stream().mapToInt(AdquiredProduct::quantity).sum();  }
 }
