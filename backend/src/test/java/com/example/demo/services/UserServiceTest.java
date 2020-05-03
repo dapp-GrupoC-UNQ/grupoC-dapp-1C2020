@@ -43,7 +43,7 @@ public class UserServiceTest {
     public void aUserIsNotValidIfItsNotRegistered() {
         User user = UserBuilder.user().build();
         List<User> fakeUsersList = Arrays.asList(UserBuilder.user().withUsername("FakeUser").build());
-        when(userRepositoryMock.getUsers()).thenReturn(fakeUsersList);
+        when(userRepositoryMock.validateUser(any())).thenThrow(new NotFoundUserException());
 
         assertThrows(NotFoundUserException.class, () -> userService.validateUser(user));
 
