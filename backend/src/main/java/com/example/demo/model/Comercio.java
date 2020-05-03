@@ -1,9 +1,10 @@
 package com.example.demo.model;
 
+import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.serializers.StoreJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.example.demo.model.excepciones.ProductoInexistenteEnComercioException;
-import com.example.demo.model.excepciones.ProductoRepetidoEnComercioException;
+import com.example.demo.model.excepciones.NotFoundProductInStore;
+import com.example.demo.model.excepciones.RepeatedMerchandiseInStore;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -19,7 +20,7 @@ public class Comercio {
     Integer distanciaDeliveryEnKmComercio;
     List<String> mediosDePagoDisponiblesComercio;
     List<RangoHorarioComercio> horarioDeAtencionComercio;
-    List<Mercaderia> listaDeMercaderias = new ArrayList<>();
+    List<Merchandise> merchandiseList = new ArrayList<>();
 
     public Comercio(String nombre, String rubro, String direccion, Integer distanciaDeliveryEnKm, List<String> mediosDePago, List<RangoHorarioComercio> horarioDeAtencion) {
          nombreDeComercio = nombre;
@@ -54,51 +55,55 @@ public class Comercio {
         return   horarioDeAtencionComercio.stream().anyMatch(horario -> horario.estaDisponibleEnHorario(dia, hora));
     }
 
-    public void agregarMercaderia(String nombre, String marca, Double precioDeVenta, Integer stockDisponible) {
-        if(this.vendeProducto(nombre, marca)) { throw new ProductoRepetidoEnComercioException();}
-        listaDeMercaderias.add(new Mercaderia(nombre, marca, precioDeVenta, stockDisponible));
-    }
-
     public Boolean vendeProducto(String nombreProducto, String marcaProducto) {
-      return listaDeMercaderias.stream().anyMatch(mercaderia -> this.sonLaMismaMercaderia(mercaderia, nombreProducto, marcaProducto));
+      return merchandiseList.stream().anyMatch(mercaderia -> this.sonLaMismaMercaderia(mercaderia, nombreProducto, marcaProducto));
     }
 
-    private Boolean sonLaMismaMercaderia(Mercaderia mercaderia, String unNombreProducto, String unaMarcaProducto) {
-        return mercaderia.producto().nombre().equals(unNombreProducto) && mercaderia.producto().marca().equals(unaMarcaProducto);
+    private Boolean sonLaMismaMercaderia(Merchandise mercaderia, String unNombreProducto, String unaMarcaProducto) {
+        return mercaderia.name().equals(unNombreProducto) && mercaderia.brand().equals(unaMarcaProducto);
     }
 
-    public Boolean tieneProductos() {
-        return !listaDeMercaderias.isEmpty();
-    }
-
-    private Mercaderia encontrarMercaderia(String nombreProducto, String marcaProducto) {
-        return listaDeMercaderias.stream()
+    private Merchandise encontrarMercaderia(String nombreProducto, String marcaProducto) {
+        return merchandiseList.stream()
                 .filter(mercaderia -> this.sonLaMismaMercaderia(mercaderia, nombreProducto, marcaProducto))
                 .findFirst()
-                .orElseThrow(ProductoInexistenteEnComercioException::new);
-    }
-
-    public Integer stockPara(String unNombre, String unaMarca) {
-        return this.encontrarMercaderia(unNombre, unaMarca).stock();
-    }
-
-    public Double precioPara(String unNombre, String unaMarca) {
-        return this.encontrarMercaderia(unNombre, unaMarca).precio();
-    }
-
-    public void actualizarPrecio(String nombreProducto, String marcaProducto, Double nuevoPrecio) {
-        this.encontrarMercaderia(nombreProducto, marcaProducto).actualizarPrecio(nuevoPrecio);
-    }
-
-    public void agregarStock(String nombreProducto, String marcaProducto, Integer stockAAgregar) {
-        this.encontrarMercaderia(nombreProducto, marcaProducto).agregarStock(stockAAgregar);
-    }
-
-    public void decrementarStock(String nombreProducto, String marcaProducto, Integer stockADecrementar) {
-        this.encontrarMercaderia(nombreProducto, marcaProducto).decrementarStock(stockADecrementar);
+                .orElseThrow(NotFoundProductInStore::new);
     }
 
     public Boolean sePuedeAbonarCon(String medioDePago) {
         return mediosDePagoDisponiblesComercio.contains(medioDePago);
+    }
+
+    public Boolean hasMerchandises() {
+        return !merchandiseList.isEmpty();
+    }
+
+    public void addMerchandise(String name, String brand, Double price, Integer stock) {
+        if(this.vendeProducto(name, brand)) { throw new RepeatedMerchandiseInStore();}
+        merchandiseList.add(new Merchandise(name, brand, price, stock));
+    }
+
+    public Boolean sellsMerchandise(String name, String brand) {
+        return merchandiseList.stream().anyMatch(merchandise -> this.sonLaMismaMercaderia(merchandise, name, brand));
+    }
+
+    public Integer stockOf(String name, String brand) {
+        return this.encontrarMercaderia(name, brand).stock();
+    }
+
+    public Double priceOf(String name, String brand) {
+        return this.encontrarMercaderia(name, brand).price();
+    }
+
+    public void updatePriceFor(String name, String brand, Double newPrice) {
+        this.encontrarMercaderia(name, brand).updatePrice(newPrice);
+    }
+
+    public void addStock(String name, String brand, Integer newStock) {
+        this.encontrarMercaderia(name, brand).addStock(newStock);
+    }
+
+    public void decreaseStock(String name, String brand, Integer stockToDecrese) {
+        this.encontrarMercaderia(name, brand).decreaseStock(stockToDecrese);
     }
 }
