@@ -1,4 +1,5 @@
 package com.example.demo.handlers;
+import com.example.demo.model.excepciones.NotFoundStoreException;
 import com.example.demo.model.excepciones.NotFoundUserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,11 @@ public class ExceptionsAPIHandler {
 
     @ExceptionHandler({ NotFoundUserException.class})
     public ResponseEntity<String> notFoundUser(Exception exception) {
+        return new ResponseEntity<String>(exception.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler({NotFoundStoreException.class})
+    public ResponseEntity<String> notFoundStore(Exception exception) {
         return new ResponseEntity<String>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
