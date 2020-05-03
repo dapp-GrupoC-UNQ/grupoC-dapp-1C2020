@@ -23,6 +23,8 @@ public class StoreRepository implements IStoreRepository{
         Comercio store3 = new Comercio("Jumbo", "Almacen", "Alsina 123", 4, Arrays.asList("Efectivo"), Arrays.asList(rangoHorario) );
         store1.addMerchandise("Fideos", "Marolio", 24.3, 45);
         store2.addMerchandise("Nesquick", "Nestle", 30.3, 24);
+        store2.addMerchandise("Sobre Jugo Naranja", "Tang", 10.3, 24);
+        store2.addMerchandise("Leche descremada", "Ilolay", 30.3, 24);
         return Arrays.asList(store1,store2, store3);
     }
     @Override
