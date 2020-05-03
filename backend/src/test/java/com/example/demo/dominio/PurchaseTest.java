@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PurchaseTest {
 
     @Test
-    public void unaCompraTieneUnMedioDePago(){
+    public void aPurchaseHasAPaymentMethod(){
         Purchase purchase = PurchaseBuilder.aPurchase().withPaymentMethod("Efectivo").build();
         assertEquals("Efectivo", purchase.paymentMethod());
     }
@@ -35,7 +35,7 @@ public class PurchaseTest {
     }
 
     @Test
-    public void unaCompraTieneUnRetiroEnLocalDebeTenerUnHorarioDeRetiro(){
+    public void aPurchaseWithAStorePickUpShouldHaveAPickUpDate(){
         LocalDateTime hora = LocalDateTime.of(2020,4,25,10,0);
         StorePickUp storePickUp = new StorePickUp(hora);
         Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(storePickUp).build();
@@ -43,7 +43,7 @@ public class PurchaseTest {
     }
 
     @Test
-    public void siUnaCompraNoTieneProductosEnSuListaElMontoEsCero(){
+    public void ifAPurchaseHastNotProductsTotalPriceIsZero(){
         Purchase purchase = PurchaseBuilder.aPurchase().build();
         assertEquals(0.0, purchase.total());
     }
@@ -55,9 +55,9 @@ public class PurchaseTest {
     }
 
     @Test
-    public void siUnaCompraTieneEnvioADomicilioDebeTenerUnaDireccion(){
-        HomeDelivery envio = new HomeDelivery("Alsina 123");
-        Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(envio).build();
+    public void ifAPurchaseHasHomeDeliveryShouldHaveAnAdrress(){
+        HomeDelivery delivery = new HomeDelivery("Alsina 123");
+        Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(delivery).build();
         assertEquals("Alsina 123", purchase.deliveryAddress());
     }
 
