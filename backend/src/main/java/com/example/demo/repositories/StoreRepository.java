@@ -1,9 +1,8 @@
 package com.example.demo.repositories;
 
 import com.example.demo.model.Comercio;
-import com.example.demo.model.Mercaderia;
 import com.example.demo.model.RangoHorarioComercio;
-import com.example.demo.model.excepciones.NotFoundStore;
+import com.example.demo.model.excepciones.NotFoundStoreException;
 import com.example.demo.model.merchandise.Merchandise;
 import org.springframework.stereotype.Repository;
 
@@ -41,6 +40,6 @@ public class StoreRepository implements IStoreRepository{
         return this.getStores().stream()
                                .filter(comercio -> comercio.nombre().equals(storeName))
                                .findFirst()
-                               .orElseThrow(NotFoundStore::new);
+                               .orElseThrow(NotFoundStoreException::new);
     }
 }

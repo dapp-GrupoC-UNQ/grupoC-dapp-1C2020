@@ -15,6 +15,7 @@ import java.util.List;
 
 public class StoreController {
 
+    public static final String MODEL_ATTRIBUTE_TODO = "hola";
     @Autowired
     private IStoreService storeService;
 
