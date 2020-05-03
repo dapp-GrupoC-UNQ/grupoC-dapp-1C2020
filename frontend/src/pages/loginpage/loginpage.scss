@@ -36,6 +36,12 @@
         padding: 10px 30px;
         width: 220px;
 
+        &.error {
+          input {
+            border-color: #ff0020;
+          }
+        }
+
         label {
           padding-bottom: 10px;
         }
@@ -52,6 +58,12 @@
         padding: 10px 30px;
         width: 222px;
 
+        &.error {
+          input {
+            border-color: #ff0020;
+          }
+        }
+
         label {
           padding-bottom: 10px;
         }
@@ -59,6 +71,16 @@
         input {
           height: 30px;
           border-radius: 5px;
+        }
+      }
+
+      .uncompleted-fields-error {
+        padding-left: 30px;
+        color: #ff0020;
+        font-weight: 600;
+
+        svg{
+          margin-right: 10px;
         }
       }
 
