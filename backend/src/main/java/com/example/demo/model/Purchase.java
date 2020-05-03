@@ -9,12 +9,14 @@ public class Purchase {
     private String paymentMethod;
     private DeliveryType deliveryType;
     private String storeName;
+    private String userName;
     private List<AdquiredProduct> productList = new ArrayList<>();
 
-    public Purchase(String payment, DeliveryType delivery, String store){
+    public Purchase(String payment, DeliveryType delivery, String store,String name){
         paymentMethod = payment;
         deliveryType = delivery;
         storeName = store;
+        userName = name;
     }
 
     public String paymentMethod(){
@@ -43,4 +45,6 @@ public class Purchase {
     }
 
     public String store() { return this.storeName; }
+
+    public String user() { return this.userName;  }
 }

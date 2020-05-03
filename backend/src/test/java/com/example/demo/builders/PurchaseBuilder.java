@@ -12,9 +12,10 @@ public class PurchaseBuilder {
     private DeliveryType deliveryType;
     private String deliveryAddress;
     private String storeName;
+    private String userName;
 
     public Purchase build(){
-        return new Purchase(paymentMethod, deliveryType, storeName);
+        return new Purchase(paymentMethod, deliveryType, storeName, userName);
     }
 
     public PurchaseBuilder withPaymentMethod(String payment) {
@@ -34,6 +35,11 @@ public class PurchaseBuilder {
 
     public PurchaseBuilder withStore(String store) {
         storeName = store;
+        return this;
+    }
+
+    public PurchaseBuilder withUser(String name) {
+        userName = name;
         return this;
     }
 }

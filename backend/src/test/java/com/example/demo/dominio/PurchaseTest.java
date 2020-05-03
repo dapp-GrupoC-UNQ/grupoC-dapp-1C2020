@@ -49,6 +49,12 @@ public class PurchaseTest {
     }
 
     @Test
+    public void aPurchaseHasAUser(){
+        Purchase purchase = PurchaseBuilder.aPurchase().withUser("pepe").build();
+        assertEquals("pepe", purchase.user());
+    }
+
+    @Test
     public void siUnaCompraTieneEnvioADomicilioDebeTenerUnaDireccion(){
         HomeDelivery envio = new HomeDelivery("Alsina 123");
         Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(envio).build();
