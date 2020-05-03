@@ -21,10 +21,40 @@
       margin: 5px 10px;
       overflow: hidden;
 
+      &.product-card {
+        height: 265px;
+        font-weight: 200;
+      }
+
       &.category-card {
         height: 240px;
       }
 
+      .product-name {
+        display: flex;
+        align-items: center;
+        font-size: x-large;
+        font-weight: 200;
+        padding: 8px 8px 0px;
+        height: 14%;
+      }
+
+      .product-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 0px 8px;
+
+        .product-brand {
+          height: 10%;
+          color: coral;
+        }
+
+        .product-price {
+          color: lightcoral;
+          font-size: medium;
+        }
+      }
 
       .discount-name {
         display: flex;
@@ -51,9 +81,9 @@
       .nombre-comercio {
         display: flex;
         align-items: center;
-        font-size: large;
-        font-weight: 800;
-        padding: 8px;
+        font-size: x-large;
+        font-weight: 200;
+        padding: 8px 8px;
         height: 14%;
       }
 
@@ -65,7 +95,8 @@
 
         .distancia {
           color: #e5c902;
-          font-size: small;
+          font-size: large;
+          font-weight: 200;
         }
         svg {
           height: 21px;
@@ -82,7 +113,7 @@
         padding: 0 8px;
 
         .rubros {
-          color:  #ffa372;;
+          color:  #ffa372;
           font-size: small;
         }
         svg {

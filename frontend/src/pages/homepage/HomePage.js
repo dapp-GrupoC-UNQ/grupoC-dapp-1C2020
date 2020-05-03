@@ -27,7 +27,7 @@ class HomePage extends React.Component {
 
     renderStore = (store) => {
         return (
-            <div className="entity-card">
+            <div className="entity-card" onClick={() => this.showStoreProducts(store)}>
                 <div className='imagen-comercio'>
                     <img src={'https://www.memesargentinos.com.ar/wp-content/uploads/2019/02/China-Supermercado.jpg'}/>
                 </div>
@@ -38,10 +38,32 @@ class HomePage extends React.Component {
                     <FontAwesomeIcon icon={faMapMarkerAlt}/>
                     <p className="distancia">{store.storeAdress}</p>
                 </div>
+                <div className='rubros-comercio'>
+                    <FontAwesomeIcon icon={faStore}/>
+                    <p className="rubros">{store.storeCategory}</p>
+                </div>
             </div>
         )
     }
 
+    renderProducts = (product) => {
+        return (<div className="entity-card product-card">
+                    <div className='imagen-comercio'>
+                        <img src={'https://digitalcontent.api.tesco.com/v2/media/ghs/744eaf3a-ccd5-4188-a60e-001845bd74b6/snapshotimagehandler_689352616.jpeg?h=540&w=540'}/>
+                    </div>
+                    <div className='product-name'>
+                        {product.name}
+                    </div>
+                    <div className="product-footer">
+                        <div className='product-brand'>
+                            {product.brand}
+                        </div>
+                        <div className='product-price'>
+                            <p className="price">${product.price}</p>
+                        </div>
+                    </div>
+                </div>)
+    }
 
     renderCategory = (category) => {
         return(
@@ -101,6 +123,14 @@ class HomePage extends React.Component {
                 alert("Uy, no pudimos cargar los comercios de esa categoria")
             });
     }
+
+    showStoreProducts = (store) => {
+        StoreService().getStoreProducts(store)
+            .then(result => {
+                this.setState({entities: result.data, entityRenderFunction: this.renderProducts, loadingEntitiesState: false})
+            })
+    }
+
     render() {
         return(
             <div className="homepage">

@@ -28,6 +28,7 @@ class LoginPage extends React.Component {
                     this.props.history.push("/homepage")
                 })
                 .catch( error => {
+                    debugger
                     alert("El nombre de usuario o la contraseña no son correctos")
                 })
         }
