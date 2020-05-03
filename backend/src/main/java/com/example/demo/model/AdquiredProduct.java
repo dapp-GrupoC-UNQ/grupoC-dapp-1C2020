@@ -14,19 +14,13 @@ public class AdquiredProduct {
         this.productQuantity = quantity;
     }
 
-    public Double price() {
-        return this.productPrice;
-    }
+    public Double price() {  return this.productPrice;  }
 
-    public String name() {
-        return this.productName;
-    }
+    public String name() { return this.productName;  }
 
-    public String brand() {
-        return this.productBrand;
-    }
+    public String brand() { return this.productBrand; }
 
-    public Integer quantity() {
-        return this.productQuantity;
-    }
+    public Integer quantity() {  return this.productQuantity;  }
+
+    public Double totalPrice() { return productQuantity * productPrice;  }
 }

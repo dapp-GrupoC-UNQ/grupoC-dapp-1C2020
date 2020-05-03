@@ -24,7 +24,7 @@ public class Purchase {
     }
 
     public Double total() {
-            return this.productList.stream().mapToDouble(AdquiredProduct::price).sum();
+            return this.productList.stream().mapToDouble(AdquiredProduct::totalPrice).sum();
     }
 
     public DeliveryType deliveryType() {
@@ -47,4 +47,6 @@ public class Purchase {
     public String store() { return this.storeName; }
 
     public String user() { return this.userName;  }
+
+    public Integer productsQuality() { return this.productList.stream().mapToInt(AdquiredProduct::quantity).sum();  }
 }

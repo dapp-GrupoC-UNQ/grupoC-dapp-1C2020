@@ -20,12 +20,13 @@ public class PurchaseTest {
 
     @Test
     public void aPourchaseHasATotal(){
-        AdquiredProduct fideos = AdquiredProductBuilder.aProduct().withName("Fideos").withBrand("Knorr").withPrice(40.25).build();
-        AdquiredProduct jugo = AdquiredProductBuilder.aProduct().withName("Jugo").withBrand("Tang").withPrice(40.25).withPrice(8.0).build();
+        AdquiredProduct fideos = AdquiredProductBuilder.aProduct().withName("Fideos").withBrand("Knorr").withPrice(40.25).withQuantity(1).build();
+        AdquiredProduct jugo = AdquiredProductBuilder.aProduct().withName("Jugo").withBrand("Tang").withPrice(8.0).withQuantity(2).build();
         Purchase purchase = PurchaseBuilder.aPurchase().build();
         purchase.addAQuiredProduct(fideos);
         purchase.addAQuiredProduct(jugo);
-        assertEquals(48.25, purchase.total());
+        assertEquals(56.25, purchase.total());
+        assertEquals(3, purchase.productsQuality());
     }
 
     @Test
