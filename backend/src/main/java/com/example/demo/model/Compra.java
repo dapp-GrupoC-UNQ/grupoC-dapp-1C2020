@@ -8,11 +8,13 @@ public class Compra {
 
     private String medioDePago;
     private TipoDeEnvio tipoDeEnvio;
+    private String storeName;
     private List<AdquiredProduct> productList = new ArrayList<>();
 
-    public Compra(String pago, TipoDeEnvio envio){
+    public Compra(String pago, TipoDeEnvio envio,String store){
         medioDePago = pago;
         tipoDeEnvio = envio;
+        storeName = store;
     }
 
     public String medioDePago(){
@@ -39,4 +41,6 @@ public class Compra {
     public void addAQuiredProduct(AdquiredProduct product) {
         this.productList.add(product);
     }
+
+    public String store() { return this.storeName; }
 }

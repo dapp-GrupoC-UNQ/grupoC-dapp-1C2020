@@ -11,9 +11,10 @@ public class CompraBuilder {
     private String medioDePago;
     private TipoDeEnvio tipoDeEnvio;
     private String direccionDeEnvio;
+    private String storeName;
 
     public Compra build(){
-        return new Compra(medioDePago, tipoDeEnvio);
+        return new Compra(medioDePago, tipoDeEnvio, storeName);
     }
 
     public CompraBuilder conMedioDePago(String tipoPago) {
@@ -28,6 +29,11 @@ public class CompraBuilder {
 
     public CompraBuilder conDireccionDeEnvio(String direccion) {
         direccionDeEnvio = direccion;
+        return this;
+    }
+
+    public CompraBuilder withStore(String store) {
+        storeName = store;
         return this;
     }
 }

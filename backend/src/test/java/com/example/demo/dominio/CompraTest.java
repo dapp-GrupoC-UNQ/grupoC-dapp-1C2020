@@ -1,6 +1,7 @@
 package com.example.demo.dominio;
 
 import com.example.demo.builders.AdquiredProductBuilder;
+import com.example.demo.builders.ComercioBuilder;
 import com.example.demo.builders.CompraBuilder;
 import com.example.demo.model.*;
 import com.example.demo.model.excepciones.OptionNotAvailableForThisDeliveryType;
@@ -26,6 +27,12 @@ public class CompraTest {
         compra.addAQuiredProduct(fideos);
         compra.addAQuiredProduct(jugo);
         assertEquals(48.25, compra.total());
+    }
+
+    @Test
+    public void aPourchaseHasAStore(){
+        Compra purchase = CompraBuilder.unaCompra().withStore("Coto").build();
+        assertEquals("Coto", purchase.store());
     }
 
     @Test
