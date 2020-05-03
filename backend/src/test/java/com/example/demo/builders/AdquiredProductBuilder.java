@@ -30,4 +30,9 @@ public class AdquiredProductBuilder {
         productPrice = price;
         return this;
     }
+
+    public AdquiredProductBuilder withQuantity(Integer quantity) {
+        productQuantity = quantity;
+        return this;
+    }
 }

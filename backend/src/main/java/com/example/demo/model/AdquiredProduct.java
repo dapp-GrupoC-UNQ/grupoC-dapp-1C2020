@@ -17,4 +17,16 @@ public class AdquiredProduct {
     public Double price() {
         return this.productPrice;
     }
+
+    public String name() {
+        return this.productName;
+    }
+
+    public String brand() {
+        return this.productBrand;
+    }
+
+    public Integer quantity() {
+        return this.productQuantity;
+    }
 }
