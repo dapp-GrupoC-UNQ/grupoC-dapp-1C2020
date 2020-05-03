@@ -37,6 +37,5 @@ public class StoreServiceTest {
         when(storeRepositoryMock.getStoresWithACategory("Almacen")).thenReturn(stores);
 
         assertEquals(stores, storeService.getStoresWithACategory("Almacen"));
-        assertEquals(1, stores.size());
     }
 }
