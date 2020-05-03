@@ -2,7 +2,6 @@ package dominio;
 import builders.ProductoBuilder;
 import model.Producto;
 import org.junit.Test;
-import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProductoTest {

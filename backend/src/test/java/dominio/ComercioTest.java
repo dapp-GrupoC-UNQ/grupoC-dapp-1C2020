@@ -3,7 +3,6 @@ package dominio;
 import builders.ComercioBuilder;
 import model.Comercio;
 import model.RangoHorarioComercio;
-import model.excepciones.PaymentMethodNotAvailableException;
 import org.junit.Test;
 
 import java.time.DayOfWeek;
