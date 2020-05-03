@@ -1,10 +1,9 @@
 package com.example.demo.controllers;
 
-import builders.UserBuilder;
-import com.example.demo.services.StoreService;
+import com.example.demo.builders.UserBuilder;
 import com.example.demo.services.users.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.User;
+import com.example.demo.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

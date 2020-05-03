@@ -2,7 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.services.IStoreService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import model.Comercio;
+import com.example.demo.model.Comercio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

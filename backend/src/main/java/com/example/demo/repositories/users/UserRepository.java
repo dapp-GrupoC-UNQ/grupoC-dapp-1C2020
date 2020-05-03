@@ -1,9 +1,8 @@
 package com.example.demo.repositories.users;
 
 
-import model.User;
-import model.excepciones.NotFoundUserException;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.example.demo.model.User;
+import com.example.demo.model.excepciones.NotFoundUserException;
 import org.springframework.stereotype.Repository;
 
 
@@ -11,7 +10,6 @@ import java.util.Arrays;
 import java.util.List;
 
 @Repository
-@Qualifier("userRepository")
 public class UserRepository {
 
     private List<User> registeredUsers = Arrays.asList(new User("Pepe", "abcdefg"),

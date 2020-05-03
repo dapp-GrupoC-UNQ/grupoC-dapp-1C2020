@@ -1,9 +1,10 @@
 package com.example.demo.controllers;
 import com.example.demo.services.users.IUserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import model.Comercio;
-import model.User;
+import com.example.demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,9 +21,11 @@ public class UserController {
         return userService.getUsers();
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(path = "/validateUser", consumes = "application/json", produces = "application/json")
-    public User validateUser(@RequestBody User user) {
-        return userService.validateUser(user);
+    public ResponseEntity<User> validateUser(@RequestBody User user)
+    {
+        return new ResponseEntity<>(userService.validateUser(user), HttpStatus.OK);
     }
 
 }

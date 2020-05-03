@@ -1,6 +1,6 @@
 package com.example.demo.services;
 
-import model.Comercio;
+import com.example.demo.model.Comercio;
 
 import java.util.List;
 
