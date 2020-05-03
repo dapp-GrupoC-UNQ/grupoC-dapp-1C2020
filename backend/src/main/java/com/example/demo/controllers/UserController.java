@@ -15,13 +15,11 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping("/users")
     public List<User> getUsers() throws JsonProcessingException {
         return userService.getUsers();
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(path = "/validateUser", consumes = "application/json", produces = "application/json")
     public ResponseEntity<User> validateUser(@RequestBody User user)
     {
