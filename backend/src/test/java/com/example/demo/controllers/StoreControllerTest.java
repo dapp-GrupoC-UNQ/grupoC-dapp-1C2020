@@ -1,8 +1,8 @@
 package com.example.demo.controllers;
 
-import builders.ComercioBuilder;
+import com.example.demo.builders.ComercioBuilder;
 import com.example.demo.services.StoreService;
-import model.Comercio;
+import com.example.demo.model.Comercio;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

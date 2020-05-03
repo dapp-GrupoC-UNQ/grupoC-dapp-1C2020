@@ -24,13 +24,18 @@ class LoginPage extends React.Component {
     loginUser = () => {
         if (this.userIsValid()) {
             LoginService().validateUser({username: this.state.username, password: this.state.password})
-                .then(response => this.props.history.push("/homepage"))
+                .then(response => {
+                    this.props.history.push("/homepage")
+                })
+                .catch( error => {
+                    alert("El nombre de usuario o la contraseña no son correctos")
+                })
         }
     }
 
     userIsValid = () => {
         this.setState({userFieldsError: (!this.state.username || !this.state.password) })
-        return (!!this.state.username && this.state.username !== "") || (!!this.state.password && this.state.password !== "")
+        return (!!this.state.username && this.state.username !== "") && (!!this.state.password && this.state.password !== "")
     }
 
     render() {

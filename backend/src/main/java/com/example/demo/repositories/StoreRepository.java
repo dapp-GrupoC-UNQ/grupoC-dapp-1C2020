@@ -1,8 +1,7 @@
 package com.example.demo.repositories;
 
-import model.Comercio;
-import model.RangoHorarioComercio;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.example.demo.model.Comercio;
+import com.example.demo.model.RangoHorarioComercio;
 import org.springframework.stereotype.Repository;
 
 import java.time.DayOfWeek;
@@ -12,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
-@Qualifier("storesRepository")
+
 public class StoreRepository implements IStoreRepository{
     @Override
     public List<Comercio> getStores() {
