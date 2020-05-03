@@ -1,8 +1,8 @@
 package com.example.demo.model;
 
-import com.example.demo.model.excepciones.MercaderiaConPrecioNegativoException;
-import com.example.demo.model.excepciones.MercaderiaConStockInsuficienteException;
-import com.example.demo.model.excepciones.MercaderiaConStockNegativoException;
+import com.example.demo.model.excepciones.NegativePriceMerchandiseException;
+import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;
+import com.example.demo.model.excepciones.NegativeStockMerchandiseException;
 
 public class Mercaderia {
 
@@ -11,8 +11,8 @@ public class Mercaderia {
     private Integer stockDeProducto;
 
     public Mercaderia(String nombreProducto, String marcaProducto, Double precioDeVenta, Integer stockDisponible) {
-        if(stockDisponible < 0) { throw new MercaderiaConStockNegativoException();}
-        if(precioDeVenta < 0) { throw new MercaderiaConPrecioNegativoException();}
+        if(stockDisponible < 0) { throw new NegativeStockMerchandiseException();}
+        if(precioDeVenta < 0) { throw new NegativePriceMerchandiseException();}
         producto = new Producto(nombreProducto, marcaProducto);
         stockDeProducto = stockDisponible;
         precioDeProducto = precioDeVenta;
@@ -31,7 +31,7 @@ public class Mercaderia {
     }
 
     public void actualizarPrecio(Double nuevoPrecio) {
-        if(nuevoPrecio < 0) { throw new MercaderiaConPrecioNegativoException();}
+        if(nuevoPrecio < 0) { throw new NegativePriceMerchandiseException();}
         precioDeProducto = nuevoPrecio;
     }
 
@@ -40,7 +40,7 @@ public class Mercaderia {
     }
 
     public void decrementarStock(Integer stockADecrementar) {
-        if(stockDeProducto - stockADecrementar < 0) { throw new MercaderiaConStockInsuficienteException();}
+        if(stockDeProducto - stockADecrementar < 0) { throw new InsufficientMerchandiseStockException();}
         stockDeProducto -= stockADecrementar;
     }
 }

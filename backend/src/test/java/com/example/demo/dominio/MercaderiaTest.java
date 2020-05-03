@@ -2,9 +2,9 @@ package com.example.demo.dominio;
 
 import com.example.demo.builders.MercaderiaBuilder;
 import com.example.demo.model.Mercaderia;
-import com.example.demo.model.excepciones.MercaderiaConPrecioNegativoException;
-import com.example.demo.model.excepciones.MercaderiaConStockInsuficienteException;
-import com.example.demo.model.excepciones.MercaderiaConStockNegativoException;
+import com.example.demo.model.excepciones.NegativePriceMerchandiseException;
+import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;
+import com.example.demo.model.excepciones.NegativeStockMerchandiseException;
 import org.junit.Test;
 
 import static org.junit.Assert.assertThrows;
@@ -21,13 +21,13 @@ public class MercaderiaTest {
 
     @Test
     public void unaMercaderiaNoPuedeTenerStockNegativo() {
-        assertThrows(MercaderiaConStockNegativoException.class,
+        assertThrows(NegativeStockMerchandiseException.class,
                 () -> MercaderiaBuilder.unaMercaderia().conStock(-4).build());
     }
 
     @Test
     public void unaMercaderiaNoPuedeTenerPrecioNegativo() {
-        assertThrows(MercaderiaConPrecioNegativoException.class,
+        assertThrows(NegativePriceMerchandiseException.class,
                 () -> MercaderiaBuilder.unaMercaderia().conPrecio(-4.7).build());
     }
 
@@ -48,7 +48,7 @@ public class MercaderiaTest {
     @Test
     public void noSePuedeComprarUnaCantidadMayorAlStockDisponible() {
         Mercaderia unaMercaderia = MercaderiaBuilder.unaMercaderia().conStock(20).build();
-        assertThrows(MercaderiaConStockInsuficienteException.class,
+        assertThrows(InsufficientMerchandiseStockException.class,
                 () -> unaMercaderia.decrementarStock(30));
     }
 
@@ -62,7 +62,7 @@ public class MercaderiaTest {
     @Test
     public void noSePuedeActualizarElPrecioDeUnaMercaderiaAUnValorNegativo() {
         Mercaderia unaMercaderia = MercaderiaBuilder.unaMercaderia().conPrecio(20.0).build();
-        assertThrows(MercaderiaConPrecioNegativoException.class,
+        assertThrows(NegativePriceMerchandiseException.class,
                 () -> unaMercaderia.actualizarPrecio(-12.0));
     }
 }
