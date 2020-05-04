@@ -25,6 +25,8 @@ public class StoreRepository implements IStoreRepository{
         store2.addMerchandise("Nesquick", "Nestle", 30.3, 24);
         store2.addMerchandise("Sobre Jugo Naranja", "Tang", 10.3, 24);
         store2.addMerchandise("Leche descremada", "Ilolay", 30.3, 24);
+        store2.addMerchandise("Vainillas", "Valente", 23.5, 13);
+        store2.addMerchandise("Pure de tomate", "Molto", 37.0, 34);
         return Arrays.asList(store1,store2, store3);
     }
     @Override

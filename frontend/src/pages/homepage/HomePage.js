@@ -1,6 +1,6 @@
 import {withRouter} from "react-router-dom";
 import * as React from "react";
-import { faMapMarkerAlt, faStore } from '@fortawesome/free-solid-svg-icons'
+import { faMapMarkerAlt, faStore, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import "./homepage.scss"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {categories, discounts} from "../../constants";
@@ -61,6 +61,13 @@ class HomePage extends React.Component {
                         <div className='product-price'>
                             <p className="price">${product.price}</p>
                         </div>
+                    </div>
+                    <div className="add-to-chart-button-field">
+                        <button className="button add-to-chart-button">
+                            <span className="icon">
+                                <FontAwesomeIcon icon={faShoppingCart}/>
+                            </span>
+                        </button>
                     </div>
                 </div>)
     }
@@ -127,7 +134,12 @@ class HomePage extends React.Component {
     showStoreProducts = (store) => {
         StoreService().getStoreProducts(store)
             .then(result => {
-                this.setState({entities: result.data, entityRenderFunction: this.renderProducts, loadingEntitiesState: false})
+                const productsWithStore = result.data.map(product => {
+                    product.storeName = store.storeName
+                    return product
+                }
+                )
+                this.setState({entities: productsWithStore, entityRenderFunction: this.renderProducts, loadingEntitiesState: false})
             })
     }
 

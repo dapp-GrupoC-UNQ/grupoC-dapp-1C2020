@@ -24,6 +24,10 @@ class SideBar extends React.Component {
                         <a className="link-search" onClick={this.props.showDiscounts}>Ofertas</a>
                         <FontAwesomeIcon icon={faArrowCircleRight}/>
                     </div>
+                    <div className="link">
+                        <a className="link-search" onClick={this.showDiscounts}>Mi Carrito</a>
+                        <FontAwesomeIcon icon={faArrowCircleRight}/>
+                    </div>
                 </div>
             </div>
         );
