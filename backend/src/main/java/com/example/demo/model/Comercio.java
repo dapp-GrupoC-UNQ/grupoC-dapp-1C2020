@@ -21,6 +21,7 @@ public class Comercio {
     Integer distanciaDeliveryEnKmComercio;
     List<String> mediosDePagoDisponiblesComercio;
     List<RangoHorarioComercio> horarioDeAtencionComercio;
+    List<Discount> discountList = new ArrayList<>();
     List<Merchandise> merchandiseList = new ArrayList<>();
 
     public Comercio(String nombre, String rubro, String direccion, Integer distanciaDeliveryEnKm, List<String> mediosDePago, List<RangoHorarioComercio> horarioDeAtencion) {
@@ -110,5 +111,9 @@ public class Comercio {
 
     public List<Merchandise> listOfAvailableMerchandise() {
         return this.merchandiseList.stream().filter(merchandise -> merchandise.stock() > 0).collect(Collectors.toList());
+    }
+
+    public void addDiscount(Discount discount) {
+        this.discountList.add(discount);
     }
 }
