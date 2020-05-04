@@ -116,4 +116,8 @@ public class Comercio {
     public void addDiscount(Discount discount) {
         this.discountList.add(discount);
     }
+
+    public Boolean hasADiscount(Discount discount) {
+        return this.discountList.contains(discount);
+    }
 }
