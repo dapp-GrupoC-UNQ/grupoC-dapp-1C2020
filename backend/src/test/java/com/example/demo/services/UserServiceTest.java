@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.builders.UserBuilder;
+import com.example.demo.model.excepciones.NotAvailableUserNameException;
 import com.example.demo.model.excepciones.NotFoundUserException;
 import com.example.demo.repositories.users.UserRepository;
 import com.example.demo.services.users.IUserService;
@@ -46,5 +47,32 @@ public class UserServiceTest {
 
         assertThrows(NotFoundUserException.class, () -> userService.validateUser(user));
 
+    }
+
+    @Test
+    public void aUserCanBeAddedIfTheresNotAnotherRegisteredUSerWithThatUsername() {
+        when(userRepositoryMock.canAddUser(any())).thenReturn(true);
+        assertTrue(userService.canAddUser("aNewUser"));
+    }
+
+    @Test
+    public void aUserCannotBeAddedIfTheresAnotherRegisteredUSerWithThatUsername() {
+        when(userRepositoryMock.canAddUser(any())).thenReturn(false);
+        assertFalse(userService.canAddUser("aNewUser"));
+    }
+
+    @Test
+    public void whenAUserIsAddedTheServiceReturnsTheUser(){
+        User user = UserBuilder.user().build();
+        when(userRepositoryMock.addUser(any(), any())).thenReturn(user);
+
+        assertEquals(userService.addUser(user.username(), user.password()), user);
+    }
+
+    @Test
+    public void whenTryingToAddUserWithOccupiedUsernameNotAvailableNameExceptionIsThrown(){
+        when(userRepositoryMock.addUser(any(), any())).thenThrow(new NotAvailableUserNameException());
+
+        assertThrows(NotAvailableUserNameException.class, () -> userService.addUser("aNewUser", "password"));
     }
 }

@@ -2,6 +2,7 @@ package com.example.demo.repositories.users;
 
 
 import com.example.demo.model.User;
+import com.example.demo.model.excepciones.NotAvailableUserNameException;
 import com.example.demo.model.excepciones.NotFoundUserException;
 import org.springframework.stereotype.Repository;
 
@@ -21,5 +22,18 @@ public class UserRepository {
         return this.getUsers().stream().filter(user -> user.username().equals(aUser.username()) && user.password().equals(aUser.password()))
                                         .findFirst()
                                         .orElseThrow(NotFoundUserException::new);
+    }
+
+    public Boolean canAddUser(String username) {
+        return this.getUsers().stream().allMatch(user -> !user.username().equals(username));
+    }
+
+    public User addUser(String username, String password) {
+        if(canAddUser(username)) {
+            User newUser = new User(username, password);
+            this.registeredUsers.add(newUser);
+            return newUser;
+        }
+        throw new NotAvailableUserNameException();
     }
 }
