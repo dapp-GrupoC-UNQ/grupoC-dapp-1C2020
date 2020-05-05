@@ -15,7 +15,7 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @RequestMapping("/users")
+    @GetMapping("/users")
     public List<User> getUsers() throws JsonProcessingException {
         return userService.getUsers();
     }
@@ -24,6 +24,11 @@ public class UserController {
     public ResponseEntity<User> validateUser(@RequestBody User user)
     {
         return new ResponseEntity<>(userService.validateUser(user), HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/users", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        return new ResponseEntity<>(userService.addUser(user.username(), user.password()), HttpStatus.OK);
     }
 
 }
