@@ -21,4 +21,14 @@ public class UserService implements IUserService {
     public List<User> getUsers() {
         return userRepository.getUsers();
     }
+
+    @Override
+    public Boolean canAddUser(String username) {
+        return userRepository.canAddUser(username);
+    }
+
+    @Override
+    public User addUser(String username, String password) {
+        return userRepository.addUser(username, password);
+    }
 }

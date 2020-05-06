@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.builders.UserBuilder;
+import com.example.demo.model.excepciones.NotFoundUserException;
 import com.example.demo.services.users.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.demo.model.User;
@@ -17,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -47,14 +49,26 @@ public class UsersControllerTest {
                 .andExpect(jsonPath("username", is(user.username())));
     }
 
- /*   @Test
+    @Test
     public void aUserIsNotValidatedIfItsUsernameMatchesWithItsPassword() throws Exception {
-        User user = UserBuilder.user().withUsername("John").build();
+        User user = UserBuilder.user().build();
+        when(userServiceMock.validateUser(any())).thenThrow(new NotFoundUserException());
 
         mockMvc.perform(post("/validateUser")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(user)))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void whenCreatingAUserTheUserIsReturnedAndTheStatusIsOK() throws Exception {
+        User user = UserBuilder.user().build();
+        when(userServiceMock.addUser(any(), any())).thenReturn(user);
+
+        mockMvc.perform(post("/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(user)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("username", is(user.username())));
-    }*/
+    }
 }
