@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.model.Discount;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.repositories.IStoreRepository;
 import com.example.demo.model.Comercio;
@@ -31,4 +32,7 @@ public class StoreService implements IStoreService {
     public Comercio getStore(String storeName) {
         return storeRepository.getStore(storeName);
     }
+
+    @Override
+    public List<Discount> getDiscountFromStores() {  return storeRepository.getDiscountFromAllStores();  }
 }

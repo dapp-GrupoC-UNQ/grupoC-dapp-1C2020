@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class Comercio {
 
     String nombreDeComercio;
-    String rubroDeComercio;
+    String rubroDeComercio; // CAMBIAR A LISTA DE ENUM
     String domicilioDeComercio;
     Integer distanciaDeliveryEnKmComercio;
     List<String> mediosDePagoDisponiblesComercio;
@@ -119,5 +119,9 @@ public class Comercio {
 
     public Boolean hasADiscount(Discount discount) {
         return this.discountList.contains(discount);
+    }
+
+    public List<Discount> listOfAvailableDiscount() {
+        return this.discountList;
     }
 }

@@ -1,10 +1,13 @@
 package com.example.demo.model;
 
 import com.example.demo.model.merchandise.Merchandise;
+import com.example.demo.serializers.DiscountJsonSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.apache.tomcat.jni.Local;
 
 import java.time.LocalDate;
 
+@JsonSerialize(using = DiscountJsonSerializer.class)
 public class Discount {
 
     private Merchandise merchandise;
@@ -44,7 +47,7 @@ public class Discount {
         return startDate.isBefore(date) && endDate.isAfter(date);
     }
 
-    public Merchandise merchadise() {
-        return this.merchandise;
-    }
+    public Merchandise merchadise() { return this.merchandise;  }
+
+    public Integer percentOfDiscount() { return this.percentOfDiscount; }
 }

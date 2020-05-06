@@ -5,15 +5,23 @@ import com.example.demo.model.Discount;
 import com.example.demo.model.merchandise.Merchandise;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 public class DiscountBuilder {
 
     private Merchandise merchandise;
-    private Integer percentOfDiscount;
+    private Integer percentOfDiscount = 50;
     private LocalDate startDate;
     private LocalDate endDate;
 
     public static DiscountBuilder aDiscount() { return new DiscountBuilder(); }
+
+    public static List<Discount> discountList() {
+        Merchandise capitan = MerchandiseBuilder.aMerchandise().withName("Alfajor").withBrand("Capittan del Espacio").withPrice(30.0).build();
+        Discount discount1 = aDiscount().withProduct(capitan).build();
+        return Arrays.asList(discount1);
+    }
 
     public Discount build() {
         return new Discount(merchandise, percentOfDiscount,startDate, endDate);
