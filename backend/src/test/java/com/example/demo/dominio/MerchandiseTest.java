@@ -1,6 +1,8 @@
 package com.example.demo.dominio;
 
+import com.example.demo.builders.DiscountBuilder;
 import com.example.demo.builders.MerchandiseBuilder;
+import com.example.demo.model.Discount;
 import com.example.demo.model.excepciones.InvalidStockTypeException;
 import com.example.demo.model.excepciones.NegativePriceMerchandiseException;
 import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;
@@ -10,6 +12,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MerchandiseTest {
 
@@ -23,6 +26,15 @@ public class MerchandiseTest {
     public void aMerchandiseHasABrand() {
         Merchandise merchandise = MerchandiseBuilder.aMerchandise().withBrand("Bimbo").build();
         assertEquals("Bimbo", merchandise.brand());
+    }
+
+    @Test
+    public void aMerchandiseHasADiscount(){
+        Discount discount = DiscountBuilder.aDiscount().withPercentOfDiscount(20).build();
+        Merchandise merchandise = MerchandiseBuilder.aMerchandise().build();
+        merchandise.setADiscount(discount);
+        assertTrue(merchandise.hasADiscount());
+        assertEquals(20, merchandise.percentOfDiscount());
     }
 
     @Test

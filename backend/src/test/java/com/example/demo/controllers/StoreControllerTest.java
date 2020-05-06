@@ -2,10 +2,8 @@ package com.example.demo.controllers;
 
 import com.example.demo.builders.ComercioBuilder;
 import com.example.demo.builders.DiscountBuilder;
-import com.example.demo.builders.MerchandiseBuilder;
 import com.example.demo.model.Discount;
 import com.example.demo.model.excepciones.NotFoundStoreException;
-import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.services.StoreService;
 import com.example.demo.model.Comercio;
 import org.junit.Test;
@@ -88,9 +86,6 @@ public class StoreControllerTest {
         mockMvc.perform(get("/stores/discounts"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0]productName", is(allDiscount.get(0).productName())))
-                .andExpect(jsonPath("$[0]productBrand", is(allDiscount.get(0).productBrand())))
-                .andExpect(jsonPath("$[0]productPrice", is(allDiscount.get(0).price())))
                 .andExpect(jsonPath("$[0]percentOfDiscount", is(allDiscount.get(0).percentOfDiscount())));
         //VER DE TESTEAR LA FECHA DE VIGENCIA
     }

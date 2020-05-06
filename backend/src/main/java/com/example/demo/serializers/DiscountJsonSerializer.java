@@ -19,9 +19,6 @@ public class DiscountJsonSerializer extends JsonSerializer<Discount> {
             throws IOException, JsonProcessingException {
 
         jgen.writeStartObject();
-        jgen.writeStringField("productName", discount.productName());
-        jgen.writeStringField("productBrand", discount.productBrand());
-        jgen.writeNumberField("productPrice", discount.price());
         jgen.writeNumberField("percentOfDiscount", discount.percentOfDiscount());
         jgen.writeEndObject();
     }

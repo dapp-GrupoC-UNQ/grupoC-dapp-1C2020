@@ -1,6 +1,5 @@
 package com.example.demo.builders;
 
-import com.example.demo.model.AdquiredProduct;
 import com.example.demo.model.Discount;
 import com.example.demo.model.merchandise.Merchandise;
 
@@ -10,27 +9,21 @@ import java.util.List;
 
 public class DiscountBuilder {
 
-    private Merchandise merchandise;
-    private Integer percentOfDiscount = 50;
+    private Integer percentOfDiscount;
     private LocalDate startDate;
     private LocalDate endDate;
 
     public static DiscountBuilder aDiscount() { return new DiscountBuilder(); }
 
     public static List<Discount> discountList() {
-        Merchandise capitan = MerchandiseBuilder.aMerchandise().withName("Alfajor").withBrand("Capittan del Espacio").withPrice(30.0).build();
-        Discount discount1 = aDiscount().withProduct(capitan).build();
+        Discount discount1 = aDiscount().withPercentOfDiscount(50).build();
         return Arrays.asList(discount1);
     }
 
     public Discount build() {
-        return new Discount(merchandise, percentOfDiscount,startDate, endDate);
+        return new Discount(percentOfDiscount,startDate, endDate);
     }
 
-    public DiscountBuilder withProduct(Merchandise aMerchandise) {
-        merchandise = aMerchandise;
-        return this;
-    }
 
     public DiscountBuilder withPercentOfDiscount(Integer aPercent) {
         percentOfDiscount = aPercent;

@@ -10,29 +10,14 @@ import java.time.LocalDate;
 @JsonSerialize(using = DiscountJsonSerializer.class)
 public class Discount {
 
-    private Merchandise merchandise;
     private Integer percentOfDiscount;
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public Discount(Merchandise aMerchandise, Integer aPercent, LocalDate startDate, LocalDate endDate){
-        this.merchandise = aMerchandise;
+    public Discount(Integer aPercent, LocalDate startDate, LocalDate endDate){
         this.percentOfDiscount = aPercent;
         this.startDate = startDate;
         this.endDate = endDate;
-    }
-
-
-    public String productName() {
-        return this.merchandise.name();
-    }
-
-    public String productBrand() {
-        return this.merchandise.brand();
-    }
-
-    public Double price() {
-        return this.merchandise.price() * percentOfDiscount / 100;
     }
 
     public LocalDate startDate() {
@@ -46,8 +31,6 @@ public class Discount {
     public Boolean isAvailableIn(LocalDate date) {
         return startDate.isBefore(date) && endDate.isAfter(date);
     }
-
-    public Merchandise merchadise() { return this.merchandise;  }
 
     public Integer percentOfDiscount() { return this.percentOfDiscount; }
 }

@@ -51,8 +51,7 @@ public class StoreRepository implements IStoreRepository{
 
     @Override
     public List<Discount> getDiscountFromAllStores() {
-        Merchandise capitan = new Merchandise("Alfajor", "Capitan del Espacio", 25.0,10);
-        Discount discount1 = new Discount(capitan, 20, LocalDate.of(2020, 05, 01), LocalDate.of(2020, 05, 10));
+        Discount discount1 = new Discount( 20, LocalDate.of(2020, 05, 01), LocalDate.of(2020, 05, 10));
         return Arrays.asList(discount1);
         /*List<List<Discount>> discount = this.getStores().stream().map(Comercio::listOfAvailableDiscount).collect(Collectors.toList());
         return discount.stream().flatMap(List::stream).collect(Collectors.toList());*/
