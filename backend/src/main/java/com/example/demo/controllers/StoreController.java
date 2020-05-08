@@ -37,7 +37,7 @@ public class StoreController {
     }
 
     @RequestMapping(path="/stores/discounts")
-    public List<Discount> getDiscountFromAllStores(){
+    public List<Merchandise> getDiscountFromAllStores(){
         return storeService.getDiscountFromStores();
     }
 

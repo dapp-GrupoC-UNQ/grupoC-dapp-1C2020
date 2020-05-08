@@ -13,5 +13,5 @@ public interface IStoreRepository {
 
     Comercio getStore(String storeName);
 
-    List<Discount> getDiscountFromAllStores();
+    List<Merchandise> getDiscountFromAllStores();
 }

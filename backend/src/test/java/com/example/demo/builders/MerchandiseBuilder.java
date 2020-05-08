@@ -5,6 +5,8 @@ import com.example.demo.model.Mercaderia;
 import com.example.demo.model.merchandise.Merchandise;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 public class MerchandiseBuilder {
 
@@ -20,6 +22,13 @@ public class MerchandiseBuilder {
 
     public Merchandise build() {
         return new Merchandise(merchandiseName, merchandiseBrand, merchandisePrice, merchandiseStock);
+    }
+
+    public static List<Merchandise> discountList() {
+        Discount discount1 = DiscountBuilder.aDiscount().withPercentOfDiscount(50).build();
+        Merchandise merchandise = aMerchandise().build();
+        merchandise.setADiscount(discount1);
+        return Arrays.asList(merchandise);
     }
 
     public MerchandiseBuilder withName(String aName) {

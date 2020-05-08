@@ -1,14 +1,12 @@
 package com.example.demo.model;
 
-import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.serializers.DiscountJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.apache.tomcat.jni.Local;
 
 import java.time.LocalDate;
 
 @JsonSerialize(using = DiscountJsonSerializer.class)
-public class Discount {
+public class Discount implements DiscountType {
 
     private Integer percentOfDiscount;
     private LocalDate startDate;
@@ -33,4 +31,9 @@ public class Discount {
     }
 
     public Integer percentOfDiscount() { return this.percentOfDiscount; }
+
+    @Override
+    public Boolean hasADiscount() {
+        return true;
+    }
 }

@@ -13,15 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DiscountTest {
 
     @Test
-    public void aDiscountBelongAStore(){
-        Discount discount = DiscountBuilder.aDiscount().build();
-        Comercio store = ComercioBuilder.unComercio().build();
-        store.addDiscount(discount);
-        assertTrue(store.hasADiscount(discount));
-        //VER SI EL COMERCIO DEBE CONOCER LA OFERTA
-    }
-
-    @Test
     public void aDiscountOf50Percent(){
         Discount discount = DiscountBuilder.aDiscount().withPercentOfDiscount(50).build();
         assertEquals(50, discount.percentOfDiscount());

@@ -34,5 +34,5 @@ public class StoreService implements IStoreService {
     }
 
     @Override
-    public List<Discount> getDiscountFromStores() {  return storeRepository.getDiscountFromAllStores();  }
+    public List<Merchandise> getDiscountFromStores() {  return storeRepository.getDiscountFromAllStores();  }
 }

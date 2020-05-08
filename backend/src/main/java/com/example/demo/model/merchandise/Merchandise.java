@@ -5,6 +5,7 @@ import com.example.demo.model.excepciones.InvalidStockTypeException;
 import com.example.demo.model.excepciones.NegativePriceMerchandiseException;
 import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;
 import com.example.demo.model.excepciones.NegativeStockMerchandiseException;
+import com.example.demo.serializers.DiscountJsonSerializer;
 import com.example.demo.serializers.MerchandiseJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -18,7 +19,7 @@ public class Merchandise {
     private String merchandiseBrand;
     private Double merchandisePrice;
     private Integer merchandiseStock;
-    private Discount discountToApply = new Discount(0, LocalDate.now(), LocalDate.now());
+    private Discount discountToApply;
 
     public Merchandise(String aName, String aBrand, Double aPrice, Integer aStock) {
         if(aStock < 0) { throw new NegativeStockMerchandiseException();}
@@ -61,7 +62,7 @@ public class Merchandise {
     }
 
     public Boolean hasADiscount() {
-        return discountToApply.percentOfDiscount() > 0;
+        return discountToApply.hasADiscount();
     }
 
     public Integer percentOfDiscount() {
@@ -70,5 +71,9 @@ public class Merchandise {
 
     public void setADiscount(Discount discount) {
         this.discountToApply = discount;
+    }
+
+    public Discount discountToApply() {
+        return this.discountToApply;
     }
 }

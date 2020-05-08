@@ -15,10 +15,6 @@ public class DiscountBuilder {
 
     public static DiscountBuilder aDiscount() { return new DiscountBuilder(); }
 
-    public static List<Discount> discountList() {
-        Discount discount1 = aDiscount().withPercentOfDiscount(50).build();
-        return Arrays.asList(discount1);
-    }
 
     public Discount build() {
         return new Discount(percentOfDiscount,startDate, endDate);

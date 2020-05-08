@@ -2,8 +2,10 @@ package com.example.demo.controllers;
 
 import com.example.demo.builders.ComercioBuilder;
 import com.example.demo.builders.DiscountBuilder;
+import com.example.demo.builders.MerchandiseBuilder;
 import com.example.demo.model.Discount;
 import com.example.demo.model.excepciones.NotFoundStoreException;
+import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.services.StoreService;
 import com.example.demo.model.Comercio;
 import org.junit.Test;
@@ -80,7 +82,7 @@ public class StoreControllerTest {
 
     @Test
     public void gettingStoreDiscountListFromAllStoresReturnsTheListOfDiscount() throws Exception{
-        List<Discount> allDiscount = DiscountBuilder.discountList();
+        List<Merchandise> allDiscount = MerchandiseBuilder.discountList();
         when(storeServiceMock.getDiscountFromStores()).thenReturn(allDiscount);
 
         mockMvc.perform(get("/stores/discounts"))

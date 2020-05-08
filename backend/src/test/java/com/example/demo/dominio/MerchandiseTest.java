@@ -11,8 +11,7 @@ import com.example.demo.model.merchandise.Merchandise;
 import org.junit.Test;
 
 import static org.junit.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MerchandiseTest {
 
@@ -35,6 +34,12 @@ public class MerchandiseTest {
         merchandise.setADiscount(discount);
         assertTrue(merchandise.hasADiscount());
         assertEquals(20, merchandise.percentOfDiscount());
+    }
+
+    @Test
+    public void aMerchandiseHasNotADiscount(){
+        Merchandise merchandise = MerchandiseBuilder.aMerchandise().build();
+        assertFalse(merchandise.hasADiscount());
     }
 
     @Test

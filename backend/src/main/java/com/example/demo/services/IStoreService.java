@@ -14,5 +14,5 @@ public interface IStoreService {
 
     Comercio getStore(String storeName);
 
-    List<Discount> getDiscountFromStores();
+    List<Merchandise> getDiscountFromStores();
 }
