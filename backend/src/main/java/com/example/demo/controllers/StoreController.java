@@ -3,7 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.services.IStoreService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.example.demo.model.Comercio;
+import com.example.demo.model.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class StoreController {
 
 
     @RequestMapping("/stores")
-    public List<Comercio> getStores(@RequestParam(defaultValue = "") String category) throws JsonProcessingException {
+    public List<Store> getStores(@RequestParam(defaultValue = "") String category) throws JsonProcessingException {
         if(category.isEmpty()){
             return storeService.getStores();
         }
@@ -30,7 +30,7 @@ public class StoreController {
 
     @RequestMapping(path="/stores/{name}/products")
     public ResponseEntity<Object> getMessage(@PathVariable("name") String storeName) {
-        Comercio store = storeService.getStore(storeName);
+        Store store = storeService.getStore(storeName);
         List<Merchandise> merchandises = storeService.getProductsFromStore(storeName);
         return generateProductsResponse(merchandises);
     }

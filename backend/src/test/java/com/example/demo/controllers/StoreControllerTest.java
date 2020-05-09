@@ -7,7 +7,7 @@ import com.example.demo.model.Discount;
 import com.example.demo.model.excepciones.NotFoundStoreException;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.services.StoreService;
-import com.example.demo.model.Comercio;
+import com.example.demo.model.Store;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,31 +38,31 @@ public class StoreControllerTest {
 
     @Test
     public void ifWeAskForStoresWeGetTheActualStoresList() throws Exception {
-        List<Comercio> stores = ComercioBuilder.storeList();
+        List<Store> stores = ComercioBuilder.storeList();
         when(storeServiceMock.getStores()).thenReturn(stores);
 
         mockMvc.perform(get("/stores"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].storeName", is(stores.get(0).nombre())))
-                .andExpect(jsonPath("$[1].storeName", is(stores.get(1).nombre())));
+                .andExpect(jsonPath("$[0].storeName", is(stores.get(0).name())))
+                .andExpect(jsonPath("$[1].storeName", is(stores.get(1).name())));
     }
 
     @Test
     public void ifWeAskForStoresWithACategoryWeOnlyGetTheStoresThatHaveThatCategoryList() throws Exception {
-        List<Comercio> stores = ComercioBuilder.storeWithACategoryList("Almacen");
+        List<Store> stores = ComercioBuilder.storeWithACategoryList("Almacen");
         when(storeServiceMock.getStoresWithACategory("Almacen")).thenReturn(stores);
 
         mockMvc.perform(get("/stores?category=Almacen"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].storeName", is(stores.get(0).nombre())))
-                .andExpect(jsonPath("$[0].storeCategory", is(stores.get(0).rubro())));
+                .andExpect(jsonPath("$[0].storeName", is(stores.get(0).name())))
+                .andExpect(jsonPath("$[0].storeCategory", is(stores.get(0).storeCategory())));
     }
 
     @Test
     public void gettingStoreProductsListFromExistingStoreReturnsTheListOfProducts() throws Exception{
-        Comercio store = ComercioBuilder.unComercio().conNombre("Coto").build();
+        Store store = ComercioBuilder.unComercio().conNombre("Coto").build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
         store.addMerchandise("Pan", "Bimbo", 34.6, 12, noDiscount);
         when(storeServiceMock.getProductsFromStore(any())).thenReturn(store.listOfAvailableMerchandise());
@@ -73,7 +73,7 @@ public class StoreControllerTest {
 
     @Test
     public void gettingStoreProductsListFromNonExistingStoreReturns404() throws Exception{
-        Comercio store = ComercioBuilder.unComercio().conNombre("Coto").build();
+        Store store = ComercioBuilder.unComercio().conNombre("Coto").build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
         store.addMerchandise("Pan", "Bimbo", 34.6, 12, noDiscount);
         when(storeServiceMock.getProductsFromStore(any())).thenThrow((new NotFoundStoreException()));

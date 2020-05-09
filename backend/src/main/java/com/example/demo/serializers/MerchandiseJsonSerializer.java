@@ -1,6 +1,5 @@
 package com.example.demo.serializers;
 
-import com.example.demo.model.Comercio;
 import com.example.demo.model.merchandise.Merchandise;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;

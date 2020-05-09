@@ -16,12 +16,12 @@ import java.util.stream.Collectors;
 
 public class StoreRepository implements IStoreRepository{
     @Override
-    public List<Comercio> getStores() {
+    public List<Store> getStores() {
         Discount noDiscount = new NoDescount();
         RangoHorarioComercio rangoHorario = new RangoHorarioComercio(DayOfWeek.FRIDAY, LocalTime.of(9,0), LocalTime.of(15, 0));
-        Comercio store1 = new Comercio("Lo de tito", "Limpieza", "Alsina 123", 4, Arrays.asList("Efectivo"), Arrays.asList(rangoHorario) );
-        Comercio store2 = new Comercio("Coto", "Almacen", "Alsina 123", 4, Arrays.asList("Efectivo"), Arrays.asList(rangoHorario) );
-        Comercio store3 = new Comercio("Jumbo", "Almacen", "Alsina 123", 4, Arrays.asList("Efectivo"), Arrays.asList(rangoHorario) );
+        Store store1 = new Store("Lo de tito", "Limpieza", "Alsina 123", 4, Arrays.asList("Efectivo"), Arrays.asList(rangoHorario) );
+        Store store2 = new Store("Coto", "Almacen", "Alsina 123", 4, Arrays.asList("Efectivo"), Arrays.asList(rangoHorario) );
+        Store store3 = new Store("Jumbo", "Almacen", "Alsina 123", 4, Arrays.asList("Efectivo"), Arrays.asList(rangoHorario) );
         store1.addMerchandise("Fideos", "Marolio", 24.3, 45, noDiscount);
         store2.addMerchandise("Nesquick", "Nestle", 30.3, 24, noDiscount);
         store2.addMerchandise("Sobre Jugo Naranja", "Tang", 10.3, 24, noDiscount);
@@ -29,19 +29,19 @@ public class StoreRepository implements IStoreRepository{
         return Arrays.asList(store1,store2, store3);
     }
     @Override
-    public List<Comercio> getStoresWithACategory(String category) {
-        return this.getStores().stream().filter(store -> store.rubro().equals(category)).collect(Collectors.toList());
+    public List<Store> getStoresWithACategory(String category) {
+        return this.getStores().stream().filter(store -> store.storeCategory().equals(category)).collect(Collectors.toList());
     }
 
     @Override
-    public List<Merchandise> getProductsFrom(Comercio store) {
+    public List<Merchandise> getProductsFrom(Store store) {
         return store.listOfAvailableMerchandise();
     }
 
     @Override
-    public Comercio getStore(String storeName) {
+    public Store getStore(String storeName) {
         return this.getStores().stream()
-                               .filter(comercio -> comercio.nombre().equals(storeName))
+                               .filter(comercio -> comercio.name().equals(storeName))
                                .findFirst()
                                .orElseThrow(NotFoundStoreException::new);
     }
