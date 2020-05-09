@@ -31,4 +31,7 @@ public class StoreService implements IStoreService {
     public Comercio getStore(String storeName) {
         return storeRepository.getStore(storeName);
     }
+
+    @Override
+    public List<Merchandise> getDiscountFromStores() {  return storeRepository.getDiscountFromAllStores();  }
 }

@@ -7,9 +7,11 @@ import java.util.List;
 
 public interface IStoreService {
     List<Comercio> getStores();
-    public List<Comercio> getStoresWithACategory(String category);
+    List<Comercio> getStoresWithACategory(String category);
 
     List<Merchandise> getProductsFromStore(String storeName);
 
     Comercio getStore(String storeName);
+
+    List<Merchandise> getDiscountFromStores();
 }

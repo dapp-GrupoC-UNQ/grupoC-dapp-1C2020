@@ -16,11 +16,12 @@ import java.util.stream.Collectors;
 public class Comercio {
 
     String nombreDeComercio;
-    String rubroDeComercio;
+    String rubroDeComercio; // CAMBIAR A LISTA DE ENUM
     String domicilioDeComercio;
     Integer distanciaDeliveryEnKmComercio;
     List<String> mediosDePagoDisponiblesComercio;
     List<RangoHorarioComercio> horarioDeAtencionComercio;
+    List<PercentageDiscount> percentageDiscountList = new ArrayList<>();
     List<Merchandise> merchandiseList = new ArrayList<>();
 
     public Comercio(String nombre, String rubro, String direccion, Integer distanciaDeliveryEnKm, List<String> mediosDePago, List<RangoHorarioComercio> horarioDeAtencion) {
@@ -79,9 +80,9 @@ public class Comercio {
         return !merchandiseList.isEmpty();
     }
 
-    public void addMerchandise(String name, String brand, Double price, Integer stock) {
+    public void addMerchandise(String name, String brand, Double price, Integer stock, Discount discount) {
         if(this.vendeProducto(name, brand)) { throw new RepeatedMerchandiseInStore();}
-        merchandiseList.add(new Merchandise(name, brand, price, stock));
+        merchandiseList.add(new Merchandise(name, brand, price, stock, discount));
     }
 
     public Boolean sellsMerchandise(String name, String brand) {
@@ -110,5 +111,17 @@ public class Comercio {
 
     public List<Merchandise> listOfAvailableMerchandise() {
         return this.merchandiseList.stream().filter(merchandise -> merchandise.stock() > 0).collect(Collectors.toList());
+    }
+
+    public void addDiscount(PercentageDiscount percentageDiscount) {
+        this.percentageDiscountList.add(percentageDiscount);
+    }
+
+    public Boolean hasADiscount(PercentageDiscount percentageDiscount) {
+        return this.percentageDiscountList.contains(percentageDiscount);
+    }
+
+    public List<PercentageDiscount> listOfAvailableDiscount() {
+        return this.percentageDiscountList;
     }
 }

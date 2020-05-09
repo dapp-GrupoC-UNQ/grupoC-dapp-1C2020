@@ -35,6 +35,11 @@ public class StoreController {
         return generateProductsResponse(merchandises);
     }
 
+    @RequestMapping(path="/stores/discounts")
+    public List<Merchandise> getDiscountFromAllStores(){
+        return storeService.getDiscountFromStores();
+    }
+
     private ResponseEntity<Object> generateProductsResponse(List<Merchandise> merchandises) {
         return new ResponseEntity<>(merchandises, HttpStatus.OK);
     }

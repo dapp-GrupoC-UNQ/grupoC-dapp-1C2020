@@ -11,4 +11,6 @@ public interface IStoreRepository {
     List<Merchandise> getProductsFrom(Comercio store);
 
     Comercio getStore(String storeName);
+
+    List<Merchandise> getDiscountFromAllStores();
 }
