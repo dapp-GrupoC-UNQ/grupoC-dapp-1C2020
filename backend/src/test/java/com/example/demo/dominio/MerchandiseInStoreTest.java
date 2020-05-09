@@ -23,7 +23,7 @@ public class MerchandiseInStoreTest {
     public void whenAStoreAddsANewMerchandiseItNowBelongsToTheStore() {
         Store store = ComercioBuilder.unComercio().build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
-        store.addMerchandise("Fideos", "Marolio", 34.45, 23, noDiscount);
+        store.addMerchandise("Fideos", "Marolio", 34.45, 23);
         assertTrue(store.sellsMerchandise("Fideos", "Marolio"));
         assertEquals(store.stockOf("Fideos", "Marolio"), 23);
     }
@@ -32,7 +32,7 @@ public class MerchandiseInStoreTest {
     public void aStoreKnowsThePriceOfAProductItSells() {
         Store store = ComercioBuilder.unComercio().build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
-        store.addMerchandise("Fideos", "Marolio", 34.45, 23, noDiscount);
+        store.addMerchandise("Fideos", "Marolio", 34.45, 23);
         assertEquals(store.priceOf("Fideos", "Marolio"), 34.45);
     }
 
@@ -46,7 +46,7 @@ public class MerchandiseInStoreTest {
     public void aStoreKnowsTheStockOfAProductItSells() {
         Store store = ComercioBuilder.unComercio().build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
-        store.addMerchandise("Fideos", "Marolio", 34.45, 23, noDiscount);
+        store.addMerchandise("Fideos", "Marolio", 34.45, 23);
         assertEquals(store.stockOf("Fideos", "Marolio"), 23);
     }
 
@@ -62,15 +62,15 @@ public class MerchandiseInStoreTest {
         //por mismo producto se entiende mismo nombre y marca
         Store store = ComercioBuilder.unComercio().build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
-        store.addMerchandise("Fideos", "Marolio", 34.45, 23, noDiscount);
-        assertThrows(RepeatedMerchandiseInStore.class, () -> store.addMerchandise("Fideos", "Marolio", 34.45, 23, noDiscount));
+        store.addMerchandise("Fideos", "Marolio", 34.45, 23);
+        assertThrows(RepeatedMerchandiseInStore.class, () -> store.addMerchandise("Fideos", "Marolio", 34.45, 23));
     }
 
     @Test
     public void aStoreCanUpdateThePriceOfAnExistingProduct() {
         Store store = ComercioBuilder.unComercio().build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
-        store.addMerchandise("Fideos", "Marolio", 34.45, 23, noDiscount);
+        store.addMerchandise("Fideos", "Marolio", 34.45, 23);
         store.updatePriceFor("Fideos", "Marolio", 36.45);
         assertEquals(store.priceOf("Fideos", "Marolio"), 36.45);
     }
@@ -85,7 +85,7 @@ public class MerchandiseInStoreTest {
     public void aStoreCanAddStockForAnExistingProduct() {
         Store store = ComercioBuilder.unComercio().build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
-        store.addMerchandise("Fideos", "Marolio", 34.45, 23, noDiscount);
+        store.addMerchandise("Fideos", "Marolio", 34.45, 23);
         store.addStock("Fideos", "Marolio", 20);
         assertEquals(store.stockOf("Fideos", "Marolio"), 43);
     }
@@ -100,7 +100,7 @@ public class MerchandiseInStoreTest {
     public void unComercioPuedeDecrementarStockParaUnProductoExistente() {
         Store store = ComercioBuilder.unComercio().build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
-        store.addMerchandise("Fideos", "Marolio", 34.45, 23, noDiscount);
+        store.addMerchandise("Fideos", "Marolio", 34.45, 23);
         store.decreaseStock("Fideos", "Marolio", 20);
         assertEquals(store.stockOf("Fideos", "Marolio"), 3);
     }

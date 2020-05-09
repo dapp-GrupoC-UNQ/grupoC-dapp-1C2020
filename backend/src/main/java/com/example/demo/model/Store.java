@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.serializers.StoreJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -80,9 +81,9 @@ public class Store {
         return !merchandiseList.isEmpty();
     }
 
-    public void addMerchandise(String name, String brand, Double price, Integer stock, Discount discount) {
+    public void addMerchandise(String name, String brand, Double price, Integer stock) {
         if(this.sellsProduct(name, brand)) { throw new RepeatedMerchandiseInStore();}
-        merchandiseList.add(new Merchandise(name, brand, price, stock, discount));
+        merchandiseList.add(new Merchandise(name, brand, price, stock, new NoDescount()));
     }
 
     public Boolean sellsMerchandise(String name, String brand) {
@@ -123,5 +124,14 @@ public class Store {
 
     public List<PercentageDiscount> listOfAvailableDiscount() {
         return this.percentageDiscountList;
+    }
+
+    public AdquiredProduct getProduct(String productName, String productBrand, Integer quantity) {
+        Merchandise merchandise = this.findMerchandise(productName, productBrand);
+        if (this.stockOf(productName, productBrand) < quantity){
+            throw new InsufficientMerchandiseStockException();
+        }
+        this.decreaseStock(productName, productBrand, quantity);
+        return new AdquiredProduct(merchandise.name(), merchandise.brand(), merchandise.price(), quantity);
     }
 }

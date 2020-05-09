@@ -64,7 +64,7 @@ public class StoreControllerTest {
     public void gettingStoreProductsListFromExistingStoreReturnsTheListOfProducts() throws Exception{
         Store store = ComercioBuilder.unComercio().conNombre("Coto").build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
-        store.addMerchandise("Pan", "Bimbo", 34.6, 12, noDiscount);
+        store.addMerchandise("Pan", "Bimbo", 34.6, 12);
         when(storeServiceMock.getProductsFromStore(any())).thenReturn(store.listOfAvailableMerchandise());
 
         mockMvc.perform(get("/stores/Coto/products"))
@@ -75,7 +75,7 @@ public class StoreControllerTest {
     public void gettingStoreProductsListFromNonExistingStoreReturns404() throws Exception{
         Store store = ComercioBuilder.unComercio().conNombre("Coto").build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
-        store.addMerchandise("Pan", "Bimbo", 34.6, 12, noDiscount);
+        store.addMerchandise("Pan", "Bimbo", 34.6, 12);
         when(storeServiceMock.getProductsFromStore(any())).thenThrow((new NotFoundStoreException()));
 
         mockMvc.perform(get("/stores/Nonexistingstore/products"))
