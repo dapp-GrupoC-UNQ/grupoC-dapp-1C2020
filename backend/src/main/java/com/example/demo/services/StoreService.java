@@ -1,6 +1,5 @@
 package com.example.demo.services;
 
-import com.example.demo.model.Discount;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.repositories.IStoreRepository;
 import com.example.demo.model.Comercio;

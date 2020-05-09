@@ -1,11 +1,8 @@
 package com.example.demo.builders;
 
 import com.example.demo.model.Discount;
-import com.example.demo.model.DiscountType;
-import com.example.demo.model.Mercaderia;
 import com.example.demo.model.merchandise.Merchandise;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +12,7 @@ public class MerchandiseBuilder {
     private String merchandiseBrand = "Matarazzo";
     private Integer merchandiseStock = 9;
     private Double merchandisePrice = 65.0;
-    private DiscountType discount;
+    private Discount discount;
 
     public static MerchandiseBuilder aMerchandise() {
         return new MerchandiseBuilder();
@@ -26,7 +23,7 @@ public class MerchandiseBuilder {
     }
 
     public static List<Merchandise> discountList() {
-        DiscountType discount1 = DiscountBuilder.aDiscount().withPercentOfDiscount(50).build();
+        Discount discount1 = DiscountBuilder.aDiscount().withPercentOfDiscount(50).build();
         Merchandise merchandise = aMerchandise().withDiscount(discount1).build();
         return Arrays.asList(merchandise);
     }
@@ -51,7 +48,7 @@ public class MerchandiseBuilder {
         return this;
     }
 
-    public MerchandiseBuilder withDiscount(DiscountType aDiscount) {
+    public MerchandiseBuilder withDiscount(Discount aDiscount) {
         discount = aDiscount;
         return this;
     }

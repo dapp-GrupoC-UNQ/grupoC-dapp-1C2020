@@ -4,7 +4,6 @@ import com.example.demo.builders.ComercioBuilder;
 import com.example.demo.builders.DiscountBuilder;
 import com.example.demo.builders.MerchandiseBuilder;
 import com.example.demo.model.Discount;
-import com.example.demo.model.DiscountType;
 import com.example.demo.model.excepciones.NotFoundStoreException;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.services.StoreService;
@@ -64,7 +63,7 @@ public class StoreControllerTest {
     @Test
     public void gettingStoreProductsListFromExistingStoreReturnsTheListOfProducts() throws Exception{
         Comercio store = ComercioBuilder.unComercio().conNombre("Coto").build();
-        DiscountType noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
+        Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
         store.addMerchandise("Pan", "Bimbo", 34.6, 12, noDiscount);
         when(storeServiceMock.getProductsFromStore(any())).thenReturn(store.listOfAvailableMerchandise());
 
@@ -75,7 +74,7 @@ public class StoreControllerTest {
     @Test
     public void gettingStoreProductsListFromNonExistingStoreReturns404() throws Exception{
         Comercio store = ComercioBuilder.unComercio().conNombre("Coto").build();
-        DiscountType noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
+        Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
         store.addMerchandise("Pan", "Bimbo", 34.6, 12, noDiscount);
         when(storeServiceMock.getProductsFromStore(any())).thenThrow((new NotFoundStoreException()));
 

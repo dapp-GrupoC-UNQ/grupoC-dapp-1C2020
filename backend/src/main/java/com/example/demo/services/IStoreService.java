@@ -1,7 +1,6 @@
 package com.example.demo.services;
 
 import com.example.demo.model.Comercio;
-import com.example.demo.model.Discount;
 import com.example.demo.model.merchandise.Merchandise;
 
 import java.util.List;

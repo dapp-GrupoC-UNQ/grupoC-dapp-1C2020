@@ -21,7 +21,7 @@ public class Comercio {
     Integer distanciaDeliveryEnKmComercio;
     List<String> mediosDePagoDisponiblesComercio;
     List<RangoHorarioComercio> horarioDeAtencionComercio;
-    List<Discount> discountList = new ArrayList<>();
+    List<PercentageDiscount> percentageDiscountList = new ArrayList<>();
     List<Merchandise> merchandiseList = new ArrayList<>();
 
     public Comercio(String nombre, String rubro, String direccion, Integer distanciaDeliveryEnKm, List<String> mediosDePago, List<RangoHorarioComercio> horarioDeAtencion) {
@@ -80,7 +80,7 @@ public class Comercio {
         return !merchandiseList.isEmpty();
     }
 
-    public void addMerchandise(String name, String brand, Double price, Integer stock, DiscountType discount) {
+    public void addMerchandise(String name, String brand, Double price, Integer stock, Discount discount) {
         if(this.vendeProducto(name, brand)) { throw new RepeatedMerchandiseInStore();}
         merchandiseList.add(new Merchandise(name, brand, price, stock, discount));
     }
@@ -113,15 +113,15 @@ public class Comercio {
         return this.merchandiseList.stream().filter(merchandise -> merchandise.stock() > 0).collect(Collectors.toList());
     }
 
-    public void addDiscount(Discount discount) {
-        this.discountList.add(discount);
+    public void addDiscount(PercentageDiscount percentageDiscount) {
+        this.percentageDiscountList.add(percentageDiscount);
     }
 
-    public Boolean hasADiscount(Discount discount) {
-        return this.discountList.contains(discount);
+    public Boolean hasADiscount(PercentageDiscount percentageDiscount) {
+        return this.percentageDiscountList.contains(percentageDiscount);
     }
 
-    public List<Discount> listOfAvailableDiscount() {
-        return this.discountList;
+    public List<PercentageDiscount> listOfAvailableDiscount() {
+        return this.percentageDiscountList;
     }
 }

@@ -1,39 +1,17 @@
 package com.example.demo.model;
 
-import com.example.demo.serializers.DiscountJsonSerializer;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 import java.time.LocalDate;
 
-@JsonSerialize(using = DiscountJsonSerializer.class)
-public class Discount implements DiscountType {
+public interface Discount {
 
-    private Integer percentOfDiscount;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    public Boolean hasADiscount();
 
-    public Discount(Integer aPercent, LocalDate startDate, LocalDate endDate){
-        this.percentOfDiscount = aPercent;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
+    public Integer percentOfDiscount();
 
-    public LocalDate startDate() {
-        return this.startDate;
-    }
+    public LocalDate startDate();
 
-    public LocalDate endDate() {
-        return this.endDate;
-    }
+    public LocalDate endDate();
 
-    public Boolean isAvailableIn(LocalDate date) {
-        return startDate.isBefore(date) && endDate.isAfter(date);
-    }
+    public Boolean isAvailableIn(LocalDate date);
 
-    public Integer percentOfDiscount() { return this.percentOfDiscount; }
-
-    @Override
-    public Boolean hasADiscount() {
-        return true;
-    }
 }

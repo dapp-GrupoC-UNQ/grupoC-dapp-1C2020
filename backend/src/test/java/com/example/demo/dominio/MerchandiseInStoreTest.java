@@ -3,7 +3,7 @@ package com.example.demo.dominio;
 import com.example.demo.builders.ComercioBuilder;
 import com.example.demo.builders.DiscountBuilder;
 import com.example.demo.model.Comercio;
-import com.example.demo.model.DiscountType;
+import com.example.demo.model.Discount;
 import com.example.demo.model.excepciones.NotFoundProductInStore;
 import com.example.demo.model.excepciones.RepeatedMerchandiseInStore;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class MerchandiseInStoreTest {
     @Test
     public void whenAStoreAddsANewMerchandiseItNowBelongsToTheStore() {
         Comercio comercio = ComercioBuilder.unComercio().build();
-        DiscountType noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
+        Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
         comercio.addMerchandise("Fideos", "Marolio", 34.45, 23, noDiscount);
         assertTrue(comercio.sellsMerchandise("Fideos", "Marolio"));
         assertEquals(comercio.stockOf("Fideos", "Marolio"), 23);
@@ -31,7 +31,7 @@ public class MerchandiseInStoreTest {
     @Test
     public void aStoreKnowsThePriceOfAProductItSells() {
         Comercio comercio = ComercioBuilder.unComercio().build();
-        DiscountType noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
+        Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
         comercio.addMerchandise("Fideos", "Marolio", 34.45, 23, noDiscount);
         assertEquals(comercio.priceOf("Fideos", "Marolio"), 34.45);
     }
@@ -45,7 +45,7 @@ public class MerchandiseInStoreTest {
     @Test
     public void aStoreKnowsTheStockOfAProductItSells() {
         Comercio comercio = ComercioBuilder.unComercio().build();
-        DiscountType noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
+        Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
         comercio.addMerchandise("Fideos", "Marolio", 34.45, 23, noDiscount);
         assertEquals(comercio.stockOf("Fideos", "Marolio"), 23);
     }
@@ -61,7 +61,7 @@ public class MerchandiseInStoreTest {
     public void aStoreCannotAddTheSameProductTwice() {
         //por mismo producto se entiende mismo nombre y marca
         Comercio comercio = ComercioBuilder.unComercio().build();
-        DiscountType noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
+        Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
         comercio.addMerchandise("Fideos", "Marolio", 34.45, 23, noDiscount);
         assertThrows(RepeatedMerchandiseInStore.class, () -> comercio.addMerchandise("Fideos", "Marolio", 34.45, 23, noDiscount));
     }
@@ -69,7 +69,7 @@ public class MerchandiseInStoreTest {
     @Test
     public void aStoreCanUpdateThePriceOfAnExistingProduct() {
         Comercio comercio = ComercioBuilder.unComercio().build();
-        DiscountType noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
+        Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
         comercio.addMerchandise("Fideos", "Marolio", 34.45, 23, noDiscount);
         comercio.updatePriceFor("Fideos", "Marolio", 36.45);
         assertEquals(comercio.priceOf("Fideos", "Marolio"), 36.45);
@@ -84,7 +84,7 @@ public class MerchandiseInStoreTest {
     @Test
     public void aStoreCanAddStockForAnExistingProduct() {
         Comercio comercio = ComercioBuilder.unComercio().build();
-        DiscountType noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
+        Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
         comercio.addMerchandise("Fideos", "Marolio", 34.45, 23, noDiscount);
         comercio.addStock("Fideos", "Marolio", 20);
         assertEquals(comercio.stockOf("Fideos", "Marolio"), 43);
@@ -99,7 +99,7 @@ public class MerchandiseInStoreTest {
     @Test
     public void unComercioPuedeDecrementarStockParaUnProductoExistente() {
         Comercio comercio = ComercioBuilder.unComercio().build();
-        DiscountType noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
+        Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
         comercio.addMerchandise("Fideos", "Marolio", 34.45, 23, noDiscount);
         comercio.decreaseStock("Fideos", "Marolio", 20);
         assertEquals(comercio.stockOf("Fideos", "Marolio"), 3);

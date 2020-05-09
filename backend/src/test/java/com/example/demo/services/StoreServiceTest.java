@@ -2,8 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.builders.ComercioBuilder;
 import com.example.demo.builders.DiscountBuilder;
-import com.example.demo.model.DiscountType;
-import com.example.demo.model.merchandise.Merchandise;
+import com.example.demo.model.Discount;
 import com.example.demo.repositories.StoreRepository;
 import com.example.demo.model.Comercio;
 import org.junit.Test;
@@ -46,7 +45,7 @@ public class StoreServiceTest {
     @Test
     public void gettingStoreProductsList() {
         Comercio store = ComercioBuilder.unComercio().build();
-        DiscountType noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
+        Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
         store.addMerchandise("Nesquick", "Nestle", 20.4, 30,noDiscount);
         when(storeRepositoryMock.getStore(any())).thenReturn(store);
 

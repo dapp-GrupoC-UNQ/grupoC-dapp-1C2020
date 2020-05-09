@@ -10,16 +10,14 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Repository
 
 public class StoreRepository implements IStoreRepository{
     @Override
     public List<Comercio> getStores() {
-        DiscountType noDiscount = new NoDescount();
+        Discount noDiscount = new NoDescount();
         RangoHorarioComercio rangoHorario = new RangoHorarioComercio(DayOfWeek.FRIDAY, LocalTime.of(9,0), LocalTime.of(15, 0));
         Comercio store1 = new Comercio("Lo de tito", "Limpieza", "Alsina 123", 4, Arrays.asList("Efectivo"), Arrays.asList(rangoHorario) );
         Comercio store2 = new Comercio("Coto", "Almacen", "Alsina 123", 4, Arrays.asList("Efectivo"), Arrays.asList(rangoHorario) );
@@ -50,7 +48,7 @@ public class StoreRepository implements IStoreRepository{
 
     @Override
     public List<Merchandise> getDiscountFromAllStores() {
-        DiscountType discount = new Discount(20, LocalDate.of(2020,5,5), LocalDate.of(2020,5,10));
+        Discount discount = new PercentageDiscount(20, LocalDate.of(2020,5,5), LocalDate.of(2020,5,10));
         Merchandise merchandise = new Merchandise("Nesquick", "Nestle", 30.3, 24, discount);
         return Arrays.asList(merchandise);
     }

@@ -2,7 +2,7 @@ package com.example.demo.model;
 
 import java.time.LocalDate;
 
-public class NoDescount implements DiscountType {
+public class NoDescount implements Discount {
     @Override
     public Boolean hasADiscount() {
         return false;

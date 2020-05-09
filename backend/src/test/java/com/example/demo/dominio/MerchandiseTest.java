@@ -2,7 +2,7 @@ package com.example.demo.dominio;
 
 import com.example.demo.builders.DiscountBuilder;
 import com.example.demo.builders.MerchandiseBuilder;
-import com.example.demo.model.DiscountType;
+import com.example.demo.model.Discount;
 import com.example.demo.model.excepciones.InvalidStockTypeException;
 import com.example.demo.model.excepciones.NegativePriceMerchandiseException;
 import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;
@@ -29,7 +29,7 @@ public class MerchandiseTest {
 
     @Test
     public void aMerchandiseHasADiscount(){
-        DiscountType discount = DiscountBuilder.aDiscount().withPercentOfDiscount(20).build();
+        Discount discount = DiscountBuilder.aDiscount().withPercentOfDiscount(20).build();
         Merchandise merchandise = MerchandiseBuilder.aMerchandise().withDiscount(discount).build();
         assertTrue(merchandise.hasADiscount());
         assertEquals(20, merchandise.percentOfDiscount());
@@ -37,7 +37,7 @@ public class MerchandiseTest {
 
     @Test
     public void aMerchandiseHasNotADiscount(){
-        DiscountType noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
+        Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
         Merchandise merchandise = MerchandiseBuilder.aMerchandise().withDiscount(noDiscount).build();
         assertFalse(merchandise.hasADiscount());
     }

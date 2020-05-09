@@ -1,6 +1,5 @@
 package com.example.demo.controllers;
 
-import com.example.demo.model.Discount;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.services.IStoreService;
 import com.fasterxml.jackson.core.JsonProcessingException;
