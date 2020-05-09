@@ -134,4 +134,12 @@ public class Store {
         this.decreaseStock(productName, productBrand, quantity);
         return new AdquiredProduct(merchandise.name(), merchandise.brand(), merchandise.price(), quantity);
     }
+
+    public void applyDiscountOn(Merchandise product, Discount discount) {
+        product.setADiscount(discount);
+    }
+
+    public Merchandise getMerchandise(String productName, String productBrand) {
+        return this.findMerchandise(productName, productBrand);
+    }
 }
