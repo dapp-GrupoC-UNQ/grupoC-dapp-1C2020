@@ -83,7 +83,7 @@ public class Store {
 
     public void addMerchandise(String name, String brand, Double price, Integer stock) {
         if(this.sellsProduct(name, brand)) { throw new RepeatedMerchandiseInStore();}
-        merchandiseList.add(new Merchandise(name, brand, price, stock, new NoDescount()));
+        merchandiseList.add(new Merchandise(name, brand, price, stock));
     }
 
     public Boolean sellsMerchandise(String name, String brand) {

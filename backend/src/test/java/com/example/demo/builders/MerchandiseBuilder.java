@@ -1,6 +1,7 @@
 package com.example.demo.builders;
 
 import com.example.demo.model.Discount;
+import com.example.demo.model.NoDescount;
 import com.example.demo.model.merchandise.Merchandise;
 
 import java.util.Arrays;
@@ -12,14 +13,14 @@ public class MerchandiseBuilder {
     private String merchandiseBrand = "Matarazzo";
     private Integer merchandiseStock = 9;
     private Double merchandisePrice = 65.0;
-    private Discount discount;
+    private Discount discount = new NoDescount();
 
     public static MerchandiseBuilder aMerchandise() {
         return new MerchandiseBuilder();
     }
 
     public Merchandise build() {
-        return new Merchandise(merchandiseName, merchandiseBrand, merchandisePrice, merchandiseStock,discount);
+        return new Merchandise(merchandiseName, merchandiseBrand, merchandisePrice, merchandiseStock);
     }
 
     public static List<Merchandise> discountList() {
