@@ -1,8 +1,11 @@
 package com.example.demo.dominio;
 
 import com.example.demo.builders.ComercioBuilder;
+import com.example.demo.model.AdquiredProduct;
 import com.example.demo.model.Store;
 import com.example.demo.model.RangoHorarioComercio;
+import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;
+import com.example.demo.model.excepciones.NotFoundProductInStore;
 import org.junit.Test;
 
 import java.time.DayOfWeek;
@@ -68,4 +71,29 @@ public class StoreTest {
         assertFalse(store.canPayWith("Credit card"));
     }
 
+    @Test
+    public void getProductReturnsAnAcquiredProductAndDecreasesTheProductStock() {
+        Store store = ComercioBuilder.unComercio().build();
+        store.addMerchandise("Mayonesa", "Hellmans", 15.4, 200);
+        AdquiredProduct product = store.getProduct("Mayonesa", "Hellmans", 2);
+        assertEquals(store.stockOf("Mayonesa", "Hellmans"), 198);
+        assertEquals(product.quantity(), 2);
+        assertEquals(product.price(), 15.4);
+        assertEquals(product.brand(), "Hellmans");
+        assertEquals(product.name(), "Mayonesa");
+    }
+
+    @Test
+    public void itIsNotPossibleToGetAProductIfThereIsNotEnoughStock() {
+        Store store = ComercioBuilder.unComercio().build();
+        store.addMerchandise("Mayonesa", "Hellmans", 15.4, 200);
+        assertThrows(InsufficientMerchandiseStockException.class, () -> store.getProduct("Mayonesa", "Hellmans", 300));
+    }
+
+    @Test
+    public void itIsNotPossibleToGetAProductIfItDoesNotExistInTheStore() {
+        Store store = ComercioBuilder.unComercio().build();
+        store.addMerchandise("Mayonesa", "Hellmans", 15.4, 200);
+        assertThrows(NotFoundProductInStore.class, () -> store.getProduct("A fake", "Product", 1));
+    }
 }

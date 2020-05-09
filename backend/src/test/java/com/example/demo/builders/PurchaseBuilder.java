@@ -1,21 +1,19 @@
 package com.example.demo.builders;
 
-import com.example.demo.model.Purchase;
-import com.example.demo.model.DeliveryType;
+import com.example.demo.model.*;
 
 public class PurchaseBuilder {
     public static PurchaseBuilder aPurchase() {
         return new PurchaseBuilder();
     }
 
-    private String paymentMethod;
-    private DeliveryType deliveryType;
-    private String deliveryAddress;
-    private String storeName;
-    private String userName;
+    private String paymentMethod = "Credit Card";
+    private DeliveryType deliveryType = new HomeDelivery("Alsina 899");
+    private Store purchaseStore = ComercioBuilder.unComercio().build();
+    private User userName = UserBuilder.user().build();
 
     public Purchase build(){
-        return new Purchase(paymentMethod, deliveryType, storeName, userName);
+        return new Purchase(paymentMethod, deliveryType, purchaseStore, userName);
     }
 
     public PurchaseBuilder withPaymentMethod(String payment) {
@@ -28,18 +26,18 @@ public class PurchaseBuilder {
         return this;
     }
 
-    public PurchaseBuilder withDeliveryAddress(String address) {
-        deliveryAddress = address;
+    public PurchaseBuilder withDeliveryMethod(DeliveryType delivery) {
+        deliveryType = delivery;
         return this;
     }
 
-    public PurchaseBuilder withStore(String store) {
-        storeName = store;
+    public PurchaseBuilder withStore(Store store) {
+        purchaseStore = store;
         return this;
     }
 
-    public PurchaseBuilder withUser(String name) {
-        userName = name;
+    public PurchaseBuilder withUser(User aUser) {
+        userName = aUser;
         return this;
     }
 }

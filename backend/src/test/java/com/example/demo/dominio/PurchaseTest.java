@@ -1,13 +1,17 @@
 package com.example.demo.dominio;
 
-import com.example.demo.builders.AdquiredProductBuilder;
+import com.example.demo.builders.ComercioBuilder;
 import com.example.demo.builders.PurchaseBuilder;
+import com.example.demo.builders.UserBuilder;
 import com.example.demo.model.*;
+import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;
+import com.example.demo.model.excepciones.NotFoundProductInStore;
 import com.example.demo.model.excepciones.OptionNotAvailableForThisDeliveryType;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PurchaseTest {
@@ -19,20 +23,61 @@ public class PurchaseTest {
     }
 
     @Test
-    public void aPourchaseHasATotal(){
-        AdquiredProduct fideos = AdquiredProductBuilder.aProduct().withName("Fideos").withBrand("Knorr").withPrice(40.25).withQuantity(1).build();
-        AdquiredProduct jugo = AdquiredProductBuilder.aProduct().withName("Jugo").withBrand("Tang").withPrice(8.0).withQuantity(2).build();
+    public void aNewPurchaseTotalIsZero(){
         Purchase purchase = PurchaseBuilder.aPurchase().build();
-        purchase.addAQuiredProduct(fideos);
-        purchase.addAQuiredProduct(jugo);
-        assertEquals(56.25, purchase.total());
-        assertEquals(3, purchase.productsQuantity());
+        assertEquals(purchase.total(), 0.0);
     }
 
     @Test
-    public void aPourchaseHasAStore(){
-        Purchase purchase = PurchaseBuilder.aPurchase().withStore("Coto").build();
-        assertEquals("Coto", purchase.store());
+    public void aNewPurchaseHasNoProducts() {
+        Purchase purchase = PurchaseBuilder.aPurchase().build();
+        assertEquals(purchase.productsQuantity(), 0);
+    }
+
+    @Test
+    public void ifAPurchaseHastNotProductsTotalPriceIsZero(){
+        Purchase purchase = PurchaseBuilder.aPurchase().build();
+        assertEquals(0.0, purchase.total());
+    }
+
+    @Test
+    public void aPurchaseHasAStore(){
+        Store coto = ComercioBuilder.unComercio().build();
+        Purchase purchase = PurchaseBuilder.aPurchase().withStore(coto).build();
+        assertEquals(coto, purchase.store());
+    }
+
+    @Test
+    public void aPurchaseHasAUser(){
+        User pepe = UserBuilder.user().build();
+        Purchase purchase = PurchaseBuilder.aPurchase().withUser(pepe).build();
+        assertEquals(pepe, purchase.user());
+    }
+
+    @Test
+    public void aPurchaseTotalIsEqualToTheSumOfAllItsProducts(){
+        Double aPrice = 15.8;
+        Integer aQuantity = 3;
+        Store storeWithProducts = ComercioBuilder.unComercio().build();
+        storeWithProducts.addMerchandise("Mayonesa", "Hellmans", aPrice, aQuantity + 1);
+        Purchase purchase = PurchaseBuilder.aPurchase().withStore(storeWithProducts).build();
+        purchase.addProduct("Mayonesa", "Hellmans", aQuantity);
+        assertEquals(aPrice * aQuantity, purchase.total());
+        assertEquals(aQuantity, purchase.productsQuantity());
+    }
+
+    @Test
+    public void isNotPossibleToAddAProductThatIsNotAvailableInTheStore(){
+        Purchase purchase = PurchaseBuilder.aPurchase().build();
+        assertThrows(NotFoundProductInStore.class, () -> { purchase.addProduct("Mayonesa", "Hellmans", 3); });
+    }
+
+    @Test
+    public void isNotPossibleToAddAProductIfTheStoreCannotSatisfyTheStock(){
+        Store storeWithProducts = ComercioBuilder.unComercio().build();
+        storeWithProducts.addMerchandise("Mayonesa", "Hellmans", 15.8, 1);
+        Purchase purchase = PurchaseBuilder.aPurchase().withStore(storeWithProducts).build();
+        assertThrows(InsufficientMerchandiseStockException.class, () -> { purchase.addProduct("Mayonesa", "Hellmans", 3); });
     }
 
     @Test
@@ -43,38 +88,27 @@ public class PurchaseTest {
         assertTrue(purchase.pickUpDate().isEqual(hora));
     }
 
-    @Test
-    public void ifAPurchaseHastNotProductsTotalPriceIsZero(){
-        Purchase purchase = PurchaseBuilder.aPurchase().build();
-        assertEquals(0.0, purchase.total());
-    }
 
     @Test
-    public void aPurchaseHasAUser(){
-        Purchase purchase = PurchaseBuilder.aPurchase().withUser("pepe").build();
-        assertEquals("pepe", purchase.user());
-    }
-
-    @Test
-    public void ifAPurchaseHasHomeDeliveryShouldHaveAnAdrress(){
+    public void ifAPurchaseHasHomeDeliveryItShouldHaveAnAdrress(){
         HomeDelivery delivery = new HomeDelivery("Alsina 123");
         Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(delivery).build();
         assertEquals("Alsina 123", purchase.deliveryAddress());
     }
 
     @Test
-    public void  aPurchaseWithStorePickUpHasNoAddress(){
+    public void  aPurchaseWithStorePickUpDoesNotHaveAnAddress(){
         LocalDateTime hour = LocalDateTime.of(2020,4,25,10,0);
         StorePickUp storePickUp = new StorePickUp(hour);
         Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(storePickUp).build();
-        assertThrows(OptionNotAvailableForThisDeliveryType.class, () -> purchase.deliveryAddress());
+        assertThrows(OptionNotAvailableForThisDeliveryType.class, purchase::deliveryAddress);
     }
 
     @Test
-    public void aPurchaseWithDeliveryHasNotAPickUpDate(){
+    public void aPurchaseWithDeliveryDoesNotHaveAPickUpDate(){
         HomeDelivery delivery = new HomeDelivery("Alsina 123");
         Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(delivery).build();
-        assertThrows(OptionNotAvailableForThisDeliveryType.class, () -> purchase.pickUpDate());
+        assertThrows(OptionNotAvailableForThisDeliveryType.class, purchase::pickUpDate);
     }
 
 }

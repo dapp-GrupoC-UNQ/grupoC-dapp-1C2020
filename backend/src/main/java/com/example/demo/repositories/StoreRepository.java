@@ -22,10 +22,10 @@ public class StoreRepository implements IStoreRepository{
         Store store1 = new Store("Lo de tito", "Limpieza", "Alsina 123", 4, Arrays.asList("Efectivo"), Arrays.asList(rangoHorario) );
         Store store2 = new Store("Coto", "Almacen", "Alsina 123", 4, Arrays.asList("Efectivo"), Arrays.asList(rangoHorario) );
         Store store3 = new Store("Jumbo", "Almacen", "Alsina 123", 4, Arrays.asList("Efectivo"), Arrays.asList(rangoHorario) );
-        store1.addMerchandise("Fideos", "Marolio", 24.3, 45, noDiscount);
-        store2.addMerchandise("Nesquick", "Nestle", 30.3, 24, noDiscount);
-        store2.addMerchandise("Sobre Jugo Naranja", "Tang", 10.3, 24, noDiscount);
-        store2.addMerchandise("Leche descremada", "Ilolay", 30.3, 24, noDiscount);
+        store1.addMerchandise("Fideos", "Marolio", 24.3, 45);
+        store2.addMerchandise("Nesquick", "Nestle", 30.3, 24);
+        store2.addMerchandise("Sobre Jugo Naranja", "Tang", 10.3, 24);
+        store2.addMerchandise("Leche descremada", "Ilolay", 30.3, 24);
         return Arrays.asList(store1,store2, store3);
     }
     @Override

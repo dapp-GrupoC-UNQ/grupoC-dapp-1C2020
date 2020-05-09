@@ -8,15 +8,15 @@ public class Purchase {
 
     private String paymentMethod;
     private DeliveryType deliveryType;
-    private String storeName;
-    private String userName;
+    private Store purchaseStore;
+    private User purchaseUser;
     private List<AdquiredProduct> productList = new ArrayList<>();
 
-    public Purchase(String payment, DeliveryType delivery, String store,String name){
+    public Purchase(String payment, DeliveryType delivery, Store store, User name){
         paymentMethod = payment;
         deliveryType = delivery;
-        storeName = store;
-        userName = name;
+        purchaseStore = store;
+        purchaseUser = name;
     }
 
     public String paymentMethod(){
@@ -39,14 +39,13 @@ public class Purchase {
         return this.deliveryType.pickUpDate();
     }
 
+    public Store store() { return this.purchaseStore; }
 
-    public void addAQuiredProduct(AdquiredProduct product) {
-        this.productList.add(product);
-    }
-
-    public String store() { return this.storeName; }
-
-    public String user() { return this.userName;  }
+    public User user() { return this.purchaseUser;  }
 
     public Integer productsQuantity() { return this.productList.stream().mapToInt(AdquiredProduct::quantity).sum();  }
+
+    public void addProduct(String productName, String productBrand, Integer quantity) {
+        this.productList.add(this.store().getProduct(productName, productBrand, quantity));
+    }
 }
