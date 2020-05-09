@@ -1,9 +1,7 @@
 package com.example.demo.dominio;
 
-import com.example.demo.builders.ComercioBuilder;
 import com.example.demo.builders.DiscountBuilder;
-import com.example.demo.model.Comercio;
-import com.example.demo.model.Discount;
+import com.example.demo.model.DiscountType;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -14,7 +12,7 @@ public class DiscountTest {
 
     @Test
     public void aDiscountOf50Percent(){
-        Discount discount = DiscountBuilder.aDiscount().withPercentOfDiscount(50).build();
+        DiscountType discount = DiscountBuilder.aDiscount().withPercentOfDiscount(50).build();
         assertEquals(50, discount.percentOfDiscount());
     }
 
@@ -22,7 +20,7 @@ public class DiscountTest {
     public void aDiscountHasA1ValidDate(){
         LocalDate startDate = LocalDate.of(2020,5,2);
         LocalDate endDate = LocalDate.of(2020, 5, 10);
-        Discount discount = DiscountBuilder.aDiscount().withStartDate(startDate).withEndDate(endDate).build();
+        DiscountType discount = DiscountBuilder.aDiscount().withStartDate(startDate).withEndDate(endDate).build();
         assertTrue(discount.startDate().isEqual(startDate));
         assertTrue(discount.endDate().isEqual(endDate));
     }
@@ -32,7 +30,7 @@ public class DiscountTest {
         LocalDate startDate = LocalDate.of(2020,5,2);
         LocalDate endDate = LocalDate.of(2020, 5, 10);
         LocalDate date = LocalDate.of(2020,5,11);
-        Discount discount = DiscountBuilder.aDiscount().withStartDate(startDate).withEndDate(endDate).build();
+        DiscountType discount = DiscountBuilder.aDiscount().withStartDate(startDate).withEndDate(endDate).build();
         assertFalse(discount.isAvailableIn(date));
     }
 

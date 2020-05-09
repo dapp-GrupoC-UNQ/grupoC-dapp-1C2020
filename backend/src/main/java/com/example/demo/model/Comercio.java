@@ -80,9 +80,9 @@ public class Comercio {
         return !merchandiseList.isEmpty();
     }
 
-    public void addMerchandise(String name, String brand, Double price, Integer stock) {
+    public void addMerchandise(String name, String brand, Double price, Integer stock, DiscountType discount) {
         if(this.vendeProducto(name, brand)) { throw new RepeatedMerchandiseInStore();}
-        merchandiseList.add(new Merchandise(name, brand, price, stock));
+        merchandiseList.add(new Merchandise(name, brand, price, stock, discount));
     }
 
     public Boolean sellsMerchandise(String name, String brand) {

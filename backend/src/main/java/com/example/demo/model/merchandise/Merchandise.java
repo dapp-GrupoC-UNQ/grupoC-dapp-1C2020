@@ -1,16 +1,13 @@
 package com.example.demo.model.merchandise;
 
 import com.example.demo.model.Discount;
+import com.example.demo.model.DiscountType;
 import com.example.demo.model.excepciones.InvalidStockTypeException;
 import com.example.demo.model.excepciones.NegativePriceMerchandiseException;
 import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;
 import com.example.demo.model.excepciones.NegativeStockMerchandiseException;
-import com.example.demo.serializers.DiscountJsonSerializer;
 import com.example.demo.serializers.MerchandiseJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-import java.time.LocalDate;
-import java.util.function.BooleanSupplier;
 
 @JsonSerialize(using = MerchandiseJsonSerializer.class)
 public class Merchandise {
@@ -19,15 +16,16 @@ public class Merchandise {
     private String merchandiseBrand;
     private Double merchandisePrice;
     private Integer merchandiseStock;
-    private Discount discountToApply;
+    private DiscountType discountToApply;
 
-    public Merchandise(String aName, String aBrand, Double aPrice, Integer aStock) {
+    public Merchandise(String aName, String aBrand, Double aPrice, Integer aStock, DiscountType discount) {
         if(aStock < 0) { throw new NegativeStockMerchandiseException();}
         if(aPrice < 0) { throw new NegativePriceMerchandiseException();}
         merchandiseName = aName;
         merchandiseBrand = aBrand;
         merchandisePrice = aPrice;
         merchandiseStock = aStock;
+        discountToApply = discount;
     }
 
     public String name() {
@@ -73,7 +71,4 @@ public class Merchandise {
         this.discountToApply = discount;
     }
 
-    public Discount discountToApply() {
-        return this.discountToApply;
-    }
 }

@@ -4,6 +4,7 @@ import com.example.demo.builders.ComercioBuilder;
 import com.example.demo.builders.DiscountBuilder;
 import com.example.demo.builders.MerchandiseBuilder;
 import com.example.demo.model.Discount;
+import com.example.demo.model.DiscountType;
 import com.example.demo.model.excepciones.NotFoundStoreException;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.services.StoreService;
@@ -63,7 +64,8 @@ public class StoreControllerTest {
     @Test
     public void gettingStoreProductsListFromExistingStoreReturnsTheListOfProducts() throws Exception{
         Comercio store = ComercioBuilder.unComercio().conNombre("Coto").build();
-        store.addMerchandise("Pan", "Bimbo", 34.6, 12);
+        DiscountType noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
+        store.addMerchandise("Pan", "Bimbo", 34.6, 12, noDiscount);
         when(storeServiceMock.getProductsFromStore(any())).thenReturn(store.listOfAvailableMerchandise());
 
         mockMvc.perform(get("/stores/Coto/products"))
@@ -73,7 +75,8 @@ public class StoreControllerTest {
     @Test
     public void gettingStoreProductsListFromNonExistingStoreReturns404() throws Exception{
         Comercio store = ComercioBuilder.unComercio().conNombre("Coto").build();
-        store.addMerchandise("Pan", "Bimbo", 34.6, 12);
+        DiscountType noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
+        store.addMerchandise("Pan", "Bimbo", 34.6, 12, noDiscount);
         when(storeServiceMock.getProductsFromStore(any())).thenThrow((new NotFoundStoreException()));
 
         mockMvc.perform(get("/stores/Nonexistingstore/products"))
@@ -88,7 +91,7 @@ public class StoreControllerTest {
         mockMvc.perform(get("/stores/discounts"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0]percentOfDiscount", is(allDiscount.get(0).percentOfDiscount())));
+                .andExpect(jsonPath("$[0]discountToApply", is(allDiscount.get(0).percentOfDiscount())));
         //VER DE TESTEAR LA FECHA DE VIGENCIA
     }
 }
