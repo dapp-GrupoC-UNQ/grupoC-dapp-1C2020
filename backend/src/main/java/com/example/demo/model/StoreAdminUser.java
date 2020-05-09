@@ -2,14 +2,14 @@ package com.example.demo.model;
 
 public class StoreAdminUser extends User {
 
-    private Comercio store;
+    private Store store;
 
-    public StoreAdminUser(String username, String password, Comercio store) {
+    public StoreAdminUser(String username, String password, Store store) {
         super(username, password);
         this.store = store;
     }
 
-    public Comercio store() {
+    public Store store() {
         return this.store;
     }
 

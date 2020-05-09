@@ -1,16 +1,16 @@
 package com.example.demo.repositories;
 
-import com.example.demo.model.Comercio;
+import com.example.demo.model.Store;
 import com.example.demo.model.merchandise.Merchandise;
 
 import java.util.List;
 
 public interface IStoreRepository {
-    List<Comercio> getStores();
-    List<Comercio> getStoresWithACategory(String category);
-    List<Merchandise> getProductsFrom(Comercio store);
+    List<Store> getStores();
+    List<Store> getStoresWithACategory(String category);
+    List<Merchandise> getProductsFrom(Store store);
 
-    Comercio getStore(String storeName);
+    Store getStore(String storeName);
 
     List<Merchandise> getDiscountFromAllStores();
 }

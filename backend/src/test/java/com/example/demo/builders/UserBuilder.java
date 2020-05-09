@@ -1,6 +1,6 @@
 package com.example.demo.builders;
 
-import com.example.demo.model.Comercio;
+import com.example.demo.model.Store;
 import com.example.demo.model.StoreAdminUser;
 import com.example.demo.model.User;
 
@@ -27,7 +27,7 @@ public class UserBuilder {
         return this;
     }
 
-    public StoreAdminUser adminOfStore(Comercio store) {
+    public StoreAdminUser adminOfStore(Store store) {
         return new StoreAdminUser(username, password, store);
     }
 }

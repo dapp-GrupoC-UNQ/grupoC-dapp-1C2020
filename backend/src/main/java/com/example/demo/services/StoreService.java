@@ -2,7 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.repositories.IStoreRepository;
-import com.example.demo.model.Comercio;
+import com.example.demo.model.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +15,12 @@ public class StoreService implements IStoreService {
     private IStoreRepository storeRepository;
 
     @Override
-    public List<Comercio> getStores() {
+    public List<Store> getStores() {
         return storeRepository.getStores();
     }
 
     @Override
-    public List<Comercio> getStoresWithACategory(String category) { return storeRepository.getStoresWithACategory(category);   }
+    public List<Store> getStoresWithACategory(String category) { return storeRepository.getStoresWithACategory(category);   }
 
     @Override
     public List<Merchandise> getProductsFromStore(String storeName) {
@@ -28,7 +28,7 @@ public class StoreService implements IStoreService {
     }
 
     @Override
-    public Comercio getStore(String storeName) {
+    public Store getStore(String storeName) {
         return storeRepository.getStore(storeName);
     }
 

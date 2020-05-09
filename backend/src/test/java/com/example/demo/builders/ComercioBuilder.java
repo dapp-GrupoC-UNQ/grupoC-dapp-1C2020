@@ -1,6 +1,6 @@
 package com.example.demo.builders;
 
-import com.example.demo.model.Comercio;
+import com.example.demo.model.Store;
 import com.example.demo.model.RangoHorarioComercio;
 
 import java.time.DayOfWeek;
@@ -14,9 +14,9 @@ public class ComercioBuilder {
         return new ComercioBuilder();
     }
 
-    public static List<Comercio> storeList() {
-        Comercio store = unComercio().build();
-        Comercio anotherStore = unComercio().conNombre("Coto").conRubro("Almacen").build();
+    public static List<Store> storeList() {
+        Store store = unComercio().build();
+        Store anotherStore = unComercio().conNombre("Coto").conRubro("Almacen").build();
         return Arrays.asList(store, anotherStore);
     }
     private String nombreDeComercio = "Jumbo";
@@ -26,12 +26,12 @@ public class ComercioBuilder {
     private List<String> mediosDePagoDisponibles = Arrays.asList("Efectivo");
     private List<RangoHorarioComercio> horarioDeAtencionComercio = Arrays.asList(new RangoHorarioComercio(DayOfWeek.FRIDAY, LocalTime.of(9,0), LocalTime.of(15, 0)));
 
-    public static List<Comercio> storeWithACategoryList(String category) {
-        return storeList().stream().filter(store -> store.rubro().equals(category)).collect(Collectors.toList());
+    public static List<Store> storeWithACategoryList(String category) {
+        return storeList().stream().filter(store -> store.storeCategory().equals(category)).collect(Collectors.toList());
     }
 
-    public Comercio build() {
-        return new Comercio(nombreDeComercio, rubroDeComercio, domicilioDeComercio, distanciaMaximaDePedidosEnKm, mediosDePagoDisponibles, horarioDeAtencionComercio);
+    public Store build() {
+        return new Store(nombreDeComercio, rubroDeComercio, domicilioDeComercio, distanciaMaximaDePedidosEnKm, mediosDePagoDisponibles, horarioDeAtencionComercio);
     }
 
     public ComercioBuilder conNombre(String unNombre) {
