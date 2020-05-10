@@ -1,7 +1,7 @@
 package com.example.demo.model.merchandise;
 
-import com.example.demo.model.NoDescount;
-import com.example.demo.model.Discount;
+import com.example.demo.model.discounts.NoDescount;
+import com.example.demo.model.discounts.Discount;
 import com.example.demo.model.excepciones.InvalidStockTypeException;
 import com.example.demo.model.excepciones.NegativePriceMerchandiseException;
 import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;

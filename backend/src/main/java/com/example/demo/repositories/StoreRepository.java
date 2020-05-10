@@ -1,6 +1,9 @@
 package com.example.demo.repositories;
 
 import com.example.demo.model.*;
+import com.example.demo.model.discounts.Discount;
+import com.example.demo.model.discounts.MerchandiseDiscount;
+import com.example.demo.model.discounts.NoDescount;
 import com.example.demo.model.excepciones.NotFoundStoreException;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.merchandise.MerchandiseCategory;
@@ -49,8 +52,8 @@ public class StoreRepository implements IStoreRepository{
 
     @Override
     public List<Merchandise> getDiscountFromAllStores() {
-        Discount discount = new PercentageDiscount(20, LocalDate.of(2020,5,5), LocalDate.of(2020,5,10));
         Merchandise merchandise = new Merchandise("Nesquick", "Nestle", 30.3, 24, MerchandiseCategory.GROCERY);
+        Discount discount = new MerchandiseDiscount(merchandise,20, LocalDate.of(2020,5,5), LocalDate.of(2020,5,10));
         return Arrays.asList(merchandise);
         //TODO: VER QUE EL DESCUENTO SE AGREGA DESDE LA TIENDA.
     }

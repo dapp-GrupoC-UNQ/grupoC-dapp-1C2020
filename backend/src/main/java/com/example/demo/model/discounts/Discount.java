@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.model.discounts;
 
 import java.time.LocalDate;
 
@@ -7,10 +7,6 @@ public interface Discount {
     public Boolean hasADiscount();
 
     public Integer percentOfDiscount();
-
-    public LocalDate startDate();
-
-    public LocalDate endDate();
 
     public Boolean isAvailableIn(LocalDate date);
 

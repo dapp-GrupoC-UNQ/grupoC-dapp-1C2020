@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.example.demo.model.discounts.Discount;
+import com.example.demo.model.discounts.MerchandiseDiscount;
 import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.merchandise.MerchandiseCategory;
@@ -24,7 +26,7 @@ public class Store {
     Integer deliveryDistanceInKm;
     List<String> availablePaymentMethods;
     List<RangoHorarioComercio> storeTimeSchedule;
-    List<PercentageDiscount> percentageDiscountList = new ArrayList<>();
+    List<Discount> discountList = new ArrayList<>();
     List<Merchandise> merchandiseList = new ArrayList<>();
 
     public Store(String name, String category, String address, Integer distanceInKm, List<String> paymentMethods, List<RangoHorarioComercio> timeSchedule) {
@@ -116,18 +118,18 @@ public class Store {
         return this.merchandiseList.stream().filter(merchandise -> merchandise.stock() > 0).collect(Collectors.toList());
     }
 
-    public void addDiscount(PercentageDiscount percentageDiscount) {
-        this.percentageDiscountList.add(percentageDiscount);
+    public void addDiscount(MerchandiseDiscount merchandiseDiscount) {
+        this.discountList.add(merchandiseDiscount);
     }
 
-    public Boolean hasADiscount(PercentageDiscount percentageDiscount) {
-        return this.percentageDiscountList.contains(percentageDiscount);
+    public Boolean hasADiscount(MerchandiseDiscount merchandiseDiscount) {
+        return this.discountList.contains(merchandiseDiscount);
     }
 
-    public List<PercentageDiscount> listOfAvailableDiscount() {
-        return this.percentageDiscountList;
+   /* public List<MerchandiseDiscount> listOfAvailableDiscount() {
+        return this.discountList;
     }
-
+*/
     public AdquiredProduct getProduct(String productName, String productBrand, Integer quantity) {
         Merchandise merchandise = this.findMerchandise(productName, productBrand);
         if (this.stockOf(productName, productBrand) < quantity){
@@ -145,7 +147,7 @@ public class Store {
         return this.findMerchandise(productName, productBrand);
     }
 
-    public void addDiscountFor(String productName, String brand, Integer percentageToDiscount, LocalDate startDate, LocalDate endDate) {
-        this.findMerchandise(productName, brand).setADiscount(new PercentageDiscount(percentageToDiscount, startDate, endDate));
-    }
+ /*   public void addDiscountFor(String productName, String brand, Integer percentageToDiscount, LocalDate startDate, LocalDate endDate) {
+        this.findMerchandise(productName, brand).setADiscount(new MerchandiseDiscount(percentageToDiscount, startDate, endDate));
+    }*/
 }

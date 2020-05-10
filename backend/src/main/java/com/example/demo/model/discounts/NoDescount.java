@@ -1,4 +1,6 @@
-package com.example.demo.model;
+package com.example.demo.model.discounts;
+
+import com.example.demo.model.discounts.Discount;
 
 import java.time.LocalDate;
 
@@ -11,16 +13,6 @@ public class NoDescount implements Discount {
     @Override
     public Integer percentOfDiscount() {
         return 0;
-    }
-
-    @Override
-    public LocalDate startDate() {
-        return null; // VER
-    }
-
-    @Override
-    public LocalDate endDate() {
-        return null; //VER
     }
 
     @Override
