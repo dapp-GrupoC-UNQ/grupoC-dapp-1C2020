@@ -3,6 +3,7 @@ package com.example.demo.services;
 import com.example.demo.builders.ComercioBuilder;
 import com.example.demo.builders.DiscountBuilder;
 import com.example.demo.model.Discount;
+import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.repositories.StoreRepository;
 import com.example.demo.model.Store;
 import org.junit.Test;
@@ -46,7 +47,7 @@ public class StoreServiceTest {
     public void gettingStoreProductsList() {
         Store store = ComercioBuilder.unComercio().build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
-        store.addMerchandise("Nesquick", "Nestle", 20.4, 30);
+        store.addMerchandise("Nesquick", "Nestle", 20.4, 30, MerchandiseCategory.GROCERY);
         when(storeRepositoryMock.getStore(any())).thenReturn(store);
 
         assertEquals(storeService.getProductsFromStore(store.name()), store.listOfAvailableMerchandise());

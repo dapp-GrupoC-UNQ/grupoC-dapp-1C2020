@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;
 import com.example.demo.model.merchandise.Merchandise;
+import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.serializers.StoreJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.example.demo.model.excepciones.NotFoundProductInStore;
@@ -82,9 +83,9 @@ public class Store {
         return !merchandiseList.isEmpty();
     }
 
-    public void addMerchandise(String name, String brand, Double price, Integer stock) {
+    public void addMerchandise(String name, String brand, Double price, Integer stock, MerchandiseCategory aCategory) {
         if(this.sellsProduct(name, brand)) { throw new RepeatedMerchandiseInStore();}
-        merchandiseList.add(new Merchandise(name, brand, price, stock));
+        merchandiseList.add(new Merchandise(name, brand, price, stock, aCategory));
     }
 
     public Boolean sellsMerchandise(String name, String brand) {

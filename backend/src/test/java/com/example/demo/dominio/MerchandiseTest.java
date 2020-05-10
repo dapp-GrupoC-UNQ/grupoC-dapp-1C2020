@@ -8,6 +8,7 @@ import com.example.demo.model.excepciones.NegativePriceMerchandiseException;
 import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;
 import com.example.demo.model.excepciones.NegativeStockMerchandiseException;
 import com.example.demo.model.merchandise.Merchandise;
+import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.junit.Test;
 
 import static org.junit.Assert.assertThrows;
@@ -25,6 +26,12 @@ public class MerchandiseTest {
     public void aMerchandiseHasABrand() {
         Merchandise merchandise = MerchandiseBuilder.aMerchandise().withBrand("Bimbo").build();
         assertEquals("Bimbo", merchandise.brand());
+    }
+
+    @Test
+    public void aMerchandiseHasACategory(){
+        Merchandise merchandise = MerchandiseBuilder.aMerchandise().withCategory(MerchandiseCategory.GROCERY).build();
+        assertEquals(MerchandiseCategory.GROCERY, merchandise.getCategory());
     }
 
     @Test

@@ -6,6 +6,7 @@ import com.example.demo.builders.MerchandiseBuilder;
 import com.example.demo.model.Discount;
 import com.example.demo.model.excepciones.NotFoundStoreException;
 import com.example.demo.model.merchandise.Merchandise;
+import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.services.StoreService;
 import com.example.demo.model.Store;
 import org.junit.Test;
@@ -64,7 +65,7 @@ public class StoreControllerTest {
     public void gettingStoreProductsListFromExistingStoreReturnsTheListOfProducts() throws Exception{
         Store store = ComercioBuilder.unComercio().conNombre("Coto").build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
-        store.addMerchandise("Pan", "Bimbo", 34.6, 12);
+        store.addMerchandise("Pan", "Bimbo", 34.6, 12, MerchandiseCategory.BAKERY);
         when(storeServiceMock.getProductsFromStore(any())).thenReturn(store.listOfAvailableMerchandise());
 
         mockMvc.perform(get("/stores/Coto/products"))
@@ -75,7 +76,7 @@ public class StoreControllerTest {
     public void gettingStoreProductsListFromNonExistingStoreReturns404() throws Exception{
         Store store = ComercioBuilder.unComercio().conNombre("Coto").build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
-        store.addMerchandise("Pan", "Bimbo", 34.6, 12);
+        store.addMerchandise("Pan", "Bimbo", 34.6, 12, MerchandiseCategory.BAKERY);
         when(storeServiceMock.getProductsFromStore(any())).thenThrow((new NotFoundStoreException()));
 
         mockMvc.perform(get("/stores/Nonexistingstore/products"))

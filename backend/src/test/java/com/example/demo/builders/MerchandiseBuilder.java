@@ -3,6 +3,7 @@ package com.example.demo.builders;
 import com.example.demo.model.Discount;
 import com.example.demo.model.NoDescount;
 import com.example.demo.model.merchandise.Merchandise;
+import com.example.demo.model.merchandise.MerchandiseCategory;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,13 +15,14 @@ public class MerchandiseBuilder {
     private Integer merchandiseStock = 9;
     private Double merchandisePrice = 65.0;
     private Discount discount = new NoDescount();
+    private MerchandiseCategory category = MerchandiseCategory.NON_CLASSIFIED_PRODUCT;
 
     public static MerchandiseBuilder aMerchandise() {
         return new MerchandiseBuilder();
     }
 
     public Merchandise build() {
-        return new Merchandise(merchandiseName, merchandiseBrand, merchandisePrice, merchandiseStock);
+        return new Merchandise(merchandiseName, merchandiseBrand, merchandisePrice, merchandiseStock, category);
     }
 
     public static List<Merchandise> discountList() {
@@ -51,6 +53,11 @@ public class MerchandiseBuilder {
 
     public MerchandiseBuilder withDiscount(Discount aDiscount) {
         discount = aDiscount;
+        return this;
+    }
+
+    public MerchandiseBuilder withCategory(MerchandiseCategory aCategory) {
+        category = aCategory;
         return this;
     }
 }

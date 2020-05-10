@@ -2,6 +2,7 @@ package com.example.demo.builders;
 
 import com.example.demo.model.Store;
 import com.example.demo.model.RangoHorarioComercio;
+import com.example.demo.model.merchandise.MerchandiseCategory;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -64,9 +65,9 @@ public class ComercioBuilder {
         return this;
     }
 
-    public static Store withMerchandise(String productName, String productBrand, Double price, Integer stock) {
+    public static Store withMerchandise(String productName, String productBrand, Double price, Integer stock, MerchandiseCategory aCategory) {
         Store store = unComercio().build();
-        store.addMerchandise(productName, productBrand, price, stock);
+        store.addMerchandise(productName, productBrand, price, stock, aCategory);
         return store;
     }
 }

@@ -7,6 +7,7 @@ import com.example.demo.model.*;
 import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;
 import com.example.demo.model.excepciones.NotFoundProductInStore;
 import com.example.demo.model.excepciones.OptionNotAvailableForThisDeliveryType;
+import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
@@ -52,7 +53,7 @@ public class PurchaseTest {
     @Test
     public void isNotPossibleToAddAProductIfTheStoreCannotSatisfyTheStock(){
         Store storeWithProducts = ComercioBuilder.unComercio().build();
-        storeWithProducts.addMerchandise("Mayonesa", "Hellmans", 15.8, 1);
+        storeWithProducts.addMerchandise("Mayonesa", "Hellmans", 15.8, 1, MerchandiseCategory.GROCERY);
         Purchase purchase = PurchaseBuilder.aPurchase().withStore(storeWithProducts).build();
         assertThrows(InsufficientMerchandiseStockException.class, () -> { purchase.addProduct("Mayonesa", "Hellmans", 3); });
     }
@@ -90,7 +91,7 @@ public class PurchaseTest {
 
     @Test
     public void aPurchaseWithAHigherPriceThanTheUserMoneyThresholdBreaksTheLimit() {
-        Store store = ComercioBuilder.withMerchandise("Mayonesa", "Hellmans", 15.0, 400);
+        Store store = ComercioBuilder.withMerchandise("Mayonesa", "Hellmans", 15.0, 400, MerchandiseCategory.GROCERY);
         User userWithMoneyThreshold = UserBuilder.user().withMoneyThreshold(20.0);
         Purchase purchase = PurchaseBuilder.aPurchase().withUser(userWithMoneyThreshold).withProductOfStore("Mayonesa", "Hellmans", 10, store);
         assertTrue(purchase.breaksMoneyThreshold());
@@ -98,7 +99,7 @@ public class PurchaseTest {
 
     @Test
     public void aPurchaseWithALowerPriceThanTheUserMoneyThresholdDoesNotBreakTheLimit() {
-        Store store = ComercioBuilder.withMerchandise("Mayonesa", "Hellmans", 15.0, 400);
+        Store store = ComercioBuilder.withMerchandise("Mayonesa", "Hellmans", 15.0, 400, MerchandiseCategory.GROCERY);
         User userWithMoneyThreshold = UserBuilder.user().withMoneyThreshold(20000.0);
         Purchase purchase = PurchaseBuilder.aPurchase().withUser(userWithMoneyThreshold).withProductOfStore("Mayonesa", "Hellmans", 10, store);
         assertFalse(purchase.breaksMoneyThreshold());

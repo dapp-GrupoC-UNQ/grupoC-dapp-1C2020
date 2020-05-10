@@ -3,6 +3,7 @@ package com.example.demo.repositories;
 import com.example.demo.model.*;
 import com.example.demo.model.excepciones.NotFoundStoreException;
 import com.example.demo.model.merchandise.Merchandise;
+import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.springframework.stereotype.Repository;
 
 import java.time.DayOfWeek;
@@ -22,10 +23,10 @@ public class StoreRepository implements IStoreRepository{
         Store store1 = new Store("Lo de tito", "Limpieza", "Alsina 123", 4, Arrays.asList("Efectivo"), Arrays.asList(rangoHorario) );
         Store store2 = new Store("Coto", "Almacen", "Alsina 123", 4, Arrays.asList("Efectivo"), Arrays.asList(rangoHorario) );
         Store store3 = new Store("Jumbo", "Almacen", "Alsina 123", 4, Arrays.asList("Efectivo"), Arrays.asList(rangoHorario) );
-        store1.addMerchandise("Fideos", "Marolio", 24.3, 45);
-        store2.addMerchandise("Nesquick", "Nestle", 30.3, 24);
-        store2.addMerchandise("Sobre Jugo Naranja", "Tang", 10.3, 24);
-        store2.addMerchandise("Leche descremada", "Ilolay", 30.3, 24);
+        store1.addMerchandise("Fideos", "Marolio", 24.3, 45, MerchandiseCategory.GROCERY);
+        store2.addMerchandise("Nesquick", "Nestle", 30.3, 24, MerchandiseCategory.GROCERY);
+        store2.addMerchandise("Sobre Jugo Naranja", "Tang", 10.3, 24, MerchandiseCategory.GROCERY);
+        store2.addMerchandise("Leche descremada", "Ilolay", 30.3, 24, MerchandiseCategory.DAIRY_PRODUCTS);
         return Arrays.asList(store1,store2, store3);
     }
     @Override
@@ -49,7 +50,7 @@ public class StoreRepository implements IStoreRepository{
     @Override
     public List<Merchandise> getDiscountFromAllStores() {
         Discount discount = new PercentageDiscount(20, LocalDate.of(2020,5,5), LocalDate.of(2020,5,10));
-        Merchandise merchandise = new Merchandise("Nesquick", "Nestle", 30.3, 24);
+        Merchandise merchandise = new Merchandise("Nesquick", "Nestle", 30.3, 24, MerchandiseCategory.GROCERY);
         return Arrays.asList(merchandise);
         //TODO: VER QUE EL DESCUENTO SE AGREGA DESDE LA TIENDA.
     }
