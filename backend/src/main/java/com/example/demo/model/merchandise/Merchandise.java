@@ -51,11 +51,7 @@ public class Merchandise {
     }
 
     public Double price() {
-        if(hasADiscount()){
-            Double newPrice = merchandisePrice - (merchandisePrice * this.percentOfDiscount() / 100); //ESTA CUENTA ES UN ASCO
-            this.updatePrice(newPrice);
-        }
-        return this.merchandisePrice;
+        return this.merchandisePrice - (this.merchandisePrice * this.percentOfDiscount() / 100);
     }
 
     public void addStock(Integer stockToAdd) {

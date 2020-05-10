@@ -8,6 +8,7 @@ import com.example.demo.model.excepciones.NotFoundProductInStore;
 import com.example.demo.model.excepciones.RepeatedMerchandiseInStore;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -141,5 +142,9 @@ public class Store {
 
     public Merchandise getMerchandise(String productName, String productBrand) {
         return this.findMerchandise(productName, productBrand);
+    }
+
+    public void addDiscountFor(String productName, String brand, Integer percentageToDiscount, LocalDate startDate, LocalDate endDate) {
+        this.findMerchandise(productName, brand).setADiscount(new PercentageDiscount(percentageToDiscount, startDate, endDate));
     }
 }

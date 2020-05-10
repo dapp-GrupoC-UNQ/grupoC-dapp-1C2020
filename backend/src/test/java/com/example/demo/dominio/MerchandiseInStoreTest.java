@@ -120,4 +120,30 @@ public class MerchandiseInStoreTest {
         Store store = ComercioBuilder.unComercio().build();
         assertThrows(NotFoundProductInStore.class, () -> store.decreaseStock("Fideos", "Marolio", 10));
     }
+
+    @Test
+    public void aMerchandiseInStoreOriginallyDoesNotHaveADiscount() {
+        Store store = ComercioBuilder.unComercio().build();
+        Double originalPrice = 10.0;
+        store.addMerchandise("Mayonesa", "Hellmans", originalPrice, 100);
+        assertEquals(store.priceOf("Mayonesa", "Hellmans"), originalPrice);
+    }
+
+    @Test
+    public void aMerchandiseThatHasADiscountAndItsValidHasItsPriceDecreased() {
+        Store store = ComercioBuilder.unComercio().build();
+        Double originalPrice = 10.0;
+        store.addMerchandise("Mayonesa", "Hellmans", originalPrice, 100);
+        store.addDiscountFor("Mayonesa", "Hellmans", 20, LocalDate.now().minusDays(1), LocalDate.now().plusDays(1));
+        assertEquals(store.priceOf("Mayonesa", "Hellmans"), originalPrice - (originalPrice * 20 / 100));
+    }
+
+    @Test
+    public void aMerchandiseThatHasADiscountButItsExpiredDoesNotHaveItsPriceDecreased() {
+        Store store = ComercioBuilder.unComercio().build();
+        Double originalPrice = 10.0;
+        store.addMerchandise("Mayonesa", "Hellmans", originalPrice, 100);
+        store.addDiscountFor("Mayonesa", "Hellmans", 20, LocalDate.now().minusDays(10), LocalDate.now().minusDays(5));
+        assertEquals(store.priceOf("Mayonesa", "Hellmans"), originalPrice);
+    }
 }

@@ -28,22 +28,6 @@ public class MerchandiseTest {
     }
 
     @Test
-    public void aMerchandiseHasADiscount(){
-        Discount discount = DiscountBuilder.aDiscount().withPercentOfDiscount(20).build();
-        Merchandise merchandise = MerchandiseBuilder.aMerchandise().build();
-        merchandise.setADiscount(discount); // ver porque se debe setear desde el comercio
-        assertTrue(merchandise.hasADiscount());
-        assertEquals(20, merchandise.percentOfDiscount());
-    }
-
-    @Test
-    public void aMerchandiseHasNotADiscount(){
-        Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
-        Merchandise merchandise = MerchandiseBuilder.aMerchandise().withDiscount(noDiscount).build();
-        assertFalse(merchandise.hasADiscount());
-    }
-
-    @Test
     public void aMerchandiseCannotHaveNegativeStock() {
         assertThrows(NegativeStockMerchandiseException.class,
                 () -> MerchandiseBuilder.aMerchandise().withStock(-4).build());
