@@ -12,7 +12,7 @@ public class UserTest {
     @Test
     public void clientKnowsItsUsername(){
         User pepe = UserBuilder.user().withUsername("pepe1234").build();
-        assertEquals(pepe.username(), "pepe1234");
+        assertEquals(pepe.username(), "pepe12834");
     }
 
     @Test
