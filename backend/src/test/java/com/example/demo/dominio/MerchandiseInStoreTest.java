@@ -8,6 +8,7 @@ import com.example.demo.model.Discount;
 import com.example.demo.model.excepciones.NotFoundProductInStore;
 import com.example.demo.model.excepciones.RepeatedMerchandiseInStore;
 import com.example.demo.model.merchandise.Merchandise;
+import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -26,7 +27,7 @@ public class MerchandiseInStoreTest {
     @Test
     public void whenAStoreAddsANewMerchandiseItNowBelongsToTheStore() {
         Store store = ComercioBuilder.unComercio().build();
-        store.addMerchandise("Fideos", "Marolio", 34.45, 23);
+        store.addMerchandise("Fideos", "Marolio", 34.45, 23, MerchandiseCategory.GROCERY);
         assertTrue(store.sellsMerchandise("Fideos", "Marolio"));
         assertEquals(store.stockOf("Fideos", "Marolio"), 23);
     }
@@ -34,7 +35,7 @@ public class MerchandiseInStoreTest {
     @Test
     public void aStoreKnowsThePriceOfAProductItSells() {
         Store store = ComercioBuilder.unComercio().build();
-        store.addMerchandise("Fideos", "Marolio", 34.45, 23);
+        store.addMerchandise("Fideos", "Marolio", 34.45, 23, MerchandiseCategory.GROCERY);
         assertEquals(store.priceOf("Fideos", "Marolio"), 34.45);
     }
 
@@ -47,7 +48,7 @@ public class MerchandiseInStoreTest {
     @Test
     public void aStoreKnowsTheStockOfAProductItSells() {
         Store store = ComercioBuilder.unComercio().build();
-        store.addMerchandise("Fideos", "Marolio", 34.45, 23);
+        store.addMerchandise("Fideos", "Marolio", 34.45, 23, MerchandiseCategory.GROCERY);
         assertEquals(store.stockOf("Fideos", "Marolio"), 23);
     }
 
@@ -62,14 +63,14 @@ public class MerchandiseInStoreTest {
     public void aStoreCannotAddTheSameProductTwice() {
         //por mismo producto se entiende mismo nombre y marca
         Store store = ComercioBuilder.unComercio().build();
-        store.addMerchandise("Fideos", "Marolio", 34.45, 23);
-        assertThrows(RepeatedMerchandiseInStore.class, () -> store.addMerchandise("Fideos", "Marolio", 34.45, 23));
+        store.addMerchandise("Fideos", "Marolio", 34.45, 23, MerchandiseCategory.GROCERY);
+        assertThrows(RepeatedMerchandiseInStore.class, () -> store.addMerchandise("Fideos", "Marolio", 34.45, 23, MerchandiseCategory.GROCERY));
     }
 
     @Test
     public void aStoreCanUpdateThePriceOfAnExistingProduct() {
         Store store = ComercioBuilder.unComercio().build();
-        store.addMerchandise("Fideos", "Marolio", 34.45, 23);
+        store.addMerchandise("Fideos", "Marolio", 34.45, 23, MerchandiseCategory.GROCERY);
         store.updatePriceFor("Fideos", "Marolio", 36.45);
         assertEquals(store.priceOf("Fideos", "Marolio"), 36.45);
     }
@@ -83,7 +84,7 @@ public class MerchandiseInStoreTest {
     @Test
     public void aStoreCanAddStockForAnExistingProduct() {
         Store store = ComercioBuilder.unComercio().build();
-        store.addMerchandise("Fideos", "Marolio", 34.45, 23);
+        store.addMerchandise("Fideos", "Marolio", 34.45, 23, MerchandiseCategory.GROCERY);
         store.addStock("Fideos", "Marolio", 20);
         assertEquals(store.stockOf("Fideos", "Marolio"), 43);
     }
@@ -98,7 +99,7 @@ public class MerchandiseInStoreTest {
     public void aStoreApplyADiscountToAProduct(){
         Store store = ComercioBuilder.unComercio().build();
         PercentageDiscount discount = new PercentageDiscount(50, LocalDate.of(2020,5,1), LocalDate.of(2020, 5, 20));
-        store.addMerchandise("Mayonesa", "Hellmans", 20.0, 200);
+        store.addMerchandise("Mayonesa", "Hellmans", 20.0, 200, MerchandiseCategory.GROCERY);
         Merchandise merchandise = store.getMerchandise("Mayonesa", "Hellmans");
         store.applyDiscountOn(merchandise, discount);
         assertTrue(merchandise.hasADiscount());
@@ -110,7 +111,7 @@ public class MerchandiseInStoreTest {
     public void unComercioPuedeDecrementarStockParaUnProductoExistente() {
         Store store = ComercioBuilder.unComercio().build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
-        store.addMerchandise("Fideos", "Marolio", 34.45, 23);
+        store.addMerchandise("Fideos", "Marolio", 34.45, 23, MerchandiseCategory.GROCERY);
         store.decreaseStock("Fideos", "Marolio", 20);
         assertEquals(store.stockOf("Fideos", "Marolio"), 3);
     }
@@ -125,7 +126,7 @@ public class MerchandiseInStoreTest {
     public void aMerchandiseInStoreOriginallyDoesNotHaveADiscount() {
         Store store = ComercioBuilder.unComercio().build();
         Double originalPrice = 10.0;
-        store.addMerchandise("Mayonesa", "Hellmans", originalPrice, 100);
+        store.addMerchandise("Mayonesa", "Hellmans", originalPrice, 100, MerchandiseCategory.GROCERY);
         assertEquals(store.priceOf("Mayonesa", "Hellmans"), originalPrice);
     }
 
@@ -133,7 +134,7 @@ public class MerchandiseInStoreTest {
     public void aMerchandiseThatHasADiscountAndItsValidHasItsPriceDecreased() {
         Store store = ComercioBuilder.unComercio().build();
         Double originalPrice = 10.0;
-        store.addMerchandise("Mayonesa", "Hellmans", originalPrice, 100);
+        store.addMerchandise("Mayonesa", "Hellmans", originalPrice, 100, MerchandiseCategory.GROCERY);
         store.addDiscountFor("Mayonesa", "Hellmans", 20, LocalDate.now().minusDays(1), LocalDate.now().plusDays(1));
         assertEquals(store.priceOf("Mayonesa", "Hellmans"), originalPrice - (originalPrice * 20 / 100));
     }
@@ -142,7 +143,7 @@ public class MerchandiseInStoreTest {
     public void aMerchandiseThatHasADiscountButItsExpiredDoesNotHaveItsPriceDecreased() {
         Store store = ComercioBuilder.unComercio().build();
         Double originalPrice = 10.0;
-        store.addMerchandise("Mayonesa", "Hellmans", originalPrice, 100);
+        store.addMerchandise("Mayonesa", "Hellmans", originalPrice, 100, MerchandiseCategory.GROCERY);
         store.addDiscountFor("Mayonesa", "Hellmans", 20, LocalDate.now().minusDays(10), LocalDate.now().minusDays(5));
         assertEquals(store.priceOf("Mayonesa", "Hellmans"), originalPrice);
     }
