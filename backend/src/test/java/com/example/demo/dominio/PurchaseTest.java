@@ -87,5 +87,4 @@ public class PurchaseTest {
         Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(delivery).build();
         assertThrows(OptionNotAvailableForThisDeliveryType.class, purchase::pickUpDate);
     }
-
 }
