@@ -10,10 +10,10 @@ public class PurchaseBuilder {
     private String paymentMethod = "Credit Card";
     private DeliveryType deliveryType = new HomeDelivery("Alsina 899");
     private Store purchaseStore = ComercioBuilder.unComercio().build();
-    private User userName = UserBuilder.user().build();
+    private User user = UserBuilder.user().build();
 
     public Purchase build(){
-        return new Purchase(paymentMethod, deliveryType, purchaseStore, userName);
+        return new Purchase(paymentMethod, deliveryType, purchaseStore, user);
     }
 
     public PurchaseBuilder withPaymentMethod(String payment) {
@@ -37,12 +37,13 @@ public class PurchaseBuilder {
     }
 
     public PurchaseBuilder withUser(User aUser) {
-        userName = aUser;
+        user = aUser;
         return this;
     }
 
-    public Purchase withProductOfStore(String producName, String productBrand, Integer quantity, Store store) {
-        Purchase purchase = aPurchase().withStore(store).build();
+    public Purchase withProductOfStore(String producName, String productBrand, Integer quantity, Store aStore) {
+        purchaseStore = aStore;
+        Purchase purchase = build();
         purchase.addProduct(producName, productBrand, quantity);
         return purchase;
     }

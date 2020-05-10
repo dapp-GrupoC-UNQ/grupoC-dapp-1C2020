@@ -8,9 +8,9 @@ import java.time.LocalDate;
 
 public class DiscountBuilder {
 
-    private Integer percentOfDiscount;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private Integer percentOfDiscount = 10;
+    private LocalDate startDate = LocalDate.now().minusDays(1);
+    private LocalDate endDate = LocalDate.now().plusDays(1);
 
     public static DiscountBuilder aDiscount() { return new DiscountBuilder(); }
 

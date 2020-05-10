@@ -34,7 +34,7 @@ public class UserBuilder {
 
     public User withMoneyThreshold(Double moneyLimit) {
         User user = new User(username, password);
-        user.setMoneyThreshold(new MoneyThreshold(moneyLimit));
+        user.updateMoneyThreshold(moneyLimit);
         return user;
     }
 }

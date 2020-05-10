@@ -48,4 +48,8 @@ public class Purchase {
     public void addProduct(String productName, String productBrand, Integer quantity) {
         this.productList.add(this.store().getProduct(productName, productBrand, quantity));
     }
+
+    public Boolean breaksMoneyThreshold() {
+        return this.user().moneyThreshold().breaksTheLimit(this);
+    }
 }

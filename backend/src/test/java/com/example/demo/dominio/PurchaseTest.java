@@ -87,4 +87,20 @@ public class PurchaseTest {
         Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(delivery).build();
         assertThrows(OptionNotAvailableForThisDeliveryType.class, purchase::pickUpDate);
     }
+
+    @Test
+    public void aPurchaseWithAHigherPriceThanTheUserMoneyThresholdBreaksTheLimit() {
+        Store store = ComercioBuilder.withMerchandise("Mayonesa", "Hellmans", 15.0, 400);
+        User userWithMoneyThreshold = UserBuilder.user().withMoneyThreshold(20.0);
+        Purchase purchase = PurchaseBuilder.aPurchase().withUser(userWithMoneyThreshold).withProductOfStore("Mayonesa", "Hellmans", 10, store);
+        assertTrue(purchase.breaksMoneyThreshold());
+    }
+
+    @Test
+    public void aPurchaseWithALowerPriceThanTheUserMoneyThresholdDoesNotBreakTheLimit() {
+        Store store = ComercioBuilder.withMerchandise("Mayonesa", "Hellmans", 15.0, 400);
+        User userWithMoneyThreshold = UserBuilder.user().withMoneyThreshold(20000.0);
+        Purchase purchase = PurchaseBuilder.aPurchase().withUser(userWithMoneyThreshold).withProductOfStore("Mayonesa", "Hellmans", 10, store);
+        assertTrue(purchase.breaksMoneyThreshold());
+    }
 }

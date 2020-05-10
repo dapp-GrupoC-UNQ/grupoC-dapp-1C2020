@@ -42,6 +42,10 @@ public class User {
         this.moneyThresold.updateMoneyLimit(newMoneyLimit);
     }
 
+    public MoneyThreshold moneyThreshold() {
+        return this.moneyThresold;
+    }
+
     public Double moneyThresholdLimit() {
         return this.moneyThresold.moneyLimit();
     }
