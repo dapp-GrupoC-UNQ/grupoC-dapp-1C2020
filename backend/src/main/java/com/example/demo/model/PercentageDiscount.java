@@ -30,7 +30,12 @@ public class PercentageDiscount implements Discount {
         return startDate.isBefore(date) && endDate.isAfter(date);
     }
 
-    public Integer percentOfDiscount() { return this.percentOfDiscount; }
+    public Integer percentOfDiscount() {
+        if(isAvailableIn(LocalDate.now())){
+            return this.percentOfDiscount;
+        }
+        return 0;
+    }
 
     @Override
     public Boolean hasADiscount() {
