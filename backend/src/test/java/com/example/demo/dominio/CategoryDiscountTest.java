@@ -1,11 +1,7 @@
 package com.example.demo.dominio;
 
 import com.example.demo.builders.CategoryDiscountBuilder;
-import com.example.demo.builders.ComercioBuilder;
-import com.example.demo.builders.DiscountBuilder;
 import com.example.demo.builders.MerchandiseBuilder;
-import com.example.demo.model.AdquiredProduct;
-import com.example.demo.model.Store;
 import com.example.demo.model.discounts.CategoryDiscount;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.merchandise.MerchandiseCategory;
@@ -13,7 +9,7 @@ import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DiscountPerCategoryTest {
+public class CategoryDiscountTest {
 
     @Test
     public void anExpiredDiscountHasAPercentOfDiscountZero(){

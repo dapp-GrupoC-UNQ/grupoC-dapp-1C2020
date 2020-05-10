@@ -1,6 +1,9 @@
 package com.example.demo.model.discounts;
 
+import com.example.demo.model.merchandise.Merchandise;
+
 import java.time.LocalDate;
+import java.util.function.BooleanSupplier;
 
 public abstract class StoreDiscount implements Discount {
 
@@ -37,4 +40,6 @@ public abstract class StoreDiscount implements Discount {
     public Boolean hasADiscount() {
         return true;
     }
+
+    public abstract Boolean canApplyDiscountFor(Merchandise merchandise);
 }
