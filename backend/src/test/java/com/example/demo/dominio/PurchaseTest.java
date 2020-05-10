@@ -23,21 +23,9 @@ public class PurchaseTest {
     }
 
     @Test
-    public void aNewPurchaseTotalIsZero(){
-        Purchase purchase = PurchaseBuilder.aPurchase().build();
-        assertEquals(purchase.total(), 0.0);
-    }
-
-    @Test
     public void aNewPurchaseHasNoProducts() {
         Purchase purchase = PurchaseBuilder.aPurchase().build();
         assertEquals(purchase.productsQuantity(), 0);
-    }
-
-    @Test
-    public void ifAPurchaseHastNotProductsTotalPriceIsZero(){
-        Purchase purchase = PurchaseBuilder.aPurchase().build();
-        assertEquals(0.0, purchase.total());
     }
 
     @Test
@@ -54,17 +42,6 @@ public class PurchaseTest {
         assertEquals(pepe, purchase.user());
     }
 
-    @Test
-    public void aPurchaseTotalIsEqualToTheSumOfAllItsProducts(){
-        Double aPrice = 15.8;
-        Integer aQuantity = 3;
-        Store storeWithProducts = ComercioBuilder.unComercio().build();
-        storeWithProducts.addMerchandise("Mayonesa", "Hellmans", aPrice, aQuantity + 1);
-        Purchase purchase = PurchaseBuilder.aPurchase().withStore(storeWithProducts).build();
-        purchase.addProduct("Mayonesa", "Hellmans", aQuantity);
-        assertEquals(aPrice * aQuantity, purchase.total());
-        assertEquals(aQuantity, purchase.productsQuantity());
-    }
 
     @Test
     public void isNotPossibleToAddAProductThatIsNotAvailableInTheStore(){
