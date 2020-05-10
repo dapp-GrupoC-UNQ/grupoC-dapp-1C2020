@@ -23,10 +23,6 @@ public class Purchase {
         return this.paymentMethod;
     }
 
-    public Double total() {
-            return this.productList.stream().mapToDouble(AdquiredProduct::totalPrice).sum();
-    }
-
     public DeliveryType deliveryType() {
         return this.deliveryType;
     }
@@ -45,7 +41,15 @@ public class Purchase {
 
     public Integer productsQuantity() { return this.productList.stream().mapToInt(AdquiredProduct::quantity).sum();  }
 
+    public List<AdquiredProduct> getListOfAdquiredProducts() {
+        return this.productList;
+    }
+
     public void addProduct(String productName, String productBrand, Integer quantity) {
         this.productList.add(this.store().getProduct(productName, productBrand, quantity));
+    }
+
+    public Boolean breaksMoneyThreshold() {
+        return this.user().moneyThreshold().breaksTheLimit(this);
     }
 }

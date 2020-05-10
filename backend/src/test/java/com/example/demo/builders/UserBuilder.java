@@ -3,6 +3,7 @@ package com.example.demo.builders;
 import com.example.demo.model.Store;
 import com.example.demo.model.StoreAdminUser;
 import com.example.demo.model.User;
+import com.example.demo.model.thresholds.MoneyThreshold;
 
 public class UserBuilder {
 
@@ -29,5 +30,11 @@ public class UserBuilder {
 
     public StoreAdminUser adminOfStore(Store store) {
         return new StoreAdminUser(username, password, store);
+    }
+
+    public User withMoneyThreshold(Double moneyLimit) {
+        User user = new User(username, password);
+        user.updateMoneyThreshold(moneyLimit);
+        return user;
     }
 }
