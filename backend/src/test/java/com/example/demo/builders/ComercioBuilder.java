@@ -63,4 +63,10 @@ public class ComercioBuilder {
         horarioDeAtencionComercio = horarioComercio;
         return this;
     }
+
+    public static Store withMerchandise(String productName, String productBrand, Double price, Integer stock) {
+        Store store = unComercio().build();
+        store.addMerchandise(productName, productBrand, price, stock);
+        return store;
+    }
 }

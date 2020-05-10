@@ -40,4 +40,10 @@ public class PurchaseBuilder {
         userName = aUser;
         return this;
     }
+
+    public Purchase withProductOfStore(String producName, String productBrand, Integer quantity, Store store) {
+        Purchase purchase = aPurchase().withStore(store).build();
+        purchase.addProduct(producName, productBrand, quantity);
+        return purchase;
+    }
 }
