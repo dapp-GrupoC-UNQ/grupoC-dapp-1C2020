@@ -1,5 +1,6 @@
 package com.example.demo.model.merchandise;
 
+import com.example.demo.model.NoDescount;
 import com.example.demo.model.PercentageDiscount;
 import com.example.demo.model.Discount;
 import com.example.demo.model.excepciones.InvalidStockTypeException;
@@ -16,16 +17,15 @@ public class Merchandise {
     private String merchandiseBrand;
     private Double merchandisePrice;
     private Integer merchandiseStock;
-    private Discount discountToApply;
+    private Discount discountToApply = new NoDescount();
 
-    public Merchandise(String aName, String aBrand, Double aPrice, Integer aStock, Discount discount) {
+    public Merchandise(String aName, String aBrand, Double aPrice, Integer aStock) {
         if(aStock < 0) { throw new NegativeStockMerchandiseException();}
         if(aPrice < 0) { throw new NegativePriceMerchandiseException();}
         merchandiseName = aName;
         merchandiseBrand = aBrand;
         merchandisePrice = aPrice;
         merchandiseStock = aStock;
-        discountToApply = discount;
     }
 
     public String name() {
@@ -51,6 +51,10 @@ public class Merchandise {
     }
 
     public Double price() {
+        if(hasADiscount()){
+            Double newPrice = merchandisePrice - (merchandisePrice * this.percentOfDiscount() / 100); //ESTA CUENTA ES UN ASCO
+            this.updatePrice(newPrice);
+        }
         return this.merchandisePrice;
     }
 
@@ -67,8 +71,8 @@ public class Merchandise {
         return this.discountToApply.percentOfDiscount();
     }
 
-    public void setADiscount(PercentageDiscount percentageDiscount) {
-        this.discountToApply = percentageDiscount;
+    public void setADiscount(Discount discount) {
+        this.discountToApply = discount;
     }
 
 }

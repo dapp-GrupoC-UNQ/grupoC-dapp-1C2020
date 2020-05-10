@@ -49,7 +49,8 @@ public class StoreRepository implements IStoreRepository{
     @Override
     public List<Merchandise> getDiscountFromAllStores() {
         Discount discount = new PercentageDiscount(20, LocalDate.of(2020,5,5), LocalDate.of(2020,5,10));
-        Merchandise merchandise = new Merchandise("Nesquick", "Nestle", 30.3, 24, discount);
+        Merchandise merchandise = new Merchandise("Nesquick", "Nestle", 30.3, 24);
         return Arrays.asList(merchandise);
+        //TODO: VER QUE EL DESCUENTO SE AGREGA DESDE LA TIENDA.
     }
 }

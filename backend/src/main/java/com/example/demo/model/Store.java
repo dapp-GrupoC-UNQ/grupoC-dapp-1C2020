@@ -83,7 +83,7 @@ public class Store {
 
     public void addMerchandise(String name, String brand, Double price, Integer stock) {
         if(this.sellsProduct(name, brand)) { throw new RepeatedMerchandiseInStore();}
-        merchandiseList.add(new Merchandise(name, brand, price, stock, new NoDescount()));
+        merchandiseList.add(new Merchandise(name, brand, price, stock));
     }
 
     public Boolean sellsMerchandise(String name, String brand) {
@@ -133,5 +133,13 @@ public class Store {
         }
         this.decreaseStock(productName, productBrand, quantity);
         return new AdquiredProduct(merchandise.name(), merchandise.brand(), merchandise.price(), quantity);
+    }
+
+    public void applyDiscountOn(Merchandise product, Discount discount) {
+        product.setADiscount(discount);
+    }
+
+    public Merchandise getMerchandise(String productName, String productBrand) {
+        return this.findMerchandise(productName, productBrand);
     }
 }
