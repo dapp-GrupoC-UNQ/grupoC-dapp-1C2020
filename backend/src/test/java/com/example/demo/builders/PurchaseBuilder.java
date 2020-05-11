@@ -7,22 +7,11 @@ public class PurchaseBuilder {
         return new PurchaseBuilder();
     }
 
-    private DeliveryType deliveryType = new HomeDelivery("Alsina 899");
     private Store purchaseStore = ComercioBuilder.unComercio().build();
     private User user = UserBuilder.user().build();
 
     public Purchase build(){
-        return new Purchase(deliveryType, purchaseStore, user);
-    }
-
-    public PurchaseBuilder withDeliveryType(DeliveryType delivery) {
-        deliveryType = delivery;
-        return this;
-    }
-
-    public PurchaseBuilder withDeliveryMethod(DeliveryType delivery) {
-        deliveryType = delivery;
-        return this;
+        return new Purchase(purchaseStore, user);
     }
 
     public PurchaseBuilder withStore(Store store) {

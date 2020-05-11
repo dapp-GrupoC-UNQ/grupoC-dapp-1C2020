@@ -53,37 +53,6 @@ public class PurchaseTest {
     }
 
     @Test
-    public void aPurchaseWithAStorePickUpShouldHaveAPickUpDate(){
-        LocalDateTime hora = LocalDateTime.of(2020,4,25,10,0);
-        StorePickUp storePickUp = new StorePickUp(hora);
-        Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(storePickUp).build();
-        assertTrue(purchase.pickUpDate().isEqual(hora));
-    }
-
-
-    @Test
-    public void ifAPurchaseHasHomeDeliveryItShouldHaveAnAdrress(){
-        HomeDelivery delivery = new HomeDelivery("Alsina 123");
-        Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(delivery).build();
-        assertEquals("Alsina 123", purchase.deliveryAddress());
-    }
-
-    @Test
-    public void  aPurchaseWithStorePickUpDoesNotHaveAnAddress(){
-        LocalDateTime hour = LocalDateTime.of(2020,4,25,10,0);
-        StorePickUp storePickUp = new StorePickUp(hour);
-        Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(storePickUp).build();
-        assertThrows(OptionNotAvailableForThisDeliveryType.class, purchase::deliveryAddress);
-    }
-
-    @Test
-    public void aPurchaseWithDeliveryDoesNotHaveAPickUpDate(){
-        HomeDelivery delivery = new HomeDelivery("Alsina 123");
-        Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(delivery).build();
-        assertThrows(OptionNotAvailableForThisDeliveryType.class, purchase::pickUpDate);
-    }
-
-    @Test
     public void aPurchaseWithAHigherPriceThanTheUserMoneyThresholdBreaksTheLimit() {
         Store store = ComercioBuilder.withMerchandise("Mayonesa", "Hellmans", 15.0, 400, MerchandiseCategory.GROCERY);
         User userWithMoneyThreshold = UserBuilder.user().withMoneyThreshold(20.0);

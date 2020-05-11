@@ -8,27 +8,13 @@ import java.util.List;
 
 public class Purchase {
 
-    private DeliveryType deliveryType;
     private Store purchaseStore;
     private User purchaseUser;
     private List<AdquiredProduct> productList = new ArrayList<>();
 
-    public Purchase(DeliveryType delivery, Store store, User name){
-        deliveryType = delivery;
+    public Purchase(Store store, User name){
         purchaseStore = store;
         purchaseUser = name;
-    }
-
-    public DeliveryType deliveryType() {
-        return this.deliveryType;
-    }
-
-    public String deliveryAddress() {
-        return deliveryType.deliveryAddress();
-    }
-
-    public LocalDateTime pickUpDate() {
-        return this.deliveryType.pickUpDate();
     }
 
     public Store store() { return this.purchaseStore; }
