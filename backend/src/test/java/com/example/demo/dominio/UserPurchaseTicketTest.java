@@ -21,7 +21,7 @@ public class UserPurchaseTicketTest {
     public void aUserThatHasMadeAPurchaseHasThePurchaseTicketSaved() {
         User user = UserBuilder.user().build();
         Purchase purchase = PurchaseBuilder.aPurchase().withUser(user).build();
-        purchase.finishPurchase();
+        purchase.finishPurchase("Credit Card");
         assertTrue(user.hasTicketOf(purchase));
     }
 }

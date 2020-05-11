@@ -8,21 +8,15 @@ import java.util.List;
 
 public class Purchase {
 
-    private String paymentMethod;
     private DeliveryType deliveryType;
     private Store purchaseStore;
     private User purchaseUser;
     private List<AdquiredProduct> productList = new ArrayList<>();
 
-    public Purchase(String payment, DeliveryType delivery, Store store, User name){
-        paymentMethod = payment;
+    public Purchase(DeliveryType delivery, Store store, User name){
         deliveryType = delivery;
         purchaseStore = store;
         purchaseUser = name;
-    }
-
-    public String paymentMethod(){
-        return this.paymentMethod;
     }
 
     public DeliveryType deliveryType() {
@@ -55,7 +49,7 @@ public class Purchase {
         return this.user().moneyThreshold().breaksTheLimitWith(this);
     }
 
-    public void finishPurchase() {
-        purchaseUser.addTicketOfPurchase(new Ticket(this));
+    public void finishPurchase(String paymentMethod) {
+        purchaseUser.addTicketOfPurchase(new Ticket(this, paymentMethod));
     }
 }

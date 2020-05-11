@@ -18,12 +18,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PurchaseTest {
 
     @Test
-    public void aPurchaseHasAPaymentMethod(){
-        Purchase purchase = PurchaseBuilder.aPurchase().withPaymentMethod("Efectivo").build();
-        assertEquals("Efectivo", purchase.paymentMethod());
-    }
-
-    @Test
     public void aNewPurchaseHasNoProducts() {
         Purchase purchase = PurchaseBuilder.aPurchase().build();
         assertEquals(purchase.productsQuantity(), 0);
