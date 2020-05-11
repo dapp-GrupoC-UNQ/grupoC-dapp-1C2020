@@ -27,7 +27,7 @@ public abstract class StoreDiscount implements Discount {
     }
 
     public Boolean isAvailableIn(LocalDate date) {
-        return startDate.isBefore(date) && endDate.isAfter(date);
+        return (startDate.isBefore(date) || startDate.isEqual(date)) && (endDate.isAfter(date) || endDate.isEqual(date));
     }
 
     public Integer percentOfDiscount() {

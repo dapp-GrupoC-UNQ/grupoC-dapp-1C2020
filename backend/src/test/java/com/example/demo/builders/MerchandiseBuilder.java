@@ -1,12 +1,9 @@
 package com.example.demo.builders;
 
 import com.example.demo.model.discounts.Discount;
-import com.example.demo.model.discounts.NoDescount;
+import com.example.demo.model.discounts.NoDiscount;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.merchandise.MerchandiseCategory;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class MerchandiseBuilder {
 
@@ -14,7 +11,7 @@ public class MerchandiseBuilder {
     private String merchandiseBrand = "Matarazzo";
     private Integer merchandiseStock = 9;
     private Double merchandisePrice = 65.0;
-    private Discount discount = new NoDescount();
+    private Discount discount = new NoDiscount();
     private MerchandiseCategory category = MerchandiseCategory.NON_CLASSIFIED_PRODUCT;
 
     public static MerchandiseBuilder aMerchandise() {

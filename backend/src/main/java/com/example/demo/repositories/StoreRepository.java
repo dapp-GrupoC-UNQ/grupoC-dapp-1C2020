@@ -3,7 +3,7 @@ package com.example.demo.repositories;
 import com.example.demo.model.*;
 import com.example.demo.model.discounts.Discount;
 import com.example.demo.model.discounts.MerchandiseDiscount;
-import com.example.demo.model.discounts.NoDescount;
+import com.example.demo.model.discounts.NoDiscount;
 import com.example.demo.model.excepciones.NotFoundStoreException;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.merchandise.MerchandiseCategory;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class StoreRepository implements IStoreRepository{
     @Override
     public List<Store> getStores() {
-        Discount noDiscount = new NoDescount();
+        Discount noDiscount = new NoDiscount();
         RangoHorarioComercio rangoHorario = new RangoHorarioComercio(DayOfWeek.FRIDAY, LocalTime.of(9,0), LocalTime.of(15, 0));
         Store store1 = new Store("Lo de tito", "Limpieza", "Alsina 123", 4, Arrays.asList("Efectivo"), Arrays.asList(rangoHorario) );
         Store store2 = new Store("Coto", "Almacen", "Alsina 123", 4, Arrays.asList("Efectivo"), Arrays.asList(rangoHorario) );

@@ -1,10 +1,11 @@
 package com.example.demo.model.discounts;
 
 import com.example.demo.model.discounts.Discount;
+import com.example.demo.model.merchandise.Merchandise;
 
 import java.time.LocalDate;
 
-public class NoDescount implements Discount {
+public class NoDiscount implements Discount {
     @Override
     public Boolean hasADiscount() {
         return false;
@@ -17,6 +18,11 @@ public class NoDescount implements Discount {
 
     @Override
     public Boolean isAvailableIn(LocalDate date) {
+        return false;
+    }
+
+    @Override
+    public Boolean canApplyDiscountFor(Merchandise merchandise) {
         return false;
     }
 }

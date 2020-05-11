@@ -1,6 +1,6 @@
 package com.example.demo.model.merchandise;
 
-import com.example.demo.model.discounts.NoDescount;
+import com.example.demo.model.discounts.NoDiscount;
 import com.example.demo.model.discounts.Discount;
 import com.example.demo.model.excepciones.InvalidStockTypeException;
 import com.example.demo.model.excepciones.NegativePriceMerchandiseException;
@@ -17,7 +17,7 @@ public class Merchandise {
     private Double merchandisePrice;
     private Integer merchandiseStock;
     private MerchandiseCategory category;
-    private Discount discountToApply = new NoDescount();
+    private Discount discountToApply = new NoDiscount();
 
     public Merchandise(String aName, String aBrand, Double aPrice, Integer aStock, MerchandiseCategory aCategory) {
         if(aStock < 0) { throw new NegativeStockMerchandiseException();}
