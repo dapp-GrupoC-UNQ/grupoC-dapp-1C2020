@@ -42,7 +42,7 @@ public class DiscountInStoreTest {
         Store store = ComercioBuilder.unComercio().build();
         Double originalPrice = 10.0;
         store.addMerchandise("Mayonesa", "Hellmans", originalPrice, 100, MerchandiseCategory.GROCERY);
-        assertEquals(originalPrice, store.priceOf("Mayonesa", "Hellmans"));
+        assertEquals(3.9, store.priceOf("Mayonesa", "Hellmans"));
     }
 
 }
