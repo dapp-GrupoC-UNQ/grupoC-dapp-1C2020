@@ -4,9 +4,9 @@ import com.example.demo.builders.ComercioBuilder;
 import com.example.demo.builders.PurchaseBuilder;
 import com.example.demo.builders.UserBuilder;
 import com.example.demo.model.*;
-import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;
-import com.example.demo.model.excepciones.NotFoundProductInStore;
-import com.example.demo.model.excepciones.OptionNotAvailableForThisDeliveryType;
+import com.example.demo.model.exceptions.InsufficientMerchandiseStockException;
+import com.example.demo.model.exceptions.NotFoundProductInStore;
+import com.example.demo.model.exceptions.OptionNotAvailableForThisDeliveryType;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.junit.Test;
 

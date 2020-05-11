@@ -1,7 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.builders.UserBuilder;
-import com.example.demo.model.excepciones.NotFoundUserException;
+import com.example.demo.model.exceptions.NotFoundUserException;
 import com.example.demo.services.users.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.demo.model.User;
@@ -18,7 +18,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

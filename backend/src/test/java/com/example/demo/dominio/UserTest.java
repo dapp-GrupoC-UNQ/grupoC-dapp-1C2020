@@ -2,7 +2,7 @@ package com.example.demo.dominio;
 
 import com.example.demo.model.User;
 import com.example.demo.builders.UserBuilder;
-import com.example.demo.model.excepciones.InvalidUsernameOrPasswordException;
+import com.example.demo.model.exceptions.InvalidUsernameOrPasswordException;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

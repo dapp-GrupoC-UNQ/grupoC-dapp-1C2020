@@ -1,7 +1,7 @@
 package com.example.demo.dominio;
 
 import com.example.demo.model.RangoHorarioComercio;
-import com.example.demo.model.excepciones.HorarioNoPermitidoException;
+import com.example.demo.model.exceptions.HorarioNoPermitidoException;
 import org.junit.Test;
 
 import java.time.DayOfWeek;

@@ -2,13 +2,12 @@ package com.example.demo.repositories.users;
 
 
 import com.example.demo.model.User;
-import com.example.demo.model.excepciones.NotAvailableUserNameException;
-import com.example.demo.model.excepciones.NotFoundUserException;
+import com.example.demo.model.exceptions.NotAvailableUserNameException;
+import com.example.demo.model.exceptions.NotFoundUserException;
 import org.springframework.stereotype.Repository;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Repository

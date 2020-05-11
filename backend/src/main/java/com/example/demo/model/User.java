@@ -1,10 +1,11 @@
 package com.example.demo.model;
 
+import com.example.demo.model.exceptions.UserDoesNotHaveTicketException;
 import com.example.demo.model.thresholds.MoneyThreshold;
 import com.example.demo.model.ticket.Ticket;
 import com.example.demo.serializers.UserJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.example.demo.model.excepciones.InvalidUsernameOrPasswordException;
+import com.example.demo.model.exceptions.InvalidUsernameOrPasswordException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,5 +67,11 @@ public class User {
 
     public Boolean hasTicketOf(Purchase purchase) {
         return this.purchasesTickets.stream().anyMatch(ticket -> ticket.purchase().equals(purchase));
+    }
+
+    public Ticket ticketOf(Purchase purchase) {
+        return this.purchasesTickets.stream().filter(ticket -> ticket.purchase().equals(purchase))
+                                             .findFirst()
+                                             .orElseThrow(UserDoesNotHaveTicketException::new);
     }
 }

@@ -2,16 +2,12 @@ package com.example.demo.dominio;
 
 import com.example.demo.builders.ComercioBuilder;
 import com.example.demo.builders.DiscountBuilder;
-import com.example.demo.model.discounts.MerchandiseDiscount;
 import com.example.demo.model.Store;
 import com.example.demo.model.discounts.Discount;
-import com.example.demo.model.excepciones.NotFoundProductInStore;
-import com.example.demo.model.excepciones.RepeatedMerchandiseInStore;
-import com.example.demo.model.merchandise.Merchandise;
+import com.example.demo.model.exceptions.NotFoundProductInStore;
+import com.example.demo.model.exceptions.RepeatedMerchandiseInStore;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.junit.Test;
-
-import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;

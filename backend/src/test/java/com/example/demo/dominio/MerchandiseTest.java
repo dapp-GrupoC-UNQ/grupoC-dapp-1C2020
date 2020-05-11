@@ -1,10 +1,10 @@
 package com.example.demo.dominio;
 
 import com.example.demo.builders.MerchandiseBuilder;
-import com.example.demo.model.excepciones.InvalidStockTypeException;
-import com.example.demo.model.excepciones.NegativePriceMerchandiseException;
-import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;
-import com.example.demo.model.excepciones.NegativeStockMerchandiseException;
+import com.example.demo.model.exceptions.InvalidStockTypeException;
+import com.example.demo.model.exceptions.NegativePriceMerchandiseException;
+import com.example.demo.model.exceptions.InsufficientMerchandiseStockException;
+import com.example.demo.model.exceptions.NegativeStockMerchandiseException;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.junit.Test;

@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import com.example.demo.model.ticket.Ticket;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,10 @@ public class Purchase {
     }
 
     public void finishPurchase(String paymentMethod) {
-        purchaseUser.addTicketOfPurchase(new Ticket(this, paymentMethod));
+        purchaseUser.addTicketOfPurchase(new Ticket(this, paymentMethod, new StorePickUp(LocalDateTime.now())));
+    }
+
+    public void finishPurchaseWithHomeDelivery(String paymentMethod, String deliveryAddress) {
+        purchaseUser.addTicketOfPurchase(new Ticket(this, paymentMethod, new HomeDelivery(deliveryAddress)));
     }
 }

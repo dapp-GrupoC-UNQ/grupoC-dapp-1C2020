@@ -2,10 +2,10 @@ package com.example.demo.model.merchandise;
 
 import com.example.demo.model.discounts.NoDiscount;
 import com.example.demo.model.discounts.Discount;
-import com.example.demo.model.excepciones.InvalidStockTypeException;
-import com.example.demo.model.excepciones.NegativePriceMerchandiseException;
-import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;
-import com.example.demo.model.excepciones.NegativeStockMerchandiseException;
+import com.example.demo.model.exceptions.InvalidStockTypeException;
+import com.example.demo.model.exceptions.NegativePriceMerchandiseException;
+import com.example.demo.model.exceptions.InsufficientMerchandiseStockException;
+import com.example.demo.model.exceptions.NegativeStockMerchandiseException;
 import com.example.demo.serializers.MerchandiseJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 

@@ -1,8 +1,8 @@
 package com.example.demo.services;
 
 import com.example.demo.builders.UserBuilder;
-import com.example.demo.model.excepciones.NotAvailableUserNameException;
-import com.example.demo.model.excepciones.NotFoundUserException;
+import com.example.demo.model.exceptions.NotAvailableUserNameException;
+import com.example.demo.model.exceptions.NotFoundUserException;
 import com.example.demo.repositories.users.UserRepository;
 import com.example.demo.services.users.IUserService;
 import com.example.demo.model.User;

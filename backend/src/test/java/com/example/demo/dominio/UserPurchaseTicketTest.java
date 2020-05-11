@@ -1,6 +1,5 @@
 package com.example.demo.dominio;
 
-import com.example.demo.builders.ComercioBuilder;
 import com.example.demo.builders.PurchaseBuilder;
 import com.example.demo.builders.UserBuilder;
 import com.example.demo.model.Purchase;
@@ -23,5 +22,13 @@ public class UserPurchaseTicketTest {
         Purchase purchase = PurchaseBuilder.aPurchase().withUser(user).build();
         purchase.finishPurchase("Credit Card");
         assertTrue(user.hasTicketOf(purchase));
+    }
+
+    @Test
+    public void aUserThatHasMadeAHomeDeliveryPurchaseHasATicketWithDeliveryAddresAndTime() {
+        User user = UserBuilder.user().build();
+        Purchase purchase = PurchaseBuilder.aPurchase().withUser(user).build();
+        purchase.finishPurchaseWithHomeDelivery("Credit Card", "Alsina 123");
+        assertEquals(user.ticketOf(purchase).addressOfDelivery(), "Alsina 123");
     }
 }

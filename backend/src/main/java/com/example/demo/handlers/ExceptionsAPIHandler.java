@@ -1,6 +1,6 @@
 package com.example.demo.handlers;
-import com.example.demo.model.excepciones.NotFoundStoreException;
-import com.example.demo.model.excepciones.NotFoundUserException;
+import com.example.demo.model.exceptions.NotFoundStoreException;
+import com.example.demo.model.exceptions.NotFoundUserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

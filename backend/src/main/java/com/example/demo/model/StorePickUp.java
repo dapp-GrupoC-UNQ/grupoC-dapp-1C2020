@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-import com.example.demo.model.excepciones.OptionNotAvailableForThisDeliveryType;
+import com.example.demo.model.exceptions.OptionNotAvailableForThisDeliveryType;
 
 import java.time.LocalDateTime;
 
