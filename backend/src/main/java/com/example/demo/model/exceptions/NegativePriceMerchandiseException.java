@@ -1,4 +1,4 @@
-package com.example.demo.model.excepciones;
+package com.example.demo.model.exceptions;
 
 public class NegativePriceMerchandiseException extends RuntimeException {
     public NegativePriceMerchandiseException(){

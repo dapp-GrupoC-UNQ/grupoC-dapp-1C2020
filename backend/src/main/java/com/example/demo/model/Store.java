@@ -1,13 +1,13 @@
 package com.example.demo.model;
 
 import com.example.demo.model.discounts.*;
-import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;
+import com.example.demo.model.exceptions.InsufficientMerchandiseStockException;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.serializers.StoreJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.example.demo.model.excepciones.NotFoundProductInStore;
-import com.example.demo.model.excepciones.RepeatedMerchandiseInStore;
+import com.example.demo.model.exceptions.NotFoundProductInStore;
+import com.example.demo.model.exceptions.RepeatedMerchandiseInStore;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;

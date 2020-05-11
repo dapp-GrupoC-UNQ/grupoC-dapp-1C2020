@@ -1,38 +1,20 @@
 package com.example.demo.model;
 
+import com.example.demo.model.ticket.Ticket;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Purchase {
 
-    private String paymentMethod;
-    private DeliveryType deliveryType;
     private Store purchaseStore;
     private User purchaseUser;
     private List<AdquiredProduct> productList = new ArrayList<>();
 
-    public Purchase(String payment, DeliveryType delivery, Store store, User name){
-        paymentMethod = payment;
-        deliveryType = delivery;
+    public Purchase(Store store, User name){
         purchaseStore = store;
         purchaseUser = name;
-    }
-
-    public String paymentMethod(){
-        return this.paymentMethod;
-    }
-
-    public DeliveryType deliveryType() {
-        return this.deliveryType;
-    }
-
-    public String deliveryAddress() {
-        return deliveryType.deliveryAddress();
-    }
-
-    public LocalDateTime pickUpDate() {
-        return this.deliveryType.pickUpDate();
     }
 
     public Store store() { return this.purchaseStore; }
@@ -50,6 +32,14 @@ public class Purchase {
     }
 
     public Boolean breaksMoneyThreshold() {
-        return this.user().moneyThreshold().breaksTheLimit(this);
+        return this.user().moneyThreshold().breaksTheLimitWith(this);
+    }
+
+    public void finishPurchase(String paymentMethod) {
+        purchaseUser.addTicketOfPurchase(new Ticket(this, paymentMethod, new StorePickUp(LocalDateTime.now())));
+    }
+
+    public void finishPurchaseWithHomeDelivery(String paymentMethod, String deliveryAddress) {
+        purchaseUser.addTicketOfPurchase(new Ticket(this, paymentMethod, new HomeDelivery(deliveryAddress)));
     }
 }

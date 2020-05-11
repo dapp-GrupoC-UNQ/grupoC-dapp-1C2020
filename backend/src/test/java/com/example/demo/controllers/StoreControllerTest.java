@@ -2,10 +2,8 @@ package com.example.demo.controllers;
 
 import com.example.demo.builders.ComercioBuilder;
 import com.example.demo.builders.DiscountBuilder;
-import com.example.demo.builders.MerchandiseBuilder;
 import com.example.demo.model.discounts.Discount;
-import com.example.demo.model.excepciones.NotFoundStoreException;
-import com.example.demo.model.merchandise.Merchandise;
+import com.example.demo.model.exceptions.NotFoundStoreException;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.services.StoreService;
 import com.example.demo.model.Store;

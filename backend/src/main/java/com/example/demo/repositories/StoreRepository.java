@@ -4,7 +4,7 @@ import com.example.demo.model.*;
 import com.example.demo.model.discounts.Discount;
 import com.example.demo.model.discounts.MerchandiseDiscount;
 import com.example.demo.model.discounts.NoDiscount;
-import com.example.demo.model.excepciones.NotFoundStoreException;
+import com.example.demo.model.exceptions.NotFoundStoreException;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.springframework.stereotype.Repository;

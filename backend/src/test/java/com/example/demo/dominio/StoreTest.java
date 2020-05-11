@@ -4,8 +4,8 @@ import com.example.demo.builders.ComercioBuilder;
 import com.example.demo.model.AdquiredProduct;
 import com.example.demo.model.Store;
 import com.example.demo.model.RangoHorarioComercio;
-import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;
-import com.example.demo.model.excepciones.NotFoundProductInStore;
+import com.example.demo.model.exceptions.InsufficientMerchandiseStockException;
+import com.example.demo.model.exceptions.NotFoundProductInStore;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.junit.Test;
 

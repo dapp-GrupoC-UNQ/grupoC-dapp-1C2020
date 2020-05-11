@@ -29,7 +29,7 @@ public class MoneyThreshold {
         this.isActive = true;
     }
 
-    public Boolean breaksTheLimit(Purchase purchase) {
+    public Boolean breaksTheLimitWith(Purchase purchase) {
         return this.isActive() && purchasePriceCalculator.calculatePriceFor(purchase) > this.moneyLimit();
     }
 

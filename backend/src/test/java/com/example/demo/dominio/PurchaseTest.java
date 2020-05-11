@@ -4,9 +4,9 @@ import com.example.demo.builders.ComercioBuilder;
 import com.example.demo.builders.PurchaseBuilder;
 import com.example.demo.builders.UserBuilder;
 import com.example.demo.model.*;
-import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;
-import com.example.demo.model.excepciones.NotFoundProductInStore;
-import com.example.demo.model.excepciones.OptionNotAvailableForThisDeliveryType;
+import com.example.demo.model.exceptions.InsufficientMerchandiseStockException;
+import com.example.demo.model.exceptions.NotFoundProductInStore;
+import com.example.demo.model.exceptions.OptionNotAvailableForThisDeliveryType;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.junit.Test;
 
@@ -16,12 +16,6 @@ import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PurchaseTest {
-
-    @Test
-    public void aPurchaseHasAPaymentMethod(){
-        Purchase purchase = PurchaseBuilder.aPurchase().withPaymentMethod("Efectivo").build();
-        assertEquals("Efectivo", purchase.paymentMethod());
-    }
 
     @Test
     public void aNewPurchaseHasNoProducts() {
@@ -56,37 +50,6 @@ public class PurchaseTest {
         storeWithProducts.addMerchandise("Mayonesa", "Hellmans", 15.8, 1, MerchandiseCategory.GROCERY);
         Purchase purchase = PurchaseBuilder.aPurchase().withStore(storeWithProducts).build();
         assertThrows(InsufficientMerchandiseStockException.class, () -> { purchase.addProduct("Mayonesa", "Hellmans", 3); });
-    }
-
-    @Test
-    public void aPurchaseWithAStorePickUpShouldHaveAPickUpDate(){
-        LocalDateTime hora = LocalDateTime.of(2020,4,25,10,0);
-        StorePickUp storePickUp = new StorePickUp(hora);
-        Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(storePickUp).build();
-        assertTrue(purchase.pickUpDate().isEqual(hora));
-    }
-
-
-    @Test
-    public void ifAPurchaseHasHomeDeliveryItShouldHaveAnAdrress(){
-        HomeDelivery delivery = new HomeDelivery("Alsina 123");
-        Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(delivery).build();
-        assertEquals("Alsina 123", purchase.deliveryAddress());
-    }
-
-    @Test
-    public void  aPurchaseWithStorePickUpDoesNotHaveAnAddress(){
-        LocalDateTime hour = LocalDateTime.of(2020,4,25,10,0);
-        StorePickUp storePickUp = new StorePickUp(hour);
-        Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(storePickUp).build();
-        assertThrows(OptionNotAvailableForThisDeliveryType.class, purchase::deliveryAddress);
-    }
-
-    @Test
-    public void aPurchaseWithDeliveryDoesNotHaveAPickUpDate(){
-        HomeDelivery delivery = new HomeDelivery("Alsina 123");
-        Purchase purchase = PurchaseBuilder.aPurchase().withDeliveryType(delivery).build();
-        assertThrows(OptionNotAvailableForThisDeliveryType.class, purchase::pickUpDate);
     }
 
     @Test

@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-import com.example.demo.model.excepciones.HorarioNoPermitidoException;
+import com.example.demo.model.exceptions.HorarioNoPermitidoException;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
