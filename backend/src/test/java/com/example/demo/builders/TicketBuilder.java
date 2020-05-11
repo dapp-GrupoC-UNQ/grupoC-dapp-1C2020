@@ -9,18 +9,28 @@ public class TicketBuilder {
 
     private String paymentMethod = "Credit Card";
     private Purchase ticketPurchase = PurchaseBuilder.aPurchase().build();
-    private DeliveryType deliveryType = new HomeDelivery("Alsina 123");
+    private DeliveryType deliveryMethod = new HomeDelivery("Alsina 123");
 
     public static TicketBuilder aTicket() {
         return new TicketBuilder();
     }
 
     public Ticket build(){
-        return new Ticket(ticketPurchase, paymentMethod, deliveryType);
+        return new Ticket(ticketPurchase, paymentMethod, deliveryMethod);
     }
 
     public TicketBuilder withPaymentMethod(String aPaymentMethod) {
         paymentMethod = aPaymentMethod;
+        return this;
+    }
+
+    public TicketBuilder withPurchase(Purchase purchase) {
+        ticketPurchase = purchase;
+        return this;
+    }
+
+    public TicketBuilder withDeliveryMethod(DeliveryType delivery) {
+        deliveryMethod = delivery;
         return this;
     }
 }

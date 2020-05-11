@@ -5,6 +5,9 @@ import com.example.demo.builders.UserBuilder;
 import com.example.demo.model.Purchase;
 import com.example.demo.model.User;
 import org.junit.Test;
+
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -24,11 +27,5 @@ public class UserPurchaseTicketTest {
         assertTrue(user.hasTicketOf(purchase));
     }
 
-    @Test
-    public void aUserThatHasMadeAHomeDeliveryPurchaseHasATicketWithDeliveryAddresAndTime() {
-        User user = UserBuilder.user().build();
-        Purchase purchase = PurchaseBuilder.aPurchase().withUser(user).build();
-        purchase.finishPurchaseWithHomeDelivery("Credit Card", "Alsina 123");
-        assertEquals(user.ticketOf(purchase).addressOfDelivery(), "Alsina 123");
-    }
+
 }
