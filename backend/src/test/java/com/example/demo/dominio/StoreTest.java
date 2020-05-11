@@ -99,10 +99,12 @@ public class StoreTest {
         assertThrows(NotFoundProductInStore.class, () -> store.getProduct("A fake", "Product", 1));
     }
 
-   /* @Test
+    @Test
     public void lePidoAUnComercioElProximoHorarioDisponible() {
-        RangoHorarioComercio rango = new RangoHorarioComercio(DayOfWeek.WEDNESDAY, LocalTime.of(9,0), LocalTime.of(15,30));
-        Store store = ComercioBuilder.unComercio().conHorarioDeAtencion(Arrays.asList(rango)).build();
-        assertEquals(store.nextTurn(), LocalDateTime(2020, 05, 13))
-    }*/
+        RangoHorarioComercio rango = new RangoHorarioComercio(DayOfWeek.WEDNESDAY, LocalTime.of(10,0), LocalTime.of(12,30));
+        RangoHorarioComercio rango2 = new RangoHorarioComercio(DayOfWeek.WEDNESDAY, LocalTime.of(15,0), LocalTime.of(18,30));
+        RangoHorarioComercio rango3 = new RangoHorarioComercio(DayOfWeek.MONDAY, LocalTime.of(9,0), LocalTime.of(15,30));
+        Store store = ComercioBuilder.unComercio().conHorarioDeAtencion(Arrays.asList(rango, rango2, rango3)).build();
+        assertEquals(store.nextTurn(LocalDateTime.now()), LocalDateTime.of(2020, 05, 13, 10, 00));
+    }
 }

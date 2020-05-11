@@ -25,4 +25,8 @@ public class RangoHorarioComercio {
     public boolean estaDisponibleEnHorario(DayOfWeek dia, LocalTime hora) {
         return diaDeAtencion.equals(dia)  && horaDeApertura.isBefore(hora) && horaDeCierre.isAfter(hora);
     }
+
+    public LocalTime horaDeApertura() {
+        return this.horaDeApertura;
+    }
 }

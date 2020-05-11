@@ -4,7 +4,6 @@ import com.example.demo.model.discounts.*;
 import com.example.demo.model.exceptions.InsufficientMerchandiseStockException;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.merchandise.MerchandiseCategory;
-import com.example.demo.model.turns.PickUpTurn;
 import com.example.demo.serializers.StoreJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.example.demo.model.exceptions.NotFoundProductInStore;
@@ -14,7 +13,10 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,11 +27,11 @@ public class Store {
     String storeCategory; // CAMBIAR A LISTA DE ENUM
     String storeAddress;
     Integer deliveryDistanceInKm;
+    LocalDateTime proximoTurnoDeLocal;
     List<String> availablePaymentMethods;
     List<RangoHorarioComercio> storeTimeSchedule;
     List<Discount> discountList = new ArrayList<>();
     List<Merchandise> merchandiseList = new ArrayList<>();
-    List<PickUpTurn> availablePickUpTurns;
 
     public Store(String name, String category, String address, Integer distanceInKm, List<String> paymentMethods, List<RangoHorarioComercio> timeSchedule) {
          storeName = name;
@@ -38,11 +40,27 @@ public class Store {
          deliveryDistanceInKm = distanceInKm;
          availablePaymentMethods =  paymentMethods;
          storeTimeSchedule = timeSchedule;
-         availablePickUpTurns = this.generatePickUpTurns(timeSchedule);
+         proximoTurnoDeLocal = this.primerTurnoDeLocal();
     }
 
-    private List<PickUpTurn> generatePickUpTurns(List<RangoHorarioComercio> timeSchedule) {
-        return null;
+    private LocalDateTime primerTurnoDeLocal() {
+        LocalDate now = LocalDate.now();
+        List<RangoHorarioComercio> storeTime = this.storeTimeSchedule;
+        List<LocalDate> diaDeApertura = storeTime.stream().map(time -> this.proximaFechaConDia(time.dia(), now)).collect(Collectors.toList());
+        LocalDate diaMasCercanoANow = diaDeApertura.stream().min(Comparator.comparingLong(x -> ChronoUnit.DAYS.between(now, x))).get();
+        return this.encontrarHorarioApertura(diaMasCercanoANow);
+    }
+
+    private LocalDateTime encontrarHorarioApertura(LocalDate day) {
+        List<RangoHorarioComercio> storeTime = this.storeTimeSchedule;
+        storeTime = storeTime.stream().filter(schedule -> schedule.diaDeAtencion.equals(day.getDayOfWeek())).collect(Collectors.toList());
+        RangoHorarioComercio horario = storeTime.stream().min(Comparator.comparing(RangoHorarioComercio::horaDeApertura)).get();
+        return LocalDateTime.of(day.getYear(),day.getMonth(), day.getDayOfMonth(), horario.horaDeApertura().getHour(), horario.horaDeApertura().getMinute());
+    }
+
+    private LocalDate proximaFechaConDia(DayOfWeek dayOfWeek, LocalDate today) {
+        LocalDate now = today;
+        return now.with(TemporalAdjusters.next(dayOfWeek));
     }
 
     public String name() {
@@ -150,25 +168,25 @@ public class Store {
         this.discountList.add(new CategoryDiscount(category, percentOfDiscount, LocalDate.now(), endDate));
     }
 
-    public List<PickUpTurn> availablePickUpTurns() {
-        return this.availablePickUpTurns;
-    }
-
-/*    public LocalDateTime nextTurn() {
-        LocalDateTime now = LocalDateTime.now();
-                4/5                                 6/5
-        if (now.toLocalDate().isBefore(this.fechaDelUltimoTurnoDado())) {
-            fechaDelUltimoTurnoDado = proximoTurnoDeLocal
-            proximoTurnoDeLocal // dame el proximo turno con diferencia de 15
+    public LocalDateTime nextTurn(LocalDateTime aDate) {
+        if (aDate.toLocalDate().isBefore(proximoTurnoDeLocal.toLocalDate())) {
+            LocalDateTime turnoADar = proximoTurnoDeLocal;
+            this.updateNextTurn();
+            return turnoADar;
         }
         else {
-            //es el mismo dia o AHORA es posterior al ultimo turno dado
-            fechaDelUltimoTurnoDado = proximoHorarioDeLocalPosteriorAHoy;
-            proximoHorarioDeLocalPosteriorAHoy
+            LocalDateTime turnoADar = primerTurnoDeLocal();
+            this.updateNextTurn();
+            return turnoADar;
         }
     }
 
-    public LocalDate fechaDelUltimoTurnoDado() {
-        return this.ultimoTurnoDado.toLocalDate();
-    }*/
+    private void updateNextTurn() {
+        if(this.isOpenAt(proximoTurnoDeLocal.getDayOfWeek(), LocalTime.of(proximoTurnoDeLocal.getHour(), proximoTurnoDeLocal.getMinute()).plusMinutes(15))){
+            this.proximoTurnoDeLocal = proximoTurnoDeLocal.plusMinutes(15);
+        }else{
+            this.proximoTurnoDeLocal = this.primerTurnoDeLocal();
+        }
+    }
+
 }
