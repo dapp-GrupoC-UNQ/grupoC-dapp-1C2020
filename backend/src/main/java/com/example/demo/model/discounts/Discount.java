@@ -1,4 +1,6 @@
-package com.example.demo.model;
+package com.example.demo.model.discounts;
+
+import com.example.demo.model.merchandise.Merchandise;
 
 import java.time.LocalDate;
 
@@ -8,10 +10,8 @@ public interface Discount {
 
     public Integer percentOfDiscount();
 
-    public LocalDate startDate();
-
-    public LocalDate endDate();
-
     public Boolean isAvailableIn(LocalDate date);
+
+    Boolean canApplyDiscountFor(Merchandise merchandise);
 
 }

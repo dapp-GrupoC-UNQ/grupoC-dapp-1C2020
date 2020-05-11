@@ -1,8 +1,6 @@
 package com.example.demo.dominio;
 
-import com.example.demo.builders.DiscountBuilder;
 import com.example.demo.builders.MerchandiseBuilder;
-import com.example.demo.model.Discount;
 import com.example.demo.model.excepciones.InvalidStockTypeException;
 import com.example.demo.model.excepciones.NegativePriceMerchandiseException;
 import com.example.demo.model.excepciones.InsufficientMerchandiseStockException;

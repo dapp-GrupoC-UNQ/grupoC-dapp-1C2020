@@ -2,7 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.builders.ComercioBuilder;
 import com.example.demo.builders.DiscountBuilder;
-import com.example.demo.model.Discount;
+import com.example.demo.model.discounts.Discount;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.repositories.StoreRepository;
 import com.example.demo.model.Store;

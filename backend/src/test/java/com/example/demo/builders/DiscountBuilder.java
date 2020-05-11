@@ -1,8 +1,7 @@
 package com.example.demo.builders;
 
-import com.example.demo.model.PercentageDiscount;
-import com.example.demo.model.Discount;
-import com.example.demo.model.NoDescount;
+import com.example.demo.model.discounts.Discount;
+import com.example.demo.model.discounts.NoDiscount;
 
 import java.time.LocalDate;
 
@@ -15,11 +14,11 @@ public class DiscountBuilder {
     public static DiscountBuilder aDiscount() { return new DiscountBuilder(); }
 
 
-    public Discount build() {
-        return new PercentageDiscount(percentOfDiscount,startDate, endDate);
+   /* public Discount build() {
+        return new MerchandiseDiscount(percentOfDiscount,startDate, endDate);
     }
-
-    public Discount buildNoDiscount() {  return new NoDescount();  }
+*/
+    public Discount buildNoDiscount() {  return new NoDiscount();  }
 
     public DiscountBuilder withPercentOfDiscount(Integer aPercent) {
         percentOfDiscount = aPercent;
