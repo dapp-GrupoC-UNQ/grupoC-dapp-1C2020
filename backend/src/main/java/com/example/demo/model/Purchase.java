@@ -2,7 +2,6 @@ package com.example.demo.model;
 
 import com.example.demo.model.ticket.Ticket;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

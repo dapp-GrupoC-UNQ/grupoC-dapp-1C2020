@@ -22,4 +22,8 @@ public class Ticket {
     public String addressOfDelivery() {
         return this.deliveryType.deliveryAddress();
     }
+
+    public String paymentMethod() {
+        return this.paymentMethod;
+    }
 }
