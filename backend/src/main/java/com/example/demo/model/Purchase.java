@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.example.demo.model.ticket.Ticket;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +52,10 @@ public class Purchase {
     }
 
     public Boolean breaksMoneyThreshold() {
-        return this.user().moneyThreshold().breaksTheLimit(this);
+        return this.user().moneyThreshold().breaksTheLimitWith(this);
+    }
+
+    public void finishPurchase() {
+        purchaseUser.addTicketOfPurchase(new Ticket(this));
     }
 }

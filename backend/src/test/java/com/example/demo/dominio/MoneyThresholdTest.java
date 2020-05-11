@@ -53,7 +53,7 @@ public class MoneyThresholdTest {
         MoneyThreshold moneyThreshold = MoneyThresholdBuilder.aMoneyThreshold().withMoneyLimit(30.0).build();
         Store store = ComercioBuilder.unComercio().withMerchandise("Mayonesa", "Hellmans", 15.0, 300, MerchandiseCategory.GROCERY);
         Purchase purchase = PurchaseBuilder.aPurchase().withProductOfStore("Mayonesa", "Hellmans", 4, store);
-        assertTrue(moneyThreshold.breaksTheLimit(purchase));
+        assertTrue(moneyThreshold.breaksTheLimitWith(purchase));
     }
 
     @Test
@@ -61,7 +61,7 @@ public class MoneyThresholdTest {
         MoneyThreshold moneyThreshold = MoneyThresholdBuilder.aMoneyThreshold().whichIsDisabled();
         Store store = ComercioBuilder.unComercio().withMerchandise("Mayonesa", "Hellmans", 15.0, 300, MerchandiseCategory.GROCERY);
         Purchase purchase = PurchaseBuilder.aPurchase().withProductOfStore("Mayonesa", "Hellmans", 4, store);
-        assertFalse(moneyThreshold.breaksTheLimit(purchase));
+        assertFalse(moneyThreshold.breaksTheLimitWith(purchase));
     }
 
     @Test
@@ -69,7 +69,7 @@ public class MoneyThresholdTest {
         MoneyThreshold moneyThreshold = MoneyThresholdBuilder.aMoneyThreshold().withMoneyLimit(3000.0).build();
         Store store = ComercioBuilder.unComercio().withMerchandise("Mayonesa", "Hellmans", 15.0, 300, MerchandiseCategory.GROCERY);
         Purchase purchase = PurchaseBuilder.aPurchase().withProductOfStore("Mayonesa", "Hellmans", 4, store);
-        assertFalse(moneyThreshold.breaksTheLimit(purchase));
+        assertFalse(moneyThreshold.breaksTheLimitWith(purchase));
     }
 
     @Test
@@ -77,6 +77,6 @@ public class MoneyThresholdTest {
         MoneyThreshold moneyThreshold = MoneyThresholdBuilder.aMoneyThreshold().withMoneyLimit(3000.0).whichIsDisabled();
         Store store = ComercioBuilder.unComercio().withMerchandise("Mayonesa", "Hellmans", 15.0, 300, MerchandiseCategory.GROCERY);
         Purchase purchase = PurchaseBuilder.aPurchase().withProductOfStore("Mayonesa", "Hellmans", 4, store);
-        assertFalse(moneyThreshold.breaksTheLimit(purchase));
+        assertFalse(moneyThreshold.breaksTheLimitWith(purchase));
     }
 }
