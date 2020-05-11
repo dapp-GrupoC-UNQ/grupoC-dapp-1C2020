@@ -4,6 +4,7 @@ import com.example.demo.model.discounts.*;
 import com.example.demo.model.exceptions.InsufficientMerchandiseStockException;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.merchandise.MerchandiseCategory;
+import com.example.demo.model.turns.PickUpTurn;
 import com.example.demo.serializers.StoreJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.example.demo.model.exceptions.NotFoundProductInStore;
@@ -11,6 +12,7 @@ import com.example.demo.model.exceptions.RepeatedMerchandiseInStore;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,7 @@ public class Store {
     List<RangoHorarioComercio> storeTimeSchedule;
     List<Discount> discountList = new ArrayList<>();
     List<Merchandise> merchandiseList = new ArrayList<>();
+    List<PickUpTurn> availablePickUpTurns;
 
     public Store(String name, String category, String address, Integer distanceInKm, List<String> paymentMethods, List<RangoHorarioComercio> timeSchedule) {
          storeName = name;
@@ -35,6 +38,11 @@ public class Store {
          deliveryDistanceInKm = distanceInKm;
          availablePaymentMethods =  paymentMethods;
          storeTimeSchedule = timeSchedule;
+         availablePickUpTurns = this.generatePickUpTurns(timeSchedule);
+    }
+
+    private List<PickUpTurn> generatePickUpTurns(List<RangoHorarioComercio> timeSchedule) {
+        return null;
     }
 
     public String name() {
@@ -119,18 +127,6 @@ public class Store {
         return this.merchandiseList.stream().filter(merchandise -> merchandise.stock() > 0).collect(Collectors.toList());
     }
 
-    public void addDiscount(MerchandiseDiscount merchandiseDiscount) {
-        this.discountList.add(merchandiseDiscount);
-    }
-
-    public Boolean hasADiscount(MerchandiseDiscount merchandiseDiscount) {
-        return this.discountList.contains(merchandiseDiscount);
-    }
-
-   /* public List<MerchandiseDiscount> listOfAvailableDiscount() {
-        return this.discountList;
-    }
-*/
     public AdquiredProduct getProduct(String productName, String productBrand, Integer quantity) {
         Merchandise merchandise = this.findMerchandise(productName, productBrand);
         if (this.stockOf(productName, productBrand) < quantity){
@@ -140,9 +136,6 @@ public class Store {
         return new AdquiredProduct(merchandise.name(), merchandise.brand(), merchandise.price(), quantity);
     }
 
-    public void applyDiscountOn(Merchandise product, Discount discount) {
-        product.setADiscount(discount);
-    }
 
     public Merchandise getMerchandise(String productName, String productBrand) {
         return this.findMerchandise(productName, productBrand);
@@ -156,4 +149,26 @@ public class Store {
     public void addCategoryDiscount(MerchandiseCategory category, Integer percentOfDiscount, LocalDate endDate) {
         this.discountList.add(new CategoryDiscount(category, percentOfDiscount, LocalDate.now(), endDate));
     }
+
+    public List<PickUpTurn> availablePickUpTurns() {
+        return this.availablePickUpTurns;
+    }
+
+/*    public LocalDateTime nextTurn() {
+        LocalDateTime now = LocalDateTime.now();
+                4/5                                 6/5
+        if (now.toLocalDate().isBefore(this.fechaDelUltimoTurnoDado())) {
+            fechaDelUltimoTurnoDado = proximoTurnoDeLocal
+            proximoTurnoDeLocal // dame el proximo turno con diferencia de 15
+        }
+        else {
+            //es el mismo dia o AHORA es posterior al ultimo turno dado
+            fechaDelUltimoTurnoDado = proximoHorarioDeLocalPosteriorAHoy;
+            proximoHorarioDeLocalPosteriorAHoy
+        }
+    }
+
+    public LocalDate fechaDelUltimoTurnoDado() {
+        return this.ultimoTurnoDado.toLocalDate();
+    }*/
 }

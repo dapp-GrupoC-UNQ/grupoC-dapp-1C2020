@@ -10,6 +10,7 @@ import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.junit.Test;
 
 import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
@@ -97,4 +98,11 @@ public class StoreTest {
         store.addMerchandise("Mayonesa", "Hellmans", 15.4, 200, MerchandiseCategory.GROCERY);
         assertThrows(NotFoundProductInStore.class, () -> store.getProduct("A fake", "Product", 1));
     }
+
+   /* @Test
+    public void lePidoAUnComercioElProximoHorarioDisponible() {
+        RangoHorarioComercio rango = new RangoHorarioComercio(DayOfWeek.WEDNESDAY, LocalTime.of(9,0), LocalTime.of(15,30));
+        Store store = ComercioBuilder.unComercio().conHorarioDeAtencion(Arrays.asList(rango)).build();
+        assertEquals(store.nextTurn(), LocalDateTime(2020, 05, 13))
+    }*/
 }
