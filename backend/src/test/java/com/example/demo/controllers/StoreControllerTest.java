@@ -1,6 +1,6 @@
 package com.example.demo.controllers;
 
-import com.example.demo.builders.ComercioBuilder;
+import com.example.demo.builders.StoreBuilder;
 import com.example.demo.builders.DiscountBuilder;
 import com.example.demo.model.discounts.Discount;
 import com.example.demo.model.exceptions.NotFoundStoreException;
@@ -37,7 +37,7 @@ public class StoreControllerTest {
 
     @Test
     public void ifWeAskForStoresWeGetTheActualStoresList() throws Exception {
-        List<Store> stores = ComercioBuilder.storeList();
+        List<Store> stores = StoreBuilder.storeList();
         when(storeServiceMock.getStores()).thenReturn(stores);
 
         mockMvc.perform(get("/stores"))
@@ -49,7 +49,7 @@ public class StoreControllerTest {
 
     @Test
     public void ifWeAskForStoresWithACategoryWeOnlyGetTheStoresThatHaveThatCategoryList() throws Exception {
-        List<Store> stores = ComercioBuilder.storeWithACategoryList("Almacen");
+        List<Store> stores = StoreBuilder.storeWithACategoryList("Almacen");
         when(storeServiceMock.getStoresWithACategory("Almacen")).thenReturn(stores);
 
         mockMvc.perform(get("/stores?category=Almacen"))
@@ -61,7 +61,7 @@ public class StoreControllerTest {
 
     @Test
     public void gettingStoreProductsListFromExistingStoreReturnsTheListOfProducts() throws Exception{
-        Store store = ComercioBuilder.unComercio().conNombre("Coto").build();
+        Store store = StoreBuilder.aStore().withName("Coto").build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
         store.addMerchandise("Pan", "Bimbo", 34.6, 12, MerchandiseCategory.BAKERY);
         when(storeServiceMock.getProductsFromStore(any())).thenReturn(store.listOfAvailableMerchandise());
@@ -72,7 +72,7 @@ public class StoreControllerTest {
 
     @Test
     public void gettingStoreProductsListFromNonExistingStoreReturns404() throws Exception{
-        Store store = ComercioBuilder.unComercio().conNombre("Coto").build();
+        Store store = StoreBuilder.aStore().withName("Coto").build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
         store.addMerchandise("Pan", "Bimbo", 34.6, 12, MerchandiseCategory.BAKERY);
         when(storeServiceMock.getProductsFromStore(any())).thenThrow((new NotFoundStoreException()));

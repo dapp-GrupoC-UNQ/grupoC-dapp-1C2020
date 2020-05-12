@@ -1,4 +1,4 @@
-package com.example.demo.dominio;
+package com.example.demo.model.ticket;
 
 import com.example.demo.builders.PurchaseBuilder;
 import com.example.demo.builders.TicketBuilder;

@@ -1,6 +1,6 @@
-package com.example.demo.dominio;
+package com.example.demo.model.store;
 
-import com.example.demo.builders.ComercioBuilder;
+import com.example.demo.builders.StoreBuilder;
 import com.example.demo.builders.DiscountBuilder;
 import com.example.demo.model.Store;
 import com.example.demo.model.discounts.Discount;
@@ -16,13 +16,13 @@ public class MerchandiseInStoreTest {
 
     @Test
     public void whenAStoreIsNewIsDoesNotHaveMerchandise() {
-        Store newStore = ComercioBuilder.unComercio().build();
+        Store newStore = StoreBuilder.aStore().build();
         assertFalse(newStore.hasMerchandises());
     }
 
     @Test
     public void whenAStoreAddsANewMerchandiseItNowBelongsToTheStore() {
-        Store store = ComercioBuilder.unComercio().build();
+        Store store = StoreBuilder.aStore().build();
         store.addMerchandise("Fideos", "Marolio", 34.45, 23, MerchandiseCategory.GROCERY);
         assertTrue(store.sellsMerchandise("Fideos", "Marolio"));
         assertEquals(store.stockOf("Fideos", "Marolio"), 23);
@@ -30,27 +30,27 @@ public class MerchandiseInStoreTest {
 
     @Test
     public void aStoreKnowsThePriceOfAProductItSells() {
-        Store store = ComercioBuilder.unComercio().build();
+        Store store = StoreBuilder.aStore().build();
         store.addMerchandise("Fideos", "Marolio", 34.45, 23, MerchandiseCategory.GROCERY);
         assertEquals(store.priceOf("Fideos", "Marolio"), 34.45);
     }
 
     @Test
     public void aStoreDoesNotKnowThePriceOfAProductItDoesNotSell() {
-        Store store = ComercioBuilder.unComercio().build();
+        Store store = StoreBuilder.aStore().build();
         assertThrows(NotFoundProductInStore.class, () -> store.priceOf("Un producto", "Que no existe"));
     }
 
     @Test
     public void aStoreKnowsTheStockOfAProductItSells() {
-        Store store = ComercioBuilder.unComercio().build();
+        Store store = StoreBuilder.aStore().build();
         store.addMerchandise("Fideos", "Marolio", 34.45, 23, MerchandiseCategory.GROCERY);
         assertEquals(store.stockOf("Fideos", "Marolio"), 23);
     }
 
     @Test
     public void aStoreDoesNotKnowTheStockOfAProductItDoesNotSell() {
-        Store store = ComercioBuilder.unComercio().build();
+        Store store = StoreBuilder.aStore().build();
         assertThrows(NotFoundProductInStore.class, () -> store.stockOf("Un producto", "Que no existe"));
     }
 
@@ -58,14 +58,14 @@ public class MerchandiseInStoreTest {
     @Test
     public void aStoreCannotAddTheSameProductTwice() {
         //por mismo producto se entiende mismo nombre y marca
-        Store store = ComercioBuilder.unComercio().build();
+        Store store = StoreBuilder.aStore().build();
         store.addMerchandise("Fideos", "Marolio", 34.45, 23, MerchandiseCategory.GROCERY);
         assertThrows(RepeatedMerchandiseInStore.class, () -> store.addMerchandise("Fideos", "Marolio", 34.45, 23, MerchandiseCategory.GROCERY));
     }
 
     @Test
     public void aStoreCanUpdateThePriceOfAnExistingProduct() {
-        Store store = ComercioBuilder.unComercio().build();
+        Store store = StoreBuilder.aStore().build();
         store.addMerchandise("Fideos", "Marolio", 34.45, 23, MerchandiseCategory.GROCERY);
         store.updatePriceFor("Fideos", "Marolio", 36.45);
         assertEquals(store.priceOf("Fideos", "Marolio"), 36.45);
@@ -73,13 +73,13 @@ public class MerchandiseInStoreTest {
 
     @Test
     public void aStoreCanNotUpdateThePriceOfAnExistingProduct() {
-        Store store = ComercioBuilder.unComercio().build();
+        Store store = StoreBuilder.aStore().build();
         assertThrows(NotFoundProductInStore.class, () -> store.updatePriceFor("Fideos", "Marolio", 36.45));
     }
 
     @Test
     public void aStoreCanAddStockForAnExistingProduct() {
-        Store store = ComercioBuilder.unComercio().build();
+        Store store = StoreBuilder.aStore().build();
         store.addMerchandise("Fideos", "Marolio", 34.45, 23, MerchandiseCategory.GROCERY);
         store.addStock("Fideos", "Marolio", 20);
         assertEquals(store.stockOf("Fideos", "Marolio"), 43);
@@ -87,7 +87,7 @@ public class MerchandiseInStoreTest {
 
     @Test
     public void aStoreCanNotAddStockForANonExistingProduct() {
-        Store store = ComercioBuilder.unComercio().build();
+        Store store = StoreBuilder.aStore().build();
         assertThrows(NotFoundProductInStore.class, () -> store.addStock("Fideos", "Marolio", 10));
     }
 
@@ -105,7 +105,7 @@ public class MerchandiseInStoreTest {
 
     @Test
     public void unComercioPuedeDecrementarStockParaUnProductoExistente() {
-        Store store = ComercioBuilder.unComercio().build();
+        Store store = StoreBuilder.aStore().build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
         store.addMerchandise("Fideos", "Marolio", 34.45, 23, MerchandiseCategory.GROCERY);
         store.decreaseStock("Fideos", "Marolio", 20);
@@ -114,13 +114,13 @@ public class MerchandiseInStoreTest {
 
     @Test
     public void unComercioNoPuedeDecrementarStockParaUnProductoInexistente() {
-        Store store = ComercioBuilder.unComercio().build();
+        Store store = StoreBuilder.aStore().build();
         assertThrows(NotFoundProductInStore.class, () -> store.decreaseStock("Fideos", "Marolio", 10));
     }
 
     @Test
     public void aMerchandiseInStoreOriginallyDoesNotHaveADiscount() {
-        Store store = ComercioBuilder.unComercio().build();
+        Store store = StoreBuilder.aStore().build();
         Double originalPrice = 10.0;
         store.addMerchandise("Mayonesa", "Hellmans", originalPrice, 100, MerchandiseCategory.GROCERY);
         assertEquals(store.priceOf("Mayonesa", "Hellmans"), originalPrice);

@@ -1,7 +1,7 @@
-package com.example.demo.dominio;
+package com.example.demo.model.user;
 
-import com.example.demo.model.User;
 import com.example.demo.builders.UserBuilder;
+import com.example.demo.model.User;
 import com.example.demo.model.exceptions.InvalidUsernameOrPasswordException;
 import org.junit.Test;
 

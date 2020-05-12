@@ -1,4 +1,4 @@
-package com.example.demo.dominio;
+package com.example.demo.model.purchase;
 
 import com.example.demo.builders.AdquiredProductBuilder;
 import com.example.demo.model.AcquiredProduct;

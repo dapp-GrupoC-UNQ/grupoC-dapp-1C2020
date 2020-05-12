@@ -1,6 +1,6 @@
 package com.example.demo.services;
 
-import com.example.demo.builders.ComercioBuilder;
+import com.example.demo.builders.StoreBuilder;
 import com.example.demo.builders.DiscountBuilder;
 import com.example.demo.model.discounts.Discount;
 import com.example.demo.model.merchandise.MerchandiseCategory;
@@ -29,7 +29,7 @@ public class StoreServiceTest {
 
     @Test
     public void whenWeAskStoreServiceForStoresItReturnsTheListOfActualStores() {
-        List<Store> stores = ComercioBuilder.storeList();
+        List<Store> stores = StoreBuilder.storeList();
         when(storeRepositoryMock.getStores()).thenReturn(stores);
 
         assertEquals(stores, storeService.getStores());
@@ -37,7 +37,7 @@ public class StoreServiceTest {
 
     @Test
     public void whenWeAskStoreServiceForStoresWithACategoryItReturnsOnlyTheListOfStoresWithThstCategory() {
-        List<Store> stores = ComercioBuilder.storeList();
+        List<Store> stores = StoreBuilder.storeList();
         when(storeRepositoryMock.getStoresWithACategory("Almacen")).thenReturn(stores);
 
         assertEquals(stores, storeService.getStoresWithACategory("Almacen"));
@@ -45,7 +45,7 @@ public class StoreServiceTest {
 
     @Test
     public void gettingStoreProductsList() {
-        Store store = ComercioBuilder.unComercio().build();
+        Store store = StoreBuilder.aStore().build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
         store.addMerchandise("Nesquick", "Nestle", 20.4, 30, MerchandiseCategory.GROCERY);
         when(storeRepositoryMock.getStore(any())).thenReturn(store);

@@ -1,4 +1,4 @@
-package com.example.demo.dominio;
+package com.example.demo.model.user;
 
 import com.example.demo.builders.PurchaseBuilder;
 import com.example.demo.builders.UserBuilder;
@@ -7,8 +7,6 @@ import com.example.demo.model.User;
 import com.example.demo.model.exceptions.OptionNotAvailableForThisDeliveryType;
 import com.example.demo.model.ticket.Ticket;
 import org.junit.Test;
-
-import java.time.LocalDateTime;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
