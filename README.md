@@ -2,7 +2,7 @@
 
 RELEASE_NOTE
 
-TAG 
+TAG entrega_1
 
 NEW FEATURES:
 -	Tiendas registradas que tienen un rubro, días y horarios de atención y un domicilio.
