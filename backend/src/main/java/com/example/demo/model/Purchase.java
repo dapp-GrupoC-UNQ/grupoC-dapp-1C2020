@@ -10,7 +10,7 @@ public class Purchase {
 
     private Store purchaseStore;
     private User purchaseUser;
-    private List<AdquiredProduct> productList = new ArrayList<>();
+    private List<AcquiredProduct> productList = new ArrayList<>();
 
     public Purchase(Store store, User name){
         purchaseStore = store;
@@ -21,9 +21,9 @@ public class Purchase {
 
     public User user() { return this.purchaseUser;  }
 
-    public Integer productsQuantity() { return this.productList.stream().mapToInt(AdquiredProduct::quantity).sum();  }
+    public Integer productsQuantity() { return this.productList.stream().mapToInt(AcquiredProduct::quantity).sum();  }
 
-    public List<AdquiredProduct> getListOfAdquiredProducts() {
+    public List<AcquiredProduct> getListOfAdquiredProducts() {
         return this.productList;
     }
 

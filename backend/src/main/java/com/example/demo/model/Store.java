@@ -14,10 +14,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -127,13 +124,17 @@ public class Store {
         return this.merchandiseList.stream().filter(merchandise -> merchandise.stock() > 0).collect(Collectors.toList());
     }
 
-    public AdquiredProduct getProduct(String productName, String productBrand, Integer quantity) {
+    public List<Merchandise> getMerchandisesFromCategory(MerchandiseCategory category) {
+        return this.merchandiseList.stream().filter(merchandise -> merchandise.getCategory().equals(category)).collect(Collectors.toList());
+    }
+
+    public AcquiredProduct getProduct(String productName, String productBrand, Integer quantity) {
         Merchandise merchandise = this.findMerchandise(productName, productBrand);
         if (this.stockOf(productName, productBrand) < quantity){
             throw new InsufficientMerchandiseStockException();
         }
         this.decreaseStock(productName, productBrand, quantity);
-        return new AdquiredProduct(merchandise.name(), merchandise.brand(), merchandise.price(), quantity);
+        return new AcquiredProduct(merchandise.name(), merchandise.brand(), merchandise.price(), quantity);
     }
 
 
@@ -174,4 +175,9 @@ public class Store {
     public LocalDateTime homeDeliveryTime() {
         return LocalDateTime.now().plusDays(1);
     }
+
+    public Boolean isProductFromCategory(AcquiredProduct acquiredProduct, MerchandiseCategory category) {
+        return this.findMerchandise(acquiredProduct.name(), acquiredProduct.brand()).getCategory().equals(category);
+    }
 }
+

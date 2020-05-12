@@ -1,6 +1,6 @@
 package com.example.demo.builders;
 
-import com.example.demo.model.AdquiredProduct;
+import com.example.demo.model.AcquiredProduct;
 
 public class AdquiredProductBuilder {
 
@@ -11,8 +11,8 @@ public class AdquiredProductBuilder {
 
     public static AdquiredProductBuilder aProduct(){ return new AdquiredProductBuilder(); }
 
-    public AdquiredProduct build() {
-        return new AdquiredProduct(productName, productBrand, productPrice, productQuantity);
+    public AcquiredProduct build() {
+        return new AcquiredProduct(productName, productBrand, productPrice, productQuantity);
     }
 
 
