@@ -1,8 +1,7 @@
-package com.example.demo.dominio;
+package com.example.demo.model.thresholds;
 
 import com.example.demo.model.Purchase;
 import com.example.demo.model.merchandise.MerchandiseCategory;
-import com.example.demo.model.thresholds.MoneyThreshold;
 
 public class CategoryMoneyThreshold extends MoneyThreshold {
 
