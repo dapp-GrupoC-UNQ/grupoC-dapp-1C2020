@@ -1,4 +1,4 @@
-package com.example.demo.dominio;
+package com.example.demo.model.merchandise;
 
 import com.example.demo.builders.MerchandiseBuilder;
 import com.example.demo.model.exceptions.InvalidStockTypeException;

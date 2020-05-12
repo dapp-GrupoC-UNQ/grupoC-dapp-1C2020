@@ -22,7 +22,7 @@ public class StoreRepository implements IStoreRepository{
     @Override
     public List<Store> getStores() {
         Discount noDiscount = new NoDiscount();
-        RangoHorarioComercio rangoHorario = new RangoHorarioComercio(DayOfWeek.FRIDAY, LocalTime.of(9,0), LocalTime.of(15, 0));
+        StoreSchedule rangoHorario = new StoreSchedule(DayOfWeek.FRIDAY, LocalTime.of(9,0), LocalTime.of(15, 0));
         Store store1 = new Store("Lo de tito", "Limpieza", "Alsina 123", 4, Arrays.asList("Efectivo"), Arrays.asList(rangoHorario), LocalDate.now() );
         Store store2 = new Store("Coto", "Almacen", "Alsina 123", 4, Arrays.asList("Efectivo"), Arrays.asList(rangoHorario), LocalDate.now() );
         Store store3 = new Store("Jumbo", "Almacen", "Alsina 123", 4, Arrays.asList("Efectivo"), Arrays.asList(rangoHorario), LocalDate.now() );

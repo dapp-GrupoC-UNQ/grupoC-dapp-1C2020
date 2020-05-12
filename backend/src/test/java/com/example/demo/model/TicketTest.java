@@ -1,10 +1,7 @@
-package com.example.demo.dominio;
+package com.example.demo.model;
 
 import com.example.demo.builders.PurchaseBuilder;
 import com.example.demo.builders.TicketBuilder;
-import com.example.demo.model.HomeDelivery;
-import com.example.demo.model.Purchase;
-import com.example.demo.model.StorePickUp;
 import com.example.demo.model.exceptions.OptionNotAvailableForThisDeliveryType;
 import com.example.demo.model.ticket.Ticket;
 import org.junit.Test;

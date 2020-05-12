@@ -1,6 +1,5 @@
-package com.example.demo.dominio;
+package com.example.demo.model;
 
-import com.example.demo.model.Purchase;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.model.thresholds.MoneyThreshold;
 

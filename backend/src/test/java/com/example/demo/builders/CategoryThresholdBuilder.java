@@ -1,6 +1,6 @@
 package com.example.demo.builders;
 
-import com.example.demo.dominio.CategoryMoneyThreshold;
+import com.example.demo.model.CategoryMoneyThreshold;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 
 public class CategoryThresholdBuilder {

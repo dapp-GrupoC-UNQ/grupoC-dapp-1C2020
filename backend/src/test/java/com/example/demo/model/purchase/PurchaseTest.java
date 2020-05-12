@@ -1,16 +1,15 @@
-package com.example.demo.dominio;
+package com.example.demo.model.purchase;
 
-import com.example.demo.builders.ComercioBuilder;
+import com.example.demo.builders.StoreBuilder;
 import com.example.demo.builders.PurchaseBuilder;
 import com.example.demo.builders.UserBuilder;
-import com.example.demo.model.*;
+import com.example.demo.model.Purchase;
+import com.example.demo.model.Store;
+import com.example.demo.model.User;
 import com.example.demo.model.exceptions.InsufficientMerchandiseStockException;
 import com.example.demo.model.exceptions.NotFoundProductInStore;
-import com.example.demo.model.exceptions.OptionNotAvailableForThisDeliveryType;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.junit.Test;
-
-import java.time.LocalDateTime;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,7 +24,7 @@ public class PurchaseTest {
 
     @Test
     public void aPurchaseHasAStore(){
-        Store coto = ComercioBuilder.unComercio().build();
+        Store coto = StoreBuilder.aStore().build();
         Purchase purchase = PurchaseBuilder.aPurchase().withStore(coto).build();
         assertEquals(coto, purchase.store());
     }
@@ -46,7 +45,7 @@ public class PurchaseTest {
 
     @Test
     public void isNotPossibleToAddAProductIfTheStoreCannotSatisfyTheStock(){
-        Store storeWithProducts = ComercioBuilder.unComercio().build();
+        Store storeWithProducts = StoreBuilder.aStore().build();
         storeWithProducts.addMerchandise("Mayonesa", "Hellmans", 15.8, 1, MerchandiseCategory.GROCERY);
         Purchase purchase = PurchaseBuilder.aPurchase().withStore(storeWithProducts).build();
         assertThrows(InsufficientMerchandiseStockException.class, () -> { purchase.addProduct("Mayonesa", "Hellmans", 3); });
@@ -54,7 +53,7 @@ public class PurchaseTest {
 
     @Test
     public void aPurchaseWithAHigherPriceThanTheUserMoneyThresholdBreaksTheLimit() {
-        Store store = ComercioBuilder.withMerchandise("Mayonesa", "Hellmans", 15.0, 400, MerchandiseCategory.GROCERY);
+        Store store = StoreBuilder.withMerchandise("Mayonesa", "Hellmans", 15.0, 400, MerchandiseCategory.GROCERY);
         User userWithMoneyThreshold = UserBuilder.user().withMoneyThreshold(20.0);
         Purchase purchase = PurchaseBuilder.aPurchase().withUser(userWithMoneyThreshold).withProductOfStore("Mayonesa", "Hellmans", 10, store);
         assertTrue(purchase.breaksMoneyThreshold());
@@ -62,7 +61,7 @@ public class PurchaseTest {
 
     @Test
     public void aPurchaseWithALowerPriceThanTheUserMoneyThresholdDoesNotBreakTheLimit() {
-        Store store = ComercioBuilder.withMerchandise("Mayonesa", "Hellmans", 15.0, 400, MerchandiseCategory.GROCERY);
+        Store store = StoreBuilder.withMerchandise("Mayonesa", "Hellmans", 15.0, 400, MerchandiseCategory.GROCERY);
         User userWithMoneyThreshold = UserBuilder.user().withMoneyThreshold(20000.0);
         Purchase purchase = PurchaseBuilder.aPurchase().withUser(userWithMoneyThreshold).withProductOfStore("Mayonesa", "Hellmans", 10, store);
         assertFalse(purchase.breaksMoneyThreshold());

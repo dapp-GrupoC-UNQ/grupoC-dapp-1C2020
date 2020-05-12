@@ -1,4 +1,4 @@
-package com.example.demo.dominio;
+package com.example.demo.model.user;
 
 import com.example.demo.builders.MoneyThresholdBuilder;
 import com.example.demo.builders.UserBuilder;

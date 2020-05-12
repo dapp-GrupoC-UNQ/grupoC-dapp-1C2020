@@ -1,6 +1,6 @@
-package com.example.demo.dominio;
+package com.example.demo.model.threshold;
 
-import com.example.demo.builders.ComercioBuilder;
+import com.example.demo.builders.StoreBuilder;
 import com.example.demo.builders.MoneyThresholdBuilder;
 import com.example.demo.builders.PurchaseBuilder;
 import com.example.demo.model.Purchase;
@@ -51,7 +51,7 @@ public class MoneyThresholdTest {
     @Test
     public void aPurchaseWithAHigherTotalPriceThanAnEnabledMoneyThresholdBreaksTheLimit() {
         MoneyThreshold moneyThreshold = MoneyThresholdBuilder.aMoneyThreshold().withMoneyLimit(30.0).build();
-        Store store = ComercioBuilder.unComercio().withMerchandise("Mayonesa", "Hellmans", 15.0, 300, MerchandiseCategory.GROCERY);
+        Store store = StoreBuilder.aStore().withMerchandise("Mayonesa", "Hellmans", 15.0, 300, MerchandiseCategory.GROCERY);
         Purchase purchase = PurchaseBuilder.aPurchase().withProductOfStore("Mayonesa", "Hellmans", 4, store);
         assertTrue(moneyThreshold.breaksTheLimitWith(purchase));
     }
@@ -59,7 +59,7 @@ public class MoneyThresholdTest {
     @Test
     public void aPurchaseWithAHigherTotalPriceThanADisabledMoneyThresholdDoesNotBreakTheLimit() {
         MoneyThreshold moneyThreshold = MoneyThresholdBuilder.aMoneyThreshold().whichIsDisabled();
-        Store store = ComercioBuilder.unComercio().withMerchandise("Mayonesa", "Hellmans", 15.0, 300, MerchandiseCategory.GROCERY);
+        Store store = StoreBuilder.aStore().withMerchandise("Mayonesa", "Hellmans", 15.0, 300, MerchandiseCategory.GROCERY);
         Purchase purchase = PurchaseBuilder.aPurchase().withProductOfStore("Mayonesa", "Hellmans", 4, store);
         assertFalse(moneyThreshold.breaksTheLimitWith(purchase));
     }
@@ -67,7 +67,7 @@ public class MoneyThresholdTest {
     @Test
     public void aPurchaseWithALowerTotalPriceThanAnEnabledMoneyThresholdDoesNotBreakTheLimit() {
         MoneyThreshold moneyThreshold = MoneyThresholdBuilder.aMoneyThreshold().withMoneyLimit(3000.0).build();
-        Store store = ComercioBuilder.unComercio().withMerchandise("Mayonesa", "Hellmans", 15.0, 300, MerchandiseCategory.GROCERY);
+        Store store = StoreBuilder.aStore().withMerchandise("Mayonesa", "Hellmans", 15.0, 300, MerchandiseCategory.GROCERY);
         Purchase purchase = PurchaseBuilder.aPurchase().withProductOfStore("Mayonesa", "Hellmans", 4, store);
         assertFalse(moneyThreshold.breaksTheLimitWith(purchase));
     }
@@ -75,7 +75,7 @@ public class MoneyThresholdTest {
     @Test
     public void aPurchaseWithALowerTotalPriceThanADisabledMoneyThresholdDoesNotBreakTheLimit() {
         MoneyThreshold moneyThreshold = MoneyThresholdBuilder.aMoneyThreshold().withMoneyLimit(3000.0).whichIsDisabled();
-        Store store = ComercioBuilder.unComercio().withMerchandise("Mayonesa", "Hellmans", 15.0, 300, MerchandiseCategory.GROCERY);
+        Store store = StoreBuilder.aStore().withMerchandise("Mayonesa", "Hellmans", 15.0, 300, MerchandiseCategory.GROCERY);
         Purchase purchase = PurchaseBuilder.aPurchase().withProductOfStore("Mayonesa", "Hellmans", 4, store);
         assertFalse(moneyThreshold.breaksTheLimitWith(purchase));
     }
