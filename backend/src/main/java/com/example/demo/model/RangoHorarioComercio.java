@@ -23,7 +23,8 @@ public class RangoHorarioComercio {
     }
 
     public boolean estaDisponibleEnHorario(DayOfWeek dia, LocalTime hora) {
-        return diaDeAtencion.equals(dia)  && horaDeApertura.isBefore(hora) && horaDeCierre.isAfter(hora);
+        return diaDeAtencion.equals(dia)  && (horaDeApertura.isBefore(hora) || horaDeApertura.equals(hora))
+                                          && (horaDeCierre.isAfter(hora) || horaDeCierre.equals(hora));
     }
 
     public LocalTime horaDeApertura() {

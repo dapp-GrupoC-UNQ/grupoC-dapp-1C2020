@@ -4,6 +4,7 @@ import com.example.demo.model.discounts.*;
 import com.example.demo.model.exceptions.InsufficientMerchandiseStockException;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.merchandise.MerchandiseCategory;
+import com.example.demo.model.turnsSystem.TurnsSystem;
 import com.example.demo.serializers.StoreJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.example.demo.model.exceptions.NotFoundProductInStore;
@@ -33,34 +34,15 @@ public class Store {
     List<Discount> discountList = new ArrayList<>();
     List<Merchandise> merchandiseList = new ArrayList<>();
 
-    public Store(String name, String category, String address, Integer distanceInKm, List<String> paymentMethods, List<RangoHorarioComercio> timeSchedule) {
+    public Store(String name, String category, String address, Integer distanceInKm,
+                 List<String> paymentMethods, List<RangoHorarioComercio> timeSchedule, LocalDate openingDateTime) {
          storeName = name;
          storeCategory = category;
          storeAddress = address;
          deliveryDistanceInKm = distanceInKm;
          availablePaymentMethods =  paymentMethods;
          storeTimeSchedule = timeSchedule;
-         proximoTurnoDeLocal = this.primerTurnoDeLocal();
-    }
-
-    private LocalDateTime primerTurnoDeLocal() {
-        LocalDate now = LocalDate.now();
-        List<RangoHorarioComercio> storeTime = this.storeTimeSchedule;
-        List<LocalDate> diaDeApertura = storeTime.stream().map(time -> this.proximaFechaConDia(time.dia(), now)).collect(Collectors.toList());
-        LocalDate diaMasCercanoANow = diaDeApertura.stream().min(Comparator.comparingLong(x -> ChronoUnit.DAYS.between(now, x))).get();
-        return this.encontrarHorarioApertura(diaMasCercanoANow);
-    }
-
-    private LocalDateTime encontrarHorarioApertura(LocalDate day) {
-        List<RangoHorarioComercio> storeTime = this.storeTimeSchedule;
-        storeTime = storeTime.stream().filter(schedule -> schedule.diaDeAtencion.equals(day.getDayOfWeek())).collect(Collectors.toList());
-        RangoHorarioComercio horario = storeTime.stream().min(Comparator.comparing(RangoHorarioComercio::horaDeApertura)).get();
-        return LocalDateTime.of(day.getYear(),day.getMonth(), day.getDayOfMonth(), horario.horaDeApertura().getHour(), horario.horaDeApertura().getMinute());
-    }
-
-    private LocalDate proximaFechaConDia(DayOfWeek dayOfWeek, LocalDate today) {
-        LocalDate now = today;
-        return now.with(TemporalAdjusters.next(dayOfWeek));
+         proximoTurnoDeLocal = TurnsSystem.primerTurnoDeLocal(openingDateTime, this.storeTimeSchedule);
     }
 
     public String name() {
@@ -171,21 +153,21 @@ public class Store {
     public LocalDateTime nextTurn(LocalDateTime aDate) {
         if (aDate.toLocalDate().isBefore(proximoTurnoDeLocal.toLocalDate())) {
             LocalDateTime turnoADar = proximoTurnoDeLocal;
-            this.updateNextTurn();
+            this.updateNextTurn(aDate.toLocalDate());
             return turnoADar;
         }
         else {
-            LocalDateTime turnoADar = primerTurnoDeLocal();
-            this.updateNextTurn();
+            LocalDateTime turnoADar = TurnsSystem.primerTurnoDeLocal(aDate.toLocalDate(), this.storeTimeSchedule);
+            this.updateNextTurn(aDate.toLocalDate());
             return turnoADar;
         }
     }
 
-    private void updateNextTurn() {
+    private void updateNextTurn(LocalDate aDate) {
         if(this.isOpenAt(proximoTurnoDeLocal.getDayOfWeek(), LocalTime.of(proximoTurnoDeLocal.getHour(), proximoTurnoDeLocal.getMinute()).plusMinutes(15))){
             this.proximoTurnoDeLocal = proximoTurnoDeLocal.plusMinutes(15);
         }else{
-            this.proximoTurnoDeLocal = this.primerTurnoDeLocal();
+            this.proximoTurnoDeLocal = TurnsSystem.primerTurnoDeLocal(aDate, this.storeTimeSchedule);
         }
     }
 
