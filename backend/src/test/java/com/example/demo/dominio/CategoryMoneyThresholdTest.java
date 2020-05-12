@@ -6,6 +6,7 @@ import com.example.demo.builders.PurchaseBuilder;
 import com.example.demo.model.Purchase;
 import com.example.demo.model.Store;
 import com.example.demo.model.merchandise.MerchandiseCategory;
+import com.example.demo.model.thresholds.CategoryMoneyThreshold;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
