@@ -1,11 +1,11 @@
 # grupoC-dapp-1C2020
 
+RELEASE_NOTE
 
-TAG ...
+TAG 
 
 NEW FEATURES:
 -	Tiendas registradas que tienen un rubro, días y horarios de atención y un domicilio.
--	El usuario puede buscar por tiendas por su categoría, ver los productos de cada tienda o buscar ofertas.
 -	En las tiendas un usuario puede realizar compras, abonarlas con distintos medios de pago, que dependen de la tienda y elegir el método de retiro (envío a domicilio o retirar en local).
 -	Las compras que realice cada usuario quedarán guardadas en caso de que éste desee comprar los mismos productos en el futuro.
 -	Las tiendas poseen un sistema para entregar al usuario el siguiente turno disponible para retirar su compra.
