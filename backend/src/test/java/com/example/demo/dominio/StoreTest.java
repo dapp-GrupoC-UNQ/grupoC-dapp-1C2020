@@ -1,7 +1,7 @@
 package com.example.demo.dominio;
 
 import com.example.demo.builders.ComercioBuilder;
-import com.example.demo.model.AdquiredProduct;
+import com.example.demo.model.AcquiredProduct;
 import com.example.demo.model.Store;
 import com.example.demo.model.RangoHorarioComercio;
 import com.example.demo.model.exceptions.InsufficientMerchandiseStockException;
@@ -10,7 +10,6 @@ import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.junit.Test;
 
 import java.time.DayOfWeek;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
@@ -77,7 +76,7 @@ public class StoreTest {
     public void getProductReturnsAnAcquiredProductAndDecreasesTheProductStock() {
         Store store = ComercioBuilder.unComercio().build();
         store.addMerchandise("Mayonesa", "Hellmans", 15.4, 200, MerchandiseCategory.GROCERY);
-        AdquiredProduct product = store.getProduct("Mayonesa", "Hellmans", 2);
+        AcquiredProduct product = store.getProduct("Mayonesa", "Hellmans", 2);
         assertEquals(store.stockOf("Mayonesa", "Hellmans"), 198);
         assertEquals(product.quantity(), 2);
         assertEquals(product.price(), 15.4);

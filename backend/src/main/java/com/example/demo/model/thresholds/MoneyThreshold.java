@@ -21,6 +21,8 @@ public class MoneyThreshold {
         return this.isActive;
     }
 
+    public PurchasePriceCalculator purchasePriceCalculator() { return this.purchasePriceCalculator; }
+
     public void disable() {
         this.isActive = false;
     }
