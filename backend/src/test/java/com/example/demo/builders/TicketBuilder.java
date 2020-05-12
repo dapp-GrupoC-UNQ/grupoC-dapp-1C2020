@@ -5,11 +5,13 @@ import com.example.demo.model.HomeDelivery;
 import com.example.demo.model.Purchase;
 import com.example.demo.model.ticket.Ticket;
 
+import java.time.LocalDateTime;
+
 public class TicketBuilder {
 
     private String paymentMethod = "Credit Card";
     private Purchase ticketPurchase = PurchaseBuilder.aPurchase().build();
-    private DeliveryType deliveryMethod = new HomeDelivery("Alsina 123");
+    private DeliveryType deliveryMethod = new HomeDelivery("Alsina 123", LocalDateTime.now().plusDays(1));
 
     public static TicketBuilder aTicket() {
         return new TicketBuilder();

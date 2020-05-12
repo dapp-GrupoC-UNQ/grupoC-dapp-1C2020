@@ -171,4 +171,7 @@ public class Store {
         }
     }
 
+    public LocalDateTime homeDeliveryTime() {
+        return LocalDateTime.now().plusDays(1);
+    }
 }

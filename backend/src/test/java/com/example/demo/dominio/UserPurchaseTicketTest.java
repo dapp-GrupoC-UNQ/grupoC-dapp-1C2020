@@ -5,6 +5,7 @@ import com.example.demo.builders.UserBuilder;
 import com.example.demo.model.Purchase;
 import com.example.demo.model.User;
 import com.example.demo.model.exceptions.OptionNotAvailableForThisDeliveryType;
+import com.example.demo.model.ticket.Ticket;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
@@ -34,17 +35,15 @@ public class UserPurchaseTicketTest {
         User user = UserBuilder.user().build();
         Purchase purchase = PurchaseBuilder.aPurchase().withUser(user).build();
         purchase.finishPurchaseWithHomeDelivery("Credit Card", "Alsina 123");
-        assertEquals(user.ticketOf(purchase).addressOfDelivery(), "Alsina 123");
-        //asertEquals(acertar que el horario del ticket es el que le dio el store)
+        Ticket ticket = user.ticketOf(purchase);
+        assertEquals(ticket.addressOfDelivery(), "Alsina 123");
     }
 
     @Test
-    public void aUserThatChoosesStorePickUpDeliveryTicketHasADeliveryDateAndDoesNotHaveADeliveryAddress() {
+    public void aUserThatChoosesStorePickUpDeliveryTicketDoesNotHaveADeliveryAddress() {
         User user = UserBuilder.user().build();
         Purchase purchase = PurchaseBuilder.aPurchase().withUser(user).build();
         purchase.finishPurchase("Credit Card");
-        //ACERTAR QUE SEA EL TURNO QUE DA EL STORE
-        assertEquals(user.ticketOf(purchase).deliveryTime(), LocalDateTime.of(2020, 5, 13, 13, 45));
         assertThrows(OptionNotAvailableForThisDeliveryType.class, () -> user.ticketOf(purchase).addressOfDelivery());
     }
 

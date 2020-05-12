@@ -36,10 +36,10 @@ public class Purchase {
     }
 
     public void finishPurchase(String paymentMethod) {
-        purchaseUser.addTicketOfPurchase(new Ticket(this, paymentMethod, new StorePickUp(LocalDateTime.now())));
+        purchaseUser.addTicketOfPurchase(new Ticket(this, paymentMethod, new StorePickUp(this.store().nextTurn(LocalDateTime.now()))));
     }
 
     public void finishPurchaseWithHomeDelivery(String paymentMethod, String deliveryAddress) {
-        purchaseUser.addTicketOfPurchase(new Ticket(this, paymentMethod, new HomeDelivery(deliveryAddress)));
+        purchaseUser.addTicketOfPurchase(new Ticket(this, paymentMethod, new HomeDelivery(deliveryAddress, this.store().homeDeliveryTime())));
     }
 }
