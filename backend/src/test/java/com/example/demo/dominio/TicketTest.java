@@ -23,11 +23,9 @@ public class TicketTest {
     }
 
     @Test
-    public void aHomeDeliveryPurchaseTicketHasDeliveryAddressAndTime() {
-        Ticket ticket = TicketBuilder.aTicket().withDeliveryMethod(new HomeDelivery("Alsina 123")).build();
+    public void aHomeDeliveryPurchaseTicketHasDeliveryAddress() {
+        Ticket ticket = TicketBuilder.aTicket().withDeliveryMethod(new HomeDelivery("Alsina 123", LocalDateTime.now().plusDays(1))).build();
         assertEquals(ticket.addressOfDelivery(), "Alsina 123");
-        //el pickup date deberia darlo el store pero aca esta hardcodeado
-        assertEquals(ticket.deliveryTime(), LocalDateTime.of(2020, 5, 13, 13, 45));
     }
 
     @Test

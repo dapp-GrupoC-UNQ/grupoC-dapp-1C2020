@@ -7,9 +7,11 @@ import java.time.LocalDateTime;
 public class HomeDelivery implements DeliveryType {
 
     private String deliveryAddress;
+    private LocalDateTime deliveryDate;
 
-    public HomeDelivery(String address){
-        this.deliveryAddress = address;
+    public HomeDelivery(String address, LocalDateTime aDeliveryDate){
+        deliveryAddress = address;
+        deliveryDate = aDeliveryDate;
     }
     @Override
     public String deliveryAddress() {
@@ -17,5 +19,5 @@ public class HomeDelivery implements DeliveryType {
     }
 
     @Override
-    public LocalDateTime pickUpDate() { throw new OptionNotAvailableForThisDeliveryType();  }
+    public LocalDateTime pickUpDate() { return this.deliveryDate; }
 }
