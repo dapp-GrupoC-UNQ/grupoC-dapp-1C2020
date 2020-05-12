@@ -46,7 +46,9 @@ public class User {
     }
 
     public void addCategoryMoneyThreshold(MerchandiseCategory category, Double moneyLimit) {
-        this.categoryMoneyThresholds.add(new CategoryMoneyThreshold(moneyLimit, category));
+        if(!this.hasCategoryLimitOf(category)) {
+            this.categoryMoneyThresholds.add(new CategoryMoneyThreshold(moneyLimit, category));
+        }
     }
 
     public void disableMoneyThreshold() {
