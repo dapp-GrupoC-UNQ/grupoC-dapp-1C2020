@@ -1,10 +1,9 @@
-package com.example.demo.dominio;
+package com.example.demo.model.user;
 
 import com.example.demo.builders.MoneyThresholdBuilder;
 import com.example.demo.builders.UserBuilder;
 import com.example.demo.model.User;
 import com.example.demo.model.exceptions.NotFoundCategoryMoneyThresholdForThisUser;
-import com.example.demo.model.exceptions.OptionNotAvailableForThisDeliveryType;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.example.demo.dominio;
+package com.example.demo.model.store;
 
 import com.example.demo.model.RangoHorarioComercio;
 import com.example.demo.model.exceptions.HorarioNoPermitidoException;

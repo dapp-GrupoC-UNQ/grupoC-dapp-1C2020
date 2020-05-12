@@ -1,4 +1,4 @@
-package com.example.demo.dominio;
+package com.example.demo.model.discount;
 
 import com.example.demo.builders.CategoryDiscountBuilder;
 import com.example.demo.builders.MerchandiseBuilder;

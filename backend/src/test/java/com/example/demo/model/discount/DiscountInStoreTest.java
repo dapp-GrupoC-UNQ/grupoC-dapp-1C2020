@@ -1,6 +1,6 @@
-package com.example.demo.dominio;
+package com.example.demo.model.discount;
 
-import com.example.demo.builders.ComercioBuilder;
+import com.example.demo.builders.StoreBuilder;
 import com.example.demo.model.Store;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.junit.Test;
@@ -13,7 +13,7 @@ public class DiscountInStoreTest {
 
     @Test
     public void aMerchandiseThatHasAMerchandiseDiscountAndItsValidHasItsPriceDecreased() {
-        Store store = ComercioBuilder.unComercio().build();
+        Store store = StoreBuilder.aStore().build();
         Double originalPrice = 10.0;
         store.addMerchandise("Mayonesa", "Hellmans", originalPrice, 100, MerchandiseCategory.GROCERY);
         store.addMerchandiseDiscountFor("Mayonesa", "Hellmans", 20, LocalDate.now().plusDays(1));
@@ -22,7 +22,7 @@ public class DiscountInStoreTest {
 
     @Test
     public void aMerchandiseThatDoesNotHaveADiscountDoesNotGetItsPriceDecreased() {
-        Store store = ComercioBuilder.unComercio().build();
+        Store store = StoreBuilder.aStore().build();
         Double originalPrice = 10.0;
         store.addMerchandise("Mayonesa", "Hellmans", originalPrice, 100, MerchandiseCategory.GROCERY);
         assertEquals(originalPrice, store.priceOf("Mayonesa", "Hellmans"));
@@ -30,7 +30,7 @@ public class DiscountInStoreTest {
 
     @Test
     public void aMerchandiseThatHasACategoryDiscountAndItsValidHasItsPriceDecreased() {
-        Store store = ComercioBuilder.unComercio().build();
+        Store store = StoreBuilder.aStore().build();
         Double originalPrice = 10.0;
         store.addMerchandise("Mayonesa", "Hellmans", originalPrice, 100, MerchandiseCategory.GROCERY);
         store.addCategoryDiscount(MerchandiseCategory.GROCERY, 20, LocalDate.now().plusDays(1));
@@ -39,7 +39,7 @@ public class DiscountInStoreTest {
 
     @Test
     public void aMerchandiseThatDoesNotHaveACategoryDiscountDoesNotGetItsPriceDecreased() {
-        Store store = ComercioBuilder.unComercio().build();
+        Store store = StoreBuilder.aStore().build();
         Double originalPrice = 10.0;
         store.addMerchandise("Mayonesa", "Hellmans", originalPrice, 100, MerchandiseCategory.GROCERY);
         assertEquals(originalPrice, store.priceOf("Mayonesa", "Hellmans"));

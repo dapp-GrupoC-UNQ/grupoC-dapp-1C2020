@@ -1,6 +1,6 @@
-package com.example.demo.dominio;
+package com.example.demo.model.store;
 
-import com.example.demo.builders.ComercioBuilder;
+import com.example.demo.builders.StoreBuilder;
 import com.example.demo.model.RangoHorarioComercio;
 import com.example.demo.model.Store;
 import org.junit.Test;
@@ -21,7 +21,7 @@ public class StoreTurnsSystemTest {
         RangoHorarioComercio rangoJueves = new RangoHorarioComercio(DayOfWeek.THURSDAY, LocalTime.of(9,0), LocalTime.of(16,15));
         LocalDateTime askingForTurnMoment = LocalDateTime.of(2020, 5, 6, 14, 5);
         LocalDate openingDate = askingForTurnMoment.toLocalDate();
-        Store store = ComercioBuilder.unComercio().conHorarioDeAtencion(Arrays.asList(rangoMiercoles, rangoJueves)).withOpeningDate(openingDate).build();
+        Store store = StoreBuilder.aStore().withPaymentMethods(Arrays.asList(rangoMiercoles, rangoJueves)).withOpeningDate(openingDate).build();
         assertEquals(store.nextTurn(askingForTurnMoment), LocalDateTime.of(2020, 5, 7, 9,0));
     }
 
@@ -30,7 +30,7 @@ public class StoreTurnsSystemTest {
         RangoHorarioComercio rangoMiercoles = new RangoHorarioComercio(DayOfWeek.WEDNESDAY, LocalTime.of(10,0), LocalTime.of(12,30));
         LocalDateTime askingForTurnMoment = LocalDateTime.of(2020, 5, 6, 14, 5);
         LocalDate openingDate = askingForTurnMoment.toLocalDate();
-        Store store = ComercioBuilder.unComercio().conHorarioDeAtencion(Arrays.asList(rangoMiercoles)).withOpeningDate(openingDate).build();
+        Store store = StoreBuilder.aStore().withPaymentMethods(Arrays.asList(rangoMiercoles)).withOpeningDate(openingDate).build();
         LocalDateTime firstGivenTurn = store.nextTurn(askingForTurnMoment);
         LocalDateTime secondGivenTurn = store.nextTurn(askingForTurnMoment);
         assertEquals(secondGivenTurn, firstGivenTurn.plusMinutes(15));
@@ -41,7 +41,7 @@ public class StoreTurnsSystemTest {
         RangoHorarioComercio rangoMiercolesCorto = new RangoHorarioComercio(DayOfWeek.WEDNESDAY, LocalTime.of(10,0), LocalTime.of(10, 15));
         LocalDateTime askingForTurnMoment = LocalDateTime.of(2020, 5, 6, 14, 5);
         LocalDate openingDate = askingForTurnMoment.toLocalDate();
-        Store store = ComercioBuilder.unComercio().conHorarioDeAtencion(Arrays.asList(rangoMiercolesCorto)).withOpeningDate(openingDate).build();
+        Store store = StoreBuilder.aStore().withPaymentMethods(Arrays.asList(rangoMiercolesCorto)).withOpeningDate(openingDate).build();
         LocalDateTime firstGivenTurn = store.nextTurn(askingForTurnMoment);
         LocalDateTime secondGivenTurn = store.nextTurn(askingForTurnMoment);
         LocalDateTime thirdturn = store.nextTurn(askingForTurnMoment);

@@ -7,7 +7,7 @@ public class PurchaseBuilder {
         return new PurchaseBuilder();
     }
 
-    private Store purchaseStore = ComercioBuilder.unComercio().build();
+    private Store purchaseStore = StoreBuilder.aStore().build();
     private User user = UserBuilder.user().build();
 
     public Purchase build(){
