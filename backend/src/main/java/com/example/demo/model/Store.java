@@ -4,6 +4,7 @@ import com.example.demo.model.discounts.*;
 import com.example.demo.model.exceptions.InsufficientMerchandiseStockException;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.merchandise.MerchandiseCategory;
+import com.example.demo.model.turnsSystem.TurnsSystem;
 import com.example.demo.serializers.StoreJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.example.demo.model.exceptions.NotFoundProductInStore;
@@ -11,8 +12,12 @@ import com.example.demo.model.exceptions.RepeatedMerchandiseInStore;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,18 +28,21 @@ public class Store {
     String storeCategory; // CAMBIAR A LISTA DE ENUM
     String storeAddress;
     Integer deliveryDistanceInKm;
+    LocalDateTime proximoTurnoDeLocal;
     List<String> availablePaymentMethods;
     List<RangoHorarioComercio> storeTimeSchedule;
     List<Discount> discountList = new ArrayList<>();
     List<Merchandise> merchandiseList = new ArrayList<>();
 
-    public Store(String name, String category, String address, Integer distanceInKm, List<String> paymentMethods, List<RangoHorarioComercio> timeSchedule) {
+    public Store(String name, String category, String address, Integer distanceInKm,
+                 List<String> paymentMethods, List<RangoHorarioComercio> timeSchedule, LocalDate openingDateTime) {
          storeName = name;
          storeCategory = category;
          storeAddress = address;
          deliveryDistanceInKm = distanceInKm;
          availablePaymentMethods =  paymentMethods;
          storeTimeSchedule = timeSchedule;
+         proximoTurnoDeLocal = TurnsSystem.primerTurnoDeLocal(openingDateTime, this.storeTimeSchedule);
     }
 
     public String name() {
@@ -119,18 +127,6 @@ public class Store {
         return this.merchandiseList.stream().filter(merchandise -> merchandise.stock() > 0).collect(Collectors.toList());
     }
 
-    public void addDiscount(MerchandiseDiscount merchandiseDiscount) {
-        this.discountList.add(merchandiseDiscount);
-    }
-
-    public Boolean hasADiscount(MerchandiseDiscount merchandiseDiscount) {
-        return this.discountList.contains(merchandiseDiscount);
-    }
-
-   /* public List<MerchandiseDiscount> listOfAvailableDiscount() {
-        return this.discountList;
-    }
-*/
     public AdquiredProduct getProduct(String productName, String productBrand, Integer quantity) {
         Merchandise merchandise = this.findMerchandise(productName, productBrand);
         if (this.stockOf(productName, productBrand) < quantity){
@@ -140,9 +136,6 @@ public class Store {
         return new AdquiredProduct(merchandise.name(), merchandise.brand(), merchandise.price(), quantity);
     }
 
-    public void applyDiscountOn(Merchandise product, Discount discount) {
-        product.setADiscount(discount);
-    }
 
     public Merchandise getMerchandise(String productName, String productBrand) {
         return this.findMerchandise(productName, productBrand);
@@ -156,4 +149,26 @@ public class Store {
     public void addCategoryDiscount(MerchandiseCategory category, Integer percentOfDiscount, LocalDate endDate) {
         this.discountList.add(new CategoryDiscount(category, percentOfDiscount, LocalDate.now(), endDate));
     }
+
+    public LocalDateTime nextTurn(LocalDateTime aDate) {
+        if (aDate.toLocalDate().isBefore(proximoTurnoDeLocal.toLocalDate())) {
+            LocalDateTime turnoADar = proximoTurnoDeLocal;
+            this.updateNextTurn(aDate.toLocalDate());
+            return turnoADar;
+        }
+        else {
+            LocalDateTime turnoADar = TurnsSystem.primerTurnoDeLocal(aDate.toLocalDate(), this.storeTimeSchedule);
+            this.updateNextTurn(aDate.toLocalDate());
+            return turnoADar;
+        }
+    }
+
+    private void updateNextTurn(LocalDate aDate) {
+        if(this.isOpenAt(proximoTurnoDeLocal.getDayOfWeek(), LocalTime.of(proximoTurnoDeLocal.getHour(), proximoTurnoDeLocal.getMinute()).plusMinutes(15))){
+            this.proximoTurnoDeLocal = proximoTurnoDeLocal.plusMinutes(15);
+        }else{
+            this.proximoTurnoDeLocal = TurnsSystem.primerTurnoDeLocal(aDate, this.storeTimeSchedule);
+        }
+    }
+
 }

@@ -5,6 +5,7 @@ import com.example.demo.model.RangoHorarioComercio;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
@@ -26,13 +27,15 @@ public class ComercioBuilder {
     private Integer distanciaMaximaDePedidosEnKm = 3;
     private List<String> mediosDePagoDisponibles = Arrays.asList("Efectivo");
     private List<RangoHorarioComercio> horarioDeAtencionComercio = Arrays.asList(new RangoHorarioComercio(DayOfWeek.FRIDAY, LocalTime.of(9,0), LocalTime.of(15, 0)));
+    private LocalDate openingDate = LocalDate.now();
 
     public static List<Store> storeWithACategoryList(String category) {
         return storeList().stream().filter(store -> store.storeCategory().equals(category)).collect(Collectors.toList());
     }
 
     public Store build() {
-        return new Store(nombreDeComercio, rubroDeComercio, domicilioDeComercio, distanciaMaximaDePedidosEnKm, mediosDePagoDisponibles, horarioDeAtencionComercio);
+        return new Store(nombreDeComercio, rubroDeComercio, domicilioDeComercio,
+                        distanciaMaximaDePedidosEnKm, mediosDePagoDisponibles, horarioDeAtencionComercio, openingDate);
     }
 
     public ComercioBuilder conNombre(String unNombre) {
@@ -69,5 +72,10 @@ public class ComercioBuilder {
         Store store = unComercio().build();
         store.addMerchandise(productName, productBrand, price, stock, aCategory);
         return store;
+    }
+
+    public ComercioBuilder withOpeningDate(LocalDate anOpeningDate) {
+        openingDate = anOpeningDate;
+        return this;
     }
 }
