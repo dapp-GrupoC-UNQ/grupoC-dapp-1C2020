@@ -1,4 +1,5 @@
-# grupoC-dapp-1C2020
+# grupoC-dapp-1C2020 
+[![Build Status](https://travis-ci.com/dapp-GrupoC-UNQ/grupoC-dapp-1C2020.svg?branch=master)](https://travis-ci.com/dapp-GrupoC-UNQ/grupoC-dapp-1C2020)
 
 RELEASE_NOTE
 
