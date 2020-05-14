@@ -75,7 +75,7 @@ public class StoreTest {
     @Test
     public void getProductReturnsAnAcquiredProductAndDecreasesTheProductStock() {
         Store store = StoreBuilder.aStore().build();
-        store.addMerchandise("Mayonesa", "Hellmans", 15.4, 200, MerchandiseCategory.GROCERY);
+        store.addMerchandise("Mayonesa", "Hellmans", 15.4, 200, MerchandiseCategory.GROCERY, "foto mayonesa");
         AcquiredProduct product = store.getProduct("Mayonesa", "Hellmans", 2);
         assertEquals(store.stockOf("Mayonesa", "Hellmans"), 198);
         assertEquals(product.quantity(), 2);
@@ -87,14 +87,14 @@ public class StoreTest {
     @Test
     public void itIsNotPossibleToGetAProductIfThereIsNotEnoughStock() {
         Store store = StoreBuilder.aStore().build();
-        store.addMerchandise("Mayonesa", "Hellmans", 15.4, 200, MerchandiseCategory.GROCERY);
+        store.addMerchandise("Mayonesa", "Hellmans", 15.4, 200, MerchandiseCategory.GROCERY, "foto mayonesa");
         assertThrows(InsufficientMerchandiseStockException.class, () -> store.getProduct("Mayonesa", "Hellmans", 300));
     }
 
     @Test
     public void itIsNotPossibleToGetAProductIfItDoesNotExistInTheStore() {
         Store store = StoreBuilder.aStore().build();
-        store.addMerchandise("Mayonesa", "Hellmans", 15.4, 200, MerchandiseCategory.GROCERY);
+        store.addMerchandise("Mayonesa", "Hellmans", 15.4, 200, MerchandiseCategory.GROCERY, "foto mayonesa");
         assertThrows(NotFoundProductInStore.class, () -> store.getProduct("A fake", "Product", 1));
     }
 }

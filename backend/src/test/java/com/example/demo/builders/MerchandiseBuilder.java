@@ -11,6 +11,7 @@ public class MerchandiseBuilder {
     private String merchandiseBrand = "Matarazzo";
     private Integer merchandiseStock = 9;
     private Double merchandisePrice = 65.0;
+    private String imageUrl = "https://mercanet.com.ar/server/Portal_0019782/img/products/fideo-matarazzo-mono-500-grs_5371692_xxl.jpg";
     private Discount discount = new NoDiscount();
     private MerchandiseCategory category = MerchandiseCategory.NON_CLASSIFIED_PRODUCT;
 
@@ -19,15 +20,9 @@ public class MerchandiseBuilder {
     }
 
     public Merchandise build() {
-        return new Merchandise(merchandiseName, merchandiseBrand, merchandisePrice, merchandiseStock, category);
+        return new Merchandise(merchandiseName, merchandiseBrand, merchandisePrice, merchandiseStock, category, imageUrl);
     }
 
-    /*public static List<Merchandise> discountList() {
-        Discount discount1 = DiscountBuilder.aDiscount().withPercentOfDiscount(50).build();
-        Merchandise merchandise = aMerchandise().withDiscount(discount1).build();
-        return Arrays.asList(merchandise);
-    }
-*/
     public MerchandiseBuilder withName(String aName) {
         merchandiseName = aName;
         return this;
@@ -55,6 +50,11 @@ public class MerchandiseBuilder {
 
     public MerchandiseBuilder withCategory(MerchandiseCategory aCategory) {
         category = aCategory;
+        return this;
+    }
+
+    public MerchandiseBuilder withImage(String url) {
+        imageUrl = url;
         return this;
     }
 }

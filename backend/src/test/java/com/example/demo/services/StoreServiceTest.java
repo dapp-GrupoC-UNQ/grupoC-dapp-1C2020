@@ -47,7 +47,7 @@ public class StoreServiceTest {
     public void gettingStoreProductsList() {
         Store store = StoreBuilder.aStore().build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
-        store.addMerchandise("Nesquick", "Nestle", 20.4, 30, MerchandiseCategory.GROCERY);
+        store.addMerchandise("Nesquick", "Nestle", 20.4, 30, MerchandiseCategory.GROCERY, "foto nesquik+");
         when(storeRepositoryMock.getStore(any())).thenReturn(store);
 
         assertEquals(storeService.getProductsFromStore(store.name()), store.listOfAvailableMerchandise());

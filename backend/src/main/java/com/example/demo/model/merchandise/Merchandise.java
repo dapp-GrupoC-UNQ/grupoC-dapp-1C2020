@@ -16,10 +16,11 @@ public class Merchandise {
     private String merchandiseBrand;
     private Double merchandisePrice;
     private Integer merchandiseStock;
+    private String imageURL;
     private MerchandiseCategory category;
     private Discount discountToApply = new NoDiscount();
 
-    public Merchandise(String aName, String aBrand, Double aPrice, Integer aStock, MerchandiseCategory aCategory) {
+    public Merchandise(String aName, String aBrand, Double aPrice, Integer aStock, MerchandiseCategory aCategory, String url) {
         if(aStock < 0) { throw new NegativeStockMerchandiseException();}
         if(aPrice < 0) { throw new NegativePriceMerchandiseException();}
         merchandiseName = aName;
@@ -27,6 +28,7 @@ public class Merchandise {
         merchandisePrice = aPrice;
         merchandiseStock = aStock;
         category = aCategory;
+        imageURL = url;
     }
 
     public String name() {
@@ -60,19 +62,15 @@ public class Merchandise {
         merchandiseStock += stockToAdd;
     }
 
-    public Boolean hasADiscount() {
-        return discountToApply.hasADiscount();
-    }
-
     public Integer percentOfDiscount() {
         return this.discountToApply.percentOfDiscount();
     }
 
-    public void setADiscount(Discount discount) {
-        this.discountToApply = discount;
-    }
-
     public MerchandiseCategory getCategory() {
         return this.category;
+    }
+
+    public String imageURL() {
+        return this.imageURL;
     }
 }

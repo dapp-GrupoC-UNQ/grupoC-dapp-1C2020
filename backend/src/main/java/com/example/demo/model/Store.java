@@ -89,9 +89,9 @@ public class Store {
         return !merchandiseList.isEmpty();
     }
 
-    public void addMerchandise(String name, String brand, Double price, Integer stock, MerchandiseCategory aCategory) {
+    public void addMerchandise(String name, String brand, Double price, Integer stock, MerchandiseCategory aCategory, String imageUrl) {
         if(this.sellsProduct(name, brand)) { throw new RepeatedMerchandiseInStore();}
-        merchandiseList.add(new Merchandise(name, brand, price, stock, aCategory));
+        merchandiseList.add(new Merchandise(name, brand, price, stock, aCategory, imageUrl));
     }
 
     public Boolean sellsMerchandise(String name, String brand) {
