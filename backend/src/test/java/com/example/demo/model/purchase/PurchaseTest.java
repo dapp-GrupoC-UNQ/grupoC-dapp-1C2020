@@ -46,7 +46,7 @@ public class PurchaseTest {
     @Test
     public void isNotPossibleToAddAProductIfTheStoreCannotSatisfyTheStock(){
         Store storeWithProducts = StoreBuilder.aStore().build();
-        storeWithProducts.addMerchandise("Mayonesa", "Hellmans", 15.8, 1, MerchandiseCategory.GROCERY);
+        storeWithProducts.addMerchandise("Mayonesa", "Hellmans", 15.8, 1, MerchandiseCategory.GROCERY, "https://i4-unilevermx.a8e.net.br/gg/mayonesa-hellmans-real-105g_170477870_7501005151931.jpg");
         Purchase purchase = PurchaseBuilder.aPurchase().withStore(storeWithProducts).build();
         assertThrows(InsufficientMerchandiseStockException.class, () -> { purchase.addProduct("Mayonesa", "Hellmans", 3); });
     }

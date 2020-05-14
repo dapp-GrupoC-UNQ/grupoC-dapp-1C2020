@@ -70,7 +70,7 @@ public class StoreBuilder {
 
     public static Store withMerchandise(String productName, String productBrand, Double price, Integer stock, MerchandiseCategory aCategory) {
         Store store = aStore().build();
-        store.addMerchandise(productName, productBrand, price, stock, aCategory);
+        store.addMerchandise(productName, productBrand, price, stock, aCategory, "");
         return store;
     }
 

@@ -5,8 +5,6 @@ import com.example.demo.model.exceptions.InvalidStockTypeException;
 import com.example.demo.model.exceptions.NegativePriceMerchandiseException;
 import com.example.demo.model.exceptions.InsufficientMerchandiseStockException;
 import com.example.demo.model.exceptions.NegativeStockMerchandiseException;
-import com.example.demo.model.merchandise.Merchandise;
-import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.junit.Test;
 
 import static org.junit.Assert.assertThrows;
@@ -30,6 +28,13 @@ public class MerchandiseTest {
     public void aMerchandiseHasACategory(){
         Merchandise merchandise = MerchandiseBuilder.aMerchandise().withCategory(MerchandiseCategory.GROCERY).build();
         assertEquals(MerchandiseCategory.GROCERY, merchandise.getCategory());
+    }
+
+    @Test
+    public void aMerchandiseHasAnImageURL() {
+        String imageUrl = "https://static.openfoodfacts.org/images/products/303/371/006/5967/front_fr.266.full.jpg";
+        Merchandise merchandise = MerchandiseBuilder.aMerchandise().withImage(imageUrl).build();
+        assertEquals(merchandise.imageURL(), imageUrl);
     }
 
     @Test
