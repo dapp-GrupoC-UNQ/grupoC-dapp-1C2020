@@ -1,12 +1,15 @@
 import * as React from "react";
 import "./modalregistrousuario.scss"
 import CamposRegistroUsuario from "./CamposRegistroUsuario";
+import LoginService from "../../../servicios/LoginService";
+import RegistrationSucceed from "./succeed/RegistrationSucceed";
 
 class ModalRegistroUsuario extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             registeringUser: true,
+            registrationSucceed: false,
             isValidUser: true
         }
     }
@@ -28,8 +31,20 @@ class ModalRegistroUsuario extends React.Component {
     }
 
     validateUser = () => {
-        this.setState({isValidUser: (!!this.state.nameAndSurname && !!this.state.address &&
-                !!this.state.email && !!this.state.password)})}
+        this.setState({isValidUser: (!!this.state.nombreYApellido && !!this.state.direccion &&
+                !!this.state.email && !!this.state.password)})
+        return this.state.isValidUser;
+    }
+
+    registerUser = () => {
+        if(this.validateUser()){
+            LoginService().registerUser({username: this.state.nombreYApellido, password: this.state.password})
+                .then(() =>{
+                    this.setState({registrationSucceed: true})
+                })
+                .catch(error => console.log(error))
+        };
+    }
 
     render() {
         return(
@@ -40,14 +55,17 @@ class ModalRegistroUsuario extends React.Component {
                         <p className="modal-card-title">Registrate como {this.entityToRegister()}</p>
                         <button className="delete" aria-label="close" onClick={this.props.onClose}></button>
                     </header>
-                        <CamposRegistroUsuario onUpdate={this.updateForm}
+                    {!this.state.registrationSucceed  &&
+                    <CamposRegistroUsuario onUpdate={this.updateForm}
                                                onAddingCategory={this.addCategory}
                                                isStore={!this.state.registeringUser}
-                                               isValidUser={this.state.isValidUser}/>
-
-                    <footer className="modal-card-foot">
-                        <button className="boton-modal" onClick={this.validateUser}>Registrarme</button>
-                        <button className="boton-modal" onClick={this.changeEntityType}>Registrarme como {this.registerButtonText()}</button>
+                                               isValidUser={this.state.isValidUser}
+                    />}
+                    {this.state.registrationSucceed && <RegistrationSucceed/>}
+                     <footer className="modal-card-foot">
+                        <button className="boton-modal" onClick={this.registerUser}>Registrarme</button>
+                        <button className="boton-modal" onClick={this.changeEntityType}>Registrarme
+                            como {this.registerButtonText()}</button>
                     </footer>
                 </div>
             </div>

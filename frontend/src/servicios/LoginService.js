@@ -7,8 +7,13 @@ const LoginService = () => {
         return axios.post(`${SERVICE_URL}validateUser`, user)
     }
 
+    const registerUser = (user) => {
+        return axios.post(`${SERVICE_URL}users`, user)
+    }
+
     return {
-        validateUser: validateUser
+        validateUser: validateUser,
+        registerUser: registerUser
     }
 }
 
