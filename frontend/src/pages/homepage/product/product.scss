@@ -1,0 +1,21 @@
+.product-button {
+  position: absolute;
+  right: 0px;
+  margin: 4px;
+
+  .add-to-cart-button {
+    width: 41px;
+    height: 41px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: coral;;
+    border: none;
+    border-radius: 23px;
+    color: black;
+    padding: 15px 5px;
+    text-align: center;
+    font-size: 16px;
+    transition-duration: 0.4s;
+  }
+}
