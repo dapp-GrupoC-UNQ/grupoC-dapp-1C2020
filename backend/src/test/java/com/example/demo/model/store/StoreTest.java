@@ -2,7 +2,7 @@ package com.example.demo.model.store;
 
 import com.example.demo.builders.StoreBuilder;
 import com.example.demo.model.AcquiredProduct;
-import com.example.demo.model.RangoHorarioComercio;
+import com.example.demo.model.StoreSchedule;
 import com.example.demo.model.Store;
 import com.example.demo.model.exceptions.InsufficientMerchandiseStockException;
 import com.example.demo.model.exceptions.NotFoundProductInStore;
@@ -47,28 +47,29 @@ public class StoreTest {
     @Test
     public void unComercioTieneUnMedioDePago() {
         List<String> mediosDePago = Arrays.asList("Efectivo");
-        Store store = StoreBuilder.aStore().conMediosDePago(mediosDePago).build();
+        Store store = StoreBuilder.aStore().withPaymentMethods(mediosDePago).build();
         assertEquals(store.amountOfAvailablePaymentMethods(),  1);
     }
 
     @Test
     public void unComercioTieneUnDeterminadoMedioDePago() {
         List<String> mediosDePago = Arrays.asList("Efectivo","Tarjeta de debito");
-        Store store = StoreBuilder.aStore().conMediosDePago(mediosDePago).build();
+        Store store = StoreBuilder.aStore().withPaymentMethods(mediosDePago).build();
         assertTrue(store.canPayWith("Tarjeta de debito"));
     }
 
     @Test
     public void unComercioNoPuedeAtenderEnUnHorarioFueraDeSuRango() {
-        List<RangoHorarioComercio> horarioComercio = Arrays.asList(new RangoHorarioComercio(DayOfWeek.FRIDAY, LocalTime.of(9,0), LocalTime.of(13, 0)));
-        Store store = StoreBuilder.aStore().withPaymentMethods(horarioComercio).build();
+        List<DayOfWeek> openingDays = Arrays.asList(DayOfWeek.FRIDAY);
+        StoreSchedule storeSchedule = new StoreSchedule(openingDays, LocalTime.of(9,0), LocalTime.of(13, 0));
+        Store store = StoreBuilder.aStore().withStoreSchedule(storeSchedule).build();
         assertFalse(store.isOpenAt(DayOfWeek.FRIDAY, LocalTime.of(20,0)));
     }
 
     @Test
     public void paymentMethodNotAvailableForStore(){
         List<String> payment = Arrays.asList("Cash");
-        Store store = StoreBuilder.aStore().conMediosDePago(payment).build();
+        Store store = StoreBuilder.aStore().withPaymentMethods(payment).build();
         assertFalse(store.canPayWith("Credit card"));
     }
 
