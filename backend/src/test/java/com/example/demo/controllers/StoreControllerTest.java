@@ -5,8 +5,9 @@ import com.example.demo.builders.DiscountBuilder;
 import com.example.demo.model.discounts.Discount;
 import com.example.demo.model.exceptions.NotFoundStoreException;
 import com.example.demo.model.merchandise.MerchandiseCategory;
+import com.example.demo.model.store.StoreCategory;
 import com.example.demo.services.StoreService;
-import com.example.demo.model.Store;
+import com.example.demo.model.store.Store;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,21 +43,21 @@ public class StoreControllerTest {
 
         mockMvc.perform(get("/stores"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$", hasSize(3)))
                 .andExpect(jsonPath("$[0].storeName", is(stores.get(0).name())))
-                .andExpect(jsonPath("$[1].storeName", is(stores.get(1).name())));
+                .andExpect(jsonPath("$[1].storeName", is(stores.get(1).name())))
+                .andExpect(jsonPath("$[2].storeName", is(stores.get(2).name())));
     }
 
     @Test
     public void ifWeAskForStoresWithACategoryWeOnlyGetTheStoresThatHaveThatCategoryList() throws Exception {
-        List<Store> stores = StoreBuilder.storeWithACategoryList("Almacen");
-        when(storeServiceMock.getStoresWithACategory("Almacen")).thenReturn(stores);
+        List<Store> stores = StoreBuilder.storeWithACategoryList(StoreCategory.CLEANING_SUPPLIES);
+        when(storeServiceMock.getStoresWithACategory(StoreCategory.CLEANING_SUPPLIES)).thenReturn(stores);
 
-        mockMvc.perform(get("/stores?category=Almacen"))
+        mockMvc.perform(get("/stores?category=CLEANING_SUPPLIES"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].storeName", is(stores.get(0).name())))
-                .andExpect(jsonPath("$[0].storeCategory", is(stores.get(0).storeCategory())));
+                .andExpect(jsonPath("$[0].storeName", is(stores.get(0).name())));
     }
 
     @Test

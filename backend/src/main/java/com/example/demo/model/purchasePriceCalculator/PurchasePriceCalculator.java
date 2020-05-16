@@ -2,7 +2,7 @@ package com.example.demo.model.purchasePriceCalculator;
 
 import com.example.demo.model.AcquiredProduct;
 import com.example.demo.model.Purchase;
-import com.example.demo.model.Store;
+import com.example.demo.model.store.Store;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 
 import java.util.List;

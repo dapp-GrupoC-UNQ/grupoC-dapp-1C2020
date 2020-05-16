@@ -1,8 +1,9 @@
 package com.example.demo.builders;
 
-import com.example.demo.model.Store;
+import com.example.demo.model.store.Store;
 import com.example.demo.model.StoreSchedule;
 import com.example.demo.model.merchandise.MerchandiseCategory;
+import com.example.demo.model.store.StoreCategory;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -18,11 +19,12 @@ public class StoreBuilder {
 
     public static List<Store> storeList() {
         Store store = aStore().build();
-        Store anotherStore = aStore().withName("Coto").withCategory("Almacen").build();
-        return Arrays.asList(store, anotherStore);
+        Store anotherStore = aStore().withName("Coto").withCategory(Arrays.asList(StoreCategory.GROCERY)).build();
+        Store store2 = aStore().withName("Lo de Tito").withCategory(Arrays.asList(StoreCategory.CLEANING_SUPPLIES)).build();
+        return Arrays.asList(store, anotherStore, store2);
     }
     private String storeName = "Jumbo";
-    private String storeCategory = "Supermercado";
+    private List<StoreCategory> storeCategories = Arrays.asList(StoreCategory.GROCERY);
     private String storeAddress = "Calchaqui 123";
     private Integer deliveryMaxDistanceInKm = 3;
     private List<String> availablePaymentMethods = Arrays.asList("Efectivo");
@@ -30,12 +32,12 @@ public class StoreBuilder {
     private StoreSchedule storeTimeSchedule = new StoreSchedule(openingDays, LocalTime.of(9,0), LocalTime.of(15, 0));
     private LocalDate openingDate = LocalDate.now();
 
-    public static List<Store> storeWithACategoryList(String category) {
-        return storeList().stream().filter(store -> store.storeCategory().equals(category)).collect(Collectors.toList());
+    public static List<Store> storeWithACategoryList(StoreCategory category) {
+        return storeList().stream().filter(store -> store.storeCategories().contains(category)).collect(Collectors.toList());
     }
 
     public Store build() {
-        return new Store(storeName, storeCategory, storeAddress,
+        return new Store(storeName, storeCategories, storeAddress,
                 deliveryMaxDistanceInKm, availablePaymentMethods, storeTimeSchedule, openingDate);
     }
 
@@ -54,8 +56,8 @@ public class StoreBuilder {
         return this;
     }
 
-    public StoreBuilder withCategory(String unRubro) {
-        storeCategory = unRubro;
+    public StoreBuilder withCategory(List<StoreCategory> categories) {
+        storeCategories = categories;
         return this;
     }
 

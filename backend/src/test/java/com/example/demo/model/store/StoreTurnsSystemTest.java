@@ -2,10 +2,8 @@ package com.example.demo.model.store;
 
 import com.example.demo.builders.StoreBuilder;
 import com.example.demo.model.StoreSchedule;
-import com.example.demo.model.Store;
 import org.junit.Test;
 
-import java.lang.reflect.Array;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

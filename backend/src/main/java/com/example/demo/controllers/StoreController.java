@@ -1,9 +1,10 @@
 package com.example.demo.controllers;
 
 import com.example.demo.model.merchandise.Merchandise;
+import com.example.demo.model.store.StoreCategory;
 import com.example.demo.services.IStoreService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.example.demo.model.Store;
+import com.example.demo.model.store.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class StoreController {
         if(category.isEmpty()){
             return storeService.getStores();
         }
-        return storeService.getStoresWithACategory(category);
+        return storeService.getStoresWithACategory(StoreCategory.valueOf(category));
     }
 
     @RequestMapping(path="/stores/{name}/products")

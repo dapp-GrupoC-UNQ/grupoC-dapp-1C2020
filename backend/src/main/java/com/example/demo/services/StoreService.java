@@ -1,8 +1,9 @@
 package com.example.demo.services;
 
 import com.example.demo.model.merchandise.Merchandise;
+import com.example.demo.model.store.StoreCategory;
 import com.example.demo.repositories.IStoreRepository;
-import com.example.demo.model.Store;
+import com.example.demo.model.store.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class StoreService implements IStoreService {
     }
 
     @Override
-    public List<Store> getStoresWithACategory(String category) { return storeRepository.getStoresWithACategory(category);   }
+    public List<Store> getStoresWithACategory(StoreCategory category) { return storeRepository.getStoresWithACategory(category);   }
 
     @Override
     public List<Merchandise> getProductsFromStore(String storeName) {
