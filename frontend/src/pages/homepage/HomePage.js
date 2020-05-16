@@ -8,6 +8,9 @@ import SideBar from "./side-bar/SideBar";
 import StoreService from "../../servicios/StoreService";
 import LoadingSpinner from "../../components/loading-spinner/LoadingSpinner";
 import Product from "./product/Product";
+import Category from "./category/Category";
+import Store from "./store/Store";
+import Discount from "./discount/Discount";
 
 class HomePage extends React.Component {
     constructor(props){
@@ -27,59 +30,13 @@ class HomePage extends React.Component {
         this.showStores();
     }
 
-    renderStore = (store) => {
-        return (
-            <div className="entity-card" onClick={() => this.showStoreProducts(store)}>
-                <div className='imagen-comercio'>
-                    <img src={'https://www.memesargentinos.com.ar/wp-content/uploads/2019/02/China-Supermercado.jpg'}/>
-                </div>
-                <div className='nombre-comercio'>
-                    {store.storeName}
-                </div>
-                <div className='distancia-comercio'>
-                    <FontAwesomeIcon icon={faMapMarkerAlt}/>
-                    <p className="distancia">{store.storeAdress}</p>
-                </div>
-                <div className='rubros-comercio'>
-                    <FontAwesomeIcon icon={faStore}/>
-                    <p className="rubros">{store.storeCategory}</p>
-                </div>
-            </div>
-        )
-    }
+    renderStore = (store) => <Store store={store} onShowStoreProducts={this.showStoreProducts}/>
 
     renderProducts = (product) => <Product product={product} onAddToCart={this.addToCart} onRemoveFromCart={this.removeFromCart}/>
 
-    renderCategory = (category) => {
-        return(
-            <div className="entity-card category-card" onClick={() => this.showStoresWithACategory(category.categoryName)}>
-                <div className='imagen-comercio'>
-                    <img src={category.categoryImageURL}/>
-                </div>
-                <div className='nombre-comercio'>
-                    {category.categoryName}
-                </div>
-            </div>
-        )
+    renderCategory = (category) => <Category category={category} onSelectCategory={this.showStoresWithACategory}/>
 
-    }
-
-    renderDiscount = (discount) => {
-        return (
-            <div className="entity-card">
-                <div className='imagen-comercio'>
-                    <img src={discount.discountImageURL}/>
-                </div>
-                <div className='nombre-comercio'>
-                    {discount.discountText}
-                </div>
-                <div className="discount-store">
-                    <FontAwesomeIcon icon={faStore}/>
-                    {discount.storeName}
-                </div>
-            </div>
-        )
-    }
+    renderDiscount = (discount) => <Discount discount={discount}/>
 
     showStores = () =>{
         StoreService().getAllStores()
@@ -100,7 +57,7 @@ class HomePage extends React.Component {
     }
 
     showStoresWithACategory = (category) => {
-        StoreService().getAllStoresWithACategory(category)
+        StoreService().getAllStoresWithACategory(category.categoryName)
             .then(result => {
                 this.setState({entities: result.data, entityRenderFunction: this.renderStore, loadingEntitiesState: false})
             })
