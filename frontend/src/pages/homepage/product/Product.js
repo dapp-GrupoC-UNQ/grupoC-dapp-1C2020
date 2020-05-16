@@ -7,7 +7,7 @@ class Product extends React.Component {
     render() {
         return (<div className="entity-card product-card">
             <div className="product-button">
-                <button className="add-to-cart-button">
+                <button className="add-to-cart-button" onClick={() => this.props.onAddToCart(this.props.product)}>
                     <FontAwesomeIcon icon={faShoppingCart}/>
                 </button>
             </div>

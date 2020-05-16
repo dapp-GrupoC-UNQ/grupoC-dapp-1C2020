@@ -15,7 +15,8 @@ class HomePage extends React.Component {
         this.state = {
             entities: [], //Tengo que inicializar mi estado entonces uso una lista vacia hasta que consiga los comercios
             loadingEntitiesState: false,
-            entityRenderFunction: this.renderStore
+            entityRenderFunction: this.renderStore,
+            productsInCart: []
             //Es importante tener toda la estructura del state planteada antes de ir a buscar cosas al backend para evitar undefines.
         }
     }
@@ -47,7 +48,7 @@ class HomePage extends React.Component {
         )
     }
 
-    renderProducts = (product) => <Product product={product}/>
+    renderProducts = (product) => <Product product={product} onAddToCart={this.addToCart}/>
 
     renderCategory = (category) => {
         return(
@@ -114,6 +115,8 @@ class HomePage extends React.Component {
                 this.setState({entities: result.data, entityRenderFunction: this.renderProducts, loadingEntitiesState: false})
             })
     }
+
+    addToCart = (product) => this.setState({productsInCart: [...this.state.productsInCart, product]});
 
     render() {
         return(
