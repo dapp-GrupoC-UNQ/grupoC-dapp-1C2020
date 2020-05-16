@@ -48,7 +48,7 @@ class HomePage extends React.Component {
         )
     }
 
-    renderProducts = (product) => <Product product={product} onAddToCart={this.addToCart}/>
+    renderProducts = (product) => <Product product={product} onAddToCart={this.addToCart} onRemoveFromCart={this.removeFromCart}/>
 
     renderCategory = (category) => {
         return(
@@ -117,7 +117,10 @@ class HomePage extends React.Component {
     }
 
     addToCart = (product) => this.setState({productsInCart: [...this.state.productsInCart, product]});
-
+    removeFromCart = (product) => {
+        const newProductsList = this.state.productsInCart.filter(productInCart => productInCart !== product)
+        this.setState({productsInCart: newProductsList})
+    }
     render() {
         return(
             <div className="homepage">
