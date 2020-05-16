@@ -1,6 +1,7 @@
 package com.example.demo.builders;
 
 import com.example.demo.model.*;
+import com.example.demo.model.store.Store;
 
 public class PurchaseBuilder {
     public static PurchaseBuilder aPurchase() {

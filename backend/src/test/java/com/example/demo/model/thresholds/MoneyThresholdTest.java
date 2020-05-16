@@ -4,7 +4,7 @@ import com.example.demo.builders.StoreBuilder;
 import com.example.demo.builders.MoneyThresholdBuilder;
 import com.example.demo.builders.PurchaseBuilder;
 import com.example.demo.model.Purchase;
-import com.example.demo.model.Store;
+import com.example.demo.model.store.Store;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.*;

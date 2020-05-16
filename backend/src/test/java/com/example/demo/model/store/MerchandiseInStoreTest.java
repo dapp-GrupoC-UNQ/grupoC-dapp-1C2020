@@ -2,7 +2,6 @@ package com.example.demo.model.store;
 
 import com.example.demo.builders.StoreBuilder;
 import com.example.demo.builders.DiscountBuilder;
-import com.example.demo.model.Store;
 import com.example.demo.model.discounts.Discount;
 import com.example.demo.model.exceptions.NotFoundProductInStore;
 import com.example.demo.model.exceptions.RepeatedMerchandiseInStore;

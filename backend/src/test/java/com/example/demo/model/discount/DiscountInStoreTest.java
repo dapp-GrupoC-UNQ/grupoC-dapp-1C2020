@@ -1,7 +1,7 @@
 package com.example.demo.model.discount;
 
 import com.example.demo.builders.StoreBuilder;
-import com.example.demo.model.Store;
+import com.example.demo.model.store.Store;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.junit.Test;
 
