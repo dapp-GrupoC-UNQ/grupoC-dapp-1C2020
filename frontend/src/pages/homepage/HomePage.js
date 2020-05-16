@@ -7,6 +7,7 @@ import {categories, discounts} from "../../constants";
 import SideBar from "./side-bar/SideBar";
 import StoreService from "../../servicios/StoreService";
 import LoadingSpinner from "../../components/loading-spinner/LoadingSpinner";
+import Product from "./product/Product";
 
 class HomePage extends React.Component {
     constructor(props){
@@ -46,24 +47,7 @@ class HomePage extends React.Component {
         )
     }
 
-    renderProducts = (product) => {
-        return (<div className="entity-card product-card">
-                    <div className='imagen-comercio'>
-                        <img src={product.productImage}/>
-                    </div>
-                    <div className='product-name'>
-                        {product.name}
-                    </div>
-                    <div className="product-footer">
-                        <div className='product-brand'>
-                            {product.brand}
-                        </div>
-                        <div className='product-price'>
-                            <p className="price">${product.price}</p>
-                        </div>
-                    </div>
-                </div>)
-    }
+    renderProducts = (product) => <Product product={product}/>
 
     renderCategory = (category) => {
         return(
