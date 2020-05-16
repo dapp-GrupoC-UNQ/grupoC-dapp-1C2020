@@ -69,6 +69,19 @@
   .modal-card-foot {
     display: flex;
     justify-content: space-between;
+
+    .registration-buttons {
+      width: 100%;
+      .registering-buttons {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .success-button {
+        display: flex;
+        justify-content: center;
+      }
+    }
   }
 
   .modal-card-body {

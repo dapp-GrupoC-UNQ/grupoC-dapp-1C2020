@@ -3,6 +3,7 @@ import "./modalregistrousuario.scss"
 import CamposRegistroUsuario from "./CamposRegistroUsuario";
 import LoginService from "../../../servicios/LoginService";
 import RegistrationSucceed from "./succeed/RegistrationSucceed";
+import RegistrationButtons from "./registrationButtons/RegistrationButtons";
 
 class ModalRegistroUsuario extends React.Component {
     constructor(props) {
@@ -63,9 +64,12 @@ class ModalRegistroUsuario extends React.Component {
                     />}
                     {this.state.registrationSucceed && <RegistrationSucceed/>}
                      <footer className="modal-card-foot">
-                        <button className="boton-modal" onClick={this.registerUser}>Registrarme</button>
-                        <button className="boton-modal" onClick={this.changeEntityType}>Registrarme
-                            como {this.registerButtonText()}</button>
+                         <RegistrationButtons
+                             registrationSucceed={this.state.registrationSucceed}
+                             closeModal={this.props.onClose}
+                             registerUser={this.registerUser}
+                             registerButtonText={this.registerButtonText()}
+                             changeEntityType={this.changeEntityType}/>
                     </footer>
                 </div>
             </div>
