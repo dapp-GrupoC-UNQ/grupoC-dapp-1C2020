@@ -27,12 +27,12 @@ public class Store {
     Integer deliveryDistanceInKm;
     LocalDateTime proximoTurnoDeLocal;
     List<String> availablePaymentMethods;
-    List<RangoHorarioComercio> storeTimeSchedule;
+    StoreSchedule storeTimeSchedule;
     List<Discount> discountList = new ArrayList<>();
     List<Merchandise> merchandiseList = new ArrayList<>();
 
     public Store(String name, String category, String address, Integer distanceInKm,
-                 List<String> paymentMethods, List<RangoHorarioComercio> timeSchedule, LocalDate openingDateTime) {
+                 List<String> paymentMethods, StoreSchedule timeSchedule, LocalDate openingDateTime) {
          storeName = name;
          storeCategory = category;
          storeAddress = address;
@@ -63,7 +63,7 @@ public class Store {
     public Integer amountOfAvailablePaymentMethods() { return availablePaymentMethods.size();   }
 
     public Boolean isOpenAt(DayOfWeek dia, LocalTime hora) {
-        return   storeTimeSchedule.stream().anyMatch(horario -> horario.estaDisponibleEnHorario(dia, hora));
+        return storeTimeSchedule.isAvailableOn(dia, hora);
     }
 
     public Boolean sellsProduct(String nombreProducto, String marcaProducto) {

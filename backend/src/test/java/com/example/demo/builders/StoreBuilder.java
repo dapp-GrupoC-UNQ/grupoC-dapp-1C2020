@@ -1,7 +1,7 @@
 package com.example.demo.builders;
 
 import com.example.demo.model.Store;
-import com.example.demo.model.RangoHorarioComercio;
+import com.example.demo.model.StoreSchedule;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 
 import java.time.DayOfWeek;
@@ -26,7 +26,8 @@ public class StoreBuilder {
     private String storeAddress = "Calchaqui 123";
     private Integer deliveryMaxDistanceInKm = 3;
     private List<String> availablePaymentMethods = Arrays.asList("Efectivo");
-    private List<RangoHorarioComercio> storeTimeSchedule = Arrays.asList(new RangoHorarioComercio(DayOfWeek.FRIDAY, LocalTime.of(9,0), LocalTime.of(15, 0)));
+    private List<DayOfWeek> openingDays = Arrays.asList(DayOfWeek.FRIDAY);
+    private StoreSchedule storeTimeSchedule = new StoreSchedule(openingDays, LocalTime.of(9,0), LocalTime.of(15, 0));
     private LocalDate openingDate = LocalDate.now();
 
     public static List<Store> storeWithACategoryList(String category) {
@@ -58,13 +59,13 @@ public class StoreBuilder {
         return this;
     }
 
-    public StoreBuilder conMediosDePago(List<String> mediosDePago){
-        availablePaymentMethods = mediosDePago;
+    public StoreBuilder withPaymentMethods(List<String> paymentMethods){
+        availablePaymentMethods = paymentMethods;
         return this;
     }
 
-    public StoreBuilder withPaymentMethods(List<RangoHorarioComercio> horarioComercio) {
-        storeTimeSchedule = horarioComercio;
+    public StoreBuilder withStoreSchedule(StoreSchedule schedule) {
+        storeTimeSchedule = schedule;
         return this;
     }
 
