@@ -69,10 +69,44 @@
   .modal-card-foot {
     display: flex;
     justify-content: space-between;
+
+    .registration-buttons {
+      width: 100%;
+      .registering-buttons {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .success-button {
+        display: flex;
+        justify-content: center;
+      }
+    }
   }
 
   .modal-card-body {
     display: flex;
+
+    &.success {
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+
+      .success-icon {
+        svg {
+          height: 75px;
+          width: 75px;
+          color: #93d42f;
+        }
+      }
+      .success-title {
+        font-size: x-large;
+      }
+
+      .success-subtitle {
+
+      }
+    }
     .seccion-de-campos {
       width: 50%;
       .user-error {
