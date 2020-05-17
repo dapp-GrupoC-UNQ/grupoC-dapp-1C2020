@@ -6,7 +6,17 @@ class ShoppingCart extends React.Component{
     renderProductInCart = (product) => {
         return (
                 <div className="product-in-cart">
-                    {product.name}
+                    <div className="product-image">
+
+                    </div>
+                    <div className="product-data">
+                        <div className="product-name">
+                            {product.name}
+                        </div>
+                        <div className="product-brand">
+                            {product.brand}
+                        </div>
+                    </div>
                 </div>
             )
     }
