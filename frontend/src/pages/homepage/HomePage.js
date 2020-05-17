@@ -1,8 +1,6 @@
 import {withRouter} from "react-router-dom";
 import * as React from "react";
-import { faMapMarkerAlt, faStore } from '@fortawesome/free-solid-svg-icons'
 import "./homepage.scss"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {categories, discounts} from "../../constants";
 import SideBar from "./side-bar/SideBar";
 import StoreService from "../../servicios/StoreService";
@@ -68,10 +66,17 @@ class HomePage extends React.Component {
             });
     }
 
+    addStoresToProducts = (listOfProducts, store) =>{
+        return listOfProducts.map(product => {
+            product.storeName = store.storeName;
+            return product
+        })
+    }
+
     showStoreProducts = (store) => {
         StoreService().getStoreProducts(store)
             .then(result => {
-                this.setState({entities: result.data, entityRenderFunction: this.renderProducts, loadingEntitiesState: false})
+                this.setState({entities: this.addStoresToProducts(result.data, store), entityRenderFunction: this.renderProducts, loadingEntitiesState: false})
             })
     }
 

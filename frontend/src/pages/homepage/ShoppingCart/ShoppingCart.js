@@ -1,5 +1,7 @@
 import * as React from "react";
 import "./shoppingCart.scss"
+import {faStore} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 class ShoppingCart extends React.Component{
 
@@ -7,7 +9,7 @@ class ShoppingCart extends React.Component{
         return (
                 <div className="product-in-cart">
                     <div className="product-image">
-
+                        <img src={product.productImage}/>
                     </div>
                     <div className="product-data">
                         <div className="product-name">
@@ -15,6 +17,10 @@ class ShoppingCart extends React.Component{
                         </div>
                         <div className="product-brand">
                             {product.brand}
+                        </div>
+                        <div className="product-store">
+                            <FontAwesomeIcon icon={faStore}/>
+                            {product.storeName}
                         </div>
                     </div>
                 </div>
