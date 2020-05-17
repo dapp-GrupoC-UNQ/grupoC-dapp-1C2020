@@ -28,9 +28,6 @@
     width: 40px;
     height: 40px;
 
-    .added-to-cart-button:hover {
-      display: none;
-    }
 
     .added-to-cart-button {
       position: absolute;
@@ -41,21 +38,6 @@
       justify-content: center;
       align-items: center;
       background-color: #93d42f;
-      border: none;
-      border-radius: 23px;
-      color: white;
-      text-align: center;
-      font-size: 16px;
-      transition-duration: 0.4s;
-    }
-
-    .remove-from-cart-button {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #ff0020;
       border: none;
       border-radius: 23px;
       color: white;
