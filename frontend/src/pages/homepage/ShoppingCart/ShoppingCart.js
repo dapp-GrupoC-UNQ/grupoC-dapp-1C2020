@@ -23,6 +23,15 @@ class ShoppingCart extends React.Component{
                             {product.storeName}
                         </div>
                     </div>
+                    <div className="divider"></div>
+                    <div className="product-quantity-and-price">
+                        <div className="price-per-unit">
+                            Precio por unidad: ${product.price}
+                        </div>
+                        <div className="quantity">
+                            Llevas 2
+                        </div>
+                    </div>
                 </div>
             )
     }
