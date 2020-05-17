@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.example.demo.model.store.Store;
+
 public class StoreAdminUser extends User {
 
     private Store store;

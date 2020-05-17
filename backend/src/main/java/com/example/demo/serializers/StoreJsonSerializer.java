@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.example.demo.model.Store;
+import com.example.demo.model.store.Store;
 
 import java.io.IOException;
 
@@ -20,7 +20,7 @@ public class StoreJsonSerializer extends JsonSerializer<Store> {
 
         jgen.writeStartObject();
         jgen.writeStringField("storeName", store.name());
-        jgen.writeStringField("storeCategory", store.storeCategory());
+       // jgen.writeStringField("storeCategories", store.storeCategories());
         jgen.writeStringField("storeAdress", store.address());
         jgen.writeFieldName("storePaymentMethods");
         jgen.writeStartArray();

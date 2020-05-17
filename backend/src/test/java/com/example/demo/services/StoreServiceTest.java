@@ -4,8 +4,9 @@ import com.example.demo.builders.StoreBuilder;
 import com.example.demo.builders.DiscountBuilder;
 import com.example.demo.model.discounts.Discount;
 import com.example.demo.model.merchandise.MerchandiseCategory;
+import com.example.demo.model.store.StoreCategory;
 import com.example.demo.repositories.StoreRepository;
-import com.example.demo.model.Store;
+import com.example.demo.model.store.Store;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -38,9 +39,9 @@ public class StoreServiceTest {
     @Test
     public void whenWeAskStoreServiceForStoresWithACategoryItReturnsOnlyTheListOfStoresWithThstCategory() {
         List<Store> stores = StoreBuilder.storeList();
-        when(storeRepositoryMock.getStoresWithACategory("Almacen")).thenReturn(stores);
+        when(storeRepositoryMock.getStoresWithACategory(StoreCategory.GROCERY)).thenReturn(stores);
 
-        assertEquals(stores, storeService.getStoresWithACategory("Almacen"));
+        assertEquals(stores, storeService.getStoresWithACategory(StoreCategory.GROCERY));
     }
 
     @Test

@@ -1,5 +1,7 @@
-package com.example.demo.model;
+package com.example.demo.model.store;
 
+import com.example.demo.model.AcquiredProduct;
+import com.example.demo.model.StoreSchedule;
 import com.example.demo.model.discounts.*;
 import com.example.demo.model.exceptions.InsufficientMerchandiseStockException;
 import com.example.demo.model.merchandise.Merchandise;
@@ -22,7 +24,7 @@ import java.util.stream.Collectors;
 public class Store {
 
     String storeName;
-    String storeCategory; // CAMBIAR A LISTA DE ENUM
+    List<StoreCategory> storeCategories;
     String storeAddress;
     Integer deliveryDistanceInKm;
     LocalDateTime proximoTurnoDeLocal;
@@ -31,10 +33,10 @@ public class Store {
     List<Discount> discountList = new ArrayList<>();
     List<Merchandise> merchandiseList = new ArrayList<>();
 
-    public Store(String name, String category, String address, Integer distanceInKm,
+    public Store(String name, List<StoreCategory> categories, String address, Integer distanceInKm,
                  List<String> paymentMethods, StoreSchedule timeSchedule, LocalDate openingDateTime) {
          storeName = name;
-         storeCategory = category;
+         storeCategories = categories;
          storeAddress = address;
          deliveryDistanceInKm = distanceInKm;
          availablePaymentMethods =  paymentMethods;
@@ -54,8 +56,8 @@ public class Store {
         return this.deliveryDistanceInKm;
     }
 
-    public String storeCategory() {
-        return this.storeCategory;
+    public List<StoreCategory> storeCategories() {
+        return this.storeCategories;
     }
 
     public List<String> availablePaymentMethods() { return this.availablePaymentMethods; }
@@ -178,6 +180,10 @@ public class Store {
 
     public Boolean isProductFromCategory(AcquiredProduct acquiredProduct, MerchandiseCategory category) {
         return this.findMerchandise(acquiredProduct.name(), acquiredProduct.brand()).getCategory().equals(category);
+    }
+
+    public Boolean hasACategory(StoreCategory category) {
+        return this.storeCategories.contains(category);
     }
 }
 

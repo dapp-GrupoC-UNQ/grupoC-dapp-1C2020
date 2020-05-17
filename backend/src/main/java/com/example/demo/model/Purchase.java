@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.example.demo.model.store.Store;
 import com.example.demo.model.ticket.Ticket;
 
 import java.time.LocalDateTime;

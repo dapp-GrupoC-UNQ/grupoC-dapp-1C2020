@@ -3,7 +3,6 @@ package com.example.demo.model.store;
 import com.example.demo.builders.StoreBuilder;
 import com.example.demo.model.AcquiredProduct;
 import com.example.demo.model.StoreSchedule;
-import com.example.demo.model.Store;
 import com.example.demo.model.exceptions.InsufficientMerchandiseStockException;
 import com.example.demo.model.exceptions.NotFoundProductInStore;
 import com.example.demo.model.merchandise.MerchandiseCategory;
@@ -20,32 +19,32 @@ import static org.junit.jupiter.api.Assertions.*;
 public class StoreTest {
 
     @Test
-    public void unComercioTieneUnNombre() {
+    public void aStoreHasAName() {
         Store store = StoreBuilder.aStore().withName("Disco").build();
         assertEquals(store.name(), "Disco");
     }
 
     @Test
-    public void unComercioTieneUnaDireccion() {
+    public void aStoreHasAnAddress() {
         Store store = StoreBuilder.aStore().withAddress("Calchaqui 423").build();
         assertEquals(store.address(), "Calchaqui 423");
     }
 
     @Test
-    public void unComercioTieneUnRubro() {
-        //podrian ser varios?
-        Store store = StoreBuilder.aStore().withCategory("Supermercado").build();
-        assertEquals(store.storeCategory(),  "Supermercado");
+    public void aStoreHasACategory() {
+        List<StoreCategory> categories = Arrays.asList(StoreCategory.GROCERY);
+        Store store = StoreBuilder.aStore().withCategory(categories).build();
+        assertTrue(store.hasACategory(StoreCategory.GROCERY));
     }
 
     @Test
-    public void unComercioTieneUnaDistanciaMaximaDeDelivery() {
+    public void aStoreHasADeliveryMaxDistance() {
         Store store = StoreBuilder.aStore().withDeliveryMaxDistance(4).build();
         assertEquals(store.deliveryDistanceInKm(),  4);
     }
 
     @Test
-    public void unComercioTieneUnMedioDePago() {
+    public void aStoreHasOnePaymentMethod() {
         List<String> mediosDePago = Arrays.asList("Efectivo");
         Store store = StoreBuilder.aStore().withPaymentMethods(mediosDePago).build();
         assertEquals(store.amountOfAvailablePaymentMethods(),  1);
