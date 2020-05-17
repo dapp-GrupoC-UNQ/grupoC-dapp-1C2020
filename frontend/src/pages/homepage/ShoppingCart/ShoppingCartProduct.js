@@ -1,17 +1,25 @@
 import * as React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMinusCircle, faPlusCircle, faStore, faTimes} from "@fortawesome/free-solid-svg-icons";
+import RemoveProductConfirmation from "./removeProduct/RemoveProductConfirmation";
 
 class ShoppingCartProduct extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            quantity: 1
+            quantity: 1,
+            removeProductModalOpen: false
         }
     }
 
     increaseProductQuantity = () => this.setState({quantity: this.state.quantity + 1})
     decreaseProductQuantity = () => this.setState({quantity: Math.max(1, this.state.quantity - 1)})
+    openRemoveProductModal = () => this.setState({removeProductModalOpen: true})
+    closeRemoveProductModal = () => this.setState({removeProductModalOpen: false})
+    removeProductFromCart = () => {
+        this.props.removeProductFromCart(this.props.product);
+        this.closeRemoveProductModal();
+    }
 
     render() {
         return (
@@ -35,7 +43,7 @@ class ShoppingCartProduct extends React.Component{
                 <div className="product-quantity-and-price">
                     <div className="price-per-unit">
                         Precio por unidad: ${this.props.product.price}
-                        <FontAwesomeIcon icon={faTimes}/>
+                        <FontAwesomeIcon icon={faTimes} onClick={this.openRemoveProductModal}/>
                     </div>
                     <div className="quantity">
                         Llevas {this.state.quantity}
@@ -50,6 +58,11 @@ class ShoppingCartProduct extends React.Component{
                         </div>
                     </div>
                 </div>
+                {this.state.removeProductModalOpen && <RemoveProductConfirmation
+                                                        product={this.props.product}
+                                                        onClose={this.closeRemoveProductModal}
+                                                        onAccept={this.removeProductFromCart}/>
+                }
             </div>
         )
     }

@@ -87,7 +87,6 @@ class HomePage extends React.Component {
         this.setState({productsInCart: newProductsList})
     }
 
-
     render() {
         return(
             <div className="homepage">
@@ -101,7 +100,7 @@ class HomePage extends React.Component {
                     <div className="entities">
                           {this.state.entities.map(entity => this.state.entityRenderFunction(entity))}
                     </div>}
-                {this.state.showingShoppingCart && <ShoppingCart showCart={this.state.showingShoppingCart} products={this.state.productsInCart}/>}
+                {this.state.showingShoppingCart && <ShoppingCart showCart={this.state.showingShoppingCart} products={this.state.productsInCart} removeFromCart={this.removeFromCart}/>}
             </div>
         )
     }

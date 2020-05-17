@@ -3,8 +3,17 @@ import "./shoppingCart.scss"
 import ShoppingCartProduct from "./ShoppingCartProduct";
 
 class ShoppingCart extends React.Component{
+    constructor(props) {
+        super(props);
+    }
 
-    renderProductsInCart = () => this.props.products.map((product) => <ShoppingCartProduct product={product}/>)
+
+    renderProductsInCart = () => this.props.products.map((product) => <ShoppingCartProduct product={product}
+                                                                                           removeProductFromCart={this.removeProductFromCart}/>)
+
+    removeProductFromCart = (product) => {
+        this.props.removeFromCart(product)
+    }
 
     render() {
         return(
