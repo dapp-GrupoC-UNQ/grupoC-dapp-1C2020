@@ -1,6 +1,6 @@
 import * as React from "react";
 import "./shoppingCart.scss"
-import {faStore} from "@fortawesome/free-solid-svg-icons";
+import {faStore, faTimes, faPlusCircle, faMinusCircle} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 class ShoppingCart extends React.Component{
@@ -23,13 +23,23 @@ class ShoppingCart extends React.Component{
                             {product.storeName}
                         </div>
                     </div>
-                    <div className="divider"></div>
+                    <div className="divider"/>
                     <div className="product-quantity-and-price">
                         <div className="price-per-unit">
                             Precio por unidad: ${product.price}
+                            <FontAwesomeIcon icon={faTimes}/>
                         </div>
                         <div className="quantity">
                             Llevas 2
+                        </div>
+                        <div className="add-or-quit-and-total-panel">
+                            <div className="increase-decrease-buttons">
+                                <FontAwesomeIcon icon={faPlusCircle}/>
+                                <FontAwesomeIcon icon={faMinusCircle}/>
+                            </div>
+                            <div className="total-product-price">
+                                Total: ${product.price * 2}
+                            </div>
                         </div>
                     </div>
                 </div>

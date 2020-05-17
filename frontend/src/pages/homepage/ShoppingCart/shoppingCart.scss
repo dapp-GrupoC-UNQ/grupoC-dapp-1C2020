@@ -70,17 +70,43 @@
 
         .price-per-unit {
           display: flex;
-          justify-content: flex-end;
-          height: 25%;
-          width: 100%;
-          padding: 5px
-        }
-        .quantity {
-          display: flex;
-          justify-content: flex-end;
+          justify-content: space-between;
           height: 25%;
           width: 100%;
           padding: 5px;
+
+          svg {
+            height: 17px;
+            width: 17px;
+            color: #4a4a4a;
+          }
+        }
+        .quantity {
+          display: flex;
+          height: 25%;
+          width: 100%;
+          padding: 5px;
+        }
+        .add-or-quit-and-total-panel{
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          height: 50%;
+          width: 100%;
+          padding: 5px 5px 0 5px;
+
+          .total-product-price {
+              color: coral;
+            }
+
+          .increase-decrease-buttons {
+            svg {
+              color: #4a4a4a;
+              height: 17px;
+              width: 17px;
+              margin-right: 7px;
+            }
+          }
         }
       }
     }
