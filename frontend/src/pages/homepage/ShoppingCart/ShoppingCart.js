@@ -1,15 +1,10 @@
 import * as React from "react";
 import "./shoppingCart.scss"
+import ShoppingCartProduct from "./ShoppingCartProduct";
 
 class ShoppingCart extends React.Component{
 
-    renderProductInCart = (product) => {
-        return (
-                <div className="product-in-cart">
-                    {product.name}
-                </div>
-            )
-    }
+    renderProductsInCart = () => this.props.products.map((product) => <ShoppingCartProduct product={product}/>)
 
     render() {
         return(
@@ -18,7 +13,7 @@ class ShoppingCart extends React.Component{
                     Mi carrito
                 </div>
                 <div className="shopping-cart-content">
-                    {this.props.products.map((product) => this.renderProductInCart(product))}
+                    {this.renderProductsInCart()}
                 </div>
             </div>
         )

@@ -3,6 +3,7 @@
   width: 80%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 40px;
 
   .shopping-cart-title {
@@ -14,12 +15,100 @@
   }
 
   .shopping-cart-content {
+    height: 100%;
+    width: 80%;
     margin: 20px 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 
     .product-in-cart {
+      display: flex;
+      width: 100%;
+      height: 17%;
       background-color: white;
       border-radius: 5px;
-      margin: 10px
+      margin: 10px;
+      overflow: hidden;
+
+      .product-data {
+        width: 47%;
+        margin-left: 10px;
+        .product-name {
+          height: 30%;
+          font-size: x-large;
+        }
+        .product-brand {
+          height: 40%;
+          color: lightcoral;
+        }
+
+        .product-store {
+          height: 30%;
+          display: flex;
+          align-items: center;
+          color: #e5c902;
+
+          svg {
+            margin-right: 5px;
+          }
+        }
+      }
+      .product-image{
+        height: 100%;
+        width: 13%;
+        background-color: lightcoral;
+      }
+      .divider {
+        width: 1px;
+        background-color: #e5c902;
+      }
+      .product-quantity-and-price {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+
+        .price-per-unit {
+          display: flex;
+          justify-content: space-between;
+          height: 25%;
+          width: 100%;
+          padding: 5px;
+
+          svg {
+            height: 17px;
+            width: 17px;
+            color: #4a4a4a;
+          }
+        }
+        .quantity {
+          display: flex;
+          height: 25%;
+          width: 100%;
+          padding: 5px;
+        }
+        .add-or-quit-and-total-panel{
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          height: 50%;
+          width: 100%;
+          padding: 5px 5px 0 5px;
+
+          .total-product-price {
+              color: coral;
+            }
+
+          .increase-decrease-buttons {
+            svg {
+              color: #4a4a4a;
+              height: 17px;
+              width: 17px;
+              margin-right: 7px;
+            }
+          }
+        }
+      }
     }
   }
 }
