@@ -22,11 +22,11 @@ public class User {
     private MoneyThreshold moneyThresold = new MoneyThreshold(0.0);
     private List<CategoryMoneyThreshold> categoryMoneyThresholds = new ArrayList<>();
 
-    public User(String username, String password){
-        if(username.isEmpty() || password.isEmpty()){
+    public User(String userMail, String password){
+        if(userMail.isEmpty() || password.isEmpty()){
             throw new InvalidUsernameOrPasswordException();
         }
-        this.username = username;
+        this.username = userMail;
         this.password = password;
         this.purchasesTickets = new ArrayList<>();
     }

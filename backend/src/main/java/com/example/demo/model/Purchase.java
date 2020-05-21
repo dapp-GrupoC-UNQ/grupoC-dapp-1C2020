@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import com.example.demo.model.store.Store;
 import com.example.demo.model.ticket.Ticket;
+import com.example.demo.sendMail.MailSender;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -36,11 +37,15 @@ public class Purchase {
         return this.user().moneyThreshold().breaksTheLimitWith(this);
     }
 
-    public void finishPurchase(String paymentMethod) {
-        purchaseUser.addTicketOfPurchase(new Ticket(this, paymentMethod, new StorePickUp(this.store().nextTurn(LocalDateTime.now()))));
+    public void finishPurchase(String paymentMethod, MailSender mailSender) {
+        StorePickUp date = new StorePickUp(this.store().nextTurn(LocalDateTime.now()));
+        purchaseUser.addTicketOfPurchase(new Ticket(this, paymentMethod, date));
+        //mailSender.sendMail(purchaseStore.mail(), purchaseUser.username(), "Confirmacion de compra", "Su compra fue confirmada, su turno de retiro es " + date.pickUpDate());
     }
 
-    public void finishPurchaseWithHomeDelivery(String paymentMethod, String deliveryAddress) {
-        purchaseUser.addTicketOfPurchase(new Ticket(this, paymentMethod, new HomeDelivery(deliveryAddress, this.store().homeDeliveryTime())));
+    public void finishPurchaseWithHomeDelivery(String paymentMethod, String deliveryAddress, MailSender mailSender) {
+        HomeDelivery delivery = new HomeDelivery(deliveryAddress, this.store().homeDeliveryTime());
+        purchaseUser.addTicketOfPurchase(new Ticket(this, paymentMethod, delivery));
+        //mailSender.sendMail(store().mail(), user().username(), "Confirmacion de compra", "Su compra se completó con éxito, su pedido llegara el " + delivery.pickUpDate());
     }
 }

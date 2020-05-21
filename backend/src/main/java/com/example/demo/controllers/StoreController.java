@@ -2,12 +2,15 @@ package com.example.demo.controllers;
 
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.store.StoreCategory;
+import com.example.demo.sendMail.MailSender;
 import com.example.demo.services.IStoreService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.example.demo.model.store.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +22,8 @@ public class StoreController {
     public static final String MODEL_ATTRIBUTE_TODO = "hola";
     @Autowired
     private IStoreService storeService;
+    @Autowired
+    private JavaMailSender mailSender;
 
 
     @RequestMapping("/stores")
@@ -43,5 +48,17 @@ public class StoreController {
 
     private ResponseEntity<Object> generateProductsResponse(List<Merchandise> merchandises) {
         return new ResponseEntity<>(merchandises, HttpStatus.OK);
+    }
+
+    @RequestMapping("/mail")
+    public ResponseEntity<String> sendEMail(){
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+
+        mailMessage.setFrom("store@gmail.com");
+        mailMessage.setTo("luliialonso@hotmail.com");
+        mailMessage.setSubject("HALAAAAAA");
+        mailMessage.setText("PARALA LAKAAA");
+        mailSender.send(mailMessage);
+        return new ResponseEntity<String>("tu vieja", HttpStatus.OK);
     }
 }

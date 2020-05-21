@@ -23,15 +23,16 @@ import java.util.stream.Collectors;
 @JsonSerialize(using = StoreJsonSerializer.class)
 public class Store {
 
-    String storeName;
-    List<StoreCategory> storeCategories;
-    String storeAddress;
-    Integer deliveryDistanceInKm;
-    LocalDateTime proximoTurnoDeLocal;
-    List<String> availablePaymentMethods;
-    StoreSchedule storeTimeSchedule;
-    List<Discount> discountList = new ArrayList<>();
-    List<Merchandise> merchandiseList = new ArrayList<>();
+    private String storeName;
+    private List<StoreCategory> storeCategories;
+    private String storeAddress;
+    private Integer deliveryDistanceInKm;
+    private LocalDateTime proximoTurnoDeLocal;
+    private List<String> availablePaymentMethods;
+    private StoreSchedule storeTimeSchedule;
+    private String mail;
+    private List<Discount> discountList = new ArrayList<>();
+    private List<Merchandise> merchandiseList = new ArrayList<>();
 
     public Store(String name, List<StoreCategory> categories, String address, Integer distanceInKm,
                  List<String> paymentMethods, StoreSchedule timeSchedule, LocalDate openingDateTime) {
@@ -184,6 +185,10 @@ public class Store {
 
     public Boolean hasACategory(StoreCategory category) {
         return this.storeCategories.contains(category);
+    }
+
+    public String mail() {
+        return this.mail;
     }
 }
 
