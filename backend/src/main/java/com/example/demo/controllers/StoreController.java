@@ -23,7 +23,7 @@ public class StoreController {
     @Autowired
     private IStoreService storeService;
     @Autowired
-    private JavaMailSender mailSender;
+    private JavaMailSender javaMailSender;
 
 
     @RequestMapping("/stores")
@@ -50,7 +50,7 @@ public class StoreController {
         return new ResponseEntity<>(merchandises, HttpStatus.OK);
     }
 
-    @RequestMapping("/mail")
+ /*   @RequestMapping("/mail")
     public ResponseEntity<String> sendEMail(){
         SimpleMailMessage mailMessage = new SimpleMailMessage();
 
@@ -58,7 +58,7 @@ public class StoreController {
         mailMessage.setTo("luliialonso@hotmail.com");
         mailMessage.setSubject("HALAAAAAA");
         mailMessage.setText("PARALA LAKAAA");
-        mailSender.send(mailMessage);
+        javaMailSender.send(mailMessage);
         return new ResponseEntity<String>("tu vieja", HttpStatus.OK);
-    }
+    }*/
 }

@@ -14,34 +14,36 @@ import java.util.Properties;
 @Configuration
 public class MailSender {
 
+    @Value("${mail.username}")
+    private String username;
+    @Value("${mail.password}")
+    private String password;
 
     @Bean
     public JavaMailSender javaMailService() {
-        JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
-        javaMailSender.setJavaMailProperties(getMailProperties());
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("smtp.gmail.com");
+        mailSender.setPort(587);
 
-        return javaMailSender;
+        mailSender.setUsername(username);
+        mailSender.setPassword(password);
+
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
+
+        return mailSender;
+
     }
 
-    private Properties getMailProperties() {
+  /*  private Properties getMailProperties() {
         Properties properties = new Properties();
         properties.setProperty("mail.transport.protocol", "smtp");
         properties.setProperty("mail.smtp.auth", "false");
         properties.setProperty("mail.smtp.starttls.enable", "false");
         properties.setProperty("mail.debug", "false");
         return properties;
-    }
-
-
-  /*  public void sendMail(String from, String to, String subject, String body){
-
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-
-        mailMessage.setFrom(from);
-        mailMessage.setTo(to);
-        mailMessage.setSubject(subject);
-        mailMessage.setText(body);
-
-        javaMailSender.send(mailMessage);
     }*/
 }
