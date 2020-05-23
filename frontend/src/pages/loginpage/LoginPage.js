@@ -22,13 +22,14 @@ class LoginPage extends React.Component {
     }
 
     loginUser = () => {
+        debugger
         if (this.userIsValid()) {
             LoginService().validateUser({username: this.state.username, password: this.state.password})
                 .then(response => {
+                    this.props.onLogin()
                     this.props.history.push("/homepage")
                 })
                 .catch( error => {
-                    debugger
                     alert("El nombre de usuario o la contraseña no son correctos")
                 })
         }
