@@ -1,6 +1,13 @@
 package com.example.demo.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class AcquiredProduct {
+
+    @Id
+    private Integer id;
 
     private String productName;
     private String productBrand;
