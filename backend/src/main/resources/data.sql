@@ -1,0 +1,1 @@
+INSERT INTO ACQUIRED_PRODUCT values (1, 'Fideos', 'Marolio', 10.0, 5)

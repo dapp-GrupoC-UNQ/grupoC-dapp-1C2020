@@ -12,6 +12,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.example.demo.model.exceptions.NotFoundProductInStore;
 import com.example.demo.model.exceptions.RepeatedMerchandiseInStore;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,6 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @JsonSerialize(using = StoreJsonSerializer.class)
+
 public class Store {
 
     String storeName;
