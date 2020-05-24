@@ -9,8 +9,8 @@ import java.util.List;
 public class MultiPurchaseBuilder {
     
     private List<Purchase> multiPurchases = Arrays.asList(PurchaseBuilder.aPurchase().build());
-    public static MultiPurchaseBuilder aMultiPurchase() {  return new MultiPurchaseBuilder();   }
 
+    public static MultiPurchaseBuilder aMultiPurchase() {  return new MultiPurchaseBuilder();   }
 
     public MultiPurchaseBuilder withPurchases(List<Purchase> purchases) {
         multiPurchases = purchases;

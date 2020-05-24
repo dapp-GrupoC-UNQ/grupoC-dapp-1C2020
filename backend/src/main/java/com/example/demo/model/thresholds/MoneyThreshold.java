@@ -1,6 +1,7 @@
 package com.example.demo.model.thresholds;
 
 import com.example.demo.model.Purchase;
+import com.example.demo.model.purchase.MultiPurchase;
 import com.example.demo.model.purchasePriceCalculator.PurchasePriceCalculator;
 
 public class MoneyThreshold {
@@ -37,5 +38,9 @@ public class MoneyThreshold {
 
     public void updateMoneyLimit(Double newMoneyLimit) {
         this.moneyLimit = newMoneyLimit;
+    }
+
+    public Boolean breaksTheLimitWithMultiPurchase(MultiPurchase multiPurchase) {
+        return this.isActive() && purchasePriceCalculator.calculatePriceForMultiPurchase(multiPurchase) > this.moneyLimit;
     }
 }

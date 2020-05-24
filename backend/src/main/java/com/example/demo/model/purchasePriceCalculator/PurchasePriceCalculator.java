@@ -2,6 +2,7 @@ package com.example.demo.model.purchasePriceCalculator;
 
 import com.example.demo.model.AcquiredProduct;
 import com.example.demo.model.Purchase;
+import com.example.demo.model.purchase.MultiPurchase;
 import com.example.demo.model.store.Store;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 
@@ -18,5 +19,13 @@ public class PurchasePriceCalculator {
         Store purchaseStore = purchase.store();
         List<AcquiredProduct> purchaseProductsWithCategory = purchase.getListOfAdquiredProducts().stream().filter(acquiredProduct -> purchaseStore.isProductFromCategory(acquiredProduct, category)).collect(Collectors.toList());
         return purchaseProductsWithCategory.stream().mapToDouble(AcquiredProduct::totalPrice).sum();
+    }
+
+    public Double calculatePriceForMultiPurchase(MultiPurchase multiPurchase) {
+        return multiPurchase.getPurchases().stream().mapToDouble(this::calculatePriceFor).sum();
+    }
+
+    public Double calculatePriceForCategoryOfMultiPurchase(MultiPurchase multiPurchase, MerchandiseCategory category) {
+        return multiPurchase.getPurchases().stream().mapToDouble(purchase -> calculatePriceForCategory(purchase, category)).sum();
     }
 }

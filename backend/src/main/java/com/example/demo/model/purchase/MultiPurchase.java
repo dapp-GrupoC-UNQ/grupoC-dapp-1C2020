@@ -6,12 +6,21 @@ import java.util.List;
 
 public class MultiPurchase {
 
-    private List<Purchase> multiPurchases;
+    private List<Purchase> allPurchases;
 
     public MultiPurchase(List<Purchase> purchases){
-        this.multiPurchases = purchases;
+        this.allPurchases = purchases;
     }
     public Integer quantityStores() {
-        return this.multiPurchases.size();
+        return this.allPurchases.size();
     }
+
+    public List<Purchase> getPurchases() {
+        return this.allPurchases;
+    }
+
+    public Integer totalProductsQuantity() {
+        return allPurchases.stream().mapToInt(Purchase::productsQuantity).sum();
+    }
+
 }
