@@ -194,5 +194,7 @@ public class Store {
     public LocalDateTime proximoTurnoDelLocal() {
         return this.proximoTurnoDeLocal;
     }
+
+    public StoreSchedule storeSchedule() { return this.storeTimeSchedule;}
 }
 

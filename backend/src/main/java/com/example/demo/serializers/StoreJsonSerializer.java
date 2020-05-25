@@ -11,8 +11,6 @@ import java.io.IOException;
 
 public class StoreJsonSerializer extends JsonSerializer<Store> {
 
-    ObjectMapper mapper = new ObjectMapper();
-
     @Override
     public void serialize(
             Store store, JsonGenerator jgen, SerializerProvider provider)
@@ -22,9 +20,15 @@ public class StoreJsonSerializer extends JsonSerializer<Store> {
         jgen.writeStringField("storeName", store.name());
         jgen.writeStringField("storeAddress", store.address());
         jgen.writeNumberField("deliveryDistanceInKm", store.deliveryDistanceInKm());
+        jgen.writeObjectField("storeSchedule", store.storeSchedule());
         serializeStoreCategories(jgen, store);
         serializeStorePaymentMethods(jgen, store);
         jgen.writeEndObject();
+    }
+
+    private void serializeStoreSchedule(JsonGenerator jgen, Store store) throws IOException {
+        jgen.writeStartObject();
+        jgen.writeStringField("storeName", store.name());
     }
 
     private void serializeStoreCategories(JsonGenerator jgen, Store store) throws IOException {

@@ -2,16 +2,14 @@ package com.example.demo.controllers;
 
 import com.example.demo.builders.StoreBuilder;
 import com.example.demo.builders.DiscountBuilder;
-import com.example.demo.builders.UserBuilder;
-import com.example.demo.model.User;
 import com.example.demo.model.discounts.Discount;
 import com.example.demo.model.exceptions.NotFoundStoreException;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.model.store.StoreCategory;
 import com.example.demo.services.StoreService;
 import com.example.demo.model.store.Store;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.JsonPath;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,7 +47,11 @@ public class StoreControllerTest {
     private MockMvc mockMvc;
 
     private List<String> storeCategoriesToString(List<StoreCategory> categories) {
-        return categories.stream().map(category -> category.toString()).collect(Collectors.toList());
+        return categories.stream().map(Enum::toString).collect(Collectors.toList());
+    }
+
+    private List<String> storeOpeningDaysToString(Store store) {
+        return store.storeSchedule().days().stream().map(Enum::toString).collect(Collectors.toList());
     }
 
     @Test
@@ -100,14 +105,20 @@ public class StoreControllerTest {
         Store aStore = StoreBuilder.aStore().build();
         when(storeServiceMock.addStore(any())).thenReturn(aStore);
 
-        mockMvc.perform(post("/stores")
+        MvcResult mvcResult = mockMvc.perform(post("/stores")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(aStore)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("storeName", is(aStore.name())))
-                .andExpect(jsonPath("storeAddress", is(aStore.address())))
-                .andExpect(jsonPath("storeCategories", is(this.storeCategoriesToString(aStore.storeCategories()))))
-                .andExpect(jsonPath("deliveryDistanceInKm", is(aStore.deliveryDistanceInKm())))
-                .andExpect(jsonPath("storePaymentMethods", is(aStore.availablePaymentMethods())));
+                .andReturn();
+
+        String response = mvcResult.getResponse().getContentAsString();
+        assertEquals(JsonPath.parse(response).read("storeName"), aStore.name());
+        assertEquals(JsonPath.parse(response).read("storeAddress"), aStore.address());
+        assertEquals(JsonPath.parse(response).read("storeCategories"),storeCategoriesToString(aStore.storeCategories()));
+        assertEquals(JsonPath.parse(response).read("deliveryDistanceInKm"), aStore.deliveryDistanceInKm());
+        assertEquals(JsonPath.parse(response).read("storePaymentMethods"), aStore.availablePaymentMethods());
+        assertEquals(JsonPath.parse(response).read("storeSchedule.openingTime"), aStore.storeSchedule().openingTime().toString());
+        assertEquals(JsonPath.parse(response).read("storeSchedule.closingTime"), aStore.storeSchedule().closingTime().toString());
+        assertEquals(JsonPath.parse(response).read("storeSchedule.openingDays"), storeOpeningDaysToString(aStore));
     }
 }
