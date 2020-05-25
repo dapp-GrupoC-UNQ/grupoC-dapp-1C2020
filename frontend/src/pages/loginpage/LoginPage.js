@@ -22,7 +22,6 @@ class LoginPage extends React.Component {
     }
 
     loginUser = () => {
-        debugger
         if (this.userIsValid()) {
             LoginService().validateUser({username: this.state.username, password: this.state.password})
                 .then(response => {

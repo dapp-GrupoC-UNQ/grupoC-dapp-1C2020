@@ -9,11 +9,18 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loggedUser: false
+            loggedUser: JSON.parse(localStorage.getItem('loggedUser')) || false
         }
     }
 
-    logInUser = () => this.setState({loggedUser: true})
+    logInUser = () => {
+        this.setState({loggedUser: true})
+        localStorage.setItem('loggedUser', true)
+    }
+    logOut = () => {
+        this.setState({loggedUser: false})
+        localStorage.setItem('loggedUser', false)
+    }
 
     render() {
         return (
@@ -26,7 +33,7 @@ class App extends React.Component {
                     />
                 </Switch>
                 <Switch>
-                    <ProtectedRoute path='/homepage' loggedIn={this.state.loggedUser} component={HomePage} />
+                    <ProtectedRoute path='/homepage' loggedIn={this.state.loggedUser} logOut={this.logOut} component={HomePage} />
                 </Switch>
             </BrowserRouter>
         );
