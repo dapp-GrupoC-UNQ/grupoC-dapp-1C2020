@@ -46,7 +46,7 @@ public class StoreController {
         return new ResponseEntity<>(merchandises, HttpStatus.OK);
     }
 
-    @PostMapping(path = "/stores", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/stores")
     public ResponseEntity<Store> createNewStore(@RequestBody Store store)
     {
         return new ResponseEntity<>(storeService.addStore(store), HttpStatus.OK);

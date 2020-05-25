@@ -1,8 +1,10 @@
 package com.example.demo.model;
 
+import com.example.demo.deserializers.StoreScheduleJsonDeserializer;
 import com.example.demo.model.exceptions.WrongScheduleException;
 import com.example.demo.model.store.Store;
 import com.example.demo.serializers.StoreScheduleSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.time.DayOfWeek;
@@ -10,6 +12,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 @JsonSerialize(using = StoreScheduleSerializer.class)
+@JsonDeserialize(using = StoreScheduleJsonDeserializer.class)
 public class StoreSchedule {
 
     private List<DayOfWeek> scheduleDays;
