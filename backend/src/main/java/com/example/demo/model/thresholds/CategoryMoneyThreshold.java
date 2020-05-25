@@ -1,7 +1,7 @@
 package com.example.demo.model.thresholds;
 
-import com.example.demo.model.Purchase;
 import com.example.demo.model.merchandise.MerchandiseCategory;
+import com.example.demo.model.Bill;
 
 public class CategoryMoneyThreshold extends MoneyThreshold {
 
@@ -17,7 +17,8 @@ public class CategoryMoneyThreshold extends MoneyThreshold {
     }
 
     @Override
-    public Boolean breaksTheLimitWith(Purchase purchase) {
-        return this.isActive() && this.purchasePriceCalculator().calculatePriceForCategory(purchase, this.category()) > this.moneyLimit();
+    public Boolean breaksTheLimitWith(Bill bill) {
+        return this.isActive()
+                && bill.getTickets().stream().mapToDouble(ticket -> this.purchasePriceCalculator().calculatePriceForCategory(ticket.purchase(), this.category())).sum()> this.moneyLimit();
     }
 }
