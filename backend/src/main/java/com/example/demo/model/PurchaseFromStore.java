@@ -35,12 +35,12 @@ public class PurchaseFromStore {
     public Boolean breaksMoneyThreshold() {
         return this.user().moneyThreshold().breaksTheLimitWith(this);
     }
-
+/*
     public void finishPurchase(String paymentMethod) {
         purchaseUser.addTicketOfPurchase(new Ticket(this, paymentMethod, new StorePickUp(this.store().nextTurn(LocalDateTime.now()))));
     }
 
     public void finishPurchaseWithHomeDelivery(String paymentMethod, String deliveryAddress) {
         purchaseUser.addTicketOfPurchase(new Ticket(this, paymentMethod, new HomeDelivery(deliveryAddress, this.store().homeDeliveryTime())));
-    }
+    }*/
 }

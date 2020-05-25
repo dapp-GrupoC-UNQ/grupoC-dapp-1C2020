@@ -3,9 +3,9 @@ package com.example.demo.builders;
 import com.example.demo.model.*;
 import com.example.demo.model.store.Store;
 
-public class PurchaseBuilder {
-    public static PurchaseBuilder aPurchase() {
-        return new PurchaseBuilder();
+public class PurchaseFromStoreBuilder {
+    public static PurchaseFromStoreBuilder aPurchase() {
+        return new PurchaseFromStoreBuilder();
     }
 
     private Store purchaseStore = StoreBuilder.aStore().build();
@@ -15,12 +15,12 @@ public class PurchaseBuilder {
         return new PurchaseFromStore(purchaseStore, user);
     }
 
-    public PurchaseBuilder withStore(Store store) {
+    public PurchaseFromStoreBuilder withStore(Store store) {
         purchaseStore = store;
         return this;
     }
 
-    public PurchaseBuilder withUser(User aUser) {
+    public PurchaseFromStoreBuilder withUser(User aUser) {
         user = aUser;
         return this;
     }

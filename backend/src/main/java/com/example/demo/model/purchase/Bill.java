@@ -9,7 +9,6 @@ import java.util.List;
 public class Bill {
 
     private List<Ticket> allTickets;
-
     private DeliveryType deliveryType;
 
     public Bill(List<Ticket> tickets, DeliveryType delivery){

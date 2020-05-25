@@ -3,6 +3,7 @@ package com.example.demo.model;
 import com.example.demo.model.exceptions.NotFoundCategoryMoneyThresholdForThisUser;
 import com.example.demo.model.exceptions.UserDoesNotHaveTicketException;
 import com.example.demo.model.merchandise.MerchandiseCategory;
+import com.example.demo.model.purchase.Bill;
 import com.example.demo.model.thresholds.CategoryMoneyThreshold;
 import com.example.demo.model.thresholds.MoneyThreshold;
 import com.example.demo.model.ticket.Ticket;
@@ -18,7 +19,7 @@ public class User {
 
     private String username;
     private String password;
-    private List<Ticket> purchasesTickets;
+    private List<Bill> billOfPurchase;
     private MoneyThreshold moneyThresold = new MoneyThreshold(0.0);
     private List<CategoryMoneyThreshold> categoryMoneyThresholds = new ArrayList<>();
 
@@ -28,7 +29,7 @@ public class User {
         }
         this.username = username;
         this.password = password;
-        this.purchasesTickets = new ArrayList<>();
+        this.billOfPurchase = new ArrayList<>();
     }
 
     public String username() { return this.username; }
@@ -71,20 +72,6 @@ public class User {
         return false;
     }
 
-    public void addTicketOfPurchase(Ticket ticket) {
-        this.purchasesTickets.add(ticket);
-    }
-
-    public Boolean hasTicketOf(PurchaseFromStore purchase) {
-        return this.purchasesTickets.stream().anyMatch(ticket -> ticket.purchase().equals(purchase));
-    }
-
-    public Ticket ticketOf(PurchaseFromStore purchase) {
-        return this.purchasesTickets.stream().filter(ticket -> ticket.purchase().equals(purchase))
-                                             .findFirst()
-                                             .orElseThrow(UserDoesNotHaveTicketException::new);
-    }
-
     public Boolean hasCategoryLimitOf(MerchandiseCategory category) {
         return this.categoryMoneyThresholds.stream().anyMatch(categoryMoneyThreshold -> categoryMoneyThreshold.category().equals(category));
     }
@@ -97,5 +84,18 @@ public class User {
         return this.categoryMoneyThresholds.stream().filter(categoryMoneyThreshold -> categoryMoneyThreshold.category().equals(category))
                 .findFirst()
                 .orElseThrow(NotFoundCategoryMoneyThresholdForThisUser::new);
+    }
+
+    public void addBillOfPurchase(Bill bill) {
+        this.billOfPurchase.add(bill);
+    }
+
+    public Boolean hasABill() {
+        return !this.billOfPurchase.isEmpty();
+    }
+
+
+    public Integer quantityOfBills() {
+        return this.billOfPurchase.size();
     }
 }

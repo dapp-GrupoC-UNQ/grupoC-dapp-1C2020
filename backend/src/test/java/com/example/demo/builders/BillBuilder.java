@@ -12,7 +12,7 @@ import java.util.List;
 public class BillBuilder {
     
     private List<Ticket> multiPurchases = Arrays.asList(TicketBuilder.aTicket().build());
-    private DeliveryType deliveryType = new HomeDelivery("Alsina 123", LocalDateTime.of(2020, 05,30,18,0));
+    private DeliveryType deliveryMethod = new HomeDelivery("Alsina 123", LocalDateTime.now().plusDays(1));
 
     public static BillBuilder aBill() {  return new BillBuilder();   }
 
@@ -22,11 +22,11 @@ public class BillBuilder {
     }
 
     public Bill build() {
-        return new Bill(multiPurchases, deliveryType);
+        return new Bill(multiPurchases, deliveryMethod);
     }
 
     public BillBuilder withDeliveyType(DeliveryType delivery) {
-        deliveryType = delivery;
+        deliveryMethod = delivery;
         return this;
     }
 }

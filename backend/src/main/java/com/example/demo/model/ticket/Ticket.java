@@ -11,13 +11,11 @@ public class Ticket {
     private PurchaseFromStore ticketPurchase;
     private String paymentMethod;
     private Double totalPrice;
-    private DeliveryType deliveryType;
 
-    public Ticket(PurchaseFromStore purchase, String aPaymentMethod, DeliveryType delivery) {
+    public Ticket(PurchaseFromStore purchase, String aPaymentMethod) {
         ticketPurchase = purchase;
         paymentMethod = aPaymentMethod;
         totalPrice = new PurchasePriceCalculator().calculatePriceFor(ticketPurchase);
-        deliveryType = delivery;
     }
 
     public PurchaseFromStore purchase() {
@@ -26,14 +24,6 @@ public class Ticket {
 
     public String paymentMethod() {
         return this.paymentMethod;
-    }
-
-    public String addressOfDelivery() {
-        return this.deliveryType.deliveryAddress();
-    }
-
-    public LocalDateTime deliveryTime() {
-        return this.deliveryType.pickUpDate();
     }
 
 }
