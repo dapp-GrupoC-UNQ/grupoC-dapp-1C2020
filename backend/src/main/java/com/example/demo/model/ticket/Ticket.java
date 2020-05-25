@@ -26,4 +26,7 @@ public class Ticket {
         return this.paymentMethod;
     }
 
+    public Double getTotal() {
+        return this.totalPrice;
+    }
 }

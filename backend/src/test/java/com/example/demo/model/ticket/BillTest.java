@@ -1,8 +1,15 @@
 package com.example.demo.model.ticket;
 
 import com.example.demo.builders.BillBuilder;
+import com.example.demo.builders.PurchaseFromStoreBuilder;
+import com.example.demo.builders.StoreBuilder;
 import com.example.demo.builders.TicketBuilder;
+import com.example.demo.model.DeliveryType;
+import com.example.demo.model.HomeDelivery;
+import com.example.demo.model.PurchaseFromStore;
+import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.model.purchase.Bill;
+import com.example.demo.model.store.Store;
 import com.example.demo.model.ticket.Ticket;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,12 +29,13 @@ public class BillTest {
 
     @Test
     public void aBillHasAHomeDelivery(){
-        Bill bill = BillBuilder.aBill().build();
+        DeliveryType delivery = new HomeDelivery("Alsina 123", LocalDateTime.of(2020, 05, 20, 18, 00));
+        Bill bill = BillBuilder.aBill().withDeliveyType(delivery).build();
         assertEquals("Alsina 123", bill.addressOfDelivery());
-        assertEquals(LocalDateTime.of(2020, 05, 30, 18,0), bill.deliveryTime());
+        assertEquals(LocalDateTime.of(2020, 05, 20, 18, 00), bill.deliveryTime());
     }
 
-   /* @Test
+    @Test
     public void aBillTotalIsEqualsOfSumOfAllTickets(){
         Double aPrice = 15.8;
         Double anotherPrice = 32.5;
@@ -40,10 +48,8 @@ public class BillTest {
         Ticket ticket1 = TicketBuilder.aTicket().withPurchase(purchase1).build();
         Ticket ticket2 = TicketBuilder.aTicket().withPurchase(purchase2).build();
         Bill bill = BillBuilder.aBill().withTickets(Arrays.asList(ticket1, ticket2)).build();
-        PurchasePriceCalculator calculator = new PurchasePriceCalculator();
         Double total = (aPrice * aQuantity) + (anotherPrice * anotherQuantity);
-        assertEquals(total, calculator.calculatePriceForMultiPurchase(bill));
-        assertEquals(aQuantity + anotherQuantity, bill.totalProductsQuantity());
-    }*/
+        assertEquals(total, bill.totalPrice());
+    }
 
 }

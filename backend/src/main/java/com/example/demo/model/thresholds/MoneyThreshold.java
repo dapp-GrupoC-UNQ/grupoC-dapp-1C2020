@@ -32,8 +32,8 @@ public class MoneyThreshold {
         this.isActive = true;
     }
 
-    public Boolean breaksTheLimitWith(PurchaseFromStore purchase) {
-        return this.isActive() && purchasePriceCalculator.calculatePriceFor(purchase) > this.moneyLimit();
+    public Boolean breaksTheLimitWith(Bill bill) {
+        return this.isActive() && bill.totalPrice() > this.moneyLimit();
     }
 
     public void updateMoneyLimit(Double newMoneyLimit) {

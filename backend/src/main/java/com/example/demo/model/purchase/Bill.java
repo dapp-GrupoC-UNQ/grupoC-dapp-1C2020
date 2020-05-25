@@ -32,6 +32,10 @@ public class Bill {
         return this.deliveryType.pickUpDate();
     }
 
+    public Double totalPrice() {
+        return allTickets.stream().mapToDouble(Ticket::getTotal).sum();
+    }
+
    /* public Integer totalProductsQuantity() {
         return allTickets.stream().mapToInt(PurchaseFromStore::productsQuantity).sum();
     }*/

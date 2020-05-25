@@ -51,19 +51,4 @@ public class PurchaseFromStoreTest {
         assertThrows(InsufficientMerchandiseStockException.class, () -> { purchase.addProduct("Mayonesa", "Hellmans", 3); });
     }
 
-    @Test
-    public void aPurchaseWithAHigherPriceThanTheUserMoneyThresholdBreaksTheLimit() {
-        Store store = StoreBuilder.withMerchandise("Mayonesa", "Hellmans", 15.0, 400, MerchandiseCategory.GROCERY);
-        User userWithMoneyThreshold = UserBuilder.user().withMoneyThreshold(20.0);
-        PurchaseFromStore purchase = PurchaseFromStoreBuilder.aPurchase().withUser(userWithMoneyThreshold).withProductOfStore("Mayonesa", "Hellmans", 10, store);
-        assertTrue(purchase.breaksMoneyThreshold());
-    }
-
-    @Test
-    public void aPurchaseWithALowerPriceThanTheUserMoneyThresholdDoesNotBreakTheLimit() {
-        Store store = StoreBuilder.withMerchandise("Mayonesa", "Hellmans", 15.0, 400, MerchandiseCategory.GROCERY);
-        User userWithMoneyThreshold = UserBuilder.user().withMoneyThreshold(20000.0);
-        PurchaseFromStore purchase = PurchaseFromStoreBuilder.aPurchase().withUser(userWithMoneyThreshold).withProductOfStore("Mayonesa", "Hellmans", 10, store);
-        assertFalse(purchase.breaksMoneyThreshold());
-    }
 }
