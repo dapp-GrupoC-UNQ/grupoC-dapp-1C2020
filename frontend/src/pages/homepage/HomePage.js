@@ -105,6 +105,7 @@ class HomePage extends React.Component {
                            showCategories={this.showCategories}
                            showDiscounts={this.showDiscounts}
                            cart={this.showShoppingCart}
+                           logOut={this.props.logOut}
                   />
                   {this.state.isLoading && <LoadingSpinner isLoading={this.state.loadingEntitiesState}/>}
                   {!this.state.isLoading && !this.state.showingShoppingCart &&

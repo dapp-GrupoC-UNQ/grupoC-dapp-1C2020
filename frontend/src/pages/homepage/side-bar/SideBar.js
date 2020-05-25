@@ -1,6 +1,6 @@
 import * as React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowCircleRight, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
+import {faArrowCircleRight, faShoppingCart, faDoorOpen} from "@fortawesome/free-solid-svg-icons";
 import "./side-bar.scss"
 
 class SideBar extends React.Component {
@@ -27,6 +27,10 @@ class SideBar extends React.Component {
                     <div className="link">
                         <a className="link-search" onClick={this.props.cart}>Ver mi carrito</a>
                         <FontAwesomeIcon icon={faShoppingCart}/>
+                    </div>
+                    <div className="link">
+                        <a className="link-search" onClick={this.props.logOut}>Salir</a>
+                        <FontAwesomeIcon onClick={this.props.logOut} icon={faDoorOpen}/>
                     </div>
                 </div>
             </div>
