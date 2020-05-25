@@ -26,6 +26,7 @@ public class StoreBuilder {
     private String storeName = "Jumbo";
     private List<StoreCategory> storeCategories = Arrays.asList(StoreCategory.GROCERY);
     private String storeAddress = "Calchaqui 123";
+    private String mail = "store@gmail.com";
     private Integer deliveryMaxDistanceInKm = 3;
     private List<String> availablePaymentMethods = Arrays.asList("Efectivo");
     private List<DayOfWeek> openingDays = Arrays.asList(DayOfWeek.FRIDAY);
@@ -79,6 +80,11 @@ public class StoreBuilder {
 
     public StoreBuilder withOpeningDate(LocalDate anOpeningDate) {
         openingDate = anOpeningDate;
+        return this;
+    }
+
+    public StoreBuilder withMail(String email) {
+        mail = email;
         return this;
     }
 }

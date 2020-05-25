@@ -21,6 +21,7 @@ public class User {
     private List<CategoryMoneyThreshold> categoryMoneyThresholds = new ArrayList<>();
 
     public User(String username, String password){
+
         if(username.isEmpty() || password.isEmpty()){
             throw new InvalidUsernameOrPasswordException();
         }

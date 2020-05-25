@@ -30,12 +30,12 @@ public class Store {
     private List<StoreCategory> storeCategories;
     private String storeAddress;
     private Integer deliveryDistanceInKm;
+    private LocalDateTime proximoTurnoDeLocal;
     private List<String> availablePaymentMethods;
     private StoreSchedule storeTimeSchedule;
-
-    private LocalDateTime proximoTurnoDeLocal;
-    List<Discount> discountList = new ArrayList<>();
-    List<Merchandise> merchandiseList = new ArrayList<>();
+    private String mail;
+    private List<Discount> discountList = new ArrayList<>();
+    private List<Merchandise> merchandiseList = new ArrayList<>();
 
     public Store(String name, List<StoreCategory> categories, String address, Integer distanceInKm,
                  List<String> paymentMethods, StoreSchedule timeSchedule, LocalDate openingDateTime) {
