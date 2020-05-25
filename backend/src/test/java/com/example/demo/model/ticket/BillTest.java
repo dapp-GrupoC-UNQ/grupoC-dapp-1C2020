@@ -1,17 +1,13 @@
 package com.example.demo.model.ticket;
 
-import com.example.demo.builders.BillBuilder;
-import com.example.demo.builders.PurchaseFromStoreBuilder;
-import com.example.demo.builders.StoreBuilder;
-import com.example.demo.builders.TicketBuilder;
-import com.example.demo.model.DeliveryType;
-import com.example.demo.model.HomeDelivery;
-import com.example.demo.model.PurchaseFromStore;
+import com.example.demo.builders.*;
+import com.example.demo.model.*;
+import com.example.demo.model.exceptions.OptionNotAvailableForThisDeliveryType;
 import com.example.demo.model.merchandise.MerchandiseCategory;
-import com.example.demo.model.purchase.Bill;
 import com.example.demo.model.store.Store;
-import com.example.demo.model.ticket.Ticket;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDateTime;
@@ -50,6 +46,28 @@ public class BillTest {
         Bill bill = BillBuilder.aBill().withTickets(Arrays.asList(ticket1, ticket2)).build();
         Double total = (aPrice * aQuantity) + (anotherPrice * anotherQuantity);
         assertEquals(total, bill.totalPrice());
+    }
+
+    @Test
+    public void aUserThatChoosesHomeDeliveryBillHasAndAddressAndDeliveryDate() {
+        User user = UserBuilder.user().build();
+        PurchaseFromStore purchase = PurchaseFromStoreBuilder.aPurchase().withUser(user).build();
+        String paymentMethod = "Credit Card";
+        DeliveryType deliveryType = new HomeDelivery("Alsina 123", LocalDateTime.now().plusDays(1));
+        BillGenerator billGenerator = new BillGenerator();
+        Bill bill = billGenerator.generateBill(Arrays.asList(purchase),user, paymentMethod, deliveryType);
+        assertEquals(bill.addressOfDelivery(), "Alsina 123");
+    }
+
+    @Test
+    public void aUserThatChoosesStorePickUpDeliveryTicketDoesNotHaveADeliveryAddress() {
+        User user = UserBuilder.user().build();
+        PurchaseFromStore purchase = PurchaseFromStoreBuilder.aPurchase().withUser(user).build();
+        String paymentMethod = "Credit Card";
+        DeliveryType deliveryType = new StorePickUp(LocalDateTime.now().plusDays(1));
+        BillGenerator billGenerator = new BillGenerator();
+        Bill bill = billGenerator.generateBill(Arrays.asList(purchase),user, paymentMethod, deliveryType);
+        assertThrows(OptionNotAvailableForThisDeliveryType.class, bill::addressOfDelivery);
     }
 
 }

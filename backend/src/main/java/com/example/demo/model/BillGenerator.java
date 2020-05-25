@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-import com.example.demo.model.purchase.Bill;
 import com.example.demo.model.ticket.Ticket;
 
 import java.util.List;

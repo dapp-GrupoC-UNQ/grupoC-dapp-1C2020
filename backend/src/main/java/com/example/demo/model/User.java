@@ -1,12 +1,9 @@
 package com.example.demo.model;
 
 import com.example.demo.model.exceptions.NotFoundCategoryMoneyThresholdForThisUser;
-import com.example.demo.model.exceptions.UserDoesNotHaveTicketException;
 import com.example.demo.model.merchandise.MerchandiseCategory;
-import com.example.demo.model.purchase.Bill;
 import com.example.demo.model.thresholds.CategoryMoneyThreshold;
 import com.example.demo.model.thresholds.MoneyThreshold;
-import com.example.demo.model.ticket.Ticket;
 import com.example.demo.serializers.UserJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.example.demo.model.exceptions.InvalidUsernameOrPasswordException;
@@ -97,5 +94,13 @@ public class User {
 
     public Integer quantityOfBills() {
         return this.billOfPurchase.size();
+    }
+
+    public Boolean hasBill(Bill aBill) {
+        return this.billOfPurchase.contains(aBill);
+    }
+
+    public Bill getBill(Bill aBill) {
+        return this.billOfPurchase.stream().filter(bill -> bill.equals(aBill)).findFirst().get();
     }
 }

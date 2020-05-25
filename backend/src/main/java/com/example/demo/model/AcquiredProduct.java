@@ -12,7 +12,6 @@ public class AcquiredProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //agregar store
     private String productName;
     private String productBrand;
     private Double productPrice;

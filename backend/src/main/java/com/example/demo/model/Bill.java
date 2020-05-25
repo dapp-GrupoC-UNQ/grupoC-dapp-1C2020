@@ -1,6 +1,5 @@
-package com.example.demo.model.purchase;
+package com.example.demo.model;
 
-import com.example.demo.model.DeliveryType;
 import com.example.demo.model.ticket.Ticket;
 
 import java.time.LocalDateTime;
@@ -36,8 +35,7 @@ public class Bill {
         return allTickets.stream().mapToDouble(Ticket::getTotal).sum();
     }
 
-   /* public Integer totalProductsQuantity() {
-        return allTickets.stream().mapToInt(PurchaseFromStore::productsQuantity).sum();
-    }*/
-
+    public Boolean hasTicketOfPurchase(PurchaseFromStore purchase) {
+        return allTickets.stream().anyMatch(ticket -> ticket.purchase().equals(purchase));
+    }
 }

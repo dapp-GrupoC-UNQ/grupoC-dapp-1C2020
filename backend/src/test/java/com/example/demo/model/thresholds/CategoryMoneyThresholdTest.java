@@ -5,7 +5,7 @@ import com.example.demo.builders.PurchaseFromStoreBuilder;
 import com.example.demo.builders.StoreBuilder;
 import com.example.demo.builders.UserBuilder;
 import com.example.demo.model.*;
-import com.example.demo.model.purchase.Bill;
+import com.example.demo.model.Bill;
 import com.example.demo.model.store.Store;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.junit.Test;

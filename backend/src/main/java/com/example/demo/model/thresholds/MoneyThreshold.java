@@ -1,7 +1,6 @@
 package com.example.demo.model.thresholds;
 
-import com.example.demo.model.PurchaseFromStore;
-import com.example.demo.model.purchase.Bill;
+import com.example.demo.model.Bill;
 import com.example.demo.model.purchasePriceCalculator.PurchasePriceCalculator;
 
 public class MoneyThreshold {

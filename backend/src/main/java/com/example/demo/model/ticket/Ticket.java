@@ -1,10 +1,8 @@
 package com.example.demo.model.ticket;
 
-import com.example.demo.model.DeliveryType;
 import com.example.demo.model.PurchaseFromStore;
 import com.example.demo.model.purchasePriceCalculator.PurchasePriceCalculator;
 
-import java.time.LocalDateTime;
 
 public class Ticket {
 

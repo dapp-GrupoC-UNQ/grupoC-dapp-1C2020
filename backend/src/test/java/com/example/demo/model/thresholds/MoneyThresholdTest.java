@@ -2,7 +2,7 @@ package com.example.demo.model.thresholds;
 
 import com.example.demo.builders.*;
 import com.example.demo.model.*;
-import com.example.demo.model.purchase.Bill;
+import com.example.demo.model.Bill;
 import com.example.demo.model.store.Store;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.junit.Test;
