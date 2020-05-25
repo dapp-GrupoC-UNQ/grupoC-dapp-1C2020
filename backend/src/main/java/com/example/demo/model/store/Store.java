@@ -1,5 +1,6 @@
 package com.example.demo.model.store;
 
+import com.example.demo.deserializers.StoreJsonDeserializer;
 import com.example.demo.model.AcquiredProduct;
 import com.example.demo.model.StoreSchedule;
 import com.example.demo.model.discounts.*;
@@ -8,12 +9,11 @@ import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.model.turnsSystem.TurnsSystem;
 import com.example.demo.serializers.StoreJsonSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.example.demo.model.exceptions.NotFoundProductInStore;
 import com.example.demo.model.exceptions.RepeatedMerchandiseInStore;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,16 +23,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @JsonSerialize(using = StoreJsonSerializer.class)
-
+@JsonDeserialize(using = StoreJsonDeserializer.class)
 public class Store {
 
-    String storeName;
-    List<StoreCategory> storeCategories;
-    String storeAddress;
-    Integer deliveryDistanceInKm;
-    LocalDateTime proximoTurnoDeLocal;
-    List<String> availablePaymentMethods;
-    StoreSchedule storeTimeSchedule;
+    private String storeName;
+    private List<StoreCategory> storeCategories;
+    private String storeAddress;
+    private Integer deliveryDistanceInKm;
+    private List<String> availablePaymentMethods;
+    private StoreSchedule storeTimeSchedule;
+
+    private LocalDateTime proximoTurnoDeLocal;
     List<Discount> discountList = new ArrayList<>();
     List<Merchandise> merchandiseList = new ArrayList<>();
 
@@ -44,8 +45,14 @@ public class Store {
          deliveryDistanceInKm = distanceInKm;
          availablePaymentMethods =  paymentMethods;
          storeTimeSchedule = timeSchedule;
-         proximoTurnoDeLocal = TurnsSystem.primerTurnoDeLocal(openingDateTime, this.storeTimeSchedule);
+         if(openingDateTime != null) {
+             proximoTurnoDeLocal = TurnsSystem.primerTurnoDeLocal(openingDateTime, this.storeTimeSchedule);
+         } else {
+             proximoTurnoDeLocal = TurnsSystem.primerTurnoDeLocal(LocalDate.now(), this.storeTimeSchedule);
+         }
     }
+
+    public Store(){};
 
     public String name() {
         return this.storeName;
@@ -188,5 +195,11 @@ public class Store {
     public Boolean hasACategory(StoreCategory category) {
         return this.storeCategories.contains(category);
     }
+
+    public LocalDateTime proximoTurnoDelLocal() {
+        return this.proximoTurnoDeLocal;
+    }
+
+    public StoreSchedule storeSchedule() { return this.storeTimeSchedule;}
 }
 

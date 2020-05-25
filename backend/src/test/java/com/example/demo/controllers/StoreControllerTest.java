@@ -8,16 +8,23 @@ import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.model.store.StoreCategory;
 import com.example.demo.services.StoreService;
 import com.example.demo.model.store.Store;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.JsonPath;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.mockito.Mockito.when;
 import static org.hamcrest.Matchers.*;
@@ -34,7 +41,18 @@ public class StoreControllerTest {
     StoreService storeServiceMock;
 
     @Autowired
+    ObjectMapper objectMapper;
+
+    @Autowired
     private MockMvc mockMvc;
+
+    private List<String> storeCategoriesToString(List<StoreCategory> categories) {
+        return categories.stream().map(Enum::toString).collect(Collectors.toList());
+    }
+
+    private List<String> storeOpeningDaysToString(Store store) {
+        return store.storeSchedule().days().stream().map(Enum::toString).collect(Collectors.toList());
+    }
 
     @Test
     public void ifWeAskForStoresWeGetTheActualStoresList() throws Exception {
@@ -82,15 +100,26 @@ public class StoreControllerTest {
                .andExpect(status().isNotFound());
     }
 
-  /*  @Test
-    public void gettingStoreDiscountListFromAllStoresReturnsTheListOfDiscount() throws Exception{
-        List<Merchandise> allDiscount = MerchandiseBuilder.discountList();
-        when(storeServiceMock.getDiscountFromStores()).thenReturn(allDiscount);
+    @Test
+    public void addingAStoreReturnsTheStoreAnd200Status() throws Exception {
+        Store aStore = StoreBuilder.aStore().build();
+        when(storeServiceMock.addStore(any())).thenReturn(aStore);
 
-        mockMvc.perform(get("/stores/discounts"))
+        String content = objectMapper.writeValueAsString(aStore);
+        MvcResult mvcResult = mockMvc.perform(post("/stores")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0]discountToApply", is(allDiscount.get(0).percentOfDiscount())));
-        //VER DE TESTEAR LA FECHA DE VIGENCIA
-    }*/
+                .andReturn();
+
+        String response = mvcResult.getResponse().getContentAsString();
+        assertEquals(JsonPath.parse(response).read("storeName"), aStore.name());
+        assertEquals(JsonPath.parse(response).read("storeAddress"), aStore.address());
+        assertEquals(JsonPath.parse(response).read("storeCategories"),storeCategoriesToString(aStore.storeCategories()));
+        assertEquals(JsonPath.parse(response).read("deliveryDistanceInKm"), aStore.deliveryDistanceInKm());
+        assertEquals(JsonPath.parse(response).read("storePaymentMethods"), aStore.availablePaymentMethods());
+        assertEquals(JsonPath.parse(response).read("storeSchedule.openingTime"), aStore.storeSchedule().openingTime().toString());
+        assertEquals(JsonPath.parse(response).read("storeSchedule.closingTime"), aStore.storeSchedule().closingTime().toString());
+        assertEquals(JsonPath.parse(response).read("storeSchedule.openingDays"), storeOpeningDaysToString(aStore));
+    }
 }

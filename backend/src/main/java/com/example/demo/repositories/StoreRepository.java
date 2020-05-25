@@ -64,4 +64,9 @@ public class StoreRepository implements IStoreRepository{
         return Arrays.asList(merchandise);
         //TODO: VER QUE EL DESCUENTO SE AGREGA DESDE LA TIENDA.
     }
+
+    @Override
+    public Store addStore(Store store) {
+        return store;
+    }
 }
