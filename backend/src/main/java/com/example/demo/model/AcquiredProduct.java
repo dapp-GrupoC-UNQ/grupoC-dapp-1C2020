@@ -1,11 +1,23 @@
 package com.example.demo.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class AcquiredProduct {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String productName;
     private String productBrand;
     private Double productPrice;
     private Integer productQuantity;
+
+    public AcquiredProduct(){};
 
     public AcquiredProduct(String name, String brand, Double price, Integer quantity){
         this.productName = name;

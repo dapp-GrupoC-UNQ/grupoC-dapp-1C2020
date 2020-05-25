@@ -32,7 +32,7 @@ class HomePage extends React.Component {
 
     renderStore = (store) => <Store store={store} onShowStoreProducts={this.showStoreProducts}/>
 
-    renderProducts = (product) => <Product product={product} onAddToCart={this.addToCart} onRemoveFromCart={this.removeFromCart}/>
+    renderProducts = (product) => <Product product={product} productIsInCart={this.productIsInCart} onAddToCart={this.addToCart} onRemoveFromCart={this.removeFromCart}/>
 
     renderCategory = (category) => <Category category={category} onSelectCategory={this.showStoresWithACategory}/>
 
@@ -81,7 +81,18 @@ class HomePage extends React.Component {
     }
 
     showShoppingCart = () => this.setState({showingShoppingCart: true})
-    addToCart = (product) => this.setState({productsInCart: [...this.state.productsInCart, product]});
+    addToCart = (product) => {
+        if(!this.productIsInCart(product)){
+            this.setState({productsInCart: [...this.state.productsInCart, product]});
+        }
+    }
+
+    sameProduct = (productA, productB) => {
+        //UNA MIERDAAAA. HAY QUE CAMBIARLO CUANDO TENGAMOS LOS IDS
+        return productA.name === productB.name && productA.brand === productB.brand && productA.storeName === productB.storeName;
+    }
+
+    productIsInCart = (product) => this.state.productsInCart.some(productInCart => this.sameProduct(productInCart, product))
     removeFromCart = (product) => {
         const newProductsList = this.state.productsInCart.filter(productInCart => productInCart !== product)
         this.setState({productsInCart: newProductsList})

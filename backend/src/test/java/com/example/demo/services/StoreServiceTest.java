@@ -53,4 +53,12 @@ public class StoreServiceTest {
 
         assertEquals(storeService.getProductsFromStore(store.name()), store.listOfAvailableMerchandise());
     }
+
+    @Test
+    public void addingAStoreReturnsTheStore() {
+        Store store = StoreBuilder.aStore().build();
+        when(storeRepositoryMock.addStore(any())).thenReturn(store);
+
+        assertEquals(storeService.addStore(store), store);
+    }
 }

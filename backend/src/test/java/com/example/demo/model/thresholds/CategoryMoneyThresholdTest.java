@@ -1,12 +1,17 @@
 package com.example.demo.model.thresholds;
 
 import com.example.demo.builders.CategoryThresholdBuilder;
+import com.example.demo.builders.PurchaseFromStoreBuilder;
 import com.example.demo.builders.StoreBuilder;
-import com.example.demo.builders.PurchaseBuilder;
-import com.example.demo.model.Purchase;
+import com.example.demo.builders.UserBuilder;
+import com.example.demo.model.*;
+import com.example.demo.model.Bill;
 import com.example.demo.model.store.Store;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.junit.Test;
+
+import java.time.LocalDateTime;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,32 +30,56 @@ public class CategoryMoneyThresholdTest {
     public void aPurchaseWithAHigherTotalPriceInASpecificCategoryThanAnEnabledCategoryMoneyThresholdBreaksTheLimit() {
         CategoryMoneyThreshold categoryMoneyThreshold = CategoryThresholdBuilder.aCategoryThreshold().withMoneyLimit(30.0).withCategory(MerchandiseCategory.GROCERY).build();
         Store store = StoreBuilder.aStore().withMerchandise("Mayonesa", "Hellmans", 15.0, 300, MerchandiseCategory.GROCERY);
-        Purchase purchase = PurchaseBuilder.aPurchase().withProductOfStore("Mayonesa", "Hellmans", 4, store);
-        assertTrue(categoryMoneyThreshold.breaksTheLimitWith(purchase));
+        PurchaseFromStore purchase = PurchaseFromStoreBuilder.aPurchase().withProductOfStore("Mayonesa", "Hellmans", 1, store);
+        Store anotherStore = StoreBuilder.aStore().withMerchandise("Fideos", "Marolio", 20.0, 300, MerchandiseCategory.GROCERY);
+        PurchaseFromStore anotherPurchase = PurchaseFromStoreBuilder.aPurchase().withProductOfStore("Fideos", "Marolio", 2, anotherStore);
+        User pepe = UserBuilder.user().build();
+        String paymentMethod = "Tarjeta de credito";
+        DeliveryType deliveryType = new HomeDelivery("Alsina 123", LocalDateTime.now().plusDays(1));
+        BillGenerator billGenerator = new BillGenerator();
+        Bill bill = billGenerator.generateBill(Arrays.asList(purchase,anotherPurchase), pepe, paymentMethod, deliveryType);
+        assertTrue(categoryMoneyThreshold.breaksTheLimitWith(bill));
     }
 
     @Test
     public void aPurchaseWithAHigherTotalPriceThanADisabledCategoryMoneyThresholdDoesNotBreakTheLimit() {
         CategoryMoneyThreshold categoryMoneyThreshold = CategoryThresholdBuilder.aCategoryThreshold().whichIsDisabled();
         Store store = StoreBuilder.aStore().withMerchandise("Mayonesa", "Hellmans", 15.0, 300, MerchandiseCategory.GROCERY);
-        Purchase purchase = PurchaseBuilder.aPurchase().withProductOfStore("Mayonesa", "Hellmans", 4, store);
-        assertFalse(categoryMoneyThreshold.breaksTheLimitWith(purchase));
+        PurchaseFromStore purchase = PurchaseFromStoreBuilder.aPurchase().withProductOfStore("Mayonesa", "Hellmans", 4, store);
+        User pepe = UserBuilder.user().build();
+        String paymentMethod = "Tarjeta de credito";
+        DeliveryType deliveryType = new HomeDelivery("Alsina 123", LocalDateTime.now().plusDays(1));
+        BillGenerator billGenerator = new BillGenerator();
+        Bill bill = billGenerator.generateBill(Arrays.asList(purchase), pepe, paymentMethod, deliveryType);
+        assertFalse(categoryMoneyThreshold.breaksTheLimitWith(bill));
     }
 
     @Test
     public void aPurchaseWithALowerTotalPriceThanAnEnabledCategoryMoneyThresholdDoesNotBreakTheLimit() {
-        CategoryMoneyThreshold categoryMoneyThreshold = CategoryThresholdBuilder.aCategoryThreshold().withMoneyLimit(3000.0).withCategory(MerchandiseCategory.GROCERY).build();
+        CategoryMoneyThreshold categoryMoneyThreshold = CategoryThresholdBuilder.aCategoryThreshold().withMoneyLimit(300.0).withCategory(MerchandiseCategory.GROCERY).build();
         Store store = StoreBuilder.aStore().withMerchandise("Mayonesa", "Hellmans", 15.0, 300, MerchandiseCategory.GROCERY);
-        Purchase purchase = PurchaseBuilder.aPurchase().withProductOfStore("Mayonesa", "Hellmans", 4, store);
-        assertFalse(categoryMoneyThreshold.breaksTheLimitWith(purchase));
+        PurchaseFromStore purchase = PurchaseFromStoreBuilder.aPurchase().withProductOfStore("Mayonesa", "Hellmans", 4, store);
+        Store anotherStore = StoreBuilder.aStore().withMerchandise("Fernet", "Branca", 400.0, 300, MerchandiseCategory.ALCOHOLIC_DRIKS);
+        PurchaseFromStore anotherPurchase = PurchaseFromStoreBuilder.aPurchase().withProductOfStore("Fernet", "Branca", 1, anotherStore);
+        User pepe = UserBuilder.user().build();
+        String paymentMethod = "Tarjeta de credito";
+        DeliveryType deliveryType = new HomeDelivery("Alsina 123", LocalDateTime.now().plusDays(1));
+        BillGenerator billGenerator = new BillGenerator();
+        Bill bill = billGenerator.generateBill(Arrays.asList(purchase, anotherPurchase), pepe, paymentMethod, deliveryType);
+        assertFalse(categoryMoneyThreshold.breaksTheLimitWith(bill));
     }
 
     @Test
     public void aPurchaseWithALowerTotalPriceThanADisabledMoneyThresholdDoesNotBreakTheLimit() {
         CategoryMoneyThreshold categoryMoneyThreshold = CategoryThresholdBuilder.aCategoryThreshold().withMoneyLimit(3000.0).withCategory(MerchandiseCategory.GROCERY).build();
         Store store = StoreBuilder.aStore().withMerchandise("Mayonesa", "Hellmans", 15.0, 300, MerchandiseCategory.GROCERY);
-        Purchase purchase = PurchaseBuilder.aPurchase().withProductOfStore("Mayonesa", "Hellmans", 4, store);
-        assertFalse(categoryMoneyThreshold.breaksTheLimitWith(purchase));
+        PurchaseFromStore purchase = PurchaseFromStoreBuilder.aPurchase().withProductOfStore("Mayonesa", "Hellmans", 4, store);
+        User pepe = UserBuilder.user().build();
+        String paymentMethod = "Tarjeta de credito";
+        DeliveryType deliveryType = new HomeDelivery("Alsina 123", LocalDateTime.now().plusDays(1));
+        BillGenerator billGenerator = new BillGenerator();
+        Bill bill = billGenerator.generateBill(Arrays.asList(purchase), pepe, paymentMethod, deliveryType);
+        assertFalse(categoryMoneyThreshold.breaksTheLimitWith(bill));
     }
 
 }

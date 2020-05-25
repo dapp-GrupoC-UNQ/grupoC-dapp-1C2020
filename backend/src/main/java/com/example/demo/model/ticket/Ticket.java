@@ -1,38 +1,30 @@
 package com.example.demo.model.ticket;
 
-import com.example.demo.model.DeliveryType;
-import com.example.demo.model.Purchase;
+import com.example.demo.model.PurchaseFromStore;
 import com.example.demo.model.purchasePriceCalculator.PurchasePriceCalculator;
 
-import java.time.LocalDateTime;
 
 public class Ticket {
 
-    private Purchase ticketPurchase;
+    private PurchaseFromStore ticketPurchase;
     private String paymentMethod;
-    private DeliveryType deliveryType;
     private Double totalPrice;
 
-    public Ticket(Purchase purchase, String aPaymentMethod, DeliveryType aDeliveryType) {
+    public Ticket(PurchaseFromStore purchase, String aPaymentMethod) {
         ticketPurchase = purchase;
         paymentMethod = aPaymentMethod;
-        deliveryType = aDeliveryType;
         totalPrice = new PurchasePriceCalculator().calculatePriceFor(ticketPurchase);
     }
 
-    public Purchase purchase() {
+    public PurchaseFromStore purchase() {
         return this.ticketPurchase;
-    }
-
-    public String addressOfDelivery() {
-        return this.deliveryType.deliveryAddress();
     }
 
     public String paymentMethod() {
         return this.paymentMethod;
     }
 
-    public LocalDateTime deliveryTime() {
-        return this.deliveryType.pickUpDate();
+    public Double getTotal() {
+        return this.totalPrice;
     }
 }

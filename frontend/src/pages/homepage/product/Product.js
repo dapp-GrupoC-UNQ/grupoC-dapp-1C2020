@@ -23,20 +23,17 @@ class Product extends React.Component {
     render() {
         return (<div className="entity-card product-card">
             <div className="product-button">
-                {!this.state.wasAddedToCart &&
+                {!this.props.productIsInCart(this.props.product) &&
                 <div className="add-to-cart-button">
                     <button  onClick={this.addProductToCart}>
                         <FontAwesomeIcon icon={faShoppingCart}/>
                     </button>
                 </div>
                 }
-                {this.state.wasAddedToCart &&
+                {this.props.productIsInCart(this.props.product) &&
                 <div className="add-or-remove-buttons">
                     <div className="added-to-cart-button">
                         <FontAwesomeIcon icon={faCheck}/>
-                    </div>
-                    <div className="remove-from-cart-button" onClick={this.removeFromCart}>
-                        <FontAwesomeIcon icon={faTimes}/>
                     </div>
                 </div>
                 }
