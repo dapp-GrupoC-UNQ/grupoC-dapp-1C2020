@@ -10,8 +10,6 @@ import com.example.demo.serializers.UserJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.example.demo.model.exceptions.InvalidUsernameOrPasswordException;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,11 +75,11 @@ public class User {
         this.purchasesTickets.add(ticket);
     }
 
-    public Boolean hasTicketOf(Purchase purchase) {
+    public Boolean hasTicketOf(PurchaseFromStore purchase) {
         return this.purchasesTickets.stream().anyMatch(ticket -> ticket.purchase().equals(purchase));
     }
 
-    public Ticket ticketOf(Purchase purchase) {
+    public Ticket ticketOf(PurchaseFromStore purchase) {
         return this.purchasesTickets.stream().filter(ticket -> ticket.purchase().equals(purchase))
                                              .findFirst()
                                              .orElseThrow(UserDoesNotHaveTicketException::new);

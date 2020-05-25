@@ -7,13 +7,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Purchase {
+public class PurchaseFromStore {
 
     private Store purchaseStore;
     private User purchaseUser;
     private List<AcquiredProduct> productList = new ArrayList<>();
 
-    public Purchase(Store store, User name){
+    public PurchaseFromStore(Store store, User name){
         purchaseStore = store;
         purchaseUser = name;
     }

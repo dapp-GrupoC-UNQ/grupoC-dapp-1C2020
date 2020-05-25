@@ -3,10 +3,9 @@ package com.example.demo.model.ticket;
 import com.example.demo.builders.PurchaseBuilder;
 import com.example.demo.builders.TicketBuilder;
 import com.example.demo.model.HomeDelivery;
-import com.example.demo.model.Purchase;
+import com.example.demo.model.PurchaseFromStore;
 import com.example.demo.model.StorePickUp;
 import com.example.demo.model.exceptions.OptionNotAvailableForThisDeliveryType;
-import com.example.demo.model.ticket.Ticket;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
@@ -42,7 +41,7 @@ public class TicketTest {
 
     @Test
     public void aTicketHasAPurchase() {
-        Purchase purchase = PurchaseBuilder.aPurchase().build();
+        PurchaseFromStore purchase = PurchaseBuilder.aPurchase().build();
         Ticket ticket = TicketBuilder.aTicket().withPurchase(purchase).build();
         assertEquals(ticket.purchase(), purchase);
     }

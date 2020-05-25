@@ -11,8 +11,8 @@ public class PurchaseBuilder {
     private Store purchaseStore = StoreBuilder.aStore().build();
     private User user = UserBuilder.user().build();
 
-    public Purchase build(){
-        return new Purchase(purchaseStore, user);
+    public PurchaseFromStore build(){
+        return new PurchaseFromStore(purchaseStore, user);
     }
 
     public PurchaseBuilder withStore(Store store) {
@@ -25,9 +25,9 @@ public class PurchaseBuilder {
         return this;
     }
 
-    public Purchase withProductOfStore(String producName, String productBrand, Integer quantity, Store aStore) {
+    public PurchaseFromStore withProductOfStore(String producName, String productBrand, Integer quantity, Store aStore) {
         purchaseStore = aStore;
-        Purchase purchase = build();
+        PurchaseFromStore purchase = build();
         purchase.addProduct(producName, productBrand, quantity);
         return purchase;
     }
