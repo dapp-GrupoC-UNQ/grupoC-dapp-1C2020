@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.model.User;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.store.StoreCategory;
 import com.example.demo.services.IStoreService;
@@ -43,5 +44,11 @@ public class StoreController {
 
     private ResponseEntity<Object> generateProductsResponse(List<Merchandise> merchandises) {
         return new ResponseEntity<>(merchandises, HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/stores", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Store> createNewStore(@RequestBody Store store)
+    {
+        return new ResponseEntity<>(storeService.addStore(store), HttpStatus.OK);
     }
 }

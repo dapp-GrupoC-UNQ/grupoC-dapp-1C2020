@@ -47,6 +47,8 @@ public class Store {
          proximoTurnoDeLocal = TurnsSystem.primerTurnoDeLocal(openingDateTime, this.storeTimeSchedule);
     }
 
+    public Store(){};
+
     public String name() {
         return this.storeName;
     }
@@ -187,6 +189,10 @@ public class Store {
 
     public Boolean hasACategory(StoreCategory category) {
         return this.storeCategories.contains(category);
+    }
+
+    public LocalDateTime proximoTurnoDelLocal() {
+        return this.proximoTurnoDeLocal;
     }
 }
 

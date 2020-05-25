@@ -20,8 +20,27 @@ public class StoreJsonSerializer extends JsonSerializer<Store> {
 
         jgen.writeStartObject();
         jgen.writeStringField("storeName", store.name());
-       // jgen.writeStringField("storeCategories", store.storeCategories());
-        jgen.writeStringField("storeAdress", store.address());
+        jgen.writeStringField("storeAddress", store.address());
+        jgen.writeNumberField("deliveryDistanceInKm", store.deliveryDistanceInKm());
+        serializeStoreCategories(jgen, store);
+        serializeStorePaymentMethods(jgen, store);
+        jgen.writeEndObject();
+    }
+
+    private void serializeStoreCategories(JsonGenerator jgen, Store store) throws IOException {
+        jgen.writeFieldName("storeCategories");
+        jgen.writeStartArray();
+        store.storeCategories().stream().forEach(category -> {
+            try {
+                jgen.writeString(category.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        jgen.writeEndArray();
+    }
+
+    private void serializeStorePaymentMethods(JsonGenerator jgen, Store store) throws IOException {
         jgen.writeFieldName("storePaymentMethods");
         jgen.writeStartArray();
         store.availablePaymentMethods().stream().forEach(paymentMethod -> {
@@ -32,6 +51,5 @@ public class StoreJsonSerializer extends JsonSerializer<Store> {
             }
         });
         jgen.writeEndArray();
-        jgen.writeEndObject();
     }
 }

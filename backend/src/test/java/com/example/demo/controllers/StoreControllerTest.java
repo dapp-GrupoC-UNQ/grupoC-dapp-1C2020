@@ -2,22 +2,28 @@ package com.example.demo.controllers;
 
 import com.example.demo.builders.StoreBuilder;
 import com.example.demo.builders.DiscountBuilder;
+import com.example.demo.builders.UserBuilder;
+import com.example.demo.model.User;
 import com.example.demo.model.discounts.Discount;
 import com.example.demo.model.exceptions.NotFoundStoreException;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.model.store.StoreCategory;
 import com.example.demo.services.StoreService;
 import com.example.demo.model.store.Store;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.mockito.Mockito.when;
 import static org.hamcrest.Matchers.*;
@@ -34,7 +40,14 @@ public class StoreControllerTest {
     StoreService storeServiceMock;
 
     @Autowired
+    ObjectMapper objectMapper;
+
+    @Autowired
     private MockMvc mockMvc;
+
+    private List<String> storeCategoriesToString(List<StoreCategory> categories) {
+        return categories.stream().map(category -> category.toString()).collect(Collectors.toList());
+    }
 
     @Test
     public void ifWeAskForStoresWeGetTheActualStoresList() throws Exception {
@@ -82,15 +95,19 @@ public class StoreControllerTest {
                .andExpect(status().isNotFound());
     }
 
-  /*  @Test
-    public void gettingStoreDiscountListFromAllStoresReturnsTheListOfDiscount() throws Exception{
-        List<Merchandise> allDiscount = MerchandiseBuilder.discountList();
-        when(storeServiceMock.getDiscountFromStores()).thenReturn(allDiscount);
+    @Test
+    public void addingAStoreReturnsTheStoreAnd200Status() throws Exception {
+        Store aStore = StoreBuilder.aStore().build();
+        when(storeServiceMock.addStore(any())).thenReturn(aStore);
 
-        mockMvc.perform(get("/stores/discounts"))
+        mockMvc.perform(post("/stores")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(aStore)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0]discountToApply", is(allDiscount.get(0).percentOfDiscount())));
-        //VER DE TESTEAR LA FECHA DE VIGENCIA
-    }*/
+                .andExpect(jsonPath("storeName", is(aStore.name())))
+                .andExpect(jsonPath("storeAddress", is(aStore.address())))
+                .andExpect(jsonPath("storeCategories", is(this.storeCategoriesToString(aStore.storeCategories()))))
+                .andExpect(jsonPath("deliveryDistanceInKm", is(aStore.deliveryDistanceInKm())))
+                .andExpect(jsonPath("storePaymentMethods", is(aStore.availablePaymentMethods())));
+    }
 }

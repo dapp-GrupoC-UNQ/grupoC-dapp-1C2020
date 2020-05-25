@@ -15,4 +15,6 @@ public interface IStoreService {
     Store getStore(String storeName);
 
     List<Merchandise> getDiscountFromStores();
+
+    Store addStore(Store store);
 }
