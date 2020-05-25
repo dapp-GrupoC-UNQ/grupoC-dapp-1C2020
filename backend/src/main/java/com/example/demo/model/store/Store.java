@@ -50,7 +50,11 @@ public class Store {
          deliveryDistanceInKm = distanceInKm;
          availablePaymentMethods =  paymentMethods;
          storeTimeSchedule = timeSchedule;
-         proximoTurnoDeLocal = TurnsSystem.primerTurnoDeLocal(openingDateTime, this.storeTimeSchedule);
+         if(openingDateTime != null) {
+             proximoTurnoDeLocal = TurnsSystem.primerTurnoDeLocal(openingDateTime, this.storeTimeSchedule);
+         } else {
+             proximoTurnoDeLocal = TurnsSystem.primerTurnoDeLocal(LocalDate.now(), this.storeTimeSchedule);
+         }
     }
 
     public Store(){};

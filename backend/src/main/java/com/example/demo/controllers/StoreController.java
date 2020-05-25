@@ -17,7 +17,6 @@ import java.util.List;
 
 public class StoreController {
 
-    public static final String MODEL_ATTRIBUTE_TODO = "hola";
     @Autowired
     private IStoreService storeService;
 
@@ -46,7 +45,7 @@ public class StoreController {
         return new ResponseEntity<>(merchandises, HttpStatus.OK);
     }
 
-    @PostMapping(path = "/stores")
+    @PostMapping(path = "/stores", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Store> createNewStore(@RequestBody Store store)
     {
         return new ResponseEntity<>(storeService.addStore(store), HttpStatus.OK);

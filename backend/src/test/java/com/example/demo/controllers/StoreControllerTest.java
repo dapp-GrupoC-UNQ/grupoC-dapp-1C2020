@@ -105,9 +105,10 @@ public class StoreControllerTest {
         Store aStore = StoreBuilder.aStore().build();
         when(storeServiceMock.addStore(any())).thenReturn(aStore);
 
+        String content = objectMapper.writeValueAsString(aStore);
         MvcResult mvcResult = mockMvc.perform(post("/stores")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(aStore)))
+                .content(content))
                 .andExpect(status().isOk())
                 .andReturn();
 

@@ -41,9 +41,6 @@ public class StoreJsonDeserializer extends JsonDeserializer<Store> {
 
         StoreSchedule storeSchedule = objectMapper.treeToValue(jsonNode.get("storeSchedule"), StoreSchedule.class);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate openingDate = LocalDate.parse(jsonNode.get("openingDate").textValue(), formatter);
-
-        return new Store(storeName, categories, storeAddress, distanceInKm, paymentMethods, storeSchedule, openingDate);
+        return new Store(storeName, categories, storeAddress, distanceInKm, paymentMethods, storeSchedule, LocalDate.now());
     };
 }
