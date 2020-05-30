@@ -1,6 +1,5 @@
 package com.example.demo.controllers;
 
-import com.example.demo.model.User;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.store.StoreCategory;
 import com.example.demo.services.IStoreService;

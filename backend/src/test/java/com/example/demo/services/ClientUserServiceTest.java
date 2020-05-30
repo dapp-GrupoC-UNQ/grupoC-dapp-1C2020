@@ -1,11 +1,11 @@
 package com.example.demo.services;
 
-import com.example.demo.builders.UserBuilder;
+import com.example.demo.builders.ClientUserBuilder;
 import com.example.demo.model.exceptions.NotAvailableUserNameException;
 import com.example.demo.model.exceptions.NotFoundUserException;
 import com.example.demo.repositories.users.UserRepository;
 import com.example.demo.services.users.IUserService;
-import com.example.demo.model.User;
+import com.example.demo.model.ClientUser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
-public class UserServiceTest {
+public class ClientUserServiceTest {
 
     @MockBean
     UserRepository userRepositoryMock; //Si esto esta definido hay que usarlo si o si en cada test
@@ -35,19 +35,19 @@ public class UserServiceTest {
 
     @Test
     public void aUserIsValidIfItExistsAndItsUsernameMatchesItsPassword() {
-        User user = UserBuilder.user().build();
-        when(userRepositoryMock.validateUser(any())).thenReturn(user);
+        ClientUser clientUser = ClientUserBuilder.user().build();
+        when(userRepositoryMock.validateUser(any())).thenReturn(clientUser);
 
-        assertEquals(userService.validateUser(user).username(), user.username());
+        assertEquals(userService.validateUser(clientUser).username(), clientUser.username());
     }
 
     @Test
     public void aUserIsNotValidIfItsNotRegistered() {
-        User user = UserBuilder.user().build();
-        List<User> fakeUsersList = Arrays.asList(UserBuilder.user().withUsername("FakeUser").build());
+        ClientUser clientUser = ClientUserBuilder.user().build();
+        List<ClientUser> fakeUsersList = Arrays.asList(ClientUserBuilder.user().withUsername("FakeUser").build());
         when(userRepositoryMock.validateUser(any())).thenThrow(new NotFoundUserException());
 
-        assertThrows(NotFoundUserException.class, () -> userService.validateUser(user));
+        assertThrows(NotFoundUserException.class, () -> userService.validateUser(clientUser));
 
     }
 
@@ -65,10 +65,10 @@ public class UserServiceTest {
 
     @Test
     public void whenAUserIsAddedTheServiceReturnsTheUser(){
-        User user = UserBuilder.user().build();
-        when(userRepositoryMock.addUser(any(), any())).thenReturn(user);
+        ClientUser clientUser = ClientUserBuilder.user().build();
+        when(userRepositoryMock.addUser(any(), any())).thenReturn(clientUser);
 
-        assertEquals(userService.addUser(user.username(), user.password()), user);
+        assertEquals(userService.addUser(clientUser.username(), clientUser.password()), clientUser);
     }
 
     @Test

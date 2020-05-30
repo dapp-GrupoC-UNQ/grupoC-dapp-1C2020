@@ -9,10 +9,10 @@ public class PurchaseFromStoreBuilder {
     }
 
     private Store purchaseStore = StoreBuilder.aStore().build();
-    private User user = UserBuilder.user().build();
+    private ClientUser clientUser = ClientUserBuilder.user().build();
 
     public PurchaseFromStore build(){
-        return new PurchaseFromStore(purchaseStore, user);
+        return new PurchaseFromStore(purchaseStore, clientUser);
     }
 
     public PurchaseFromStoreBuilder withStore(Store store) {
@@ -20,8 +20,8 @@ public class PurchaseFromStoreBuilder {
         return this;
     }
 
-    public PurchaseFromStoreBuilder withUser(User aUser) {
-        user = aUser;
+    public PurchaseFromStoreBuilder withUser(ClientUser aClientUser) {
+        clientUser = aClientUser;
         return this;
     }
 

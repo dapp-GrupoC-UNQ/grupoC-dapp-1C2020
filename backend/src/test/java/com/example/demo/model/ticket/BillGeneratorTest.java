@@ -1,7 +1,7 @@
 package com.example.demo.model.ticket;
 
 import com.example.demo.builders.PurchaseFromStoreBuilder;
-import com.example.demo.builders.UserBuilder;
+import com.example.demo.builders.ClientUserBuilder;
 import com.example.demo.model.*;
 import com.example.demo.model.Bill;
 import org.junit.Test;
@@ -14,7 +14,7 @@ public class BillGeneratorTest {
 
     @Test
     public void whenAUserMakesAPurchaseInOneStoreOnlyOneTicketIsSavedInTeBill(){
-        User pepe = UserBuilder.user().build();
+        ClientUser pepe = ClientUserBuilder.user().build();
         PurchaseFromStore purchase = PurchaseFromStoreBuilder.aPurchase().build();
         String paymentMethod = "Tarjeta de credito";
         DeliveryType deliveryType = new HomeDelivery("Alsina 123", LocalDateTime.now().plusDays(1));
@@ -28,7 +28,7 @@ public class BillGeneratorTest {
 
     @Test
     public void aUserMakesAPurchaseAndTheBillIsGeneratedWithAllTheCorrespondentTickets(){
-        User pepe = UserBuilder.user().build();
+        ClientUser pepe = ClientUserBuilder.user().build();
         PurchaseFromStore aPurchase = PurchaseFromStoreBuilder.aPurchase().build();
         PurchaseFromStore anotherPurchase = PurchaseFromStoreBuilder.aPurchase().build();
         String paymentMethod = "Tarjeta de credito";

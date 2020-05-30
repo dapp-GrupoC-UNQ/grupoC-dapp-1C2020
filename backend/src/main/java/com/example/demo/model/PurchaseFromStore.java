@@ -8,17 +8,17 @@ import java.util.List;
 public class PurchaseFromStore {
 
     private Store purchaseStore;
-    private User purchaseUser;
+    private ClientUser purchaseClientUser;
     private List<AcquiredProduct> productList = new ArrayList<>();
 
-    public PurchaseFromStore(Store store, User name){
+    public PurchaseFromStore(Store store, ClientUser name){
         purchaseStore = store;
-        purchaseUser = name;
+        purchaseClientUser = name;
     }
 
     public Store store() { return this.purchaseStore; }
 
-    public User user() { return this.purchaseUser;  }
+    public ClientUser user() { return this.purchaseClientUser;  }
 
     public Integer productsQuantity() { return this.productList.stream().mapToInt(AcquiredProduct::quantity).sum();  }
 

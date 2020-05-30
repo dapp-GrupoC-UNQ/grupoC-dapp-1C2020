@@ -1,7 +1,7 @@
 package com.example.demo.repositories.users;
 
 
-import com.example.demo.model.User;
+import com.example.demo.model.ClientUser;
 import com.example.demo.model.exceptions.NotAvailableUserNameException;
 import com.example.demo.model.exceptions.NotFoundUserException;
 import org.springframework.stereotype.Repository;
@@ -13,13 +13,13 @@ import java.util.List;
 @Repository
 public class UserRepository {
 
-    private List<User> registeredUsers = new ArrayList<>();
+    private List<ClientUser> registeredClientUsers = new ArrayList<>();
 
 
-    public List<User> getUsers() { return this.registeredUsers; }
+    public List<ClientUser> getUsers() { return this.registeredClientUsers; }
 
-    public User validateUser(User aUser) {
-        return this.getUsers().stream().filter(user -> user.username().equals(aUser.username()) && user.password().equals(aUser.password()))
+    public ClientUser validateUser(ClientUser aClientUser) {
+        return this.getUsers().stream().filter(user -> user.username().equals(aClientUser.username()) && user.password().equals(aClientUser.password()))
                                         .findFirst()
                                         .orElseThrow(NotFoundUserException::new);
     }
@@ -28,11 +28,11 @@ public class UserRepository {
         return this.getUsers().stream().allMatch(user -> !user.username().equals(username));
     }
 
-    public User addUser(String username, String password) {
+    public ClientUser addUser(String username, String password) {
         if(canAddUser(username)) {
-            User newUser = new User(username, password);
-            this.registeredUsers.add(newUser);
-            return newUser;
+            ClientUser newClientUser = new ClientUser(username, password);
+            this.registeredClientUsers.add(newClientUser);
+            return newClientUser;
         }
         throw new NotAvailableUserNameException();
     }

@@ -4,35 +4,25 @@ import com.example.demo.model.exceptions.NotFoundCategoryMoneyThresholdForThisUs
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.model.thresholds.CategoryMoneyThreshold;
 import com.example.demo.model.thresholds.MoneyThreshold;
+import com.example.demo.model.user.User;
 import com.example.demo.serializers.UserJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.example.demo.model.exceptions.InvalidUsernameOrPasswordException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @JsonSerialize(using = UserJsonSerializer.class)
-public class User {
+public class ClientUser extends User {
 
-    private String username;
-    private String password;
     private List<Bill> billOfPurchase;
     private MoneyThreshold moneyThresold = new MoneyThreshold(0.0);
     private List<CategoryMoneyThreshold> categoryMoneyThresholds = new ArrayList<>();
 
-    public User(String username, String password){
-
-        if(username.isEmpty() || password.isEmpty()){
-            throw new InvalidUsernameOrPasswordException();
-        }
-        this.username = username;
-        this.password = password;
+    public ClientUser(String username, String password){
+        super(username, password);
         this.billOfPurchase = new ArrayList<>();
     }
 
-    public String username() { return this.username; }
-
-    public String password() { return this.password; }
 
     public Boolean isAdminOfStore() { return false;}
 
@@ -58,16 +48,8 @@ public class User {
         this.moneyThresold.updateMoneyLimit(newMoneyLimit);
     }
 
-    public MoneyThreshold moneyThreshold() {
-        return this.moneyThresold;
-    }
-
     public Double moneyThresholdLimit() {
         return this.moneyThresold.moneyLimit();
-    }
-
-    public Boolean hasTickets() {
-        return false;
     }
 
     public Boolean hasCategoryLimitOf(MerchandiseCategory category) {
@@ -88,20 +70,11 @@ public class User {
         this.billOfPurchase.add(bill);
     }
 
-    public Boolean hasABill() {
-        return !this.billOfPurchase.isEmpty();
-    }
-
-
     public Integer quantityOfBills() {
         return this.billOfPurchase.size();
     }
 
     public Boolean hasBill(Bill aBill) {
         return this.billOfPurchase.contains(aBill);
-    }
-
-    public Bill getBill(Bill aBill) {
-        return this.billOfPurchase.stream().filter(bill -> bill.equals(aBill)).findFirst().get();
     }
 }

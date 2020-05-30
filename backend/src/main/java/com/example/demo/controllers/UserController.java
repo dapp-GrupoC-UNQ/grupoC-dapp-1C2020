@@ -1,7 +1,7 @@
 package com.example.demo.controllers;
 import com.example.demo.services.users.IUserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.example.demo.model.User;
+import com.example.demo.model.ClientUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,19 +16,19 @@ public class UserController {
     private IUserService userService;
 
     @GetMapping("/users")
-    public List<User> getUsers() throws JsonProcessingException {
+    public List<ClientUser> getUsers() throws JsonProcessingException {
         return userService.getUsers();
     }
 
     @PostMapping(path = "/validateUser", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<User> validateUser(@RequestBody User user)
+    public ResponseEntity<ClientUser> validateUser(@RequestBody ClientUser clientUser)
     {
-        return new ResponseEntity<>(userService.validateUser(user), HttpStatus.OK);
+        return new ResponseEntity<>(userService.validateUser(clientUser), HttpStatus.OK);
     }
 
     @PostMapping(path = "/users", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        return new ResponseEntity<>(userService.addUser(user.username(), user.password()), HttpStatus.OK);
+    public ResponseEntity<ClientUser> createUser(@RequestBody ClientUser clientUser) {
+        return new ResponseEntity<>(userService.addUser(clientUser.username(), clientUser.password()), HttpStatus.OK);
     }
 
 }

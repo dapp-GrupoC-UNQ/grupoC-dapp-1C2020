@@ -50,23 +50,23 @@ public class BillTest {
 
     @Test
     public void aUserThatChoosesHomeDeliveryBillHasAndAddressAndDeliveryDate() {
-        User user = UserBuilder.user().build();
-        PurchaseFromStore purchase = PurchaseFromStoreBuilder.aPurchase().withUser(user).build();
+        ClientUser clientUser = ClientUserBuilder.user().build();
+        PurchaseFromStore purchase = PurchaseFromStoreBuilder.aPurchase().withUser(clientUser).build();
         String paymentMethod = "Credit Card";
         DeliveryType deliveryType = new HomeDelivery("Alsina 123", LocalDateTime.now().plusDays(1));
         BillGenerator billGenerator = new BillGenerator();
-        Bill bill = billGenerator.generateBill(Arrays.asList(purchase),user, paymentMethod, deliveryType);
+        Bill bill = billGenerator.generateBill(Arrays.asList(purchase), clientUser, paymentMethod, deliveryType);
         assertEquals(bill.addressOfDelivery(), "Alsina 123");
     }
 
     @Test
     public void aUserThatChoosesStorePickUpDeliveryTicketDoesNotHaveADeliveryAddress() {
-        User user = UserBuilder.user().build();
-        PurchaseFromStore purchase = PurchaseFromStoreBuilder.aPurchase().withUser(user).build();
+        ClientUser clientUser = ClientUserBuilder.user().build();
+        PurchaseFromStore purchase = PurchaseFromStoreBuilder.aPurchase().withUser(clientUser).build();
         String paymentMethod = "Credit Card";
         DeliveryType deliveryType = new StorePickUp(LocalDateTime.now().plusDays(1));
         BillGenerator billGenerator = new BillGenerator();
-        Bill bill = billGenerator.generateBill(Arrays.asList(purchase),user, paymentMethod, deliveryType);
+        Bill bill = billGenerator.generateBill(Arrays.asList(purchase), clientUser, paymentMethod, deliveryType);
         assertThrows(OptionNotAvailableForThisDeliveryType.class, bill::addressOfDelivery);
     }
 

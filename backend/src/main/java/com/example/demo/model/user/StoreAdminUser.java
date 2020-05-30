@@ -1,5 +1,4 @@
-package com.example.demo.model;
-
+package com.example.demo.model.user;
 import com.example.demo.model.store.Store;
 
 public class StoreAdminUser extends User {
