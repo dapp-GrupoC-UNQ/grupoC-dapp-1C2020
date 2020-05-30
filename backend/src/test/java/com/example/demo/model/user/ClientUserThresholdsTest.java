@@ -2,7 +2,6 @@ package com.example.demo.model.user;
 
 import com.example.demo.builders.MoneyThresholdBuilder;
 import com.example.demo.builders.ClientUserBuilder;
-import com.example.demo.model.ClientUser;
 import com.example.demo.model.exceptions.NotFoundCategoryMoneyThresholdForThisUser;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import org.junit.Test;

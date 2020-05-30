@@ -1,7 +1,6 @@
 package com.example.demo.model.user;
 
 import com.example.demo.builders.ClientUserBuilder;
-import com.example.demo.model.ClientUser;
 import com.example.demo.model.exceptions.InvalidUsernameOrPasswordException;
 import org.junit.Test;
 

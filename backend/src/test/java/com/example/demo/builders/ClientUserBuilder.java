@@ -2,7 +2,7 @@ package com.example.demo.builders;
 
 import com.example.demo.model.store.Store;
 import com.example.demo.model.user.StoreAdminUser;
-import com.example.demo.model.ClientUser;
+import com.example.demo.model.user.ClientUser;
 
 public class ClientUserBuilder {
 

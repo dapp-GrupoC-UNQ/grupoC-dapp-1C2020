@@ -4,7 +4,7 @@ import com.example.demo.builders.ClientUserBuilder;
 import com.example.demo.model.exceptions.NotFoundUserException;
 import com.example.demo.services.users.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.example.demo.model.ClientUser;
+import com.example.demo.model.user.ClientUser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -62,14 +63,18 @@ public class UsersControllerTest {
     }
 
     @Test
-    public void whenCreatingAUserTheUserIsReturnedAndTheStatusIsOK() throws Exception {
+    public void whenCreatingAClientUserTheUserIsReturnedAndTheStatusIsOK() throws Exception {
         ClientUser clientUser = ClientUserBuilder.user().build();
         when(userServiceMock.addUser(any(), any())).thenReturn(clientUser);
 
-        mockMvc.perform(post("/users")
+        String content = objectMapper.writeValueAsString(clientUser);
+        MvcResult mvcResult = mockMvc.perform(post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(clientUser)))
+                .content(content))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("username", is(clientUser.username())));
+                .andExpect(jsonPath("username", is(clientUser.username())))
+                .andReturn();
+        String response = mvcResult.getResponse().getContentAsString();
+
     }
 }

@@ -33,7 +33,7 @@ public class Store {
     private LocalDateTime proximoTurnoDeLocal;
     private List<String> availablePaymentMethods;
     private StoreSchedule storeTimeSchedule;
-    private String mail;
+    private String mail = "";
     private List<Discount> discountList = new ArrayList<>();
     private List<Merchandise> merchandiseList = new ArrayList<>();
 

@@ -8,6 +8,7 @@ import com.example.demo.model.*;
 import com.example.demo.model.Bill;
 import com.example.demo.model.store.Store;
 import com.example.demo.model.merchandise.MerchandiseCategory;
+import com.example.demo.model.user.ClientUser;
 import org.junit.Test;
 
 import java.time.LocalDateTime;

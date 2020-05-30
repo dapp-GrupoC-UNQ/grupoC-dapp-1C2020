@@ -1,7 +1,7 @@
 package com.example.demo.repositories.users;
 
 
-import com.example.demo.model.ClientUser;
+import com.example.demo.model.user.ClientUser;
 import com.example.demo.model.exceptions.NotAvailableUserNameException;
 import com.example.demo.model.exceptions.NotFoundUserException;
 import org.springframework.stereotype.Repository;

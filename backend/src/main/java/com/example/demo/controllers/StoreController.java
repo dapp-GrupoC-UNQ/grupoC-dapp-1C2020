@@ -2,7 +2,9 @@ package com.example.demo.controllers;
 
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.store.StoreCategory;
+import com.example.demo.model.user.StoreAdminUser;
 import com.example.demo.services.IStoreService;
+import com.example.demo.services.users.IUserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.example.demo.model.store.Store;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ public class StoreController {
 
     @Autowired
     private IStoreService storeService;
+    @Autowired
+    private IUserService userService;
 
 
     @RequestMapping("/stores")
@@ -45,8 +49,10 @@ public class StoreController {
     }
 
     @PostMapping(path = "/stores", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Store> createNewStore(@RequestBody Store store)
+    public ResponseEntity<StoreAdminUser> createNewStore(@RequestBody StoreAdminUser storeAdminUser)
     {
-        return new ResponseEntity<>(storeService.addStore(store), HttpStatus.OK);
+        userService.addStoreAdmin(storeAdminUser.username(), storeAdminUser.password(), storeAdminUser.store());
+        storeService.addStore(storeAdminUser.store());
+        return new ResponseEntity<>(storeAdminUser, HttpStatus.OK);
     }
 }

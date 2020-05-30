@@ -5,7 +5,7 @@ import com.example.demo.builders.StoreBuilder;
 import com.example.demo.builders.ClientUserBuilder;
 import com.example.demo.model.PurchaseFromStore;
 import com.example.demo.model.store.Store;
-import com.example.demo.model.ClientUser;
+import com.example.demo.model.user.ClientUser;
 import com.example.demo.model.exceptions.InsufficientMerchandiseStockException;
 import com.example.demo.model.exceptions.NotFoundProductInStore;
 import com.example.demo.model.merchandise.MerchandiseCategory;

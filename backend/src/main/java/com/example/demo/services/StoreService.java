@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.store.StoreCategory;
+import com.example.demo.model.user.StoreAdminUser;
 import com.example.demo.repositories.IStoreRepository;
 import com.example.demo.model.store.Store;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,10 @@ public class StoreService implements IStoreService {
     @Override
     public Store addStore(Store store) {
         return storeRepository.addStore(store);
+    }
+
+    @Override
+    public StoreAdminUser addAdmin() {
+        return null;
     }
 }

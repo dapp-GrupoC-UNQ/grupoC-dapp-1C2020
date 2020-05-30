@@ -15,6 +15,8 @@ public abstract class User {
         this.password = password;
     }
 
+    public User(){};
+
     public String username() { return this.username; }
 
     public String password() { return this.password; }
