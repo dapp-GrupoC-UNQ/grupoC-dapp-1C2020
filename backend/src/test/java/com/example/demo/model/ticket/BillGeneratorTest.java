@@ -4,6 +4,7 @@ import com.example.demo.builders.PurchaseFromStoreBuilder;
 import com.example.demo.builders.ClientUserBuilder;
 import com.example.demo.model.*;
 import com.example.demo.model.Bill;
+import com.example.demo.model.user.ClientUser;
 import org.junit.Test;
 
 import java.time.LocalDateTime;

@@ -1,5 +1,6 @@
-package com.example.demo.model;
+package com.example.demo.model.user;
 
+import com.example.demo.model.Bill;
 import com.example.demo.model.exceptions.NotFoundCategoryMoneyThresholdForThisUser;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.model.thresholds.CategoryMoneyThreshold;
@@ -24,6 +25,7 @@ public class ClientUser extends User {
     }
 
 
+    @Override
     public Boolean isAdminOfStore() { return false;}
 
     public Boolean hasMoneyThreshold() {

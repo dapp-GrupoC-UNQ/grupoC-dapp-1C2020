@@ -1,11 +1,13 @@
 package com.example.demo.controllers;
 
+import com.example.demo.builders.StoreAdminBuilder;
 import com.example.demo.builders.StoreBuilder;
 import com.example.demo.builders.DiscountBuilder;
 import com.example.demo.model.discounts.Discount;
 import com.example.demo.model.exceptions.NotFoundStoreException;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.model.store.StoreCategory;
+import com.example.demo.model.user.StoreAdminUser;
 import com.example.demo.services.StoreService;
 import com.example.demo.model.store.Store;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -103,11 +105,12 @@ public class StoreControllerTest {
     }
 
     @Test
-    public void addingAStoreReturnsTheStoreAnd200Status() throws Exception {
-        Store aStore = StoreBuilder.aStore().build();
+    public void addingAStoreReturnsTheStoreAdminAnd200Status() throws Exception {
+        StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().build();
+        Store aStore = aStoreAdmin.store();
         when(storeServiceMock.addStore(any())).thenReturn(aStore);
 
-        String content = objectMapper.writeValueAsString(aStore);
+        String content = objectMapper.writeValueAsString(aStoreAdmin);
         MvcResult mvcResult = mockMvc.perform(post("/stores")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(content))
@@ -115,13 +118,15 @@ public class StoreControllerTest {
                 .andReturn();
 
         String response = mvcResult.getResponse().getContentAsString();
-        assertEquals(JsonPath.parse(response).read("storeName"), aStore.name());
-        assertEquals(JsonPath.parse(response).read("storeAddress"), aStore.address());
-        assertEquals(JsonPath.parse(response).read("storeCategories"),storeCategoriesToString(aStore.storeCategories()));
-        assertEquals(JsonPath.parse(response).read("deliveryDistanceInKm"), aStore.deliveryDistanceInKm());
-        assertEquals(JsonPath.parse(response).read("storePaymentMethods"), aStore.availablePaymentMethods());
-        assertEquals(JsonPath.parse(response).read("storeSchedule.openingTime"), aStore.storeSchedule().openingTime().toString());
-        assertEquals(JsonPath.parse(response).read("storeSchedule.closingTime"), aStore.storeSchedule().closingTime().toString());
-        assertEquals(JsonPath.parse(response).read("storeSchedule.openingDays"), storeOpeningDaysToString(aStore));
+        assertEquals(JsonPath.parse(response).read("username"), aStoreAdmin.username());
+        assertEquals(JsonPath.parse(response).read("password"), aStoreAdmin.password());
+        assertEquals(JsonPath.parse(response).read("store.storeName"), aStore.name());
+        assertEquals(JsonPath.parse(response).read("store.storeAddress"), aStore.address());
+        assertEquals(JsonPath.parse(response).read("store.storeCategories"),storeCategoriesToString(aStore.storeCategories()));
+        assertEquals(JsonPath.parse(response).read("store.deliveryDistanceInKm"), aStore.deliveryDistanceInKm());
+        assertEquals(JsonPath.parse(response).read("store.storePaymentMethods"), aStore.availablePaymentMethods());
+        assertEquals(JsonPath.parse(response).read("store.storeSchedule.openingTime"), aStore.storeSchedule().openingTime().toString());
+        assertEquals(JsonPath.parse(response).read("store.storeSchedule.closingTime"), aStore.storeSchedule().closingTime().toString());
+        assertEquals(JsonPath.parse(response).read("store.storeSchedule.openingDays"), storeOpeningDaysToString(aStore));
     }
 }

@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import com.example.demo.model.store.Store;
+import com.example.demo.model.user.ClientUser;
 
 import java.util.ArrayList;
 import java.util.List;

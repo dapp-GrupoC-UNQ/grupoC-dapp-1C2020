@@ -30,7 +30,7 @@ public class StoreJsonDeserializer extends JsonDeserializer<Store> {
         List<String> categoriesList = objectMapper.readValue(String.valueOf(jsonNode.get("storeCategories")), new TypeReference<List<String>>(){});
         List<StoreCategory> categories =  categoriesList.stream().map(StoreCategory::valueOf).collect(Collectors.toList());
 
-        List<String> paymentMethods = objectMapper.readValue(String.valueOf(jsonNode.get("availablePaymentMethods")), new TypeReference<List<String>>(){});
+        List<String> paymentMethods = objectMapper.readValue(String.valueOf(jsonNode.get("storePaymentMethods")), new TypeReference<List<String>>(){});
 
         StoreSchedule storeSchedule = objectMapper.treeToValue(jsonNode.get("storeSchedule"), StoreSchedule.class);
 

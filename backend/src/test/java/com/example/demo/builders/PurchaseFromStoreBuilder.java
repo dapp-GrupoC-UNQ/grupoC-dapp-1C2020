@@ -2,6 +2,7 @@ package com.example.demo.builders;
 
 import com.example.demo.model.*;
 import com.example.demo.model.store.Store;
+import com.example.demo.model.user.ClientUser;
 
 public class PurchaseFromStoreBuilder {
     public static PurchaseFromStoreBuilder aPurchase() {

@@ -5,7 +5,7 @@ import com.example.demo.model.exceptions.NotAvailableUserNameException;
 import com.example.demo.model.exceptions.NotFoundUserException;
 import com.example.demo.repositories.users.UserRepository;
 import com.example.demo.services.users.IUserService;
-import com.example.demo.model.ClientUser;
+import com.example.demo.model.user.ClientUser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
-public class ClientUserServiceTest {
+public class UserServiceTest {
 
     @MockBean
     UserRepository userRepositoryMock; //Si esto esta definido hay que usarlo si o si en cada test
