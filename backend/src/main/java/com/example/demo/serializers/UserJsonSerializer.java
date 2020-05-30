@@ -5,22 +5,22 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.example.demo.model.User;
+import com.example.demo.model.ClientUser;
 
 import java.io.IOException;
 
-public class UserJsonSerializer extends JsonSerializer<User> {
+public class UserJsonSerializer extends JsonSerializer<ClientUser> {
 
     ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public void serialize(
-            User user, JsonGenerator jgen, SerializerProvider provider)
+            ClientUser clientUser, JsonGenerator jgen, SerializerProvider provider)
             throws IOException, JsonProcessingException {
 
         jgen.writeStartObject();
-        jgen.writeStringField("username", user.username());
-        jgen.writeStringField("password", user.password());
+        jgen.writeStringField("username", clientUser.username());
+        jgen.writeStringField("password", clientUser.password());
         jgen.writeEndObject();
     }
 }

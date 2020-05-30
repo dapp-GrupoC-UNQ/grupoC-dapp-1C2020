@@ -14,7 +14,7 @@ public class BillGeneratorTest {
 
     @Test
     public void whenAUserMakesAPurchaseInOneStoreOnlyOneTicketIsSavedInTeBill(){
-        User pepe = UserBuilder.user().build();
+        ClientUser pepe = UserBuilder.user().build();
         PurchaseFromStore purchase = PurchaseFromStoreBuilder.aPurchase().build();
         String paymentMethod = "Tarjeta de credito";
         DeliveryType deliveryType = new HomeDelivery("Alsina 123", LocalDateTime.now().plusDays(1));
@@ -28,7 +28,7 @@ public class BillGeneratorTest {
 
     @Test
     public void aUserMakesAPurchaseAndTheBillIsGeneratedWithAllTheCorrespondentTickets(){
-        User pepe = UserBuilder.user().build();
+        ClientUser pepe = UserBuilder.user().build();
         PurchaseFromStore aPurchase = PurchaseFromStoreBuilder.aPurchase().build();
         PurchaseFromStore anotherPurchase = PurchaseFromStoreBuilder.aPurchase().build();
         String paymentMethod = "Tarjeta de credito";

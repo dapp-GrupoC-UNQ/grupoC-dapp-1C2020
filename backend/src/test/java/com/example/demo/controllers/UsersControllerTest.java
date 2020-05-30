@@ -4,7 +4,7 @@ import com.example.demo.builders.UserBuilder;
 import com.example.demo.model.exceptions.NotFoundUserException;
 import com.example.demo.services.users.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.example.demo.model.User;
+import com.example.demo.model.ClientUser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,36 +40,36 @@ public class UsersControllerTest {
 
     @Test
     public void aUserIsValidatedIfItsUsernameMatchesWithItsPassword() throws Exception {
-        User user = UserBuilder.user().build();
-        when(userServiceMock.validateUser(any())).thenReturn(user);
+        ClientUser clientUser = UserBuilder.user().build();
+        when(userServiceMock.validateUser(any())).thenReturn(clientUser);
 
         mockMvc.perform(post("/validateUser")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(user)))
+                .content(objectMapper.writeValueAsString(clientUser)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("username", is(user.username())));
+                .andExpect(jsonPath("username", is(clientUser.username())));
     }
 
     @Test
     public void aUserIsNotValidatedIfItsUsernameMatchesWithItsPassword() throws Exception {
-        User user = UserBuilder.user().build();
+        ClientUser clientUser = UserBuilder.user().build();
         when(userServiceMock.validateUser(any())).thenThrow(new NotFoundUserException());
 
         mockMvc.perform(post("/validateUser")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(user)))
+                .content(objectMapper.writeValueAsString(clientUser)))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     public void whenCreatingAUserTheUserIsReturnedAndTheStatusIsOK() throws Exception {
-        User user = UserBuilder.user().build();
-        when(userServiceMock.addUser(any(), any())).thenReturn(user);
+        ClientUser clientUser = UserBuilder.user().build();
+        when(userServiceMock.addUser(any(), any())).thenReturn(clientUser);
 
         mockMvc.perform(post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(user)))
+                .content(objectMapper.writeValueAsString(clientUser)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("username", is(user.username())));
+                .andExpect(jsonPath("username", is(clientUser.username())));
     }
 }

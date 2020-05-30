@@ -7,10 +7,10 @@ import java.util.stream.Collectors;
 
 public class BillGenerator {
 
-    public Bill generateBill(List<PurchaseFromStore> listOfPurchase, User aUser, String paymentMethod, DeliveryType delivery) {
+    public Bill generateBill(List<PurchaseFromStore> listOfPurchase, ClientUser aClientUser, String paymentMethod, DeliveryType delivery) {
         List<Ticket> tickets = listOfPurchase.stream().map(purchase -> this.generateTicket(purchase, paymentMethod)).collect(Collectors.toList());
         Bill bill = new Bill(tickets, delivery);
-        aUser.addBillOfPurchase(bill);
+        aClientUser.addBillOfPurchase(bill);
         return bill;
     }
 

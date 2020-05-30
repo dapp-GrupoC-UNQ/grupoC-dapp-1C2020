@@ -2,7 +2,7 @@ package com.example.demo.builders;
 
 import com.example.demo.model.store.Store;
 import com.example.demo.model.StoreAdminUser;
-import com.example.demo.model.User;
+import com.example.demo.model.ClientUser;
 
 public class UserBuilder {
 
@@ -13,8 +13,8 @@ public class UserBuilder {
         return new UserBuilder();
     }
 
-    public User build() {
-        return new User(username, password);
+    public ClientUser build() {
+        return new ClientUser(username, password);
     }
 
     public UserBuilder withUsername(String aUsername) {
@@ -31,9 +31,9 @@ public class UserBuilder {
         return new StoreAdminUser(username, password, store);
     }
 
-    public User withMoneyThreshold(Double moneyLimit) {
-        User user = new User(username, password);
-        user.updateMoneyThreshold(moneyLimit);
-        return user;
+    public ClientUser withMoneyThreshold(Double moneyLimit) {
+        ClientUser clientUser = new ClientUser(username, password);
+        clientUser.updateMoneyThreshold(moneyLimit);
+        return clientUser;
     }
 }

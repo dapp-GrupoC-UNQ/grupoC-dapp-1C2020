@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @JsonSerialize(using = UserJsonSerializer.class)
-public class User {
+public class ClientUser {
 
     private String username;
     private String password;
@@ -20,7 +20,7 @@ public class User {
     private MoneyThreshold moneyThresold = new MoneyThreshold(0.0);
     private List<CategoryMoneyThreshold> categoryMoneyThresholds = new ArrayList<>();
 
-    public User(String username, String password){
+    public ClientUser(String username, String password){
 
         if(username.isEmpty() || password.isEmpty()){
             throw new InvalidUsernameOrPasswordException();

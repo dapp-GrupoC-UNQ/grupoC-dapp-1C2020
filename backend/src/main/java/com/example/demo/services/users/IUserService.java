@@ -1,17 +1,17 @@
 package com.example.demo.services.users;
 
-import com.example.demo.model.User;
+import com.example.demo.model.ClientUser;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public interface IUserService {
 
-    User validateUser(User user);
+    ClientUser validateUser(ClientUser clientUser);
 
-    List<User> getUsers();
+    List<ClientUser> getUsers();
 
     Boolean canAddUser(String username);
 
-    User addUser(String username, String password);
+    ClientUser addUser(String username, String password);
 }

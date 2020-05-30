@@ -1,7 +1,7 @@
 package com.example.demo.services.users;
 
 import com.example.demo.repositories.users.UserRepository;
-import com.example.demo.model.User;
+import com.example.demo.model.ClientUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +13,12 @@ public class UserService implements IUserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User validateUser(User user) {
-        return userRepository.validateUser(user);
+    public ClientUser validateUser(ClientUser clientUser) {
+        return userRepository.validateUser(clientUser);
     }
 
     @Override
-    public List<User> getUsers() {
+    public List<ClientUser> getUsers() {
         return userRepository.getUsers();
     }
 
@@ -28,7 +28,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User addUser(String username, String password) {
+    public ClientUser addUser(String username, String password) {
         return userRepository.addUser(username, password);
     }
 }
