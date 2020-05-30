@@ -24,6 +24,17 @@ class CamposRegistroUsuario extends React.Component {
         )
     }
 
+    generateDay = (day) => {
+        return(
+            <div className="rubro-checkbox">
+                <input type="checkbox" value={day}
+                       onClick={(event) => this.props.onAddingDay(event.target.value)}/>
+                <label className="checkbox">
+                    {day}
+                </label>
+            </div>)
+    }
+
     render() {
         return (<div className="modal-card-body">
                 <div className="seccion-de-campos">
@@ -99,16 +110,6 @@ class CamposRegistroUsuario extends React.Component {
         )
     }
 
-    generateDay = (day) => {
-        return(
-            <div className="rubro-checkbox">
-                <input type="checkbox" value={day}
-                       onClick={(event) => this.props.onAddingDay(event.target.value)}/>
-                <label className="checkbox">
-                    {day}
-                </label>
-            </div>)
-    }
 }
 
 export default CamposRegistroUsuario;
