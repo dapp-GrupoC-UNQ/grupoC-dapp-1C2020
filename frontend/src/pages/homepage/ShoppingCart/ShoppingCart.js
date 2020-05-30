@@ -7,7 +7,6 @@ class ShoppingCart extends React.Component{
         super(props);
     }
 
-
     renderProductsInCart = () => this.props.products.map((product) => <ShoppingCartProduct product={product}
                                                                                            removeProductFromCart={this.removeProductFromCart}/>)
 
@@ -21,11 +20,28 @@ class ShoppingCart extends React.Component{
                 <div className="shopping-cart-title">
                     Mi carrito
                 </div>
-                <div className="shopping-cart-content">
-                    {this.renderProductsInCart()}
-                </div>
+                {this.cartContent()}
             </div>
         )
+    }
+
+    cartContent() {
+        return <>
+            {this.cartIsEmpty() &&
+            <div>
+                Su carrito está vacio. Ya compra algo maldita sea
+            </div>
+            }
+            {!this.cartIsEmpty() &&
+            <div className="shopping-cart-content">
+                {this.renderProductsInCart()}
+            </div>
+            }
+        </>;
+    }
+
+    cartIsEmpty() {
+        return this.props.products.length === 0;
     }
 }
 
