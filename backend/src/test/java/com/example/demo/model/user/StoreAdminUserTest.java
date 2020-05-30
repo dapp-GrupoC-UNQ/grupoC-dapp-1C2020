@@ -5,7 +5,6 @@ import com.example.demo.builders.StoreBuilder;
 import com.example.demo.builders.UserBuilder;
 import com.example.demo.model.exceptions.InvalidUsernameOrPasswordException;
 import com.example.demo.model.store.Store;
-import com.example.demo.model.StoreAdminUser;
 import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

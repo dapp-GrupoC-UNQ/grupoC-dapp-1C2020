@@ -1,6 +1,6 @@
 package com.example.demo.builders;
 
-import com.example.demo.model.StoreAdminUser;
+import com.example.demo.model.user.StoreAdminUser;
 import com.example.demo.model.store.Store;
 
 public class StoreAdminBuilder {

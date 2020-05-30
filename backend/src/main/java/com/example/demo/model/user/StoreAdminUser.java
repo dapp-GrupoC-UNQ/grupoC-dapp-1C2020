@@ -1,8 +1,7 @@
-package com.example.demo.model;
-
+package com.example.demo.model.user;
 import com.example.demo.model.store.Store;
 
-public class StoreAdminUser extends ClientUser {
+public class StoreAdminUser extends User {
 
     private Store store;
 
