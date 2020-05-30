@@ -3,7 +3,7 @@ package com.example.demo.model.thresholds;
 import com.example.demo.builders.CategoryThresholdBuilder;
 import com.example.demo.builders.PurchaseFromStoreBuilder;
 import com.example.demo.builders.StoreBuilder;
-import com.example.demo.builders.UserBuilder;
+import com.example.demo.builders.ClientUserBuilder;
 import com.example.demo.model.*;
 import com.example.demo.model.Bill;
 import com.example.demo.model.store.Store;
@@ -33,7 +33,7 @@ public class CategoryMoneyThresholdTest {
         PurchaseFromStore purchase = PurchaseFromStoreBuilder.aPurchase().withProductOfStore("Mayonesa", "Hellmans", 1, store);
         Store anotherStore = StoreBuilder.aStore().withMerchandise("Fideos", "Marolio", 20.0, 300, MerchandiseCategory.GROCERY);
         PurchaseFromStore anotherPurchase = PurchaseFromStoreBuilder.aPurchase().withProductOfStore("Fideos", "Marolio", 2, anotherStore);
-        ClientUser pepe = UserBuilder.user().build();
+        ClientUser pepe = ClientUserBuilder.user().build();
         String paymentMethod = "Tarjeta de credito";
         DeliveryType deliveryType = new HomeDelivery("Alsina 123", LocalDateTime.now().plusDays(1));
         BillGenerator billGenerator = new BillGenerator();
@@ -46,7 +46,7 @@ public class CategoryMoneyThresholdTest {
         CategoryMoneyThreshold categoryMoneyThreshold = CategoryThresholdBuilder.aCategoryThreshold().whichIsDisabled();
         Store store = StoreBuilder.aStore().withMerchandise("Mayonesa", "Hellmans", 15.0, 300, MerchandiseCategory.GROCERY);
         PurchaseFromStore purchase = PurchaseFromStoreBuilder.aPurchase().withProductOfStore("Mayonesa", "Hellmans", 4, store);
-        ClientUser pepe = UserBuilder.user().build();
+        ClientUser pepe = ClientUserBuilder.user().build();
         String paymentMethod = "Tarjeta de credito";
         DeliveryType deliveryType = new HomeDelivery("Alsina 123", LocalDateTime.now().plusDays(1));
         BillGenerator billGenerator = new BillGenerator();
@@ -61,7 +61,7 @@ public class CategoryMoneyThresholdTest {
         PurchaseFromStore purchase = PurchaseFromStoreBuilder.aPurchase().withProductOfStore("Mayonesa", "Hellmans", 4, store);
         Store anotherStore = StoreBuilder.aStore().withMerchandise("Fernet", "Branca", 400.0, 300, MerchandiseCategory.ALCOHOLIC_DRIKS);
         PurchaseFromStore anotherPurchase = PurchaseFromStoreBuilder.aPurchase().withProductOfStore("Fernet", "Branca", 1, anotherStore);
-        ClientUser pepe = UserBuilder.user().build();
+        ClientUser pepe = ClientUserBuilder.user().build();
         String paymentMethod = "Tarjeta de credito";
         DeliveryType deliveryType = new HomeDelivery("Alsina 123", LocalDateTime.now().plusDays(1));
         BillGenerator billGenerator = new BillGenerator();
@@ -74,7 +74,7 @@ public class CategoryMoneyThresholdTest {
         CategoryMoneyThreshold categoryMoneyThreshold = CategoryThresholdBuilder.aCategoryThreshold().withMoneyLimit(3000.0).withCategory(MerchandiseCategory.GROCERY).build();
         Store store = StoreBuilder.aStore().withMerchandise("Mayonesa", "Hellmans", 15.0, 300, MerchandiseCategory.GROCERY);
         PurchaseFromStore purchase = PurchaseFromStoreBuilder.aPurchase().withProductOfStore("Mayonesa", "Hellmans", 4, store);
-        ClientUser pepe = UserBuilder.user().build();
+        ClientUser pepe = ClientUserBuilder.user().build();
         String paymentMethod = "Tarjeta de credito";
         DeliveryType deliveryType = new HomeDelivery("Alsina 123", LocalDateTime.now().plusDays(1));
         BillGenerator billGenerator = new BillGenerator();

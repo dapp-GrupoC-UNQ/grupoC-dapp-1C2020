@@ -2,7 +2,7 @@ package com.example.demo.model.purchase;
 
 import com.example.demo.builders.PurchaseFromStoreBuilder;
 import com.example.demo.builders.StoreBuilder;
-import com.example.demo.builders.UserBuilder;
+import com.example.demo.builders.ClientUserBuilder;
 import com.example.demo.model.PurchaseFromStore;
 import com.example.demo.model.store.Store;
 import com.example.demo.model.ClientUser;
@@ -31,7 +31,7 @@ public class PurchaseFromStoreTest {
 
     @Test
     public void aPurchaseHasAUser(){
-        ClientUser pepe = UserBuilder.user().build();
+        ClientUser pepe = ClientUserBuilder.user().build();
         PurchaseFromStore purchase = PurchaseFromStoreBuilder.aPurchase().withUser(pepe).build();
         assertEquals(pepe, purchase.user());
     }

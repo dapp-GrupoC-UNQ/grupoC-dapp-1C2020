@@ -4,25 +4,25 @@ import com.example.demo.model.store.Store;
 import com.example.demo.model.user.StoreAdminUser;
 import com.example.demo.model.ClientUser;
 
-public class UserBuilder {
+public class ClientUserBuilder {
 
     private String username = "Pepe";
     private String password = "123456";
 
-    public static UserBuilder user() {
-        return new UserBuilder();
+    public static ClientUserBuilder user() {
+        return new ClientUserBuilder();
     }
 
     public ClientUser build() {
         return new ClientUser(username, password);
     }
 
-    public UserBuilder withUsername(String aUsername) {
+    public ClientUserBuilder withUsername(String aUsername) {
         username = aUsername;
         return this;
     }
 
-    public UserBuilder withPassword(String aPassword) {
+    public ClientUserBuilder withPassword(String aPassword) {
         password = aPassword;
         return this;
     }

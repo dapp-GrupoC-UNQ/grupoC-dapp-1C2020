@@ -1,6 +1,6 @@
 package com.example.demo.controllers;
 
-import com.example.demo.builders.UserBuilder;
+import com.example.demo.builders.ClientUserBuilder;
 import com.example.demo.model.exceptions.NotFoundUserException;
 import com.example.demo.services.users.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,7 +40,7 @@ public class UsersControllerTest {
 
     @Test
     public void aUserIsValidatedIfItsUsernameMatchesWithItsPassword() throws Exception {
-        ClientUser clientUser = UserBuilder.user().build();
+        ClientUser clientUser = ClientUserBuilder.user().build();
         when(userServiceMock.validateUser(any())).thenReturn(clientUser);
 
         mockMvc.perform(post("/validateUser")
@@ -52,7 +52,7 @@ public class UsersControllerTest {
 
     @Test
     public void aUserIsNotValidatedIfItsUsernameMatchesWithItsPassword() throws Exception {
-        ClientUser clientUser = UserBuilder.user().build();
+        ClientUser clientUser = ClientUserBuilder.user().build();
         when(userServiceMock.validateUser(any())).thenThrow(new NotFoundUserException());
 
         mockMvc.perform(post("/validateUser")
@@ -63,7 +63,7 @@ public class UsersControllerTest {
 
     @Test
     public void whenCreatingAUserTheUserIsReturnedAndTheStatusIsOK() throws Exception {
-        ClientUser clientUser = UserBuilder.user().build();
+        ClientUser clientUser = ClientUserBuilder.user().build();
         when(userServiceMock.addUser(any(), any())).thenReturn(clientUser);
 
         mockMvc.perform(post("/users")

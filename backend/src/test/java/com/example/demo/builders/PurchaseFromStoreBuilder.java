@@ -9,7 +9,7 @@ public class PurchaseFromStoreBuilder {
     }
 
     private Store purchaseStore = StoreBuilder.aStore().build();
-    private ClientUser clientUser = UserBuilder.user().build();
+    private ClientUser clientUser = ClientUserBuilder.user().build();
 
     public PurchaseFromStore build(){
         return new PurchaseFromStore(purchaseStore, clientUser);

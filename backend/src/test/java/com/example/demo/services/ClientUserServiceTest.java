@@ -1,6 +1,6 @@
 package com.example.demo.services;
 
-import com.example.demo.builders.UserBuilder;
+import com.example.demo.builders.ClientUserBuilder;
 import com.example.demo.model.exceptions.NotAvailableUserNameException;
 import com.example.demo.model.exceptions.NotFoundUserException;
 import com.example.demo.repositories.users.UserRepository;
@@ -35,7 +35,7 @@ public class ClientUserServiceTest {
 
     @Test
     public void aUserIsValidIfItExistsAndItsUsernameMatchesItsPassword() {
-        ClientUser clientUser = UserBuilder.user().build();
+        ClientUser clientUser = ClientUserBuilder.user().build();
         when(userRepositoryMock.validateUser(any())).thenReturn(clientUser);
 
         assertEquals(userService.validateUser(clientUser).username(), clientUser.username());
@@ -43,8 +43,8 @@ public class ClientUserServiceTest {
 
     @Test
     public void aUserIsNotValidIfItsNotRegistered() {
-        ClientUser clientUser = UserBuilder.user().build();
-        List<ClientUser> fakeUsersList = Arrays.asList(UserBuilder.user().withUsername("FakeUser").build());
+        ClientUser clientUser = ClientUserBuilder.user().build();
+        List<ClientUser> fakeUsersList = Arrays.asList(ClientUserBuilder.user().withUsername("FakeUser").build());
         when(userRepositoryMock.validateUser(any())).thenThrow(new NotFoundUserException());
 
         assertThrows(NotFoundUserException.class, () -> userService.validateUser(clientUser));
@@ -65,7 +65,7 @@ public class ClientUserServiceTest {
 
     @Test
     public void whenAUserIsAddedTheServiceReturnsTheUser(){
-        ClientUser clientUser = UserBuilder.user().build();
+        ClientUser clientUser = ClientUserBuilder.user().build();
         when(userRepositoryMock.addUser(any(), any())).thenReturn(clientUser);
 
         assertEquals(userService.addUser(clientUser.username(), clientUser.password()), clientUser);

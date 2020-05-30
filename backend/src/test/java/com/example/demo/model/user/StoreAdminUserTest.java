@@ -2,7 +2,7 @@ package com.example.demo.model.user;
 
 import com.example.demo.builders.StoreAdminBuilder;
 import com.example.demo.builders.StoreBuilder;
-import com.example.demo.builders.UserBuilder;
+import com.example.demo.builders.ClientUserBuilder;
 import com.example.demo.model.exceptions.InvalidUsernameOrPasswordException;
 import com.example.demo.model.store.Store;
 import org.junit.Test;
@@ -37,14 +37,14 @@ public class StoreAdminUserTest {
     @Test
     public void aStoreAdminUserKnowsItsStore() {
         Store store = StoreBuilder.aStore().build();
-        StoreAdminUser storeAdminUser = UserBuilder.user().adminOfStore(store);
+        StoreAdminUser storeAdminUser = ClientUserBuilder.user().adminOfStore(store);
         assertEquals(storeAdminUser.store(), store);
     }
 
     @Test
     public void aStoreAdminUserIsAStoreAdmin() {
         Store store = StoreBuilder.aStore().build();
-        StoreAdminUser storeAdminUser = UserBuilder.user().adminOfStore(store);
+        StoreAdminUser storeAdminUser = ClientUserBuilder.user().adminOfStore(store);
         assertTrue(storeAdminUser.isAdminOfStore());
     }
 

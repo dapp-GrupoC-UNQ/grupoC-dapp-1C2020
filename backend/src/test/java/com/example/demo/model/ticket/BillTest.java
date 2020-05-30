@@ -50,7 +50,7 @@ public class BillTest {
 
     @Test
     public void aUserThatChoosesHomeDeliveryBillHasAndAddressAndDeliveryDate() {
-        ClientUser clientUser = UserBuilder.user().build();
+        ClientUser clientUser = ClientUserBuilder.user().build();
         PurchaseFromStore purchase = PurchaseFromStoreBuilder.aPurchase().withUser(clientUser).build();
         String paymentMethod = "Credit Card";
         DeliveryType deliveryType = new HomeDelivery("Alsina 123", LocalDateTime.now().plusDays(1));
@@ -61,7 +61,7 @@ public class BillTest {
 
     @Test
     public void aUserThatChoosesStorePickUpDeliveryTicketDoesNotHaveADeliveryAddress() {
-        ClientUser clientUser = UserBuilder.user().build();
+        ClientUser clientUser = ClientUserBuilder.user().build();
         PurchaseFromStore purchase = PurchaseFromStoreBuilder.aPurchase().withUser(clientUser).build();
         String paymentMethod = "Credit Card";
         DeliveryType deliveryType = new StorePickUp(LocalDateTime.now().plusDays(1));
