@@ -9,11 +9,11 @@ class CamposRegistroUsuario extends React.Component {
             addSchedule: true
         }
     }
-    rubros = () => ['Limpieza', 'Carniceria', 'Verduleria', 'Perfumeria', 'Almacen']
+    rubros = () => ['Limpieza', 'Carniceria', 'Verduleria', 'Perfumeria', 'Almacen', 'Panaderia']
 
     generateCategory = (rubro) => {
         return (
-            <div className="rubro-checbox">
+            <div className="rubro-checkbox">
                 <input type="checkbox" value={rubro} onClick={(event) => this.props.onAddingCategory(event.target.value)}/>
                 <label className="checkbox">
                     {rubro}
@@ -21,9 +21,6 @@ class CamposRegistroUsuario extends React.Component {
             </div>
         )
     }
-    schedulesText = () => this.state.addSchedule ? 'agregar' : 'quitar';
-
-    updateSchedulesText = () => this.setState({addSchedule: !this.state.addSchedule})
 
     render() {
         return (<div className="modal-card-body">
@@ -63,23 +60,12 @@ class CamposRegistroUsuario extends React.Component {
                 <div className="seccion-de-campos">
                     <div className="campo-a-rellenar">
                         <label>
-                            Horarios de apertura
+                            Horario de atención
                         </label>
                         <div className="horarios">
                             <div className="seleccion-horario">
                                 <input type="time" name="horariocomienzo" onChange={(event) => this.props.onUpdate('primerHorarioApertura', event.target.value)}/> a
                                 <input type="time" name="horariofin" onChange={(event) => this.props.onUpdate('primerHorarioCierre', event.target.value)}/>
-                            </div>
-
-                            {!this.state.addSchedule &&
-                            <div>
-                                <input type="time" name="horariocomienzoalt" onChange={(event) => this.props.onUpdate('segundoHorarioApertura', event.target.value)}/> a
-                                <input type="time" name="horariofinalt" onChange={(event) => this.props.onUpdate('segundoHorarioCierre', event.target.value)}/>
-                            </div>
-                            }
-
-                            <div className='botonera-horarios'>
-                                <a onClick={this.updateSchedulesText}>{this.schedulesText()} horario</a>
                             </div>
                         </div>
                     </div>
@@ -87,7 +73,9 @@ class CamposRegistroUsuario extends React.Component {
                         <label>
                             Rubros
                         </label>
-                        {this.rubros().map(rubro => this.generateCategory(rubro))}
+                        <div className="categories-grid">
+                            {this.rubros().map(rubro => this.generateCategory(rubro))}
+                        </div>
                     </div>
                 </div>
                 }

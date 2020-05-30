@@ -36,16 +36,21 @@
       }
     }
 
-    .rubro-checbox {
-      display: flex;
-      align-items: center;
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
 
-      label {
-        font-size: smaller;
-      }
+      .rubro-checkbox {
+        display: flex;
+        align-items: center;
 
-      input {
-        margin: 0 3px;
+        label {
+          font-size: smaller;
+        }
+
+        input {
+          margin: 0 3px;
+        }
       }
     }
   }
