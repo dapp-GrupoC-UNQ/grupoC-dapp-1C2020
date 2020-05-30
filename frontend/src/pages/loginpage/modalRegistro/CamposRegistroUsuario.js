@@ -11,6 +11,8 @@ class CamposRegistroUsuario extends React.Component {
     }
     rubros = () => ['Limpieza', 'Carniceria', 'Verduleria', 'Perfumeria', 'Almacen', 'Panaderia']
 
+    openingDays = () => ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
+
     generateCategory = (rubro) => {
         return (
             <div className="rubro-checkbox">
@@ -24,37 +26,41 @@ class CamposRegistroUsuario extends React.Component {
 
     render() {
         return (<div className="modal-card-body">
-                    <div className="seccion-de-campos">
-                        <div className="campo-a-rellenar">
-                            <label>
-                                {!this.props.isStore ? "Nombre y Apellido" : "Comercio"}
-                            </label>
-                            <input type="text" id="nombreYApellido" name="nombreYApellido" onChange={(event) =>this.props.onUpdate('nombreYApellido', event.target.value)}/>
-                        </div>
-                        <div className="campo-a-rellenar">
-                            <label>
-                                Direccion
-                            </label>
-                            <input type="text" id="direccion" name="direccion" onChange={(event) =>this.props.onUpdate('direccion', event.target.value)}/>
-                        </div>
-                        <div className="campo-a-rellenar">
-                            <label>
-                                Email
-                            </label>
-                            <input type="email" id="email" name="email" onChange={(event) =>this.props.onUpdate('email', event.target.value)}/>
-                        </div>
-                        <div className="campo-a-rellenar">
-                            <label>
-                                Contraseña
-                            </label>
-                            <input type="password" id="password" name="password" onChange={(event) =>this.props.onUpdate('password', event.target.value)}/>
-                        </div>
+                <div className="seccion-de-campos">
+                    <div className="campo-a-rellenar">
+                        <label>
+                            {!this.props.isStore ? "Nombre y Apellido" : "Comercio"}
+                        </label>
+                        <input type="text" id="nombreYApellido" name="nombreYApellido"
+                               onChange={(event) => this.props.onUpdate('nombreYApellido', event.target.value)}/>
+                    </div>
+                    <div className="campo-a-rellenar">
+                        <label>
+                            Direccion
+                        </label>
+                        <input type="text" id="direccion" name="direccion"
+                               onChange={(event) => this.props.onUpdate('direccion', event.target.value)}/>
+                    </div>
+                    <div className="campo-a-rellenar">
+                        <label>
+                            Email
+                        </label>
+                        <input type="email" id="email" name="email"
+                               onChange={(event) => this.props.onUpdate('email', event.target.value)}/>
+                    </div>
+                    <div className="campo-a-rellenar">
+                        <label>
+                            Contraseña
+                        </label>
+                        <input type="password" id="password" name="password"
+                               onChange={(event) => this.props.onUpdate('password', event.target.value)}/>
+                    </div>
 
-                        {!this.props.isValidUser &&
-                            <div className="user-error">
-                                <FontAwesomeIcon icon={faExclamationTriangle}/>
-                                Hay campos sin completar.
-                            </div>}
+                    {!this.props.isValidUser &&
+                    <div className="user-error">
+                        <FontAwesomeIcon icon={faExclamationTriangle}/>
+                        Hay campos sin completar.
+                    </div>}
                 </div>
                 {this.props.isStore &&
                 <div className="seccion-de-campos">
@@ -64,9 +70,19 @@ class CamposRegistroUsuario extends React.Component {
                         </label>
                         <div className="horarios">
                             <div className="seleccion-horario">
-                                <input type="time" name="horariocomienzo" onChange={(event) => this.props.onUpdate('primerHorarioApertura', event.target.value)}/> a
-                                <input type="time" name="horariofin" onChange={(event) => this.props.onUpdate('primerHorarioCierre', event.target.value)}/>
+                                <input type="time" name="horariocomienzo"
+                                       onChange={(event) => this.props.onUpdate('primerHorarioApertura', event.target.value)}/> a
+                                <input type="time" name="horariofin"
+                                       onChange={(event) => this.props.onUpdate('primerHorarioCierre', event.target.value)}/>
                             </div>
+                        </div>
+                    </div>
+                    <div className="campo-a-rellenar">
+                        <label>
+                            Días de atención
+                        </label>
+                        <div className="categories-grid">
+                        {this.openingDays().map(day => this.generateDay(day))}
                         </div>
                     </div>
                     <div className="campo-a-rellenar">
@@ -81,6 +97,17 @@ class CamposRegistroUsuario extends React.Component {
                 }
             </div>
         )
+    }
+
+    generateDay = (day) => {
+        return(
+            <div className="rubro-checkbox">
+                <input type="checkbox" value={day}
+                       onClick={(event) => this.props.onAddingDay(event.target.value)}/>
+                <label className="checkbox">
+                    {day}
+                </label>
+            </div>)
     }
 }
 
