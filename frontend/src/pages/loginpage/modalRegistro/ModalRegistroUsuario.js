@@ -27,6 +27,12 @@ class ModalRegistroUsuario extends React.Component {
         this.setState({rubros: nuevosRubros})
     }
 
+    addDay = (day) => {
+        let openingDaysList = (this.state.openingDays || [])
+        let upDateDays = openingDaysList.includes(day) ? openingDaysList.filter(openingDay => openingDay !== day) : openingDaysList.concat(day)
+        this.setState({openingDays: upDateDays})
+    }
+    
     updateForm = (key, value) => {
         this.setState({[key]: value})
     }
@@ -61,6 +67,7 @@ class ModalRegistroUsuario extends React.Component {
                                                onAddingCategory={this.addCategory}
                                                isStore={!this.state.registeringUser}
                                                isValidUser={this.state.isValidUser}
+                                               onAddingDay={this.addDay}
                     />}
                     {this.state.registrationSucceed && <RegistrationSucceed/>}
                      <footer className="modal-card-foot">
