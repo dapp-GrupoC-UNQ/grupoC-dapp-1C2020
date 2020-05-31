@@ -32,6 +32,12 @@ class ModalRegistroUsuario extends React.Component {
         let upDateDays = openingDaysList.includes(day) ? openingDaysList.filter(openingDay => openingDay !== day) : openingDaysList.concat(day)
         this.setState({openingDays: upDateDays})
     }
+
+    addPaymentMethod = (method) => {
+        let paymentMethodList = (this.state.paymentMethods || [])
+        let upDatePaymentMethods = paymentMethodList.includes(method) ? paymentMethodList.filter(paymentMethod => paymentMethod !== method) : paymentMethodList.concat(method)
+        this.setState({paymentMethods: upDatePaymentMethods})
+    }
     
     updateForm = (key, value) => {
         this.setState({[key]: value})
@@ -44,16 +50,16 @@ class ModalRegistroUsuario extends React.Component {
     }
 
     validateStoreUser = () => {
-        this.setState({isValidUser: (!!this.state.nombreYApellido && !!this.state.direccion &&
+        this.setState({isValidUser: (!!this.state.storeName && !!this.state.direccion &&
                 !!this.state.email && !!this.state.password && !!this.state.rubros && !!this.state.openingDays
-                && !!this.state.openingTime && !!this.state.closingTime)})
+                && !!this.state.openingTime && !!this.state.closingTime && !!this.state.paymentMethods && !!this.state.deliveryDistance)})
         return this.state.isValidUser;
     }
 
     buildUser = () => {
         return (
             {
-                username: this.state.nombreYApellido,
+                username: this.state.email,
                 password: this.state.password,
             }
         )
@@ -62,9 +68,11 @@ class ModalRegistroUsuario extends React.Component {
     buildStore = () => {
         return (
             {
-                storeName: this.state.nombreYApellido,
+                storeName: this.state.storeName,
                 storeCategories: this.state.rubros,
                 storeAddress: this.state.direccion,
+                deliveryDistanceInKm: this.state.deliveryDistance || 1,
+                availablePaymentMethods: this.state.paymentMethods,
                 storeSchedule: {
                                 openingDays: this.state.openingDays,
                                 openingTime: this.state.openingTime,
@@ -106,6 +114,7 @@ class ModalRegistroUsuario extends React.Component {
                                                isStore={!this.state.registeringUser}
                                                isValidUser={this.state.isValidUser}
                                                onAddingDay={this.addDay}
+                                               onAddingPaymentMethod={this.addPaymentMethod}
                     />}
                     {this.state.registrationSucceed && <RegistrationSucceed/>}
                      <footer className="modal-card-foot">
