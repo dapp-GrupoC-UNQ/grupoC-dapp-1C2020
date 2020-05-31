@@ -2,6 +2,7 @@ package com.example.demo.services.users;
 
 import com.example.demo.model.store.Store;
 import com.example.demo.model.user.StoreAdminUser;
+import com.example.demo.model.user.User;
 import com.example.demo.repositories.users.UserRepository;
 import com.example.demo.model.user.ClientUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,12 @@ public class UserService implements IUserService {
     @Autowired
     private UserRepository userRepository;
 
-    public ClientUser validateUser(ClientUser clientUser) {
-        return userRepository.validateUser(clientUser);
+    public User validateUser(User user) {
+        return userRepository.validateUser(user);
     }
 
     @Override
-    public List<ClientUser> getUsers() {
+    public List<User> getUsers() {
         return userRepository.getUsers();
     }
 
@@ -36,6 +37,6 @@ public class UserService implements IUserService {
 
     @Override
     public StoreAdminUser addStoreAdmin(String username, String password, Store store) {
-        return new StoreAdminUser(username, password, store);
+        return userRepository.addStoreAdmin(username, password, store);
     }
 }

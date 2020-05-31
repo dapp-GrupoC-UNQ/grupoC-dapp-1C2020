@@ -1,4 +1,5 @@
 package com.example.demo.controllers;
+import com.example.demo.model.user.User;
 import com.example.demo.services.users.IUserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.example.demo.model.user.ClientUser;
@@ -16,12 +17,12 @@ public class UserController {
     private IUserService userService;
 
     @GetMapping("/users")
-    public List<ClientUser> getUsers() throws JsonProcessingException {
+    public List<User> getUsers() throws JsonProcessingException {
         return userService.getUsers();
     }
 
     @PostMapping(path = "/validateUser", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<ClientUser> validateUser(@RequestBody ClientUser clientUser)
+    public ResponseEntity<User> validateUser(@RequestBody ClientUser clientUser)
     {
         return new ResponseEntity<>(userService.validateUser(clientUser), HttpStatus.OK);
     }
