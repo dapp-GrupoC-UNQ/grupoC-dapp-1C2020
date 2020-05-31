@@ -11,9 +11,20 @@ const LoginService = () => {
         return axios.post(`${SERVICE_URL}users`, user)
     }
 
+    const registerStoreUser = (storeUser, store) => {
+        const body = {
+            username: storeUser.username,
+            password: storeUser.password,
+            store: store
+        }
+
+        return axios.post(`${SERVICE_URL}stores`, body)
+    }
+
     return {
         validateUser: validateUser,
-        registerUser: registerUser
+        registerUser: registerUser,
+        registerStoreUser: registerStoreUser
     }
 }
 

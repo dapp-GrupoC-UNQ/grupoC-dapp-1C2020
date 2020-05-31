@@ -6,19 +6,23 @@ class CamposRegistroUsuario extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            addSchedule: true
+            deliveryDistance: 1
         }
     }
-    rubros = () => ['Limpieza', 'Carniceria', 'Verduleria', 'Perfumeria', 'Almacen', 'Panaderia']
+    rubros = () => [{value:'CLEANING_SUPPLIES', label:'Limpieza'}, {value:'BUTCHER', label:'Carniceria'}, {value:'GREENGROCES', label:'Verduleria'},
+                    {value:'HYGIENE_PRODUCTS', label:'Perfumeria'}, {value:'GROCERY', label:'Almacen'}, {value:'BAKERY', label:'Panaderia'}]
 
-    openingDays = () => ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
+    openingDays = () => [{value:'MONDAY', label:'Lunes'}, {value:'TUESDAY', label:'Martes'}, {value:'WEDNESDAY', label:'Miercoles'},
+                        {value:'THURSDAY',label:'Jueves'}, {value:'FRIDAY', label:'Viernes'}, {value:'SATURDAY', label:'Sabado'}, {value:'SUNDAY', label:'Domingo'}]
+
+    paymentMethod = () => ['Efectivo', 'Tarjeta de Debito', 'Tarjeta de Credito']
 
     generateCategory = (rubro) => {
         return (
             <div className="rubro-checkbox">
-                <input type="checkbox" value={rubro} onClick={(event) => this.props.onAddingCategory(event.target.value)}/>
+                <input type="checkbox" value={rubro.value} onClick={(event) => this.props.onAddingCategory(event.target.value)}/>
                 <label className="checkbox">
-                    {rubro}
+                    {rubro.label}
                 </label>
             </div>
         )
@@ -27,10 +31,21 @@ class CamposRegistroUsuario extends React.Component {
     generateDay = (day) => {
         return(
             <div className="rubro-checkbox">
-                <input type="checkbox" value={day}
+                <input type="checkbox" value={day.value}
                        onClick={(event) => this.props.onAddingDay(event.target.value)}/>
                 <label className="checkbox">
-                    {day}
+                    {day.label}
+                </label>
+            </div>)
+    }
+
+    generate1paymentMethod = (method) => {
+        return(
+            <div className="rubro-checkbox">
+                <input type="checkbox" value={method}
+                       onClick={(event) => this.props.onAddingPaymentMethod(event.target.value)}/>
+                <label className="checkbox">
+                    {method}
                 </label>
             </div>)
     }
@@ -38,12 +53,20 @@ class CamposRegistroUsuario extends React.Component {
     render() {
         return (<div className="modal-card-body">
                 <div className="seccion-de-campos">
+                    {this.props.isStore &&
                     <div className="campo-a-rellenar">
                         <label>
-                            {!this.props.isStore ? "Nombre y Apellido" : "Comercio"}
+                            Nombre de Comercio
                         </label>
                         <input type="text" id="nombreYApellido" name="nombreYApellido"
-                               onChange={(event) => this.props.onUpdate('nombreYApellido', event.target.value)}/>
+                               onChange={(event) => this.props.onUpdate('storeName', event.target.value)}/>
+                    </div>}
+                    <div className="campo-a-rellenar">
+                        <label>
+                            Email
+                        </label>
+                        <input type="email" id="email" name="email"
+                               onChange={(event) => this.props.onUpdate('email', event.target.value)}/>
                     </div>
                     <div className="campo-a-rellenar">
                         <label>
@@ -51,13 +74,6 @@ class CamposRegistroUsuario extends React.Component {
                         </label>
                         <input type="text" id="direccion" name="direccion"
                                onChange={(event) => this.props.onUpdate('direccion', event.target.value)}/>
-                    </div>
-                    <div className="campo-a-rellenar">
-                        <label>
-                            Email
-                        </label>
-                        <input type="email" id="email" name="email"
-                               onChange={(event) => this.props.onUpdate('email', event.target.value)}/>
                     </div>
                     <div className="campo-a-rellenar">
                         <label>
@@ -82,9 +98,9 @@ class CamposRegistroUsuario extends React.Component {
                         <div className="horarios">
                             <div className="seleccion-horario">
                                 <input type="time" name="horariocomienzo"
-                                       onChange={(event) => this.props.onUpdate('primerHorarioApertura', event.target.value)}/> a
+                                       onChange={(event) => this.props.onUpdate('openingTime', event.target.value)}/> a
                                 <input type="time" name="horariofin"
-                                       onChange={(event) => this.props.onUpdate('primerHorarioCierre', event.target.value)}/>
+                                       onChange={(event) => this.props.onUpdate('closingTime', event.target.value)}/>
                             </div>
                         </div>
                     </div>
@@ -106,10 +122,34 @@ class CamposRegistroUsuario extends React.Component {
                     </div>
                 </div>
                 }
+                {this.props.isStore &&
+                <div className="seccion-de-campos">
+                    <div className="campo-a-rellenar">
+                        <label>
+                            Medios de Pago
+                        </label>
+                        <div className="categories-grid">
+                            {this.paymentMethod().map(method => this.generate1paymentMethod(method))}
+                        </div>
+                    </div>
+                    <div className="campo-a-rellenar">
+                        <label>
+                            Distancia maxima de delivery (Km)
+                        </label>
+                        <input type="number" value={this.state.deliveryDistance} id="delivery" name="delivery"
+                               onChange={(event) => this.updateDeliveryDistance(parseInt(event.target.value))}/>
+                    </div>
+                </div>
+                }
             </div>
+
         )
     }
 
+    updateDeliveryDistance(number) {
+        this.setState({deliveryDistance: Math.max(1, number)});
+        this.props.onUpdate('deliveryDistance', Math.max(1, number));
+    }
 }
 
 export default CamposRegistroUsuario;

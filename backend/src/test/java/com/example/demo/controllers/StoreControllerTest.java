@@ -124,7 +124,7 @@ public class StoreControllerTest {
         assertEquals(JsonPath.parse(response).read("store.storeAddress"), aStore.address());
         assertEquals(JsonPath.parse(response).read("store.storeCategories"),storeCategoriesToString(aStore.storeCategories()));
         assertEquals(JsonPath.parse(response).read("store.deliveryDistanceInKm"), aStore.deliveryDistanceInKm());
-        assertEquals(JsonPath.parse(response).read("store.storePaymentMethods"), aStore.availablePaymentMethods());
+        assertEquals(JsonPath.parse(response).read("store.availablePaymentMethods"), aStore.availablePaymentMethods());
         assertEquals(JsonPath.parse(response).read("store.storeSchedule.openingTime"), aStore.storeSchedule().openingTime().toString());
         assertEquals(JsonPath.parse(response).read("store.storeSchedule.closingTime"), aStore.storeSchedule().closingTime().toString());
         assertEquals(JsonPath.parse(response).read("store.storeSchedule.openingDays"), storeOpeningDaysToString(aStore));
