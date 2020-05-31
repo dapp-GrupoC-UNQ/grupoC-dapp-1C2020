@@ -44,7 +44,7 @@ public class StoreJsonSerializer extends JsonSerializer<Store> {
     }
 
     private void serializeStorePaymentMethods(JsonGenerator jgen, Store store) throws IOException {
-        jgen.writeFieldName("storePaymentMethods");
+        jgen.writeFieldName("availablePaymentMethods");
         jgen.writeStartArray();
         store.availablePaymentMethods().stream().forEach(paymentMethod -> {
             try {

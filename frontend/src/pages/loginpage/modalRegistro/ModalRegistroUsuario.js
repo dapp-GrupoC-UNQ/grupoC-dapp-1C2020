@@ -93,7 +93,7 @@ class ModalRegistroUsuario extends React.Component {
         if(!this.state.registeringUser && this.validateStoreUser()){
             LoginService().registerStoreUser(this.buildUser(),this.buildStore())
                 .then(() =>{
-                    this.setState({registrationSucced: true})
+                    this.setState({registrationSucceed: true})
                 })
                 .catch(error => console.log(error))
         }
