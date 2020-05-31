@@ -82,9 +82,9 @@ class CamposRegistroUsuario extends React.Component {
                         <div className="horarios">
                             <div className="seleccion-horario">
                                 <input type="time" name="horariocomienzo"
-                                       onChange={(event) => this.props.onUpdate('primerHorarioApertura', event.target.value)}/> a
+                                       onChange={(event) => this.props.onUpdate('openingTime', event.target.value)}/> a
                                 <input type="time" name="horariofin"
-                                       onChange={(event) => this.props.onUpdate('primerHorarioCierre', event.target.value)}/>
+                                       onChange={(event) => this.props.onUpdate('closingTime', event.target.value)}/>
                             </div>
                         </div>
                     </div>

@@ -43,24 +43,62 @@ class ModalRegistroUsuario extends React.Component {
         return this.state.isValidUser;
     }
 
+    validateStoreUser = () => {
+        this.setState({isValidUser: (!!this.state.nombreYApellido && !!this.state.direccion &&
+                !!this.state.email && !!this.state.password && !!this.state.rubros && !!this.state.openingDays
+                && !!this.state.openingTime && !!this.state.closingTime)})
+        return this.state.isValidUser;
+    }
+
+    buildUser = () => {
+        return (
+            {
+                username: this.state.nombreYApellido,
+                password: this.state.password,
+            }
+        )
+    };
+
+    buildStore = () => {
+        return (
+            {
+                storeName: this.state.nombreYApellido,
+                storeCategories: this.state.rubros,
+                storeAddress: this.state.direccion,
+                storeSchedule: {
+                                openingDays: this.state.openingDays,
+                                openingTime: this.state.openingTime,
+                                closingTime: this.state.closingTime
+                                }
+            }
+        )
+    }
+
     registerUser = () => {
-        if(this.validateUser()){
-            LoginService().registerUser({username: this.state.nombreYApellido, password: this.state.password})
+        if(this.state.registeringUser && this.validateUser()){
+            LoginService().registerUser(this.buildUser())
                 .then(() =>{
                     this.setState({registrationSucceed: true})
                 })
                 .catch(error => console.log(error))
-        };
+        }
+        if(!this.state.registeringUser && this.validateStoreUser()){
+            LoginService().registerStoreUser(this.buildUser(),this.buildStore())
+                .then(() =>{
+                    this.setState({registrationSucced: true})
+                })
+                .catch(error => console.log(error))
+        }
     }
 
     render() {
         return(
             <div className="modal">
-                <div className="modal-background"></div>
+                <div className="modal-background"/>
                 <div className="modal-card">
                     <header className="modal-card-head">
                         <p className="modal-card-title">Registrate como {this.entityToRegister()}</p>
-                        <button className="delete" aria-label="close" onClick={this.props.onClose}></button>
+                        <button className="delete" aria-label="close" onClick={this.props.onClose}/>
                     </header>
                     {!this.state.registrationSucceed  &&
                     <CamposRegistroUsuario onUpdate={this.updateForm}
@@ -82,6 +120,8 @@ class ModalRegistroUsuario extends React.Component {
             </div>
         )
     }
+
+
 }
 
 export default ModalRegistroUsuario;
