@@ -116,7 +116,8 @@ class ModalRegistroUsuario extends React.Component {
                                                onAddingDay={this.addDay}
                                                onAddingPaymentMethod={this.addPaymentMethod}
                     />}
-                    {this.state.registrationSucceed && <RegistrationSucceed/>}
+                    {this.state.registrationSucceed && <RegistrationSucceed
+                                                            registerUser={this.state.registeringUser}/>}
                      <footer className="modal-card-foot">
                          <RegistrationButtons
                              registrationSucceed={this.state.registrationSucceed}
