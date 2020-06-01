@@ -47,12 +47,4 @@ public class StoreController {
     private ResponseEntity<Object> generateProductsResponse(List<Merchandise> merchandises) {
         return new ResponseEntity<>(merchandises, HttpStatus.OK);
     }
-
-    @PostMapping(path = "/stores", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<StoreAdminUser> createNewStore(@RequestBody StoreAdminUser storeAdminUser)
-    {
-        userService.addStoreAdmin(storeAdminUser.username(), storeAdminUser.password(), storeAdminUser.store());
-        storeService.addStore(storeAdminUser.store());
-        return new ResponseEntity<>(storeAdminUser, HttpStatus.OK);
-    }
 }

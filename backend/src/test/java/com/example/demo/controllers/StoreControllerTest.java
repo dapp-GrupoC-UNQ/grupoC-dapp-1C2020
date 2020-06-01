@@ -50,14 +50,6 @@ public class StoreControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private List<String> storeCategoriesToString(List<StoreCategory> categories) {
-        return categories.stream().map(Enum::toString).collect(Collectors.toList());
-    }
-
-    private List<String> storeOpeningDaysToString(Store store) {
-        return store.storeSchedule().days().stream().map(Enum::toString).collect(Collectors.toList());
-    }
-
     @Test
     public void ifWeAskForStoresWeGetTheActualStoresList() throws Exception {
         List<Store> stores = StoreBuilder.storeList();
@@ -102,31 +94,5 @@ public class StoreControllerTest {
 
         mockMvc.perform(get("/stores/Nonexistingstore/products"))
                .andExpect(status().isNotFound());
-    }
-
-    @Test
-    public void addingAStoreReturnsTheStoreAdminAnd200Status() throws Exception {
-        StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().build();
-        Store aStore = aStoreAdmin.store();
-        when(storeServiceMock.addStore(any())).thenReturn(aStore);
-
-        String content = objectMapper.writeValueAsString(aStoreAdmin);
-        MvcResult mvcResult = mockMvc.perform(post("/stores")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(content))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        String response = mvcResult.getResponse().getContentAsString();
-        assertEquals(JsonPath.parse(response).read("username"), aStoreAdmin.username());
-        assertEquals(JsonPath.parse(response).read("password"), aStoreAdmin.password());
-        assertEquals(JsonPath.parse(response).read("store.storeName"), aStore.name());
-        assertEquals(JsonPath.parse(response).read("store.storeAddress"), aStore.address());
-        assertEquals(JsonPath.parse(response).read("store.storeCategories"),storeCategoriesToString(aStore.storeCategories()));
-        assertEquals(JsonPath.parse(response).read("store.deliveryDistanceInKm"), aStore.deliveryDistanceInKm());
-        assertEquals(JsonPath.parse(response).read("store.availablePaymentMethods"), aStore.availablePaymentMethods());
-        assertEquals(JsonPath.parse(response).read("store.storeSchedule.openingTime"), aStore.storeSchedule().openingTime().toString());
-        assertEquals(JsonPath.parse(response).read("store.storeSchedule.closingTime"), aStore.storeSchedule().closingTime().toString());
-        assertEquals(JsonPath.parse(response).read("store.storeSchedule.openingDays"), storeOpeningDaysToString(aStore));
     }
 }

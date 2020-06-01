@@ -36,7 +36,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public StoreAdminUser addStoreAdmin(String username, String password, Store store) {
-        return userRepository.addStoreAdmin(username, password, store);
+    public StoreAdminUser addStoreAdmin(StoreAdminUser storeAdminUser) {
+        return userRepository.addStoreAdmin(storeAdminUser.username(), storeAdminUser.password(), storeAdminUser.store());
     }
 }
