@@ -12,9 +12,14 @@ class RegistrationSucceed extends React.Component {
                 <div className="success-title">
                     ¡Te registraste con éxito!
                 </div>
+                {this.props.registerUser &&
                 <div className="success-subtitle">
                     Ya podes empezar a comprar
-                </div>
+                </div>}
+                {!this.props.registerUser &&
+                <div className="success-subtitle">
+                    Ya podes empezar a vender tus productos
+                </div>}
             </div>
         )
     }
