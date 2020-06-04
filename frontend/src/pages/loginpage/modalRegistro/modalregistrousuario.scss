@@ -5,6 +5,10 @@
   height: 100%;
   display: flex;
 
+  .modal-card {
+    width: auto;
+    min-width: 50%;
+  }
   .campo-a-rellenar {
     display: flex;
     flex-direction: column;
@@ -113,6 +117,7 @@
       }
     }
     .seccion-de-campos {
+      padding: 0 10px;
       width: 50%;
       .user-error {
         color: #ff0020;

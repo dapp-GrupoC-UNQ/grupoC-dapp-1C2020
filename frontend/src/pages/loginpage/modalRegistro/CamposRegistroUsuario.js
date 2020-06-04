@@ -66,14 +66,14 @@ class CamposRegistroUsuario extends React.Component {
                             Email
                         </label>
                         <input type="email" id="email" name="email"
-                               onChange={(event) => this.props.onUpdate('email', event.target.value)}/>
+                               onChange={(event) => this.props.onUpdate('username', event.target.value)}/>
                     </div>
                     <div className="campo-a-rellenar">
                         <label>
                             Direccion
                         </label>
                         <input type="text" id="direccion" name="direccion"
-                               onChange={(event) => this.props.onUpdate('direccion', event.target.value)}/>
+                               onChange={(event) => this.props.onUpdate('address', event.target.value)}/>
                     </div>
                     <div className="campo-a-rellenar">
                         <label>
