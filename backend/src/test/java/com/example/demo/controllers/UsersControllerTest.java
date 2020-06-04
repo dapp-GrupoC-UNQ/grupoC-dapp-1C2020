@@ -7,6 +7,7 @@ import com.example.demo.model.exceptions.NotFoundUserException;
 import com.example.demo.model.store.Store;
 import com.example.demo.model.user.StoreAdminUser;
 import com.example.demo.services.users.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.demo.model.user.ClientUser;
 import com.jayway.jsonpath.JsonPath;
@@ -87,6 +88,30 @@ public class UsersControllerTest {
     }
 
     @Test
+    public void addingAClientUserWithAnEmptyUsernameReturnsBadRequest() throws Exception {
+        ClientUser clientUser = ClientUserBuilder.user().withEmptyUsername();
+
+        String content = objectMapper.writeValueAsString(clientUser);
+        MvcResult mvcResult = mockMvc.perform(post("/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
+
+    @Test
+    public void addingAClientUserWithAnEmptyPasswordReturnsBadRequest() throws Exception {
+        ClientUser clientUser = ClientUserBuilder.user().withEmptyPassword();
+
+        String content = objectMapper.writeValueAsString(clientUser);
+        MvcResult mvcResult = mockMvc.perform(post("/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
+
+    @Test
     public void addingAValidStoreAdminReturnsTheStoreAdminAnd200Status() throws Exception {
         StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().build();
         Store aStore = aStoreAdmin.store();
@@ -110,5 +135,29 @@ public class UsersControllerTest {
         assertEquals(JsonPath.parse(response).read("store.storeSchedule.openingTime"), aStore.storeSchedule().openingTime().toString());
         assertEquals(JsonPath.parse(response).read("store.storeSchedule.closingTime"), aStore.storeSchedule().closingTime().toString());
         assertEquals(JsonPath.parse(response).read("store.storeSchedule.openingDays"), storeTestHelper.storeOpeningDaysToString(aStore));
+    }
+
+    @Test
+    public void addingAStoreAdminWithAnEmptyUsernameReturnsBadRequest() throws Exception {
+        StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().withEmptyUsername();
+
+        String content = objectMapper.writeValueAsString(aStoreAdmin);
+        MvcResult mvcResult = mockMvc.perform(post("/storeAdmin")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
+
+    @Test
+    public void addingAStoreAdminWithAnEmptyPasswordReturnsBadRequest() throws Exception {
+        StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().withEmptyPassword();
+
+        String content = objectMapper.writeValueAsString(aStoreAdmin);
+        MvcResult mvcResult = mockMvc.perform(post("/storeAdmin")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content))
+                .andExpect(status().isBadRequest())
+                .andReturn();
     }
 }

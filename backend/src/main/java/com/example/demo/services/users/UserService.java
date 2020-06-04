@@ -1,5 +1,6 @@
 package com.example.demo.services.users;
 
+import com.example.demo.model.exceptions.InvalidUsernameOrPasswordException;
 import com.example.demo.model.store.Store;
 import com.example.demo.model.user.StoreAdminUser;
 import com.example.demo.model.user.User;

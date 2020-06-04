@@ -36,4 +36,16 @@ public class ClientUserBuilder {
         clientUser.updateMoneyThreshold(moneyLimit);
         return clientUser;
     }
+
+    public ClientUser withEmptyUsername() {
+        ClientUser client = this.build();
+        client.setUsername("");
+        return client;
+    }
+
+    public ClientUser withEmptyPassword() {
+        ClientUser client = this.build();
+        client.setPassword("");
+        return client;
+    }
 }

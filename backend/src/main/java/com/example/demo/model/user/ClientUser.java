@@ -1,5 +1,6 @@
 package com.example.demo.model.user;
 
+import com.example.demo.deserializers.UserJsonDeserializer;
 import com.example.demo.model.Bill;
 import com.example.demo.model.exceptions.NotFoundCategoryMoneyThresholdForThisUser;
 import com.example.demo.model.merchandise.MerchandiseCategory;
@@ -7,12 +8,14 @@ import com.example.demo.model.thresholds.CategoryMoneyThreshold;
 import com.example.demo.model.thresholds.MoneyThreshold;
 import com.example.demo.model.user.User;
 import com.example.demo.serializers.UserJsonSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @JsonSerialize(using = UserJsonSerializer.class)
+@JsonDeserialize(using = UserJsonDeserializer.class)
 public class ClientUser extends User {
 
     private List<Bill> billOfPurchase;
@@ -24,6 +27,7 @@ public class ClientUser extends User {
         this.billOfPurchase = new ArrayList<>();
     }
 
+    public ClientUser(){};
 
     @Override
     public Boolean isAdminOfStore() { return false;}

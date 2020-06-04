@@ -24,4 +24,16 @@ public class StoreAdminBuilder {
         password = aPassword;
         return this;
     }
+
+    public StoreAdminUser withEmptyUsername() {
+        StoreAdminUser storeAdminUser = this.build();
+        storeAdminUser.setUsername("");
+        return storeAdminUser;
+    }
+
+    public StoreAdminUser withEmptyPassword() {
+        StoreAdminUser storeAdminUser = this.build();
+        storeAdminUser.setPassword("");
+        return storeAdminUser;
+    }
 }
