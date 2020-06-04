@@ -44,12 +44,12 @@ class ModalRegistroUsuario extends React.Component {
     }
 
     validateUser = () => {
-        this.setState({isValidUser: (!!this.state.username && !!this.state.direccion && !!this.state.password)})
+        this.setState({isValidUser: (!!this.state.username && !!this.state.address && !!this.state.password)})
         return this.state.isValidUser;
     }
 
     validateStoreUser = () => {
-        this.setState({isValidUser: (!!this.state.storeName && !!this.state.direccion &&
+        this.setState({isValidUser: (!!this.state.storeName && !!this.state.address &&
                 !!this.state.email && !!this.state.password && !!this.state.rubros && !!this.state.openingDays
                 && !!this.state.openingTime && !!this.state.closingTime && !!this.state.paymentMethods && !!this.state.deliveryDistance)})
         return this.state.isValidUser;
