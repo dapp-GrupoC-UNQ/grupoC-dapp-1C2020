@@ -44,8 +44,7 @@ class ModalRegistroUsuario extends React.Component {
     }
 
     validateUser = () => {
-        this.setState({isValidUser: (!!this.state.nombreYApellido && !!this.state.direccion &&
-                !!this.state.email && !!this.state.password)})
+        this.setState({isValidUser: (!!this.state.username && !!this.state.direccion && !!this.state.password)})
         return this.state.isValidUser;
     }
 
@@ -59,25 +58,30 @@ class ModalRegistroUsuario extends React.Component {
     buildUser = () => {
         return (
             {
-                username: this.state.email,
+                username: this.state.username,
                 password: this.state.password,
+                address: this.state.address
             }
         )
     };
 
-    buildStore = () => {
+    buildStoreAdmin = () => {
         return (
             {
-                storeName: this.state.storeName,
-                storeCategories: this.state.rubros,
-                storeAddress: this.state.direccion,
-                deliveryDistanceInKm: this.state.deliveryDistance || 1,
-                availablePaymentMethods: this.state.paymentMethods,
-                storeSchedule: {
-                                openingDays: this.state.openingDays,
-                                openingTime: this.state.openingTime,
-                                closingTime: this.state.closingTime
-                                }
+                username: this.state.username,
+                password: this.state.password,
+                store: {
+                    storeName: this.state.storeName,
+                    storeCategories: this.state.rubros,
+                    storeAddress: this.state.address,
+                    deliveryDistanceInKm: this.state.deliveryDistance || 1,
+                    availablePaymentMethods: this.state.paymentMethods,
+                    storeSchedule: {
+                        openingDays: this.state.openingDays,
+                        openingTime: this.state.openingTime,
+                        closingTime: this.state.closingTime
+                    }
+                }
             }
         )
     }
@@ -91,7 +95,7 @@ class ModalRegistroUsuario extends React.Component {
                 .catch(error => console.log(error))
         }
         if(!this.state.registeringUser && this.validateStoreUser()){
-            LoginService().registerStoreUser(this.buildUser(),this.buildStore())
+            LoginService().registerStoreUser(this.buildStoreAdmin())
                 .then(() =>{
                     this.setState({registrationSucceed: true})
                 })

@@ -11,14 +11,14 @@ const LoginService = () => {
         return axios.post(`${SERVICE_URL}users`, user)
     }
 
-    const registerStoreUser = (storeUser, store) => {
+    const registerStoreUser = (storeAdmin) => {
         const body = {
-            username: storeUser.username,
-            password: storeUser.password,
-            store: store
+            username: storeAdmin.username,
+            password: storeAdmin.password,
+            store: storeAdmin.store
         }
 
-        return axios.post(`${SERVICE_URL}stores`, body)
+        return axios.post(`${SERVICE_URL}storeAdmin`, body)
     }
 
     return {
