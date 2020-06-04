@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
+import com.example.demo.model.user.StoreAdminUser;
 import com.example.demo.model.user.User;
+import com.example.demo.services.IStoreService;
 import com.example.demo.services.users.IUserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.example.demo.model.user.ClientUser;
@@ -15,6 +17,9 @@ public class UserController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IStoreService storeService;
 
     @GetMapping("/users")
     public List<User> getUsers() throws JsonProcessingException {
@@ -32,4 +37,11 @@ public class UserController {
         return new ResponseEntity<>(userService.addUser(clientUser.username(), clientUser.password()), HttpStatus.OK);
     }
 
+    @PostMapping(path = "/storeAdmin", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<StoreAdminUser> createNewStore(@RequestBody StoreAdminUser storeAdminUser)
+    {
+        userService.addStoreAdmin(storeAdminUser);
+        storeService.addStore(storeAdminUser.store());
+        return new ResponseEntity<>(storeAdminUser, HttpStatus.OK);
+    }
 }

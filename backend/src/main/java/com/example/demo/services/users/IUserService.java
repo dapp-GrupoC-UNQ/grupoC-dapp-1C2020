@@ -18,5 +18,5 @@ public interface IUserService {
 
     ClientUser addUser(String username, String password);
 
-    StoreAdminUser addStoreAdmin(String username, String password, Store store);
+    StoreAdminUser addStoreAdmin(StoreAdminUser storeAdminUser);
 }

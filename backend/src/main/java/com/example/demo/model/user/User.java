@@ -22,4 +22,13 @@ public abstract class User {
     public String password() { return this.password; }
 
     public abstract Boolean isAdminOfStore();
+
+    public void setUsername(String username) {
+        this.username = username;
+    };
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 }

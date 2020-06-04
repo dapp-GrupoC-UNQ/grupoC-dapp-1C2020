@@ -1,5 +1,6 @@
 package com.example.demo.services.users;
 
+import com.example.demo.model.exceptions.InvalidUsernameOrPasswordException;
 import com.example.demo.model.store.Store;
 import com.example.demo.model.user.StoreAdminUser;
 import com.example.demo.model.user.User;
@@ -36,7 +37,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public StoreAdminUser addStoreAdmin(String username, String password, Store store) {
-        return userRepository.addStoreAdmin(username, password, store);
+    public StoreAdminUser addStoreAdmin(StoreAdminUser storeAdminUser) {
+        return userRepository.addStoreAdmin(storeAdminUser.username(), storeAdminUser.password(), storeAdminUser.store());
     }
 }
