@@ -4,6 +4,8 @@ import CamposRegistroUsuario from "./CamposRegistroUsuario";
 import LoginService from "../../../servicios/LoginService";
 import RegistrationSucceed from "./succeed/RegistrationSucceed";
 import RegistrationButtons from "./registrationButtons/RegistrationButtons";
+import EntitiesValidator from "../../../helpers/EntitiesValidator";
+import EntitiesBuilder from "../../../helpers/EntitiesBuilder";
 
 class ModalRegistroUsuario extends React.Component {
     constructor(props) {
@@ -44,47 +46,20 @@ class ModalRegistroUsuario extends React.Component {
     }
 
     validateUser = () => {
-        this.setState({isValidUser: (!!this.state.username && !!this.state.address && !!this.state.password)})
-        return this.state.isValidUser;
+        const isValidUser = EntitiesValidator().validateClientUser(this.state);
+        this.setState({isValidUser: isValidUser})
+        return isValidUser;
     }
 
     validateStoreUser = () => {
-        this.setState({isValidUser: (!!this.state.storeName && !!this.state.address &&
-                !!this.state.email && !!this.state.password && !!this.state.rubros && !!this.state.openingDays
-                && !!this.state.openingTime && !!this.state.closingTime && !!this.state.paymentMethods && !!this.state.deliveryDistance)})
-        return this.state.isValidUser;
+        const isValidUser = EntitiesValidator().validateStoreAdmin(this.state);
+        this.setState({isValidUser: isValidUser})
+        return isValidUser;
     }
 
-    buildUser = () => {
-        return (
-            {
-                username: this.state.username,
-                password: this.state.password,
-                address: this.state.address
-            }
-        )
-    };
+    buildUser = () => EntitiesBuilder().buildClientUser(this.state);
 
-    buildStoreAdmin = () => {
-        return (
-            {
-                username: this.state.username,
-                password: this.state.password,
-                store: {
-                    storeName: this.state.storeName,
-                    storeCategories: this.state.rubros,
-                    storeAddress: this.state.address,
-                    deliveryDistanceInKm: this.state.deliveryDistance || 1,
-                    availablePaymentMethods: this.state.paymentMethods,
-                    storeSchedule: {
-                        openingDays: this.state.openingDays,
-                        openingTime: this.state.openingTime,
-                        closingTime: this.state.closingTime
-                    }
-                }
-            }
-        )
-    }
+    buildStoreAdmin = () => EntitiesBuilder().buildStoreAdmin(this.state);
 
     registerUser = () => {
         if(this.state.registeringUser && this.validateUser()){
