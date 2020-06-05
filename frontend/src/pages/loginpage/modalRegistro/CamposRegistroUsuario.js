@@ -11,37 +11,15 @@ class CamposRegistroUsuario extends React.Component {
         }
     }
 
-    generateCategory = (storeCategory) => {
+    generateEntityCheckbox = (entity, onSelectEntity) => {
         return (
             <div className="rubro-checkbox">
-                <input type="checkbox" value={storeCategory.value} onClick={(event) => this.props.onAddingCategory(event.target.value)}/>
+                <input type="checkbox" value={entity.value} onClick={(event) => onSelectEntity(event.target.value)}/>
                 <label className="checkbox">
-                    {storeCategory.label}
+                    {entity.label}
                 </label>
             </div>
         )
-    }
-
-    generateDay = (day) => {
-        return(
-            <div className="rubro-checkbox">
-                <input type="checkbox" value={day.value}
-                       onClick={(event) => this.props.onAddingDay(event.target.value)}/>
-                <label className="checkbox">
-                    {day.label}
-                </label>
-            </div>)
-    }
-
-    generate1paymentMethod = (method) => {
-        return(
-            <div className="rubro-checkbox">
-                <input type="checkbox" value={method}
-                       onClick={(event) => this.props.onAddingPaymentMethod(event.target.value)}/>
-                <label className="checkbox">
-                    {method}
-                </label>
-            </div>)
     }
 
     render() {
@@ -103,7 +81,7 @@ class CamposRegistroUsuario extends React.Component {
                             Días de atención
                         </label>
                         <div className="categories-grid">
-                        {openingDays.map(day => this.generateDay(day))}
+                        {openingDays.map(day => this.generateEntityCheckbox(day, this.props.onAddingDay))}
                         </div>
                     </div>
                     <div className="campo-a-rellenar">
@@ -111,7 +89,7 @@ class CamposRegistroUsuario extends React.Component {
                             Rubros
                         </label>
                         <div className="categories-grid">
-                            {storeCategories.map(rubro => this.generateCategory(rubro))}
+                            {storeCategories.map(category => this.generateEntityCheckbox(category, this.props.onAddingCategory))}
                         </div>
                     </div>
                 </div>
@@ -123,7 +101,7 @@ class CamposRegistroUsuario extends React.Component {
                             Medios de Pago
                         </label>
                         <div className="categories-grid">
-                            {paymentMethods.map(method => this.generate1paymentMethod(method))}
+                            {paymentMethods.map(method => this.generateEntityCheckbox(method, this.props.onAddingPaymentMethod))}
                         </div>
                     </div>
                     <div className="campo-a-rellenar">
