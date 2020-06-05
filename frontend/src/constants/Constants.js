@@ -5,4 +5,4 @@ export const openingDays = [{value:'MONDAY', label:'Lunes'}, {value:'TUESDAY', l
 export const storeCategories = [{value:'CLEANING_SUPPLIES', label:'Limpieza'}, {value:'BUTCHER', label:'Carniceria'}, {value:'GREENGROCES', label:'Verduleria'},
     {value:'HYGIENE_PRODUCTS', label:'Perfumeria'}, {value:'GROCERY', label:'Almacen'}, {value:'BAKERY', label:'Panaderia'}];
 
-export const paymentMethods = ['Efectivo', 'Tarjeta de Debito', 'Tarjeta de Credito'];
+export const paymentMethods = [{value: 'Efectivo', label: 'Efectivo'}, {value: 'Tarjeta de Debito', label: 'Tarjeta de Debito'}, {value: 'Tarjeta de Credito', label: 'Tarjeta de Credito'} ];
