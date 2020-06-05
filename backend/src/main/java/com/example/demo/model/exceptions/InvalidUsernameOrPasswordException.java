@@ -2,5 +2,5 @@ package com.example.demo.model.exceptions;
 
 public class InvalidUsernameOrPasswordException extends RuntimeException{
 
-    public InvalidUsernameOrPasswordException() {super("The username cannot be empty");}
+    public InvalidUsernameOrPasswordException() {super("The username and password cannot be empty");}
 }
