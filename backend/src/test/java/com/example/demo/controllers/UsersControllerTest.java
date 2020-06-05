@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.builders.ClientUserBuilder;
 import com.example.demo.builders.StoreAdminBuilder;
 import com.example.demo.helpers.StoreTestHelper;
+import com.example.demo.model.exceptions.NotAvailableUserNameException;
 import com.example.demo.model.exceptions.NotFoundUserException;
 import com.example.demo.model.store.Store;
 import com.example.demo.model.user.StoreAdminUser;
@@ -100,6 +101,19 @@ public class UsersControllerTest {
     }
 
     @Test
+    public void addingAClientUserWhichIsAlreadyRegisterUsernameReturnsBadRequest() throws Exception {
+        ClientUser clientUser = ClientUserBuilder.user().build();
+        when(userServiceMock.addUser(any(), any())).thenThrow(new NotAvailableUserNameException());
+
+        String content = objectMapper.writeValueAsString(clientUser);
+        MvcResult mvcResult = mockMvc.perform(post("/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
+
+    @Test
     public void addingAClientUserWithAnEmptyPasswordReturnsBadRequest() throws Exception {
         ClientUser clientUser = ClientUserBuilder.user().withEmptyPassword();
 
@@ -141,6 +155,19 @@ public class UsersControllerTest {
     public void addingAStoreAdminWithAnEmptyUsernameReturnsBadRequest() throws Exception {
         StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().withEmptyUsername();
 
+        String content = objectMapper.writeValueAsString(aStoreAdmin);
+        MvcResult mvcResult = mockMvc.perform(post("/storeAdmin")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
+
+    @Test
+    public void addingAStoreAdminUserWhichIsAlreadyRegisterUsernameReturnsBadRequest() throws Exception {
+        StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().build();
+        when(userServiceMock.addStoreAdmin(any())).thenThrow(new NotAvailableUserNameException());
+ //aca
         String content = objectMapper.writeValueAsString(aStoreAdmin);
         MvcResult mvcResult = mockMvc.perform(post("/storeAdmin")
                 .contentType(MediaType.APPLICATION_JSON)
