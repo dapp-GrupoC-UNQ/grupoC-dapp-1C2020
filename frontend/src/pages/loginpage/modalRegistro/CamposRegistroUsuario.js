@@ -1,6 +1,7 @@
 import * as React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
+import {openingDays, storeCategories, paymentMethods} from "../../../constants/Constants";
 
 class CamposRegistroUsuario extends React.Component {
     constructor(props) {
@@ -9,20 +10,13 @@ class CamposRegistroUsuario extends React.Component {
             deliveryDistance: 1
         }
     }
-    rubros = () => [{value:'CLEANING_SUPPLIES', label:'Limpieza'}, {value:'BUTCHER', label:'Carniceria'}, {value:'GREENGROCES', label:'Verduleria'},
-                    {value:'HYGIENE_PRODUCTS', label:'Perfumeria'}, {value:'GROCERY', label:'Almacen'}, {value:'BAKERY', label:'Panaderia'}]
 
-    openingDays = () => [{value:'MONDAY', label:'Lunes'}, {value:'TUESDAY', label:'Martes'}, {value:'WEDNESDAY', label:'Miercoles'},
-                        {value:'THURSDAY',label:'Jueves'}, {value:'FRIDAY', label:'Viernes'}, {value:'SATURDAY', label:'Sabado'}, {value:'SUNDAY', label:'Domingo'}]
-
-    paymentMethod = () => ['Efectivo', 'Tarjeta de Debito', 'Tarjeta de Credito']
-
-    generateCategory = (rubro) => {
+    generateCategory = (storeCategory) => {
         return (
             <div className="rubro-checkbox">
-                <input type="checkbox" value={rubro.value} onClick={(event) => this.props.onAddingCategory(event.target.value)}/>
+                <input type="checkbox" value={storeCategory.value} onClick={(event) => this.props.onAddingCategory(event.target.value)}/>
                 <label className="checkbox">
-                    {rubro.label}
+                    {storeCategory.label}
                 </label>
             </div>
         )
@@ -109,7 +103,7 @@ class CamposRegistroUsuario extends React.Component {
                             Días de atención
                         </label>
                         <div className="categories-grid">
-                        {this.openingDays().map(day => this.generateDay(day))}
+                        {openingDays.map(day => this.generateDay(day))}
                         </div>
                     </div>
                     <div className="campo-a-rellenar">
@@ -117,7 +111,7 @@ class CamposRegistroUsuario extends React.Component {
                             Rubros
                         </label>
                         <div className="categories-grid">
-                            {this.rubros().map(rubro => this.generateCategory(rubro))}
+                            {storeCategories.map(rubro => this.generateCategory(rubro))}
                         </div>
                     </div>
                 </div>
@@ -129,7 +123,7 @@ class CamposRegistroUsuario extends React.Component {
                             Medios de Pago
                         </label>
                         <div className="categories-grid">
-                            {this.paymentMethod().map(method => this.generate1paymentMethod(method))}
+                            {paymentMethods.map(method => this.generate1paymentMethod(method))}
                         </div>
                     </div>
                     <div className="campo-a-rellenar">
