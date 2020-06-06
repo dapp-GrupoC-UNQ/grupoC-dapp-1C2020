@@ -8,7 +8,6 @@ import com.example.demo.model.exceptions.NotFoundUserException;
 import com.example.demo.model.store.Store;
 import com.example.demo.model.user.StoreAdminUser;
 import com.example.demo.services.users.UserService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.demo.model.user.ClientUser;
 import com.jayway.jsonpath.JsonPath;
@@ -52,7 +51,7 @@ public class UsersControllerTest {
     @Test
     public void aUserIsValidatedIfItsUsernameMatchesWithItsPassword() throws Exception {
         ClientUser clientUser = ClientUserBuilder.user().build();
-        when(userServiceMock.validateUser(any())).thenReturn(clientUser);
+        when(userServiceMock.authenticateUser(any())).thenReturn(clientUser);
 
         mockMvc.perform(post("/validateUser")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -64,7 +63,7 @@ public class UsersControllerTest {
     @Test
     public void aUserIsNotValidatedIfItsUsernameMatchesWithItsPassword() throws Exception {
         ClientUser clientUser = ClientUserBuilder.user().build();
-        when(userServiceMock.validateUser(any())).thenThrow(new NotFoundUserException());
+        when(userServiceMock.authenticateUser(any())).thenThrow(new NotFoundUserException());
 
         mockMvc.perform(post("/validateUser")
                 .contentType(MediaType.APPLICATION_JSON)
