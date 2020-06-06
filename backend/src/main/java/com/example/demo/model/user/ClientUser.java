@@ -11,15 +11,21 @@ import com.example.demo.serializers.UserJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@DiscriminatorValue("CLIENT_USER")
 @JsonSerialize(using = UserJsonSerializer.class)
 @JsonDeserialize(using = UserJsonDeserializer.class)
 public class ClientUser extends User {
 
+    @Transient
     private List<Bill> billOfPurchase;
+    @Transient
     private MoneyThreshold moneyThresold = new MoneyThreshold(0.0);
+    @Transient
     private List<CategoryMoneyThreshold> categoryMoneyThresholds = new ArrayList<>();
 
     public ClientUser(String username, String password){

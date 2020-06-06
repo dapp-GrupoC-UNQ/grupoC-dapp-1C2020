@@ -29,7 +29,7 @@ public class UserController {
     @PostMapping(path = "/validateUser", consumes = "application/json", produces = "application/json")
     public ResponseEntity<User> validateUser(@RequestBody ClientUser clientUser)
     {
-        return new ResponseEntity<>(userService.validateUser(clientUser), HttpStatus.OK);
+        return new ResponseEntity<>(userService.authenticateUser(clientUser), HttpStatus.OK);
     }
 
     @PostMapping(path = "/users", consumes = "application/json", produces = "application/json")

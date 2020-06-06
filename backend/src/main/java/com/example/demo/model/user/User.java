@@ -2,10 +2,21 @@ package com.example.demo.model.user;
 
 import com.example.demo.model.exceptions.InvalidUsernameOrPasswordException;
 
+import javax.persistence.*;
+
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="user_type",
+        discriminatorType = DiscriminatorType.STRING)
 public abstract class User {
 
-    String username;
-    String password;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
+
+    @Column(unique = true)
+    private String username;
+    private String password;
 
     public User(String username, String password) {
         if(username.isEmpty() || password.isEmpty()){
