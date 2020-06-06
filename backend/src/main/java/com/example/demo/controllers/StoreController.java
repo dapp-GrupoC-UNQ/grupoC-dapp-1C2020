@@ -33,9 +33,9 @@ public class StoreController {
     }
 
     @RequestMapping(path="/stores/{name}/products")
-    public ResponseEntity<Object> getMessage(@PathVariable("name") String storeName) {
-        Store store = storeService.getStore(storeName);
-        List<Merchandise> merchandises = storeService.getProductsFromStore(storeName);
+    public ResponseEntity<Object> getMessage(@PathVariable("name") Long storeId) {
+        Store store = storeService.getStore(storeId);
+        List<Merchandise> merchandises = storeService.getProductsFromStore(storeId);
         return generateProductsResponse(merchandises);
     }
 
