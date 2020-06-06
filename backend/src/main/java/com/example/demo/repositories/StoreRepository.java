@@ -83,8 +83,7 @@ public class StoreRepository implements IStoreRepository{
     }
 
     private Boolean canAddStore(Store aStore) {
-        return this.getStores().stream().allMatch(store -> !store.name().equals(aStore.name()))
-                && !aStore.storeCategories().isEmpty() && !aStore.availablePaymentMethods().isEmpty()
+        return !aStore.storeCategories().isEmpty() && !aStore.availablePaymentMethods().isEmpty()
                 && aStore.storeSchedule().isValid();
     }
 }
