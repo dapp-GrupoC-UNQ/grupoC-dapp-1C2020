@@ -205,5 +205,9 @@ public class Store {
     public List<DayOfWeek> openingDays() {
         return storeTimeSchedule.days();
     }
+
+    public void setEmptyDaysOfWeek() {
+        storeTimeSchedule.setEmptyDays();
+    }
 }
 
