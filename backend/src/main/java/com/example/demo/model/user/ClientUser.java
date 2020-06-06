@@ -23,7 +23,8 @@ public class ClientUser extends User {
 
     @Transient
     private List<Bill> billOfPurchase;
-    @Transient
+
+    @OneToOne
     private MoneyThreshold moneyThresold = new MoneyThreshold(0.0);
     @Transient
     private List<CategoryMoneyThreshold> categoryMoneyThresholds = new ArrayList<>();
@@ -63,6 +64,8 @@ public class ClientUser extends User {
     public Double moneyThresholdLimit() {
         return this.moneyThresold.moneyLimit();
     }
+
+    public MoneyThreshold moneyThreshold() { return this.moneyThresold; }
 
     public Boolean hasCategoryLimitOf(MerchandiseCategory category) {
         return this.categoryMoneyThresholds.stream().anyMatch(categoryMoneyThreshold -> categoryMoneyThreshold.category().equals(category));

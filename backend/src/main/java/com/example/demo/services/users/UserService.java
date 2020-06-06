@@ -4,6 +4,7 @@ import com.example.demo.model.exceptions.NotAvailableUserNameException;
 import com.example.demo.model.exceptions.NotFoundUserException;
 import com.example.demo.model.user.StoreAdminUser;
 import com.example.demo.model.user.User;
+import com.example.demo.repositories.threshold.MoneyThresholdRepository;
 import com.example.demo.repositories.users.UserRepository;
 import com.example.demo.model.user.ClientUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class UserService implements IUserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private MoneyThresholdRepository moneyThresholdRepository;
 
     public User authenticateUser(User user) {
         return userRepository.findByUsernameAndPassword(user.username(), user.password())
@@ -39,6 +43,7 @@ public class UserService implements IUserService {
     public ClientUser addUser(String username, String password) {
         if(canAddUser(username)) {
             ClientUser newClientUser = new ClientUser(username, password);
+            moneyThresholdRepository.save(newClientUser.moneyThreshold());
             userRepository.save(newClientUser);
             return newClientUser;
         }

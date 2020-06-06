@@ -3,13 +3,23 @@ package com.example.demo.model.thresholds;
 import com.example.demo.model.Bill;
 import com.example.demo.model.purchasePriceCalculator.PurchasePriceCalculator;
 
+import javax.persistence.*;
+
+@Entity
 public class MoneyThreshold {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
 
     private Double moneyLimit;
     private Boolean isActive = true;
-    private PurchasePriceCalculator purchasePriceCalculator = new PurchasePriceCalculator();
+
+    @Transient
+    private PurchasePriceCalculator purchasePriceCalculator;
 
     public MoneyThreshold(Double aMoneyLimit) {
+        purchasePriceCalculator = new PurchasePriceCalculator();
         moneyLimit = aMoneyLimit;
     }
 
