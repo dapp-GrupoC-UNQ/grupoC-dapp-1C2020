@@ -9,6 +9,7 @@ import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.model.store.Store;
 import com.example.demo.model.store.StoreCategory;
+import com.example.demo.model.validator.EntityValidator;
 import org.springframework.stereotype.Repository;
 
 import java.time.DayOfWeek;
@@ -21,9 +22,10 @@ import java.util.stream.Collectors;
 
 @Repository
 
-public class StoreRepository implements IStoreRepository{
+public class StoreRepository implements IStoreRepository {
 
     private List<Store> stores = new ArrayList<>();
+    private EntityValidator entityVAlidator = new EntityValidator();
 
     @Override
     public List<Store> getStores() {
@@ -46,6 +48,7 @@ public class StoreRepository implements IStoreRepository{
         stores.add(store3);
         return this.stores;
     }
+
     @Override
     public List<Store> getStoresWithACategory(StoreCategory category) {
         return this.getStores().stream().filter(store -> store.hasACategory(category)).collect(Collectors.toList());
@@ -59,22 +62,27 @@ public class StoreRepository implements IStoreRepository{
     @Override
     public Store getStore(String storeName) {
         return this.getStores().stream()
-                               .filter(comercio -> comercio.name().equals(storeName))
-                               .findFirst()
-                               .orElseThrow(NotFoundStoreException::new);
+                .filter(comercio -> comercio.name().equals(storeName))
+                .findFirst()
+                .orElseThrow(NotFoundStoreException::new);
     }
 
     @Override
     public List<Merchandise> getDiscountFromAllStores() {
         Merchandise merchandise = new Merchandise("Nesquick", "Nestle", 30.3, 24, MerchandiseCategory.GROCERY, "https://mercanet.com.ar/server/Portal_0019782/img/products/fideo-matarazzo-mono-500-grs_5371692_xxl.jpg");
-        Discount discount = new MerchandiseDiscount(merchandise,20, LocalDate.of(2020,5,5), LocalDate.of(2020,5,10));
+        Discount discount = new MerchandiseDiscount(merchandise, 20, LocalDate.of(2020, 5, 5), LocalDate.of(2020, 5, 10));
         return Arrays.asList(merchandise);
         //TODO: VER QUE EL DESCUENTO SE AGREGA DESDE LA TIENDA.
     }
 
     @Override
     public Store addStore(Store store) {
+        validateStore(store);
         this.stores.add(store);
         return store;
+    }
+
+    private void validateStore(Store aStore) {
+        entityVAlidator.validateStore(aStore);
     }
 }

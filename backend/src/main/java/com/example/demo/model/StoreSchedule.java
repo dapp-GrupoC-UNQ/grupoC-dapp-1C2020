@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @JsonSerialize(using = StoreScheduleSerializer.class)
@@ -45,5 +46,13 @@ public class StoreSchedule {
 
     public List<DayOfWeek> days() {
         return scheduleDays;
+    }
+
+    public Boolean isValid() {
+        return !scheduleDays.isEmpty() && openingTime.isBefore(closingTime);
+    }
+
+    public void setEmptyDays() {
+        scheduleDays = new ArrayList<>();
     }
 }

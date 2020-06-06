@@ -87,4 +87,10 @@ public class StoreBuilder {
         mail = email;
         return this;
     }
+
+    public Store withoutDaysInSchedule() {
+        Store store = aStore().build();
+        store.setEmptyDaysOfWeek();
+        return store;
+    }
 }

@@ -7,7 +7,7 @@ public class StoreAdminBuilder {
 
     private String username = "StoreAdmin";
     private String password = "StoreAdminPassword";
-    private Store store = StoreBuilder.aStore().build();
+    private Store store = StoreBuilder.aStore().withName("Carrefour").build();
 
     public static StoreAdminBuilder aStoreAdmin() { return new StoreAdminBuilder(); }
 
