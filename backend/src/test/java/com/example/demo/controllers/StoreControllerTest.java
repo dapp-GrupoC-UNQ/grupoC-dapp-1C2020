@@ -4,6 +4,7 @@ import com.example.demo.builders.StoreAdminBuilder;
 import com.example.demo.builders.StoreBuilder;
 import com.example.demo.builders.DiscountBuilder;
 import com.example.demo.model.discounts.Discount;
+import com.example.demo.model.exceptions.InvalidStoreException;
 import com.example.demo.model.exceptions.NotFoundStoreException;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.model.store.StoreCategory;
@@ -94,5 +95,20 @@ public class StoreControllerTest {
 
         mockMvc.perform(get("/stores/Nonexistingstore/products"))
                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void addingAStoreAdminWithNameOfStoreEmptyReturnsBadRequest() throws Exception {
+        StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().build();
+        Store aStore = aStoreAdmin.store();
+        when(storeServiceMock.addStore(any())).thenThrow(new InvalidStoreException());
+
+        String content = objectMapper.writeValueAsString(aStoreAdmin);
+        MvcResult mvcResult = mockMvc.perform(post("/storeAdmin")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+
     }
 }

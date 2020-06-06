@@ -4,6 +4,7 @@ import com.example.demo.model.*;
 import com.example.demo.model.discounts.Discount;
 import com.example.demo.model.discounts.MerchandiseDiscount;
 import com.example.demo.model.discounts.NoDiscount;
+import com.example.demo.model.exceptions.InvalidStoreException;
 import com.example.demo.model.exceptions.NotFoundStoreException;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.merchandise.MerchandiseCategory;
@@ -74,7 +75,16 @@ public class StoreRepository implements IStoreRepository{
 
     @Override
     public Store addStore(Store store) {
-        this.stores.add(store);
-        return store;
+        if(canAddStore(store)) {
+            this.stores.add(store);
+            return store;
+        }
+        throw new InvalidStoreException();
+    }
+
+    private Boolean canAddStore(Store aStore) {
+        return this.getStores().stream().allMatch(store -> !store.name().equals(aStore.name()))
+                && !aStore.storeCategories().isEmpty() && !aStore.availablePaymentMethods().isEmpty()
+                && aStore.storeSchedule().isValid();
     }
 }

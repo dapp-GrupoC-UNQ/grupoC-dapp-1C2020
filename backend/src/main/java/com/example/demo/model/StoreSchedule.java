@@ -46,4 +46,8 @@ public class StoreSchedule {
     public List<DayOfWeek> days() {
         return scheduleDays;
     }
+
+    public Boolean isValid() {
+        return !scheduleDays.isEmpty() && openingTime.isBefore(closingTime);
+    }
 }

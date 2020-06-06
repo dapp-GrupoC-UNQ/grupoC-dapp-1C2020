@@ -1,8 +1,5 @@
 package com.example.demo.handlers;
-import com.example.demo.model.exceptions.InvalidUsernameOrPasswordException;
-import com.example.demo.model.exceptions.NotAvailableUserNameException;
-import com.example.demo.model.exceptions.NotFoundStoreException;
-import com.example.demo.model.exceptions.NotFoundUserException;
+import com.example.demo.model.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,6 +27,11 @@ public class ExceptionsAPIHandler {
 
     @ExceptionHandler({NotAvailableUserNameException.class})
     public ResponseEntity<String> notAvailableUserName(Exception exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({InvalidStoreException.class})
+    public ResponseEntity<String> invalidStore(Exception exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

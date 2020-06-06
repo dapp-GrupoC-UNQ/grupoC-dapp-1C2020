@@ -201,5 +201,9 @@ public class Store {
     }
 
     public StoreSchedule storeSchedule() { return this.storeTimeSchedule;}
+
+    public List<DayOfWeek> openingDays() {
+        return storeTimeSchedule.days();
+    }
 }
 
