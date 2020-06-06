@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public interface IUserService {
 
-    User validateUser(User clientUser);
+    User authenticateUser(User clientUser);
 
     List<User> getUsers();
 

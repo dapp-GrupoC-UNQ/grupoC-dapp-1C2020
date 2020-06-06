@@ -36,44 +36,47 @@ public class UserServiceTest {
     @Test
     public void aUserIsValidIfItExistsAndItsUsernameMatchesItsPassword() {
         ClientUser clientUser = ClientUserBuilder.user().build();
-        when(userRepositoryMock.validateUser(any())).thenReturn(clientUser);
+        when(userRepositoryMock.findByUsernameAndPassword(any(), any())).thenReturn(java.util.Optional.ofNullable(clientUser));
 
-        assertEquals(userService.validateUser(clientUser).username(), clientUser.username());
+        assertEquals(userService.authenticateUser(clientUser).username(), clientUser.username());
     }
 
     @Test
     public void aUserIsNotValidIfItsNotRegistered() {
         ClientUser clientUser = ClientUserBuilder.user().build();
-        List<ClientUser> fakeUsersList = Arrays.asList(ClientUserBuilder.user().withUsername("FakeUser").build());
-        when(userRepositoryMock.validateUser(any())).thenThrow(new NotFoundUserException());
+        when(userRepositoryMock.findByUsernameAndPassword(any(), any())).thenReturn(java.util.Optional.ofNullable(null));
 
-        assertThrows(NotFoundUserException.class, () -> userService.validateUser(clientUser));
+        assertThrows(NotFoundUserException.class, () -> userService.authenticateUser(clientUser));
 
     }
 
     @Test
     public void aUserCanBeAddedIfTheresNotAnotherRegisteredUSerWithThatUsername() {
-        when(userRepositoryMock.canAddUser(any())).thenReturn(true);
+        when(userRepositoryMock.findByUsernameEquals(any())).thenReturn(java.util.Optional.ofNullable(null));
         assertTrue(userService.canAddUser("aNewUser"));
     }
 
     @Test
     public void aUserCannotBeAddedIfTheresAnotherRegisteredUSerWithThatUsername() {
-        when(userRepositoryMock.canAddUser(any())).thenReturn(false);
-        assertFalse(userService.canAddUser("aNewUser"));
+        ClientUser clientUser = ClientUserBuilder.user().build();
+        when(userRepositoryMock.findByUsernameEquals(any())).thenReturn(java.util.Optional.ofNullable(clientUser));
+        assertThrows(NotAvailableUserNameException.class, () -> userService.addUser(clientUser.username(), clientUser.password()));
     }
 
     @Test
     public void whenAUserIsAddedTheServiceReturnsTheUser(){
         ClientUser clientUser = ClientUserBuilder.user().build();
-        when(userRepositoryMock.addUser(any(), any())).thenReturn(clientUser);
+        when(userRepositoryMock.findByUsernameEquals(any())).thenReturn(java.util.Optional.ofNullable(null));
 
-        assertEquals(userService.addUser(clientUser.username(), clientUser.password()), clientUser);
+        ClientUser createdUser = userService.addUser(clientUser.username(), clientUser.password());
+        assertEquals(createdUser.username(), clientUser.username());
+        assertEquals(createdUser.password(), clientUser.password());
     }
 
     @Test
     public void whenTryingToAddUserWithOccupiedUsernameNotAvailableNameExceptionIsThrown(){
-        when(userRepositoryMock.addUser(any(), any())).thenThrow(new NotAvailableUserNameException());
+        ClientUser clientUser = ClientUserBuilder.user().build();
+        when(userRepositoryMock.findByUsernameEquals(any())).thenReturn(java.util.Optional.ofNullable(clientUser));
 
         assertThrows(NotAvailableUserNameException.class, () -> userService.addUser("aNewUser", "password"));
     }
