@@ -37,7 +37,7 @@ public class StoreServiceTest {
     }
 
  /*   @Test
-    public void whenWeAskStoreServiceForStoresWithACategoryItReturnsOnlyTheListOfStoresWithThstCategory() {
+    public void whenWeAskStoreServiceForStoresWithACategoryItReturnsOnlyTheListOfStoresWithThatCategory() {
         List<Store> stores = StoreBuilder.storeList();
         when(storeRepositoryMock.getStoresWithACategory(StoreCategory.GROCERY)).thenReturn(stores);
 
