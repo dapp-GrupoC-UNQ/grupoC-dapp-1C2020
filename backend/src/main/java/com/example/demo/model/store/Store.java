@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @JsonSerialize(using = StoreJsonSerializer.class)
@@ -43,7 +42,7 @@ public class Store {
     private LocalDateTime proximoTurnoDeLocal;
     @ElementCollection
     private List<String> availablePaymentMethods;
-    @Transient
+    @OneToOne
     private StoreSchedule storeTimeSchedule;
     private String mail = "";
     @Transient
