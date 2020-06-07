@@ -7,6 +7,7 @@ import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.model.store.StoreCategory;
 import com.example.demo.repositories.StoreRepository;
 import com.example.demo.model.store.Store;
+import com.example.demo.repositories.merchandise.MerchandiseRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -24,6 +25,8 @@ public class StoreServiceTest {
 
     @Mock
     StoreRepository storeRepositoryMock;
+    @Mock
+    MerchandiseRepository merchandiseRepositoryMock;
 
     @InjectMocks
     StoreService storeService;
@@ -44,16 +47,14 @@ public class StoreServiceTest {
         assertEquals(stores, storeService.getStoresWithACategory(StoreCategory.GROCERY));
     }
 */
-  /*  @Test
+   /* @Test
     public void gettingStoreProductsList() {
         Store store = StoreBuilder.aStore().build();
-        Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
         store.addMerchandise("Nesquick", "Nestle", 20.4, 30, MerchandiseCategory.GROCERY, "foto nesquik+");
-        when(storeRepositoryMock.findById(any())).thenReturn(java.util.Optional.of(store));
+        when(merchandiseRepositoryMock.findByStoreId(any())).thenReturn(store.listOfAvailableMerchandise());
 
         assertEquals(storeService.getProductsFromStore(store.id()), store.listOfAvailableMerchandise());
-    }
-*/
+    }*/
     @Test
     public void addingAStoreReturnsTheStore() {
         Store store = StoreBuilder.aStore().build();

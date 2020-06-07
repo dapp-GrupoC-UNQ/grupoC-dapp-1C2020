@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @JsonSerialize(using = StoreJsonSerializer.class)
@@ -47,7 +48,7 @@ public class Store {
     private String mail = "";
     @Transient
     private List<Discount> discountList = new ArrayList<>();
-    @Transient
+    @OneToMany
     private List<Merchandise> merchandiseList = new ArrayList<>();
 
     public Store(String name, List<StoreCategory> categories, String address, Integer distanceInKm,
@@ -223,6 +224,10 @@ public class Store {
 
     public void setEmptyDaysOfWeek() {
         storeTimeSchedule.setEmptyDays();
+    }
+
+    public void setId(Long storeId) {
+        this.id = storeId;
     }
 }
 

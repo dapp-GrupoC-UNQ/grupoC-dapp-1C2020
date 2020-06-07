@@ -7,6 +7,7 @@ import com.example.demo.model.user.StoreAdminUser;
 import com.example.demo.model.store.Store;
 import com.example.demo.model.validator.EntityValidator;
 import com.example.demo.repositories.StoreRepository;
+import com.example.demo.repositories.merchandise.MerchandiseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,9 @@ public class StoreService implements IStoreService {
     @Autowired
     private StoreRepository storeRepository;
 
+    @Autowired
+    private MerchandiseRepository merchandiseRepository;
+
     @Override
     public List<Store> getStores() {
         return storeRepository.findAll();
@@ -28,6 +32,7 @@ public class StoreService implements IStoreService {
     public List<Store> getStoresWithACategory(StoreCategory category) { return null; }
 
     public List<Merchandise> getProductsFromStore(Long storeId) {
+        //return merchandiseRepository.findByStoreId(storeId);
         return null;
     }
 
