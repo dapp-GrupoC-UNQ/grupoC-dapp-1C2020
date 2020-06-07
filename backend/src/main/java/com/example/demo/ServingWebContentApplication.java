@@ -40,8 +40,37 @@ public class ServingWebContentApplication {
 
             Store historietas = generateStore("Calabozo del androide y expendio de tarjetas de baseball", "calle falsa 123", 2, storeScheduleRepository);
             Store kwickEMart = generateStore("Kwik-E-Mart", "calle apus 123", 3,storeScheduleRepository);
-            storeService.addStore(historietas);
-            storeService.addStore(kwickEMart);
+           	Store leftorium = generateStore("Leftorium", "Av. Siempre Viva 123", 2, storeScheduleRepository);
+           	Store cents = generateStore("Tienda de 33 centavos", "calle 2 456", 3, storeScheduleRepository);
+			Store helados = generateStore("Helados Mantecon", "calle 25 254", 3, storeScheduleRepository);
+			Store donas = generateStore("Lard Lad Donuts", "calle 12 587", 3, storeScheduleRepository);
+			Store edna = generateStore("Edna's Edible", "calle 14 1141", 4, storeScheduleRepository);
+			Store gorras = generateStore("El Maloso Lanudo", "calle 11 124", 3, storeScheduleRepository);
+			Store moe = generateStore("La Taberna de Moe", "calle 2 2524", 3, storeScheduleRepository);
+			Store cleaner = generateStore("Spring Field Cleaner", "calle 4 2524", 3, storeScheduleRepository);
+			Store burger = generateStore("Krusty Burger", "calle 1 252", 3, storeScheduleRepository);
+			Store monstruomercado = generateStore("Mounstro Mercado", "calle 3 254", 3, storeScheduleRepository);
+			Store tryNSave = generateStore("A ver si ahorra", "calle 3 223", 3, storeScheduleRepository);
+			Store furniture = generateStore("99 Furniture Store", "calle 1 254", 3, storeScheduleRepository);
+			Store candy = generateStore("Candy Most Dandy", "calle 1 300", 3, storeScheduleRepository);
+			Store lullabuys = generateStore("Lullabuy$", "calle 1 350", 3, storeScheduleRepository);
+
+			storeService.addStore(historietas);
+			storeService.addStore(kwickEMart);
+			storeService.addStore(leftorium);
+			storeService.addStore(cents);
+			storeService.addStore(helados);
+			storeService.addStore(donas);
+			storeService.addStore(edna);
+			storeService.addStore(gorras);
+			storeService.addStore(moe);
+			storeService.addStore(cleaner);
+			storeService.addStore(burger);
+			storeService.addStore(monstruomercado);
+			storeService.addStore(tryNSave);
+			storeService.addStore(furniture);
+			storeService.addStore(candy);
+			storeService.addStore(lullabuys);
 		};
 	}
 
