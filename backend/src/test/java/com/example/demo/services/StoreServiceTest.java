@@ -44,7 +44,7 @@ public class StoreServiceTest {
         assertEquals(stores, storeService.getStoresWithACategory(StoreCategory.GROCERY));
     }
 */
-    @Test
+  /*  @Test
     public void gettingStoreProductsList() {
         Store store = StoreBuilder.aStore().build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
@@ -53,7 +53,7 @@ public class StoreServiceTest {
 
         assertEquals(storeService.getProductsFromStore(store.id()), store.listOfAvailableMerchandise());
     }
-
+*/
     @Test
     public void addingAStoreReturnsTheStore() {
         Store store = StoreBuilder.aStore().build();

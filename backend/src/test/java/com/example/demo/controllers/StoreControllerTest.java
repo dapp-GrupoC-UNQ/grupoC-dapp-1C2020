@@ -75,7 +75,7 @@ public class StoreControllerTest {
                 .andExpect(jsonPath("$[0].storeName", is(stores.get(0).name())));
     }
 
-    @Test
+  /*  @Test
     public void gettingStoreProductsListFromExistingStoreReturnsTheListOfProducts() throws Exception{
         Store store = StoreBuilder.aStore().withName("Coto").build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
@@ -85,8 +85,8 @@ public class StoreControllerTest {
         mockMvc.perform(get("/stores/Coto/products"))
                .andExpect(status().isOk()); //FALTA TESTEAR EL CONTENIDO
     }
-
-    @Test
+*/
+  /*  @Test
     public void gettingStoreProductsListFromNonExistingStoreReturns404() throws Exception{
         Store store = StoreBuilder.aStore().withName("Coto").build();
         Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
@@ -95,7 +95,7 @@ public class StoreControllerTest {
 
         mockMvc.perform(get("/stores/Nonexistingstore/products"))
                .andExpect(status().isNotFound());
-    }
+    }*/
 
     @Test
     public void addingAStoreAdminWithEmptyCategoryReturnsBadRequest() throws Exception {
