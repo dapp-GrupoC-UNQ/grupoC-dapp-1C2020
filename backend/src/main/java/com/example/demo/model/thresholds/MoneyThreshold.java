@@ -23,6 +23,8 @@ public class MoneyThreshold {
         moneyLimit = aMoneyLimit;
     }
 
+    public MoneyThreshold(){};
+
     public Double moneyLimit() {
         return this.moneyLimit;
     }
