@@ -10,15 +10,15 @@ class Store extends React.Component {
                     <img src={'https://www.memesargentinos.com.ar/wp-content/uploads/2019/02/China-Supermercado.jpg'}/>
                 </div>
                 <div className='nombre-comercio'>
-                    {this.props.store.storeName}
+                    <span>{this.props.store.storeName}</span>
                 </div>
                 <div className='distancia-comercio'>
                     <FontAwesomeIcon icon={faMapMarkerAlt}/>
-                    <p className="distancia">{this.props.store.storeAdress}</p>
+                    <p className="distancia">{this.props.store.storeAddress}</p>
                 </div>
                 <div className='rubros-comercio'>
                     <FontAwesomeIcon icon={faStore}/>
-                    <p className="rubros">{this.props.store.storeCategory}</p>
+                    <p className="rubros">{this.props.store.storeCategories}</p>
                 </div>
             </div>
         )

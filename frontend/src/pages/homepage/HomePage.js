@@ -107,12 +107,14 @@ class HomePage extends React.Component {
                            cart={this.showShoppingCart}
                            logOut={this.props.logOut}
                   />
-                  {this.state.isLoading && <LoadingSpinner isLoading={this.state.loadingEntitiesState}/>}
-                  {!this.state.isLoading && !this.state.showingShoppingCart &&
+                <div className="entities-panel">
+                    {this.state.isLoading && <LoadingSpinner isLoading={this.state.loadingEntitiesState}/>}
+                    {!this.state.isLoading && !this.state.showingShoppingCart &&
                     <div className="entities">
-                          {this.state.entities.map(entity => this.state.entityRenderFunction(entity))}
+                        {this.state.entities.map(entity => this.state.entityRenderFunction(entity))}
                     </div>}
-                {this.state.showingShoppingCart && <ShoppingCart showCart={this.state.showingShoppingCart} products={this.state.productsInCart} removeFromCart={this.removeFromCart}/>}
+                    {this.state.showingShoppingCart && <ShoppingCart showCart={this.state.showingShoppingCart} products={this.state.productsInCart} removeFromCart={this.removeFromCart}/>}
+                </div>
             </div>
         )
     }

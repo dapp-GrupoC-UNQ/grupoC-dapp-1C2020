@@ -1,127 +1,130 @@
 .homepage {
   display: flex;
-  align-items: center;
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  height: auto;
   background-color: #fafba4;
 
-  .entities {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+  .entities-panel {
     width: 80%;
-    height: 100%;
-    align-items: center;
-    padding: 10px;
+    .entities {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      padding: 10px;
 
-    .entity-card {
-      position: relative;
-      height: 300px;
-      background-color: white;
-      border-radius: 10px;
-      margin: 5px 10px;
-      overflow: hidden;
+      .entity-card {
+        position: relative;
+        height: 300px;
+        background-color: white;
+        border-radius: 10px;
+        margin: 5px 10px;
+        overflow: hidden;
 
-      &.product-card {
-        height: 265px;
-        font-weight: 200;
-      }
-
-      &.category-card {
-        height: 240px;
-      }
-
-      .product-name {
-        display: flex;
-        align-items: center;
-        font-size: x-large;
-        font-weight: 200;
-        padding: 8px 8px 0px;
-        height: 14%;
-      }
-
-      .product-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        padding: 0px 8px;
-
-        .product-brand {
-          height: 10%;
-          color: coral;
-        }
-
-        .product-price {
-          color: #f08080;
-          font-size: medium;
-        }
-      }
-
-      .discount-name {
-        display: flex;
-        align-items: center;
-        font-size: large;
-        font-weight: bolder;
-        padding: 8px;
-        height: 14%;
-      }
-      .discount-store {
-        font-weight: 400;
-        margin: 5px 7px;
-        padding: 8px;
-      }
-
-      .imagen-comercio {
-        height: 200px;
-        img {
-          width: 100%;
-          height: 200px;
-        }
-      }
-
-      .nombre-comercio {
-        display: flex;
-        align-items: center;
-        font-size: x-large;
-        font-weight: 200;
-        padding: 8px 8px;
-        height: 14%;
-      }
-
-      .distancia-comercio {
-        display: flex;
-        align-items: baseline;
-        height: 9%;
-        padding: 0 8px;
-
-        .distancia {
-          color: #e5c902;
-          font-size: large;
+        &.product-card {
+          height: 265px;
           font-weight: 200;
         }
-        svg {
-          height: 21px;
-          width: 19px;
-          color: #e5c902;
-          margin: 0 5px 5px 0;
-        }
-      }
 
-      .rubros-comercio {
-        display: flex;
-        align-items: center;
-        height: 10%;
-        padding: 0 8px;
-
-        .rubros {
-          color:  #ffa372;
-          font-size: small;
+        &.category-card {
+          height: 240px;
         }
-        svg {
-          height: 21px;
-          width: 19px;
-          color: #ffa372;
-          margin: 0 5px 5px 0;
+
+        .product-name {
+          display: flex;
+          align-items: center;
+          font-size: x-large;
+          font-weight: 200;
+          padding: 8px 8px 0px;
+          height: 14%;
+        }
+
+        .product-footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+          padding: 0px 8px;
+
+          .product-brand {
+            height: 10%;
+            color: coral;
+          }
+
+          .product-price {
+            color: #f08080;
+            font-size: medium;
+          }
+        }
+
+        .discount-name {
+          display: flex;
+          align-items: center;
+          font-size: large;
+          font-weight: bolder;
+          padding: 8px;
+          height: 14%;
+        }
+        .discount-store {
+          font-weight: 400;
+          margin: 5px 7px;
+          padding: 8px;
+        }
+
+        .imagen-comercio {
+          height: 200px;
+          img {
+            width: 100%;
+            height: 200px;
+          }
+        }
+
+        .nombre-comercio {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          display: block;
+          overflow: hidden;
+          align-items: center;
+          font-size: x-large;
+          font-weight: 200;
+          padding: 8px 8px;
+          height: 14%;
+        }
+
+        .distancia-comercio {
+          display: flex;
+          align-items: baseline;
+          height: 9%;
+          padding: 0 8px;
+
+          .distancia {
+            color: #e5c902;
+            font-size: large;
+            font-weight: 200;
+          }
+          svg {
+            height: 21px;
+            width: 19px;
+            color: #e5c902;
+            margin: 0 5px 5px 0;
+          }
+        }
+
+        .rubros-comercio {
+          display: flex;
+          align-items: center;
+          height: 10%;
+          padding: 0 8px;
+
+          .rubros {
+            color:  #ffa372;
+            font-size: small;
+          }
+          svg {
+            height: 21px;
+            width: 19px;
+            color: #ffa372;
+            margin: 0 5px 5px 0;
+          }
         }
       }
     }
