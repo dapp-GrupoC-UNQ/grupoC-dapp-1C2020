@@ -25,7 +25,8 @@ public class UserJsonDeserializer extends JsonDeserializer<User> {
             Store store = objectMapper.treeToValue(jsonNode.get("store"), Store.class);
             return new StoreAdminUser(username, password, store);
         } else {
-            return new ClientUser(username, password);
+            String address = jsonNode.get("address").textValue();
+            return new ClientUser(username, password, address);
         }
     };
 }

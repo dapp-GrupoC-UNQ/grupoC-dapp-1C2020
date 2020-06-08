@@ -34,4 +34,9 @@ public class ExceptionsAPIHandler {
     public ResponseEntity<String> invalidStore(Exception exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler({InvalidAddressException.class})
+    public ResponseEntity<String> invalidAddress(Exception exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }
