@@ -11,9 +11,9 @@ public interface IStoreService {
     List<Store> getStores();
     List<Store> getStoresWithACategory(StoreCategory category);
 
-    List<Merchandise> getProductsFromStore(String storeName);
+    List<Merchandise> getProductsFromStore(Long storeId);
 
-    Store getStore(String storeName);
+    Store getStore(Long storeId);
 
     List<Merchandise> getDiscountFromStores();
 

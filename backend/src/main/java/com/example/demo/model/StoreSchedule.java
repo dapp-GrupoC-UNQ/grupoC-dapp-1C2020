@@ -7,15 +7,23 @@ import com.example.demo.serializers.StoreScheduleSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 @JsonSerialize(using = StoreScheduleSerializer.class)
 @JsonDeserialize(using = StoreScheduleJsonDeserializer.class)
 public class StoreSchedule {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
     private List<DayOfWeek> scheduleDays;
     private LocalTime openingTime;
     private LocalTime closingTime;
@@ -27,6 +35,10 @@ public class StoreSchedule {
         scheduleDays = daysList;
         openingTime = startTime;
         closingTime = endTime;
+    }
+
+    public Long id(){
+        return id;
     }
 
     public Boolean availableOnDay(DayOfWeek day) {

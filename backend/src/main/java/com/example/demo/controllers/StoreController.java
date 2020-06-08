@@ -32,10 +32,9 @@ public class StoreController {
         return storeService.getStoresWithACategory(StoreCategory.valueOf(category));
     }
 
-    @RequestMapping(path="/stores/{name}/products")
-    public ResponseEntity<Object> getMessage(@PathVariable("name") String storeName) {
-        Store store = storeService.getStore(storeName);
-        List<Merchandise> merchandises = storeService.getProductsFromStore(storeName);
+    @RequestMapping(path="/stores/{id}/products")
+    public ResponseEntity<Object> getMessage(@PathVariable("id") Long storeId) {
+        List<Merchandise> merchandises = storeService.getProductsFromStore(storeId);
         return generateProductsResponse(merchandises);
     }
 

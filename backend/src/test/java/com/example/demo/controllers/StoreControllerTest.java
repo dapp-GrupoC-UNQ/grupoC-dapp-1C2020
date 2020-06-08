@@ -2,8 +2,6 @@ package com.example.demo.controllers;
 
 import com.example.demo.builders.StoreAdminBuilder;
 import com.example.demo.builders.StoreBuilder;
-import com.example.demo.builders.DiscountBuilder;
-import com.example.demo.model.discounts.Discount;
 import com.example.demo.model.exceptions.InvalidStoreException;
 import com.example.demo.model.exceptions.NotFoundStoreException;
 import com.example.demo.model.merchandise.MerchandiseCategory;
@@ -12,7 +10,6 @@ import com.example.demo.model.user.StoreAdminUser;
 import com.example.demo.services.StoreService;
 import com.example.demo.model.store.Store;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jayway.jsonpath.JsonPath;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +21,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import static org.junit.jupiter.api.Assertions.*;
-
-
 import java.util.List;
-import java.util.stream.Collectors;
-
+import java.util.Random;
 import static org.mockito.Mockito.when;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -78,29 +71,25 @@ public class StoreControllerTest {
     @Test
     public void gettingStoreProductsListFromExistingStoreReturnsTheListOfProducts() throws Exception{
         Store store = StoreBuilder.aStore().withName("Coto").build();
-        Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
         store.addMerchandise("Pan", "Bimbo", 34.6, 12, MerchandiseCategory.BAKERY, "foto pan");
+        store.setId(new Random().nextLong()); //que onda esto?
         when(storeServiceMock.getProductsFromStore(any())).thenReturn(store.listOfAvailableMerchandise());
 
-        mockMvc.perform(get("/stores/Coto/products"))
+        mockMvc.perform(get("/stores/" + (store.id()).toString() + "/products"))
                .andExpect(status().isOk()); //FALTA TESTEAR EL CONTENIDO
     }
 
     @Test
     public void gettingStoreProductsListFromNonExistingStoreReturns404() throws Exception{
-        Store store = StoreBuilder.aStore().withName("Coto").build();
-        Discount noDiscount = DiscountBuilder.aDiscount().buildNoDiscount();
-        store.addMerchandise("Pan", "Bimbo", 34.6, 12, MerchandiseCategory.BAKERY, "foto pan");
         when(storeServiceMock.getProductsFromStore(any())).thenThrow((new NotFoundStoreException()));
-
-        mockMvc.perform(get("/stores/Nonexistingstore/products"))
+        Long nonExistingId = (new Random().nextLong());
+        mockMvc.perform(get("/stores/"+ nonExistingId.toString() +"/products"))
                .andExpect(status().isNotFound());
     }
 
     @Test
     public void addingAStoreAdminWithEmptyCategoryReturnsBadRequest() throws Exception {
         StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().build();
-        Store aStore = aStoreAdmin.store();
         when(storeServiceMock.addStore(any())).thenThrow(new InvalidStoreException("Store must have at least one category"));
 
         String content = objectMapper.writeValueAsString(aStoreAdmin);
@@ -115,7 +104,6 @@ public class StoreControllerTest {
     @Test
     public void addingAStoreAdminWithEmptyPaymentMethodsReturnsBadRequest() throws Exception {
         StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().build();
-        Store aStore = aStoreAdmin.store();
         when(storeServiceMock.addStore(any())).thenThrow(new InvalidStoreException("Store must have at least one payment method"));
 
         String content = objectMapper.writeValueAsString(aStoreAdmin);
@@ -130,7 +118,6 @@ public class StoreControllerTest {
     @Test
     public void addingAStoreAdminWithInvalidScheduleReturnsBadRequest() throws Exception {
         StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().build();
-        Store aStore = aStoreAdmin.store();
         when(storeServiceMock.addStore(any())).thenThrow(new InvalidStoreException("Invalid schedule, there must be at least one opening day and opening time must be previous to closing time "));
 
         String content = objectMapper.writeValueAsString(aStoreAdmin);

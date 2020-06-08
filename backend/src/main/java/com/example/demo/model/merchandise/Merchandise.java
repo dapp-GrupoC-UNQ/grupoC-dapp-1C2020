@@ -9,15 +9,22 @@ import com.example.demo.model.exceptions.NegativeStockMerchandiseException;
 import com.example.demo.serializers.MerchandiseJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import javax.persistence.*;
+
+@Entity
 @JsonSerialize(using = MerchandiseJsonSerializer.class)
 public class Merchandise {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String merchandiseName;
     private String merchandiseBrand;
     private Double merchandisePrice;
     private Integer merchandiseStock;
     private String imageURL;
     private MerchandiseCategory category;
+    @Transient
     private Discount discountToApply = new NoDiscount();
 
     public Merchandise(String aName, String aBrand, Double aPrice, Integer aStock, MerchandiseCategory aCategory, String url) {
@@ -30,6 +37,8 @@ public class Merchandise {
         category = aCategory;
         imageURL = url;
     }
+
+    public Merchandise(){};
 
     public String name() {
         return this.merchandiseName;
@@ -72,5 +81,9 @@ public class Merchandise {
 
     public String imageURL() {
         return this.imageURL;
+    }
+
+    public Long id() {
+        return this.id;
     }
 }

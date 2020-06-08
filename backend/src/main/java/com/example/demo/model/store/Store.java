@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.example.demo.model.exceptions.NotFoundProductInStore;
 import com.example.demo.model.exceptions.RepeatedMerchandiseInStore;
 
+import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,17 +25,29 @@ import java.util.stream.Collectors;
 
 @JsonSerialize(using = StoreJsonSerializer.class)
 @JsonDeserialize(using = StoreJsonDeserializer.class)
+@Entity
 public class Store {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String storeName;
+
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
     private List<StoreCategory> storeCategories;
+
     private String storeAddress;
     private Integer deliveryDistanceInKm;
     private LocalDateTime proximoTurnoDeLocal;
+    @ElementCollection
     private List<String> availablePaymentMethods;
+    @OneToOne
     private StoreSchedule storeTimeSchedule;
     private String mail = "";
+    @Transient
     private List<Discount> discountList = new ArrayList<>();
+    @OneToMany
     private List<Merchandise> merchandiseList = new ArrayList<>();
 
     public Store(String name, List<StoreCategory> categories, String address, Integer distanceInKm,
@@ -53,6 +66,8 @@ public class Store {
     }
 
     public Store(){};
+
+    public Long id() { return this.id; }
 
     public String name() {
         return this.storeName;
@@ -208,6 +223,10 @@ public class Store {
 
     public void setEmptyDaysOfWeek() {
         storeTimeSchedule.setEmptyDays();
+    }
+
+    public void setId(Long storeId) {
+        this.id = storeId;
     }
 }
 
