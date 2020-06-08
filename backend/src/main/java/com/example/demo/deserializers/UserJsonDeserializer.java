@@ -20,12 +20,13 @@ public class UserJsonDeserializer extends JsonDeserializer<User> {
 
         String username = jsonNode.get("username").textValue();
         String password = jsonNode.get("password").textValue();
+        String address = jsonNode.get("address").textValue();
 
         if(jsonNode.has("store")) {
             Store store = objectMapper.treeToValue(jsonNode.get("store"), Store.class);
             return new StoreAdminUser(username, password, store);
         } else {
-            return new ClientUser(username, password);
+            return new ClientUser(username, password, address);
         }
     };
 }

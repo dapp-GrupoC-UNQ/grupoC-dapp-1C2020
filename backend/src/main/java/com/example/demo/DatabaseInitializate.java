@@ -30,11 +30,11 @@ public class DatabaseInitializate implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        userService.addUser("MargeSimpson@gmail.com", "123456");
-        userService.addUser("HomeroSimpson@gmail.com", "cerveza");
-        userService.addUser("BartSimpson@gmail.com", "aycaramba");
-        userService.addUser("LisaSimpson@gmail.com", "yolosetodo");
-        userService.addUser("MaggieSimpson@gmail.com", "nohabla");
+        userService.addUser("MargeSimpson@gmail.com", "123456", "Av. Siempreviva 742");
+        userService.addUser("HomeroSimpson@gmail.com", "cerveza", "Av. Siempreviva 742");
+        userService.addUser("BartSimpson@gmail.com", "aycaramba", "Av. Siempreviva 742");
+        userService.addUser("LisaSimpson@gmail.com", "yolosetodo", "Av. Siempreviva 742");
+        userService.addUser("MaggieSimpson@gmail.com", "nohabla", "Av. Siempreviva 742");
 
         Store historietas = generateStore("Calabozo del androide y expendio de tarjetas de baseball", "calle falsa 123", 2, storeScheduleRepository);
         Store kwickEMart = generateStore("Kwik-E-Mart", "calle apus 123", 3,storeScheduleRepository);

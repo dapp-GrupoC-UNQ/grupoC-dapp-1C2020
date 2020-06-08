@@ -10,13 +10,14 @@ public class ClientUserBuilder {
 
     private String username = "Pepe";
     private String password = "123456";
+    private String address = "Av. Springfield 111";
 
     public static ClientUserBuilder user() {
         return new ClientUserBuilder();
     }
 
     public ClientUser build() {
-        return new ClientUser(username, password);
+        return new ClientUser(username, password, address);
     }
 
     public ClientUserBuilder withUsername(String aUsername) {
@@ -29,12 +30,17 @@ public class ClientUserBuilder {
         return this;
     }
 
+    public ClientUserBuilder withAddress(String anAddress) {
+        address = anAddress;
+        return this;
+    }
+
     public StoreAdminUser adminOfStore(Store store) {
         return new StoreAdminUser(username, password, store);
     }
 
     public ClientUser withMoneyThreshold(Double moneyLimit) {
-        ClientUser clientUser = new ClientUser(username, password);
+        ClientUser clientUser = new ClientUser(username, password, address);
         clientUser.updateMoneyThreshold(moneyLimit);
         return clientUser;
     }

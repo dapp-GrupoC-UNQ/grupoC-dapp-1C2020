@@ -22,6 +22,7 @@ public class UserJsonSerializer extends JsonSerializer<ClientUser> {
         jgen.writeNumberField("id", clientUser.id());
         jgen.writeStringField("username", clientUser.username());
         jgen.writeStringField("password", clientUser.password());
+        jgen.writeStringField("address", clientUser.address());
         jgen.writeEndObject();
     }
 }

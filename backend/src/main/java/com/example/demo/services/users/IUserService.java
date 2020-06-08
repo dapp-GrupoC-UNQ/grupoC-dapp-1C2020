@@ -16,7 +16,7 @@ public interface IUserService {
 
     Boolean canAddUser(String username);
 
-    ClientUser addUser(String username, String password);
+    ClientUser addUser(String username, String password, String address);
 
     StoreAdminUser addStoreAdmin(StoreAdminUser storeAdminUser);
 }

@@ -42,9 +42,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public ClientUser addUser(String username, String password) {
+    public ClientUser addUser(String username, String password, String address) {
         if(canAddUser(username)) {
-            ClientUser newClientUser = new ClientUser(username, password);
+            ClientUser newClientUser = new ClientUser(username, password, address);
             moneyThresholdRepository.save(newClientUser.moneyThreshold());
             ClientUser savedUser = userRepository.save(newClientUser);
             return savedUser;

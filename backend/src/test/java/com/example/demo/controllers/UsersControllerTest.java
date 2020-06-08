@@ -87,7 +87,7 @@ public class UsersControllerTest {
     @Test
     public void whenCreatingAClientUserTheUserIsReturnedAndTheStatusIsOK() throws Exception {
         ClientUser clientUser = ClientUserBuilder.user().build();
-        when(userServiceMock.addUser(any(), any())).thenReturn(addIdToClientUser(clientUser));
+        when(userServiceMock.addUser(any(), any(), any())).thenReturn(addIdToClientUser(clientUser));
 
         JSONObject body = generateClientUserBody(clientUser);
         MvcResult mvcResult = mockMvc.perform(post("/users")
@@ -96,6 +96,7 @@ public class UsersControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id", is(clientUser.id())))
                 .andExpect(jsonPath("username", is(clientUser.username())))
+                .andExpect(jsonPath("address", is(clientUser.address())))
                 .andReturn();
         String response = mvcResult.getResponse().getContentAsString();
 
@@ -116,7 +117,7 @@ public class UsersControllerTest {
     @Test
     public void addingAClientUserWhichIsAlreadyRegisterUsernameReturnsBadRequest() throws Exception {
         ClientUser clientUser = ClientUserBuilder.user().build();
-        when(userServiceMock.addUser(any(), any())).thenThrow(new NotAvailableUserNameException());
+        when(userServiceMock.addUser(any(), any(), any())).thenThrow(new NotAvailableUserNameException());
 
         JSONObject body = generateClientUserBody(clientUser);
         MvcResult mvcResult = mockMvc.perform(post("/users")
@@ -236,6 +237,7 @@ public class UsersControllerTest {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("username", clientUser.username());
         jsonObject.put("password", clientUser.password());
+        jsonObject.put("address", clientUser.address());
         return jsonObject;
     }
 
