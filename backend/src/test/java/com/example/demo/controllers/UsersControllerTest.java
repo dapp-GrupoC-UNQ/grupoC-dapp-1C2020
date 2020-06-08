@@ -140,6 +140,19 @@ public class UsersControllerTest {
     }
 
     @Test
+    public void addingAClientUserWithAnEmptyAddressReturnsBadRequest() throws Exception {
+        ClientUser clientUser = ClientUserBuilder.user().withEmptyAddress();
+
+        JSONObject body = generateClientUserBody(clientUser);
+        MvcResult mvcResult = mockMvc.perform(post("/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(String.valueOf(body)))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
+
+
+    @Test
     public void addingAValidStoreAdminReturnsTheStoreAdminAnd200Status() throws Exception {
         StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().build();
         Store aStore = aStoreAdmin.store();

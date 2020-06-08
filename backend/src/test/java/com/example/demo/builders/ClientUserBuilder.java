@@ -56,4 +56,10 @@ public class ClientUserBuilder {
         client.setPassword("");
         return client;
     }
+
+    public ClientUser withEmptyAddress() {
+        ClientUser client = this.build();
+        client.setAddress("");
+        return client;
+    }
 }

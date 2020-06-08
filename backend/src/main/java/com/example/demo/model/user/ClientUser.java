@@ -98,4 +98,6 @@ public class ClientUser extends User {
     public Boolean hasBill(Bill aBill) {
         return this.billOfPurchase.contains(aBill);
     }
+
+    public void setAddress(String anAddress){  this.address = anAddress; }
 }
