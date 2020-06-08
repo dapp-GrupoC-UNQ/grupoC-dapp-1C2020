@@ -3,15 +3,21 @@ package com.example.demo.controllers;
 import com.example.demo.builders.ClientUserBuilder;
 import com.example.demo.builders.StoreAdminBuilder;
 import com.example.demo.helpers.StoreTestHelper;
+import com.example.demo.model.exceptions.InvalidStoreException;
 import com.example.demo.model.exceptions.NotAvailableUserNameException;
 import com.example.demo.model.exceptions.NotFoundUserException;
 import com.example.demo.model.store.Store;
 import com.example.demo.model.user.StoreAdminUser;
+import com.example.demo.model.user.User;
 import com.example.demo.services.StoreService;
 import com.example.demo.services.users.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.demo.model.user.ClientUser;
 import com.jayway.jsonpath.JsonPath;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +29,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+
+import java.util.Random;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -54,11 +62,12 @@ public class UsersControllerTest {
     @Test
     public void aUserIsValidatedIfItsUsernameMatchesWithItsPassword() throws Exception {
         ClientUser clientUser = ClientUserBuilder.user().build();
-        when(userServiceMock.authenticateUser(any())).thenReturn(clientUser);
+        when(userServiceMock.authenticateUser(any())).thenReturn(addIdToClientUser(clientUser));
 
+        JSONObject body = generateClientUserBody(clientUser);
         mockMvc.perform(post("/validateUser")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(clientUser)))
+                .content(String.valueOf(body)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("username", is(clientUser.username())));
     }
@@ -68,22 +77,24 @@ public class UsersControllerTest {
         ClientUser clientUser = ClientUserBuilder.user().build();
         when(userServiceMock.authenticateUser(any())).thenThrow(new NotFoundUserException());
 
+        JSONObject body = generateClientUserBody(clientUser);
         mockMvc.perform(post("/validateUser")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(clientUser)))
+                .content(String.valueOf(body)))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     public void whenCreatingAClientUserTheUserIsReturnedAndTheStatusIsOK() throws Exception {
         ClientUser clientUser = ClientUserBuilder.user().build();
-        when(userServiceMock.addUser(any(), any())).thenReturn(clientUser);
+        when(userServiceMock.addUser(any(), any())).thenReturn(addIdToClientUser(clientUser));
 
-        String content = objectMapper.writeValueAsString(clientUser);
+        JSONObject body = generateClientUserBody(clientUser);
         MvcResult mvcResult = mockMvc.perform(post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(content))
+                .content(String.valueOf(body)))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("id", is(clientUser.id())))
                 .andExpect(jsonPath("username", is(clientUser.username())))
                 .andReturn();
         String response = mvcResult.getResponse().getContentAsString();
@@ -94,10 +105,10 @@ public class UsersControllerTest {
     public void addingAClientUserWithAnEmptyUsernameReturnsBadRequest() throws Exception {
         ClientUser clientUser = ClientUserBuilder.user().withEmptyUsername();
 
-        String content = objectMapper.writeValueAsString(clientUser);
+        JSONObject body = generateClientUserBody(clientUser);
         MvcResult mvcResult = mockMvc.perform(post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(content))
+                .content(body.toString()))
                 .andExpect(status().isBadRequest())
                 .andReturn();
     }
@@ -107,10 +118,10 @@ public class UsersControllerTest {
         ClientUser clientUser = ClientUserBuilder.user().build();
         when(userServiceMock.addUser(any(), any())).thenThrow(new NotAvailableUserNameException());
 
-        String content = objectMapper.writeValueAsString(clientUser);
+        JSONObject body = generateClientUserBody(clientUser);
         MvcResult mvcResult = mockMvc.perform(post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(content))
+                .content(String.valueOf(body)))
                 .andExpect(status().isBadRequest())
                 .andReturn();
     }
@@ -119,10 +130,10 @@ public class UsersControllerTest {
     public void addingAClientUserWithAnEmptyPasswordReturnsBadRequest() throws Exception {
         ClientUser clientUser = ClientUserBuilder.user().withEmptyPassword();
 
-        String content = objectMapper.writeValueAsString(clientUser);
+        JSONObject body = generateClientUserBody(clientUser);
         MvcResult mvcResult = mockMvc.perform(post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(content))
+                .content(String.valueOf(body)))
                 .andExpect(status().isBadRequest())
                 .andReturn();
     }
@@ -131,12 +142,12 @@ public class UsersControllerTest {
     public void addingAValidStoreAdminReturnsTheStoreAdminAnd200Status() throws Exception {
         StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().build();
         Store aStore = aStoreAdmin.store();
-        when(userServiceMock.addStoreAdmin(any())).thenReturn(aStoreAdmin);
+        when(userServiceMock.addStoreAdmin(any())).thenReturn(addIdToStoreAdminUser(aStoreAdmin));
 
-        String content = objectMapper.writeValueAsString(aStoreAdmin);
+        JSONObject body = generateStoreAdminBody(aStoreAdmin);
         MvcResult mvcResult = mockMvc.perform(post("/storeAdmin")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(content))
+                .content(body.toString()))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -157,10 +168,10 @@ public class UsersControllerTest {
     public void addingAStoreAdminWithAnEmptyUsernameReturnsBadRequest() throws Exception {
         StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().withEmptyUsername();
 
-        String content = objectMapper.writeValueAsString(aStoreAdmin);
+        JSONObject body = generateStoreAdminBody(aStoreAdmin);
         MvcResult mvcResult = mockMvc.perform(post("/storeAdmin")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(content))
+                .content(String.valueOf(body)))
                 .andExpect(status().isBadRequest())
                 .andReturn();
     }
@@ -171,10 +182,10 @@ public class UsersControllerTest {
         when(userServiceMock.addStoreAdmin(any())).thenThrow(new NotAvailableUserNameException());
         when(storeService.addStore(any())).thenReturn(aStoreAdmin.store());
 
-        String content = objectMapper.writeValueAsString(aStoreAdmin);
+        JSONObject body = generateStoreAdminBody(aStoreAdmin);
         MvcResult mvcResult = mockMvc.perform(post("/storeAdmin")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(content))
+                .content(String.valueOf(body)))
                 .andExpect(status().isBadRequest())
                 .andReturn();
     }
@@ -183,11 +194,58 @@ public class UsersControllerTest {
     public void addingAStoreAdminWithAnEmptyPasswordReturnsBadRequest() throws Exception {
         StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().withEmptyPassword();
 
-        String content = objectMapper.writeValueAsString(aStoreAdmin);
+        JSONObject body = generateStoreAdminBody(aStoreAdmin);
         MvcResult mvcResult = mockMvc.perform(post("/storeAdmin")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(content))
+                .content(String.valueOf(body)))
                 .andExpect(status().isBadRequest())
                 .andReturn();
+    }
+
+    private JSONObject generateStoreAdminBody(StoreAdminUser storeAdminUser) throws JSONException, JsonProcessingException {
+        JSONObject storeAdminJson = new JSONObject();
+        storeAdminJson.put("username", storeAdminUser.username());
+        storeAdminJson.put("password", storeAdminUser.password());
+        JSONObject store = generateStore(storeAdminUser.store());
+        storeAdminJson.put("store", store);
+        return storeAdminJson;
+    };
+
+    private JSONObject generateStore(Store store) throws JSONException {
+        JSONObject storeJson = new JSONObject();
+        JSONArray storeCategories = new JSONArray();
+        JSONArray paymentMethods = new JSONArray();
+        JSONObject storeSchedule = new JSONObject();
+        JSONArray openingDays = new JSONArray();
+        store.storeCategories().stream().forEach(category -> storeCategories.put(category.toString()));
+        store.availablePaymentMethods().stream().forEach(paymentMethods::put);
+        store.storeSchedule().days().stream().forEach(day -> openingDays.put(day.toString()));
+        storeSchedule.put("openingDays", openingDays);
+        storeSchedule.put("openingTime", store.storeSchedule().openingTime());
+        storeSchedule.put("closingTime", store.storeSchedule().closingTime());
+
+        storeJson.put("storeName", store.name());
+        storeJson.put("storeAddress", store.address());
+        storeJson.put("deliveryDistanceInKm", store.deliveryDistanceInKm());
+        storeJson.put("storeCategories", storeCategories);
+        storeJson.put("availablePaymentMethods", paymentMethods);
+        storeJson.put("storeSchedule", storeSchedule);
+        return storeJson;
+    }
+    private JSONObject generateClientUserBody(ClientUser clientUser) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("username", clientUser.username());
+        jsonObject.put("password", clientUser.password());
+        return jsonObject;
+    }
+
+    private ClientUser addIdToClientUser(ClientUser aUser){
+        aUser.setId(new Random().nextLong());
+        return aUser;
+    }
+
+    private StoreAdminUser addIdToStoreAdminUser(StoreAdminUser aUser){
+        aUser.setId(new Random().nextLong());
+        return aUser;
     }
 }

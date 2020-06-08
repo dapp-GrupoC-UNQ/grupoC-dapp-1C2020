@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -67,6 +68,7 @@ public class UserServiceTest {
     public void whenAUserIsAddedTheServiceReturnsTheUser(){
         ClientUser clientUser = ClientUserBuilder.user().build();
         when(userRepositoryMock.findByUsernameEquals(any())).thenReturn(java.util.Optional.ofNullable(null));
+        when(userRepositoryMock.save(any())).thenReturn(addIdToClientUser(clientUser));
 
         ClientUser createdUser = userService.addUser(clientUser.username(), clientUser.password());
         assertEquals(createdUser.username(), clientUser.username());
@@ -79,5 +81,10 @@ public class UserServiceTest {
         when(userRepositoryMock.findByUsernameEquals(any())).thenReturn(java.util.Optional.ofNullable(clientUser));
 
         assertThrows(NotAvailableUserNameException.class, () -> userService.addUser("aNewUser", "password"));
+    }
+
+    private ClientUser addIdToClientUser(ClientUser aUser){
+        aUser.setId(new Random().nextLong());
+        return aUser;
     }
 }

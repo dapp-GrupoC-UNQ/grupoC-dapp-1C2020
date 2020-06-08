@@ -16,11 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import java.util.List;
 import java.util.Random;
 import static org.mockito.Mockito.when;
@@ -85,47 +83,5 @@ public class StoreControllerTest {
         Long nonExistingId = (new Random().nextLong());
         mockMvc.perform(get("/stores/"+ nonExistingId.toString() +"/products"))
                .andExpect(status().isNotFound());
-    }
-
-    @Test
-    public void addingAStoreAdminWithEmptyCategoryReturnsBadRequest() throws Exception {
-        StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().build();
-        when(storeServiceMock.addStore(any())).thenThrow(new InvalidStoreException("Store must have at least one category"));
-
-        String content = objectMapper.writeValueAsString(aStoreAdmin);
-        MvcResult mvcResult = mockMvc.perform(post("/storeAdmin")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(content))
-                .andExpect(status().isBadRequest())
-                .andReturn();
-
-    }
-
-    @Test
-    public void addingAStoreAdminWithEmptyPaymentMethodsReturnsBadRequest() throws Exception {
-        StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().build();
-        when(storeServiceMock.addStore(any())).thenThrow(new InvalidStoreException("Store must have at least one payment method"));
-
-        String content = objectMapper.writeValueAsString(aStoreAdmin);
-        MvcResult mvcResult = mockMvc.perform(post("/storeAdmin")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(content))
-                .andExpect(status().isBadRequest())
-                .andReturn();
-
-    }
-
-    @Test
-    public void addingAStoreAdminWithInvalidScheduleReturnsBadRequest() throws Exception {
-        StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().build();
-        when(storeServiceMock.addStore(any())).thenThrow(new InvalidStoreException("Invalid schedule, there must be at least one opening day and opening time must be previous to closing time "));
-
-        String content = objectMapper.writeValueAsString(aStoreAdmin);
-        MvcResult mvcResult = mockMvc.perform(post("/storeAdmin")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(content))
-                .andExpect(status().isBadRequest())
-                .andReturn();
-
     }
 }

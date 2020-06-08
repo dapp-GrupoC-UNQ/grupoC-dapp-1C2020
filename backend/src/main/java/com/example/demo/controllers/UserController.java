@@ -27,21 +27,22 @@ public class UserController {
     }
 
     @PostMapping(path = "/validateUser", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<User> validateUser(@RequestBody ClientUser clientUser)
+    public ResponseEntity<User> validateUser(@RequestBody User clientUser)
     {
         return new ResponseEntity<>(userService.authenticateUser(clientUser), HttpStatus.OK);
     }
 
     @PostMapping(path = "/users", consumes = "application/json", produces = "application/json")
     public ResponseEntity<ClientUser> createUser(@RequestBody ClientUser clientUser) {
-        return new ResponseEntity<>(userService.addUser(clientUser.username(), clientUser.password()), HttpStatus.OK);
+        ClientUser savedUser = userService.addUser(clientUser.username(), clientUser.password());
+        return new ResponseEntity<>(savedUser, HttpStatus.OK);
     }
 
     @PostMapping(path = "/storeAdmin", consumes = "application/json", produces = "application/json")
     public ResponseEntity<StoreAdminUser> createNewStore(@RequestBody StoreAdminUser storeAdminUser)
     {
-        userService.addStoreAdmin(storeAdminUser);
+        StoreAdminUser savedStoreAdmin = userService.addStoreAdmin(storeAdminUser);
         storeService.addStore(storeAdminUser.store());
-        return new ResponseEntity<>(storeAdminUser, HttpStatus.OK);
+        return new ResponseEntity<>(savedStoreAdmin, HttpStatus.OK);
     }
 }
