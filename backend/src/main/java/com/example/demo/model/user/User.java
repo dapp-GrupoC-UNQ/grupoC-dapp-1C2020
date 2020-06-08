@@ -1,6 +1,8 @@
 package com.example.demo.model.user;
 
+import com.example.demo.deserializers.UserJsonDeserializer;
 import com.example.demo.model.exceptions.InvalidUsernameOrPasswordException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.persistence.*;
 
@@ -8,6 +10,7 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="user_type",
         discriminatorType = DiscriminatorType.STRING)
+@JsonDeserialize(using = UserJsonDeserializer.class)
 public abstract class User {
 
     @Id
