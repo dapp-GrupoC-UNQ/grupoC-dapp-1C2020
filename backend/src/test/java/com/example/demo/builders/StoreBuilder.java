@@ -32,6 +32,7 @@ public class StoreBuilder {
     private List<DayOfWeek> openingDays = Arrays.asList(DayOfWeek.FRIDAY);
     private StoreSchedule storeTimeSchedule = new StoreSchedule(openingDays, LocalTime.of(9,0), LocalTime.of(15, 0));
     private LocalDate openingDate = LocalDate.now();
+    private String imageUrl = "https://k62.kn3.net/taringa/3/F/6/7/B/E/MMLPQTPario/1CB.jpg";
 
     public static List<Store> storeWithACategoryList(StoreCategory category) {
         return storeList().stream().filter(store -> store.storeCategories().contains(category)).collect(Collectors.toList());
@@ -39,7 +40,7 @@ public class StoreBuilder {
 
     public Store build() {
         return new Store(storeName, storeCategories, storeAddress,
-                deliveryMaxDistanceInKm, availablePaymentMethods, storeTimeSchedule, openingDate);
+                deliveryMaxDistanceInKm, availablePaymentMethods, storeTimeSchedule, openingDate, imageUrl);
     }
 
     public StoreBuilder withName(String unNombre) {

@@ -7,7 +7,7 @@ class Store extends React.Component {
         return (
             <div className="entity-card" onClick={() => this.props.onShowStoreProducts(this.props.store)}>
                 <div className='imagen-comercio'>
-                    <img src={'https://www.memesargentinos.com.ar/wp-content/uploads/2019/02/China-Supermercado.jpg'}/>
+                    <img src={this.props.store.storeImage}/>
                 </div>
                 <div className='nombre-comercio'>
                     <span>{this.props.store.storeName}</span>
