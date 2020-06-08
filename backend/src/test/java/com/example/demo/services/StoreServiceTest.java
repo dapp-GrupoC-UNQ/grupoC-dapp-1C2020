@@ -8,11 +8,14 @@ import com.example.demo.model.store.StoreCategory;
 import com.example.demo.repositories.StoreRepository;
 import com.example.demo.model.store.Store;
 import com.example.demo.repositories.merchandise.MerchandiseRepository;
+import com.example.demo.repositories.storeSchedule.StoreScheduleRepository;
+import com.example.demo.services.users.IUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,8 +28,9 @@ public class StoreServiceTest {
 
     @Mock
     StoreRepository storeRepositoryMock;
+
     @Mock
-    MerchandiseRepository merchandiseRepositoryMock;
+    StoreScheduleRepository storeScheduleRepository;
 
     @InjectMocks
     StoreService storeService;
@@ -58,6 +62,7 @@ public class StoreServiceTest {
     @Test
     public void addingAStoreReturnsTheStore() {
         Store store = StoreBuilder.aStore().build();
+        when(storeScheduleRepository.save(any())).thenReturn(store.storeSchedule());
         when(storeRepositoryMock.save(any())).thenReturn(store);
 
         assertEquals(storeService.addStore(store), store);

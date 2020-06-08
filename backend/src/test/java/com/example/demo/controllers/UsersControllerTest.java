@@ -7,6 +7,7 @@ import com.example.demo.model.exceptions.NotAvailableUserNameException;
 import com.example.demo.model.exceptions.NotFoundUserException;
 import com.example.demo.model.store.Store;
 import com.example.demo.model.user.StoreAdminUser;
+import com.example.demo.services.StoreService;
 import com.example.demo.services.users.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.demo.model.user.ClientUser;
@@ -41,6 +42,8 @@ public class UsersControllerTest {
 
     @MockBean
     UserService userServiceMock;
+    @MockBean
+    StoreService storeService;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -166,7 +169,8 @@ public class UsersControllerTest {
     public void addingAStoreAdminUserWhichIsAlreadyRegisterUsernameReturnsBadRequest() throws Exception {
         StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().build();
         when(userServiceMock.addStoreAdmin(any())).thenThrow(new NotAvailableUserNameException());
- //aca
+        when(storeService.addStore(any())).thenReturn(aStoreAdmin.store());
+
         String content = objectMapper.writeValueAsString(aStoreAdmin);
         MvcResult mvcResult = mockMvc.perform(post("/storeAdmin")
                 .contentType(MediaType.APPLICATION_JSON)
