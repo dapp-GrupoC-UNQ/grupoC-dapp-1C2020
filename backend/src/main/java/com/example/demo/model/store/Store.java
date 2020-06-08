@@ -40,6 +40,7 @@ public class Store {
     private String storeAddress;
     private Integer deliveryDistanceInKm;
     private LocalDateTime proximoTurnoDeLocal;
+    private String storeImageUrl;
     @ElementCollection
     private List<String> availablePaymentMethods;
     @OneToOne
@@ -51,13 +52,14 @@ public class Store {
     private List<Merchandise> merchandiseList = new ArrayList<>();
 
     public Store(String name, List<StoreCategory> categories, String address, Integer distanceInKm,
-                 List<String> paymentMethods, StoreSchedule timeSchedule, LocalDate openingDateTime) {
+                 List<String> paymentMethods, StoreSchedule timeSchedule, LocalDate openingDateTime, String imageUrl) {
          storeName = name;
          storeCategories = categories;
          storeAddress = address;
          deliveryDistanceInKm = distanceInKm;
          availablePaymentMethods =  paymentMethods;
          storeTimeSchedule = timeSchedule;
+         storeImageUrl = imageUrl;
          if(openingDateTime != null) {
              proximoTurnoDeLocal = TurnsSystem.primerTurnoDeLocal(openingDateTime, this.storeTimeSchedule);
          } else {
@@ -227,6 +229,10 @@ public class Store {
 
     public void setId(Long storeId) {
         this.id = storeId;
+    }
+
+    public String imageURL() {
+        return this.storeImageUrl;
     }
 }
 
