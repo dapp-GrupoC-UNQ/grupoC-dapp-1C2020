@@ -142,7 +142,7 @@ public class UsersControllerTest {
     public void addingAValidStoreAdminReturnsTheStoreAdminAnd200Status() throws Exception {
         StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().build();
         Store aStore = aStoreAdmin.store();
-        when(userServiceMock.addStoreAdmin(any())).thenReturn(aStoreAdmin);
+        when(userServiceMock.addStoreAdmin(any())).thenReturn(addIdToStoreAdminUser(aStoreAdmin));
 
         JSONObject body = generateStoreAdminBody(aStoreAdmin);
         MvcResult mvcResult = mockMvc.perform(post("/storeAdmin")
@@ -168,10 +168,10 @@ public class UsersControllerTest {
     public void addingAStoreAdminWithAnEmptyUsernameReturnsBadRequest() throws Exception {
         StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().withEmptyUsername();
 
-        String content = objectMapper.writeValueAsString(aStoreAdmin);
+        JSONObject body = generateStoreAdminBody(aStoreAdmin);
         MvcResult mvcResult = mockMvc.perform(post("/storeAdmin")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(content))
+                .content(String.valueOf(body)))
                 .andExpect(status().isBadRequest())
                 .andReturn();
     }
@@ -194,10 +194,10 @@ public class UsersControllerTest {
     public void addingAStoreAdminWithAnEmptyPasswordReturnsBadRequest() throws Exception {
         StoreAdminUser aStoreAdmin = StoreAdminBuilder.aStoreAdmin().withEmptyPassword();
 
-        String content = objectMapper.writeValueAsString(aStoreAdmin);
+        JSONObject body = generateStoreAdminBody(aStoreAdmin);
         MvcResult mvcResult = mockMvc.perform(post("/storeAdmin")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(content))
+                .content(String.valueOf(body)))
                 .andExpect(status().isBadRequest())
                 .andReturn();
     }
@@ -220,6 +220,9 @@ public class UsersControllerTest {
         store.storeCategories().stream().forEach(category -> storeCategories.put(category.toString()));
         store.availablePaymentMethods().stream().forEach(paymentMethods::put);
         store.storeSchedule().days().stream().forEach(day -> openingDays.put(day.toString()));
+        storeSchedule.put("openingDays", openingDays);
+        storeSchedule.put("openingTime", store.storeSchedule().openingTime());
+        storeSchedule.put("closingTime", store.storeSchedule().closingTime());
 
         storeJson.put("storeName", store.name());
         storeJson.put("storeAddress", store.address());
@@ -241,4 +244,8 @@ public class UsersControllerTest {
         return aUser;
     }
 
+    private StoreAdminUser addIdToStoreAdminUser(StoreAdminUser aUser){
+        aUser.setId(new Random().nextLong());
+        return aUser;
+    }
 }
