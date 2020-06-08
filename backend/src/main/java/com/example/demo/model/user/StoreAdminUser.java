@@ -1,8 +1,7 @@
 package com.example.demo.model.user;
-import com.example.demo.deserializers.StoreAdminUserJsonDeserializer;
 import com.example.demo.model.store.Store;
 import com.example.demo.serializers.StoreAdminUserJsonSerializer;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.example.demo.serializers.UserJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
@@ -10,7 +9,6 @@ import javax.persistence.*;
 @Entity
 @DiscriminatorValue("STORE_ADMIN_USER")
 @JsonSerialize(using = StoreAdminUserJsonSerializer.class)
-@JsonDeserialize(using = StoreAdminUserJsonDeserializer.class)
 public class StoreAdminUser extends User {
 
     @Transient

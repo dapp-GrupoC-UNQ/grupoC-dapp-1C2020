@@ -3,13 +3,17 @@ package com.example.demo.builders;
 import com.example.demo.model.user.StoreAdminUser;
 import com.example.demo.model.store.Store;
 
+import java.util.Random;
+
 public class StoreAdminBuilder {
 
     private String username = "StoreAdmin";
     private String password = "StoreAdminPassword";
     private Store store = StoreBuilder.aStore().withName("Carrefour").build();
 
-    public static StoreAdminBuilder aStoreAdmin() { return new StoreAdminBuilder(); }
+    public static StoreAdminBuilder aStoreAdmin() {
+        return new StoreAdminBuilder();
+    }
 
     public StoreAdminUser build() {
         return new StoreAdminUser(username, password, store);

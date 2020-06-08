@@ -3,15 +3,19 @@ package com.example.demo.controllers;
 import com.example.demo.builders.ClientUserBuilder;
 import com.example.demo.builders.StoreAdminBuilder;
 import com.example.demo.helpers.StoreTestHelper;
+import com.example.demo.model.exceptions.InvalidStoreException;
 import com.example.demo.model.exceptions.NotAvailableUserNameException;
 import com.example.demo.model.exceptions.NotFoundUserException;
 import com.example.demo.model.store.Store;
 import com.example.demo.model.user.StoreAdminUser;
+import com.example.demo.model.user.User;
 import com.example.demo.services.StoreService;
 import com.example.demo.services.users.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.demo.model.user.ClientUser;
 import com.jayway.jsonpath.JsonPath;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +27,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+
+import java.util.Random;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -56,9 +62,10 @@ public class UsersControllerTest {
         ClientUser clientUser = ClientUserBuilder.user().build();
         when(userServiceMock.authenticateUser(any())).thenReturn(clientUser);
 
+        JSONObject body = generateClientUserBody(clientUser);
         mockMvc.perform(post("/validateUser")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(clientUser)))
+                .content(String.valueOf(body)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("username", is(clientUser.username())));
     }
@@ -68,22 +75,24 @@ public class UsersControllerTest {
         ClientUser clientUser = ClientUserBuilder.user().build();
         when(userServiceMock.authenticateUser(any())).thenThrow(new NotFoundUserException());
 
+        JSONObject body = generateClientUserBody(clientUser);
         mockMvc.perform(post("/validateUser")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(clientUser)))
+                .content(String.valueOf(body)))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     public void whenCreatingAClientUserTheUserIsReturnedAndTheStatusIsOK() throws Exception {
         ClientUser clientUser = ClientUserBuilder.user().build();
-        when(userServiceMock.addUser(any(), any())).thenReturn(clientUser);
+        when(userServiceMock.addUser(any(), any())).thenReturn(addIdToClientUser(clientUser));
 
-        String content = objectMapper.writeValueAsString(clientUser);
+        JSONObject body = generateClientUserBody(clientUser);
         MvcResult mvcResult = mockMvc.perform(post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(content))
+                .content(String.valueOf(body)))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("id", is(clientUser.id())))
                 .andExpect(jsonPath("username", is(clientUser.username())))
                 .andReturn();
         String response = mvcResult.getResponse().getContentAsString();
@@ -107,10 +116,10 @@ public class UsersControllerTest {
         ClientUser clientUser = ClientUserBuilder.user().build();
         when(userServiceMock.addUser(any(), any())).thenThrow(new NotAvailableUserNameException());
 
-        String content = objectMapper.writeValueAsString(clientUser);
+        JSONObject body = generateClientUserBody(clientUser);
         MvcResult mvcResult = mockMvc.perform(post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(content))
+                .content(String.valueOf(body)))
                 .andExpect(status().isBadRequest())
                 .andReturn();
     }
@@ -119,10 +128,10 @@ public class UsersControllerTest {
     public void addingAClientUserWithAnEmptyPasswordReturnsBadRequest() throws Exception {
         ClientUser clientUser = ClientUserBuilder.user().withEmptyPassword();
 
-        String content = objectMapper.writeValueAsString(clientUser);
+        JSONObject body = generateClientUserBody(clientUser);
         MvcResult mvcResult = mockMvc.perform(post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(content))
+                .content(String.valueOf(body)))
                 .andExpect(status().isBadRequest())
                 .andReturn();
     }
@@ -190,4 +199,26 @@ public class UsersControllerTest {
                 .andExpect(status().isBadRequest())
                 .andReturn();
     }
+
+    private JSONObject generateStoreAdminBody(StoreAdminUser storeAdminUser) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("username", storeAdminUser.username());
+        jsonObject.put("password", storeAdminUser.password());
+
+        return jsonObject;
+    };
+
+    private JSONObject generateClientUserBody(ClientUser clientUser) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("username", clientUser.username());
+        jsonObject.put("password", clientUser.password());
+
+        return jsonObject;
+    }
+
+    private ClientUser addIdToClientUser(ClientUser aUser){
+        aUser.setId(new Random().nextLong());
+        return aUser;
+    }
+
 }

@@ -45,4 +45,11 @@ public abstract class User {
         this.password = password;
     }
 
+    public Long id() {
+        return this.id;
+    }
+
+    public void setId(Long id){
+        this.id = id;
+    }
 }

@@ -2,6 +2,7 @@ package com.example.demo.services.users;
 
 import com.example.demo.model.exceptions.NotAvailableUserNameException;
 import com.example.demo.model.exceptions.NotFoundUserException;
+import com.example.demo.model.store.Store;
 import com.example.demo.model.user.StoreAdminUser;
 import com.example.demo.model.user.User;
 import com.example.demo.repositories.storeSchedule.StoreScheduleRepository;
@@ -45,8 +46,8 @@ public class UserService implements IUserService {
         if(canAddUser(username)) {
             ClientUser newClientUser = new ClientUser(username, password);
             moneyThresholdRepository.save(newClientUser.moneyThreshold());
-            userRepository.save(newClientUser);
-            return newClientUser;
+            ClientUser savedUser = userRepository.save(newClientUser);
+            return savedUser;
         }
         throw new NotAvailableUserNameException();
     }
@@ -55,8 +56,8 @@ public class UserService implements IUserService {
     public StoreAdminUser addStoreAdmin(StoreAdminUser storeAdminUser) {
         if(canAddUser(storeAdminUser.username())) {
             StoreAdminUser newClientUser = new StoreAdminUser(storeAdminUser.username(), storeAdminUser.password(), storeAdminUser.store());
-            userRepository.save(newClientUser);
-            return newClientUser;
+            StoreAdminUser savedUser = userRepository.save(newClientUser);
+            return savedUser;
         }
         throw new NotAvailableUserNameException();
     }

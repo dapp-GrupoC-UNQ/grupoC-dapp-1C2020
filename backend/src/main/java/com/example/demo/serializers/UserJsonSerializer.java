@@ -19,6 +19,7 @@ public class UserJsonSerializer extends JsonSerializer<ClientUser> {
             throws IOException, JsonProcessingException {
 
         jgen.writeStartObject();
+        jgen.writeNumberField("id", clientUser.id());
         jgen.writeStringField("username", clientUser.username());
         jgen.writeStringField("password", clientUser.password());
         jgen.writeEndObject();
