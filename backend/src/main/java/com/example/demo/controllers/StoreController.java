@@ -32,6 +32,12 @@ public class StoreController {
         return storeService.getStoresWithACategory(StoreCategory.valueOf(category));
     }
 
+    @RequestMapping("/stores/{id}")
+    public ResponseEntity<Store> getStore(@PathVariable("id") String id){
+        Long storeId = Long.parseLong(id);
+        return new ResponseEntity<>(storeService.getStore(storeId), HttpStatus.OK);
+    };
+
     @RequestMapping(path="/stores/{id}/products")
     public ResponseEntity<Object> getMessage(@PathVariable("id") Long storeId) {
         List<Merchandise> merchandises = storeService.getProductsFromStore(storeId);

@@ -23,7 +23,7 @@ public class StoreRepositoryTest {
 
     @Test
     public void aStoreIsRetrieved() {
-        Store store = StoreBuilder.aStore().build();
+        Store store = StoreBuilder.aStore().buildWithNoId();
         storeRepository.save(store);
 
         Optional<Store> retrievedStore = storeRepository.findById(store.id());
