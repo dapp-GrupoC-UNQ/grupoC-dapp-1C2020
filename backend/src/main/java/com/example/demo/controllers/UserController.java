@@ -1,4 +1,5 @@
 package com.example.demo.controllers;
+import com.example.demo.dtos.ValidationUserDTO;
 import com.example.demo.model.user.StoreAdminUser;
 import com.example.demo.model.user.User;
 import com.example.demo.services.IStoreService;
@@ -7,6 +8,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.example.demo.model.user.ClientUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,10 +28,10 @@ public class UserController {
         return userService.getUsers();
     }
 
-    @PostMapping(path = "/validateUser", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<User> validateUser(@RequestBody User clientUser)
+    @PostMapping(path = "/validateUser")
+    public ResponseEntity<User> validateUser(@RequestBody ValidationUserDTO validationUserDTO)
     {
-        return new ResponseEntity<>(userService.authenticateUser(clientUser), HttpStatus.OK);
+        return new ResponseEntity<>(userService.authenticateUser(validationUserDTO.getUsername(), validationUserDTO.getPassword()), HttpStatus.OK);
     }
 
     @PostMapping(path = "/users", consumes = "application/json", produces = "application/json")

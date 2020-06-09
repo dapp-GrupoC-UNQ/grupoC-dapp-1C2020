@@ -62,11 +62,11 @@ public class UsersControllerTest {
     @Test
     public void aUserIsValidatedIfItsUsernameMatchesWithItsPassword() throws Exception {
         ClientUser clientUser = ClientUserBuilder.user().build();
-        when(userServiceMock.authenticateUser(any())).thenReturn(addIdToClientUser(clientUser));
+        when(userServiceMock.authenticateUser(any(), any())).thenReturn(addIdToClientUser(clientUser));
 
-        JSONObject body = generateClientUserBody(clientUser);
+        JSONObject body = generateClientUserBodyForValidation(clientUser);
         mockMvc.perform(post("/validateUser")
-                .contentType(MediaType.APPLICATION_JSON)
+                .contentType("application/json")
                 .content(String.valueOf(body)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("username", is(clientUser.username())));
@@ -75,7 +75,7 @@ public class UsersControllerTest {
     @Test
     public void aUserIsNotValidatedIfItsUsernameMatchesWithItsPassword() throws Exception {
         ClientUser clientUser = ClientUserBuilder.user().build();
-        when(userServiceMock.authenticateUser(any())).thenThrow(new NotFoundUserException());
+        when(userServiceMock.authenticateUser(any(), any())).thenThrow(new NotFoundUserException());
 
         JSONObject body = generateClientUserBody(clientUser);
         mockMvc.perform(post("/validateUser")
@@ -251,6 +251,13 @@ public class UsersControllerTest {
         jsonObject.put("username", clientUser.username());
         jsonObject.put("password", clientUser.password());
         jsonObject.put("address", clientUser.address());
+        return jsonObject;
+    }
+
+    private JSONObject generateClientUserBodyForValidation(ClientUser clientUser) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("username", clientUser.username());
+        jsonObject.put("password", clientUser.password());
         return jsonObject;
     }
 
