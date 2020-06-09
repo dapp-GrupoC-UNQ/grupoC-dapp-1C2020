@@ -30,11 +30,11 @@ public class DatabaseInitializate implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        userService.addUser("MargeSimpson@gmail.com", "123456", "Av. Siempreviva 742");
-        userService.addUser("HomeroSimpson@gmail.com", "cerveza", "Av. Siempreviva 742");
-        userService.addUser("BartSimpson@gmail.com", "aycaramba", "Av. Siempreviva 742");
-        userService.addUser("LisaSimpson@gmail.com", "yolosetodo", "Av. Siempreviva 742");
-        userService.addUser("MaggieSimpson@gmail.com", "nohabla", "Av. Siempreviva 742");
+        userService.addUser("margesimpson@gmail.com", "123456", "Av. Siempreviva 742");
+        userService.addUser("homerosimpson@gmail.com", "cerveza", "Av. Siempreviva 742");
+        userService.addUser("bartsimpson@gmail.com", "aycaramba", "Av. Siempreviva 742");
+        userService.addUser("lisasimpson@gmail.com", "yolosetodo", "Av. Siempreviva 742");
+        userService.addUser("maggiesimpson@gmail.com", "nohabla", "Av. Siempreviva 742");
 
         Store historietas = generateStore("Calabozo del androide y expendio de tarjetas de baseball", "calle falsa 123", 2, storeScheduleRepository, "https://s3.us-east-1.amazonaws.com/musiquiatra/upload/monthly_2018_06/800px-Androidsdungeon.png.2d079f7f971d3794cf23275925e32bff.png");
         Store kwickEMart = generateStore("Kwik-E-Mart", "calle apus 123", 3,storeScheduleRepository, "https://www.tonica.la/__export/1534892802783/sites/debate/img/2018/08/21/kwik-e-mart_sc.jpg_1902800913.jpg");

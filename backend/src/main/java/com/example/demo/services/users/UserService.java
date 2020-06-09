@@ -23,8 +23,8 @@ public class UserService implements IUserService {
     @Autowired
     private MoneyThresholdRepository moneyThresholdRepository;
 
-    public User authenticateUser(User user) {
-        return userRepository.findByUsernameAndPassword(user.username(), user.password())
+    public User authenticateUser(String username, String password) {
+        return userRepository.findByUsernameAndPassword(username, password)
                 .orElseThrow(NotFoundUserException::new);
     }
 

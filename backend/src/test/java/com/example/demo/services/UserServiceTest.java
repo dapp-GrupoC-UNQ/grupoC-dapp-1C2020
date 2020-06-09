@@ -39,7 +39,7 @@ public class UserServiceTest {
         ClientUser clientUser = ClientUserBuilder.user().build();
         when(userRepositoryMock.findByUsernameAndPassword(any(), any())).thenReturn(java.util.Optional.ofNullable(clientUser));
 
-        assertEquals(userService.authenticateUser(clientUser).username(), clientUser.username());
+        assertEquals(userService.authenticateUser(clientUser.username(), clientUser.password()).username(), clientUser.username());
     }
 
     @Test
@@ -47,7 +47,7 @@ public class UserServiceTest {
         ClientUser clientUser = ClientUserBuilder.user().build();
         when(userRepositoryMock.findByUsernameAndPassword(any(), any())).thenReturn(java.util.Optional.ofNullable(null));
 
-        assertThrows(NotFoundUserException.class, () -> userService.authenticateUser(clientUser));
+        assertThrows(NotFoundUserException.class, () -> userService.authenticateUser(clientUser.username(), clientUser.password()));
 
     }
 
