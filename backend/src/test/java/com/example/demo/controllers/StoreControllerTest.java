@@ -1,12 +1,9 @@
 package com.example.demo.controllers;
 
-import com.example.demo.builders.StoreAdminBuilder;
 import com.example.demo.builders.StoreBuilder;
-import com.example.demo.model.exceptions.InvalidStoreException;
 import com.example.demo.model.exceptions.NotFoundStoreException;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.model.store.StoreCategory;
-import com.example.demo.model.user.StoreAdminUser;
 import com.example.demo.services.StoreService;
 import com.example.demo.model.store.Store;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 import java.util.Random;
+
 import static org.mockito.Mockito.when;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -45,11 +43,14 @@ public class StoreControllerTest {
     @Test
     public void ifWeAskForStoresWeGetTheActualStoresList() throws Exception {
         List<Store> stores = StoreBuilder.storeList();
-        when(storeServiceMock.getStores()).thenReturn(stores);
+        when(storeServiceMock.getStores()).thenReturn(applyIdToStores(stores));
 
         mockMvc.perform(get("/stores"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(jsonPath("$[0].id", is(stores.get(0).id())))
+                .andExpect(jsonPath("$[1].id", is(stores.get(1).id())))
+                .andExpect(jsonPath("$[2].id", is(stores.get(2).id())))
                 .andExpect(jsonPath("$[0].storeName", is(stores.get(0).name())))
                 .andExpect(jsonPath("$[1].storeName", is(stores.get(1).name())))
                 .andExpect(jsonPath("$[2].storeName", is(stores.get(2).name())));
@@ -58,7 +59,7 @@ public class StoreControllerTest {
     @Test
     public void ifWeAskForStoresWithACategoryWeOnlyGetTheStoresThatHaveThatCategoryList() throws Exception {
         List<Store> stores = StoreBuilder.storeWithACategoryList(StoreCategory.CLEANING_SUPPLIES);
-        when(storeServiceMock.getStoresWithACategory(StoreCategory.CLEANING_SUPPLIES)).thenReturn(stores);
+        when(storeServiceMock.getStoresWithACategory(StoreCategory.CLEANING_SUPPLIES)).thenReturn(applyIdToStores(stores));
 
         mockMvc.perform(get("/stores?category=CLEANING_SUPPLIES"))
                 .andExpect(status().isOk())
@@ -83,5 +84,10 @@ public class StoreControllerTest {
         Long nonExistingId = (new Random().nextLong());
         mockMvc.perform(get("/stores/"+ nonExistingId.toString() +"/products"))
                .andExpect(status().isNotFound());
+    }
+
+    private List<Store> applyIdToStores(List<Store> stores) {
+        stores.stream().forEach(store -> store.setId(new Random().nextLong()));
+        return stores;
     }
 }
