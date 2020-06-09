@@ -43,7 +43,7 @@ public class StoreControllerTest {
     @Test
     public void ifWeAskForStoresWeGetTheActualStoresList() throws Exception {
         List<Store> stores = StoreBuilder.storeList();
-        when(storeServiceMock.getStores()).thenReturn(applyIdToStores(stores));
+        when(storeServiceMock.getStores()).thenReturn(stores);
 
         mockMvc.perform(get("/stores"))
                 .andExpect(status().isOk())
@@ -59,7 +59,7 @@ public class StoreControllerTest {
     @Test
     public void ifWeAskForStoresWithACategoryWeOnlyGetTheStoresThatHaveThatCategoryList() throws Exception {
         List<Store> stores = StoreBuilder.storeWithACategoryList(StoreCategory.CLEANING_SUPPLIES);
-        when(storeServiceMock.getStoresWithACategory(StoreCategory.CLEANING_SUPPLIES)).thenReturn(applyIdToStores(stores));
+        when(storeServiceMock.getStoresWithACategory(StoreCategory.CLEANING_SUPPLIES)).thenReturn(stores);
 
         mockMvc.perform(get("/stores?category=CLEANING_SUPPLIES"))
                 .andExpect(status().isOk())
@@ -86,8 +86,20 @@ public class StoreControllerTest {
                .andExpect(status().isNotFound());
     }
 
-    private List<Store> applyIdToStores(List<Store> stores) {
-        stores.stream().forEach(store -> store.setId(new Random().nextLong()));
-        return stores;
+    @Test
+    public void askingForAnExistingStoreByIdReturnsTheStore() throws Exception {
+        Store store = StoreBuilder.aStore().build();
+        when(storeServiceMock.getStore(any())).thenReturn(store);
+        mockMvc.perform(get("/stores/" + store.id().toString()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id", is(store.id())));
+    }
+
+    @Test
+    public void askingForANonExistingStoreByIdReturns404() throws Exception {
+        when(storeServiceMock.getStore(any())).thenThrow(new NotFoundStoreException());
+        Long nonExistingId = new Random().nextLong();
+        mockMvc.perform(get("/stores/" + nonExistingId.toString()))
+                .andExpect(status().isNotFound());
     }
 }

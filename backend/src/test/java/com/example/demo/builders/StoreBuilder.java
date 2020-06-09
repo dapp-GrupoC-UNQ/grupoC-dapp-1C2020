@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class StoreBuilder {
@@ -39,8 +40,10 @@ public class StoreBuilder {
     }
 
     public Store build() {
-        return new Store(storeName, storeCategories, storeAddress,
-                deliveryMaxDistanceInKm, availablePaymentMethods, storeTimeSchedule, openingDate, imageUrl);
+        Store store = new Store(storeName, storeCategories, storeAddress,
+                                deliveryMaxDistanceInKm, availablePaymentMethods, storeTimeSchedule, openingDate, imageUrl);
+        store.setId(new Random().nextLong());
+        return store;
     }
 
     public StoreBuilder withName(String unNombre) {
@@ -93,5 +96,10 @@ public class StoreBuilder {
         Store store = aStore().build();
         store.setEmptyDaysOfWeek();
         return store;
+    }
+
+    public Store buildWithNoId() {
+        return new Store(storeName, storeCategories, storeAddress,
+                deliveryMaxDistanceInKm, availablePaymentMethods, storeTimeSchedule, openingDate, imageUrl);
     }
 }
