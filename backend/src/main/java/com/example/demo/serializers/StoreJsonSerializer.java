@@ -16,6 +16,7 @@ public class StoreJsonSerializer extends JsonSerializer<Store> {
             throws IOException, JsonProcessingException {
 
         jgen.writeStartObject();
+        jgen.writeNumberField("id", store.id());
         jgen.writeObjectField("storeName", store.name());
         jgen.writeStringField("storeAddress", store.address());
         jgen.writeNumberField("deliveryDistanceInKm", store.deliveryDistanceInKm());

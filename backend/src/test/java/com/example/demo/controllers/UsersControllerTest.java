@@ -226,6 +226,7 @@ public class UsersControllerTest {
     };
 
     private JSONObject generateStore(Store store) throws JSONException {
+        store.setId(new Random().nextLong());
         JSONObject storeJson = new JSONObject();
         JSONArray storeCategories = new JSONArray();
         JSONArray paymentMethods = new JSONArray();
@@ -238,6 +239,7 @@ public class UsersControllerTest {
         storeSchedule.put("openingTime", store.storeSchedule().openingTime());
         storeSchedule.put("closingTime", store.storeSchedule().closingTime());
 
+        storeJson.put("id", store.id());
         storeJson.put("storeName", store.name());
         storeJson.put("storeAddress", store.address());
         storeJson.put("deliveryDistanceInKm", store.deliveryDistanceInKm());
