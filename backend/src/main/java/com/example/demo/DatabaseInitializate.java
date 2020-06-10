@@ -51,9 +51,9 @@ public class DatabaseInitializate implements CommandLineRunner {
         Store candy = generateStore("All Creatures", "calle 1 300", 3, storeScheduleRepository, "https://img1.wikia.nocookie.net/__cb20101028182609/lossimpson/es/images/e/e8/250px-All_creatures_great_and_cheap.png");
         Store trufaDorada = generateStore("La trufa dorada", "calle 1 350", 3, storeScheduleRepository, "https://media.malditosnerds.com/adjuntos/290/migration/__export/1543350848181/sites/claro/malditosnerds/img/2015/09/21/aea433_THE_GILDED_TRUFFLE.jpg_875081608.jpg");
         Store luigi = generateStore("Luigi's", "calle 6 5047", 4, storeScheduleRepository, "https://vignette.wikia.nocookie.net/simpsons/images/7/79/Luigi%27s.png/revision/latest/top-crop/width/300/height/300?cb=20150518202729");
-        Merchandise fideos = historietas.addMerchandise("Fideos", "Marolio", 20.0, 10, MerchandiseCategory.GROCERY, "");
-        //storeService.addMerchandiseToStore(historietas.id(), fideos);
+        Merchandise fideos = new Merchandise("Fideos", "Marolio", 20.5, 12, MerchandiseCategory.GROCERY, "https://jumboargentina.vteximg.com.br/arquivos/ids/539292-750-750/Fideos-Spaghetti-Marolio-500-Gr-1-44037.jpg?v=636989736779430000");
         storeService.addStore(historietas);
+        storeService.addMerchandiseToStore(historietas.id(), fideos);
         storeService.addStore(kwickEMart);
         storeService.addStore(leftorium);
         storeService.addStore(cents);
