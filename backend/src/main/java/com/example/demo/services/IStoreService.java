@@ -20,4 +20,6 @@ public interface IStoreService {
     Store addStore(Store store);
 
     StoreAdminUser addAdmin();
+
+    void addMerchandiseToStore(Long storeId, Merchandise merchandise);
 }

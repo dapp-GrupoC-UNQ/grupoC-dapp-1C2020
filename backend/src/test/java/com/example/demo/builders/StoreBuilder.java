@@ -102,4 +102,10 @@ public class StoreBuilder {
         return new Store(storeName, storeCategories, storeAddress,
                 deliveryMaxDistanceInKm, availablePaymentMethods, storeTimeSchedule, openingDate, imageUrl);
     }
+
+    public Store buildWithId() {
+        Store store = this.build();
+        store.setId(new Random().nextLong());
+        return store;
+    }
 }

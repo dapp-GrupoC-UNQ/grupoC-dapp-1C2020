@@ -6,6 +6,7 @@ import com.example.demo.model.exceptions.InvalidStockTypeException;
 import com.example.demo.model.exceptions.NegativePriceMerchandiseException;
 import com.example.demo.model.exceptions.InsufficientMerchandiseStockException;
 import com.example.demo.model.exceptions.NegativeStockMerchandiseException;
+import com.example.demo.model.store.Store;
 import com.example.demo.serializers.MerchandiseJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -26,6 +27,8 @@ public class Merchandise {
     private MerchandiseCategory category;
     @Transient
     private Discount discountToApply = new NoDiscount();
+    /*@ManyToOne
+    private Store store;*/
 
     public Merchandise(String aName, String aBrand, Double aPrice, Integer aStock, MerchandiseCategory aCategory, String url) {
         if(aStock < 0) { throw new NegativeStockMerchandiseException();}
@@ -40,6 +43,9 @@ public class Merchandise {
 
     public Merchandise(){};
 
+    /*public void setStore(Store store) {
+        this.store = store;
+    }*/
     public String name() {
         return this.merchandiseName;
     }

@@ -1,8 +1,12 @@
 package com.example.demo.services;
 
+import com.example.demo.builders.MerchandiseBuilder;
 import com.example.demo.builders.StoreBuilder;
 import com.example.demo.builders.DiscountBuilder;
 import com.example.demo.model.discounts.Discount;
+import com.example.demo.model.exceptions.OptionNotAvailableForThisDeliveryType;
+import com.example.demo.model.exceptions.RepeatedMerchandiseInStore;
+import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.model.store.StoreCategory;
 import com.example.demo.repositories.StoreRepository;
@@ -17,6 +21,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -31,6 +37,9 @@ public class StoreServiceTest {
 
     @Mock
     StoreScheduleRepository storeScheduleRepository;
+
+    @Mock
+    MerchandiseRepository merchandiseRepository;
 
     @InjectMocks
     StoreService storeService;
@@ -66,5 +75,39 @@ public class StoreServiceTest {
         when(storeRepositoryMock.save(any())).thenReturn(store);
 
         assertEquals(storeService.addStore(store), store);
+    }
+
+    @Test
+    public void gettingAStoreByIdReturnsTheStore() {
+        Store store = StoreBuilder.aStore().buildWithId();
+        when(storeRepositoryMock.findById(any())).thenReturn(java.util.Optional.ofNullable(store));
+
+        Store retrievedStore = storeService.getStore(store.id());
+        assertEquals(retrievedStore.id(), store.id());
+    }
+
+    @Test
+    public void addingAMerchandiseToAStore() {
+        Store store = StoreBuilder.aStore().buildWithId();
+        Merchandise merchandise = MerchandiseBuilder.aMerchandise().build();
+        when(storeRepositoryMock.findById(any())).thenReturn(java.util.Optional.ofNullable(store));
+        when(merchandiseRepository.save(any())).thenReturn(merchandise);
+
+        storeService.addMerchandiseToStore(store.id(), merchandise);
+        Store retrievedStore = storeService.getStore(store.id());
+
+        assertTrue(retrievedStore.sellsMerchandise(merchandise.name(), merchandise.brand()));
+    }
+
+    @Test
+    public void isNotPossibleToAddARepeatedMerchandiseToAStore() {
+        Store store = StoreBuilder.aStore().buildWithId();
+        Merchandise merchandise = MerchandiseBuilder.aMerchandise().build();
+        when(storeRepositoryMock.findById(any())).thenReturn(java.util.Optional.ofNullable(store));
+        when(merchandiseRepository.save(any())).thenReturn(merchandise);
+
+        storeService.addMerchandiseToStore(store.id(), merchandise);
+
+        assertThrows(RepeatedMerchandiseInStore.class , ()-> storeService.addMerchandiseToStore(store.id(), merchandise));
     }
 }
