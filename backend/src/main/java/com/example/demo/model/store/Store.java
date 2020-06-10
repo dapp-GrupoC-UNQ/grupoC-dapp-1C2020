@@ -48,7 +48,7 @@ public class Store {
     private String mail = "";
     @Transient
     private List<Discount> discountList = new ArrayList<>();
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Merchandise> merchandiseList = new ArrayList<>();
 
     public Store(String name, List<StoreCategory> categories, String address, Integer distanceInKm,
@@ -118,11 +118,17 @@ public class Store {
         return !merchandiseList.isEmpty();
     }
 
-    public void addMerchandise(String name, String brand, Double price, Integer stock, MerchandiseCategory aCategory, String imageUrl) {
+    public Merchandise addMerchandise(String name, String brand, Double price, Integer stock, MerchandiseCategory aCategory, String imageUrl) {
         if(this.sellsProduct(name, brand)) { throw new RepeatedMerchandiseInStore();}
-        merchandiseList.add(new Merchandise(name, brand, price, stock, aCategory, imageUrl));
+        Merchandise newMerchandise = new Merchandise(name, brand, price, stock, aCategory, imageUrl);
+        merchandiseList.add(newMerchandise);
+        return newMerchandise;
     }
 
+    public void addMerchandise(Merchandise merchandise){
+        if(this.sellsProduct(merchandise.name(), merchandise.brand())) { throw new RepeatedMerchandiseInStore();}
+        merchandiseList.add(merchandise);
+    }
     public Boolean sellsMerchandise(String name, String brand) {
         return merchandiseList.stream().anyMatch(merchandise -> this.equalMerchandise(merchandise, name, brand));
     }

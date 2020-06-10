@@ -1,8 +1,11 @@
 package com.example.demo;
 
 import com.example.demo.model.StoreSchedule;
+import com.example.demo.model.merchandise.Merchandise;
+import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.model.store.Store;
 import com.example.demo.model.store.StoreCategory;
+import com.example.demo.repositories.merchandise.MerchandiseRepository;
 import com.example.demo.repositories.storeSchedule.StoreScheduleRepository;
 import com.example.demo.services.StoreService;
 import com.example.demo.services.users.UserService;
@@ -30,11 +33,7 @@ public class DatabaseInitializate implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        userService.addUser("margesimpson@gmail.com", "123456", "Av. Siempreviva 742");
-        userService.addUser("homerosimpson@gmail.com", "cerveza", "Av. Siempreviva 742");
-        userService.addUser("bartsimpson@gmail.com", "aycaramba", "Av. Siempreviva 742");
-        userService.addUser("lisasimpson@gmail.com", "yolosetodo", "Av. Siempreviva 742");
-        userService.addUser("maggiesimpson@gmail.com", "nohabla", "Av. Siempreviva 742");
+        generateUsers();
 
         Store historietas = generateStore("Calabozo del androide y expendio de tarjetas de baseball", "calle falsa 123", 2, storeScheduleRepository, "https://s3.us-east-1.amazonaws.com/musiquiatra/upload/monthly_2018_06/800px-Androidsdungeon.png.2d079f7f971d3794cf23275925e32bff.png");
         Store kwickEMart = generateStore("Kwik-E-Mart", "calle apus 123", 3,storeScheduleRepository, "https://www.tonica.la/__export/1534892802783/sites/debate/img/2018/08/21/kwik-e-mart_sc.jpg_1902800913.jpg");
@@ -52,7 +51,9 @@ public class DatabaseInitializate implements CommandLineRunner {
         Store candy = generateStore("All Creatures", "calle 1 300", 3, storeScheduleRepository, "https://img1.wikia.nocookie.net/__cb20101028182609/lossimpson/es/images/e/e8/250px-All_creatures_great_and_cheap.png");
         Store trufaDorada = generateStore("La trufa dorada", "calle 1 350", 3, storeScheduleRepository, "https://media.malditosnerds.com/adjuntos/290/migration/__export/1543350848181/sites/claro/malditosnerds/img/2015/09/21/aea433_THE_GILDED_TRUFFLE.jpg_875081608.jpg");
         Store luigi = generateStore("Luigi's", "calle 6 5047", 4, storeScheduleRepository, "https://vignette.wikia.nocookie.net/simpsons/images/7/79/Luigi%27s.png/revision/latest/top-crop/width/300/height/300?cb=20150518202729");
+        Merchandise fideos = new Merchandise("Fideos", "Marolio", 20.5, 12, MerchandiseCategory.GROCERY, "https://jumboargentina.vteximg.com.br/arquivos/ids/539292-750-750/Fideos-Spaghetti-Marolio-500-Gr-1-44037.jpg?v=636989736779430000");
         storeService.addStore(historietas);
+        storeService.addMerchandiseToStore(historietas.id(), fideos);
         storeService.addStore(kwickEMart);
         storeService.addStore(leftorium);
         storeService.addStore(cents);
@@ -68,6 +69,14 @@ public class DatabaseInitializate implements CommandLineRunner {
         storeService.addStore(candy);
         storeService.addStore(trufaDorada);
         storeService.addStore(luigi);
+    }
+
+    private void generateUsers() {
+        userService.addUser("margesimpson@gmail.com", "123456", "Av. Siempreviva 742");
+        userService.addUser("homerosimpson@gmail.com", "cerveza", "Av. Siempreviva 742");
+        userService.addUser("bartsimpson@gmail.com", "aycaramba", "Av. Siempreviva 742");
+        userService.addUser("lisasimpson@gmail.com", "yolosetodo", "Av. Siempreviva 742");
+        userService.addUser("maggiesimpson@gmail.com", "nohabla", "Av. Siempreviva 742");
     }
 
     private Store generateStore(String name, String address, Integer distanceInKm, StoreScheduleRepository storeScheduleRepository, String imageUrl) {

@@ -63,4 +63,12 @@ public class StoreService implements IStoreService {
     public StoreAdminUser addAdmin() {
         return null;
     }
+
+    @Override
+    public void addMerchandiseToStore(Long storeId, Merchandise merchandise) {
+        Store store = storeRepository.findById(storeId).orElseThrow(NotFoundStoreException::new);
+        store.addMerchandise(merchandise);
+        merchandiseRepository.save(merchandise);
+        storeRepository.save(store);
+    }
 }
