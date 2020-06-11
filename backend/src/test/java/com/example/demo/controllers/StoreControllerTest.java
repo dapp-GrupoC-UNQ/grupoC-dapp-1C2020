@@ -2,7 +2,9 @@ package com.example.demo.controllers;
 
 import com.example.demo.builders.MerchandiseBuilder;
 import com.example.demo.builders.StoreBuilder;
+import com.example.demo.model.exceptions.InvalidMerchandiseException;
 import com.example.demo.model.exceptions.NotFoundStoreException;
+import com.example.demo.model.exceptions.RepeatedMerchandiseInStore;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.model.store.StoreCategory;
@@ -134,6 +136,45 @@ public class StoreControllerTest {
         assertEquals(JsonPath.parse(response).read("category"), merchandise.getCategory().toString());
         assertEquals(JsonPath.parse(response).read("productImage"), merchandise.imageURL());
 
+    }
+
+    @Test
+    public void addingAMerchandiseInANonExistingStoreReturns404() throws Exception {
+        Merchandise merchandise = MerchandiseBuilder.aMerchandise().build();
+        when(storeServiceMock.addMerchandiseToStore(any(), any())).thenThrow(new NotFoundStoreException());
+
+        JSONObject body = generateMerchandiseToAddBody(merchandise);
+        MvcResult mvcResult = mockMvc.perform(post("/stores/addMerchandise")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(String.valueOf(body)))
+                .andExpect(status().isNotFound())
+                .andReturn();
+    }
+
+    @Test
+    public void addingAnExistingMerchandiseInStoreReturnsBadRequest() throws Exception {
+        Merchandise merchandise = MerchandiseBuilder.aMerchandise().build();
+        when(storeServiceMock.addMerchandiseToStore(any(), any())).thenThrow(new RepeatedMerchandiseInStore());
+
+        JSONObject body = generateMerchandiseToAddBody(merchandise);
+        MvcResult mvcResult = mockMvc.perform(post("/stores/addMerchandise")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(String.valueOf(body)))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
+
+    @Test
+    public void addingAMerchandiseWithInvalidFieldReturnsBadRequest() throws Exception{
+        Merchandise merchandise = MerchandiseBuilder.aMerchandise().withName("").build();
+        when(storeServiceMock.addMerchandiseToStore(any(), any())).thenThrow(new InvalidMerchandiseException());
+
+        JSONObject body = generateMerchandiseToAddBody(merchandise);
+        MvcResult mvcResult = mockMvc.perform(post("/stores/addMerchandise")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(String.valueOf(body)))
+                .andExpect(status().isBadRequest())
+                .andReturn();
     }
 
     private JSONObject generateMerchandiseToAddBody(Merchandise merchandise) throws JSONException {

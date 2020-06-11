@@ -5,6 +5,7 @@ import com.example.demo.model.AcquiredProduct;
 import com.example.demo.model.StoreSchedule;
 import com.example.demo.model.discounts.*;
 import com.example.demo.model.exceptions.InsufficientMerchandiseStockException;
+import com.example.demo.model.exceptions.InvalidMerchandiseException;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.model.turnsSystem.TurnsSystem;
@@ -127,8 +128,17 @@ public class Store {
 
     public void addMerchandise(Merchandise merchandise){
         if(this.sellsProduct(merchandise.name(), merchandise.brand())) { throw new RepeatedMerchandiseInStore();}
+        canAddMerchandise(merchandise);
         merchandiseList.add(merchandise);
     }
+
+    private Boolean canAddMerchandise(Merchandise merchandise) {
+        if(merchandise.name().isEmpty() || merchandise.brand().isEmpty()){
+            throw new InvalidMerchandiseException();
+        }
+        return true;
+    }
+
     public Boolean sellsMerchandise(String name, String brand) {
         return merchandiseList.stream().anyMatch(merchandise -> this.equalMerchandise(merchandise, name, brand));
     }
