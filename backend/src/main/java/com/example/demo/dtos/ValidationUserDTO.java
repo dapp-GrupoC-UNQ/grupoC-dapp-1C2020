@@ -10,13 +10,11 @@ public class ValidationUserDTO {
     private String password;
 
     @JsonCreator
-    public ValidationUserDTO(String email, String password)
+    public ValidationUserDTO(@JsonProperty("username") String username, @JsonProperty("password") String password)
     {
-        this.username = email;
+        this.username = username;
         this.password = password;
     }
-
-    public ValidationUserDTO(){};
 
     public String getUsername() {
         return this.username;

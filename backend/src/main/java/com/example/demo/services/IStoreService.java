@@ -21,5 +21,5 @@ public interface IStoreService {
 
     StoreAdminUser addAdmin();
 
-    void addMerchandiseToStore(Long storeId, Merchandise merchandise);
+    Merchandise addMerchandiseToStore(Long storeId, Merchandise merchandise);
 }

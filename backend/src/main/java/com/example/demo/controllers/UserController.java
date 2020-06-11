@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping(path = "/validateUser")
-    public ResponseEntity<User> validateUser(@ModelAttribute ValidationUserDTO validationUserDTO)
+    public ResponseEntity<User> validateUser(@RequestBody ValidationUserDTO validationUserDTO)
     {
         return new ResponseEntity<>(userService.authenticateUser(validationUserDTO.getUsername(), validationUserDTO.getPassword()), HttpStatus.OK);
     }
