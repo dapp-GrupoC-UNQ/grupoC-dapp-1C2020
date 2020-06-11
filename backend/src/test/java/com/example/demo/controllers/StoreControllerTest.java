@@ -131,7 +131,7 @@ public class StoreControllerTest {
         assertEquals(JsonPath.parse(response).read("brand"), merchandise.brand());
         assertEquals(JsonPath.parse(response).read("price"), merchandise.price());
         assertEquals(JsonPath.parse(response).read("stock"), merchandise.stock());
-       // assertEquals(JsonPath.parse(response).read("category"), merchandise.getCategory());
+        assertEquals(JsonPath.parse(response).read("category"), merchandise.getCategory().toString());
         assertEquals(JsonPath.parse(response).read("productImage"), merchandise.imageURL());
 
     }
@@ -139,8 +139,6 @@ public class StoreControllerTest {
     private JSONObject generateMerchandiseToAddBody(Merchandise merchandise) throws JSONException {
         merchandise.setId(new Random().nextLong());
         JSONObject merchandiseJson = new JSONObject();
-        /*JSONObject priceJson = new JSONObject();
-        JSONObject stockJson = new JSONObject();*/
 
 
         merchandiseJson.put("id", merchandise.id());
@@ -148,7 +146,7 @@ public class StoreControllerTest {
         merchandiseJson.put("merchandiseBrand", merchandise.brand());
         merchandiseJson.put("merchandisePrice", merchandise.price());
         merchandiseJson.put("merchandiseStock", merchandise.stock());
-        //merchandiseJson.put("category", merchandise.getCategory());
+        merchandiseJson.put("category", merchandise.getCategory().toString());
         merchandiseJson.put("productImage", merchandise.imageURL());
         return merchandiseJson;
 
