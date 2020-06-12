@@ -65,10 +65,11 @@ public class StoreService implements IStoreService {
     }
 
     @Override
-    public void addMerchandiseToStore(Long storeId, Merchandise merchandise) {
+    public Merchandise addMerchandiseToStore(Long storeId, Merchandise merchandise) {
         Store store = storeRepository.findById(storeId).orElseThrow(NotFoundStoreException::new);
         store.addMerchandise(merchandise);
         merchandiseRepository.save(merchandise);
         storeRepository.save(store);
+        return merchandise;
     }
 }

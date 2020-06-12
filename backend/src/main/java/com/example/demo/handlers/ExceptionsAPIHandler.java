@@ -39,4 +39,14 @@ public class ExceptionsAPIHandler {
     public ResponseEntity<String> invalidAddress(Exception exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler({RepeatedMerchandiseInStore.class})
+    public ResponseEntity<String> repeatedMerchandise(Exception exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({InvalidMerchandiseException.class})
+    public ResponseEntity<String> invalidMerchandise(Exception exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

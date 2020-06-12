@@ -92,4 +92,6 @@ public class Merchandise {
     public Long id() {
         return this.id;
     }
+
+    public Long setId(Long merchandiseID) { return this.id = merchandiseID; }
 }

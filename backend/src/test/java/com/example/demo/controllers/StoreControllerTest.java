@@ -1,24 +1,36 @@
 package com.example.demo.controllers;
 
+import com.example.demo.builders.MerchandiseBuilder;
 import com.example.demo.builders.StoreBuilder;
+import com.example.demo.model.exceptions.InvalidMerchandiseException;
 import com.example.demo.model.exceptions.NotFoundStoreException;
+import com.example.demo.model.exceptions.RepeatedMerchandiseInStore;
+import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 import com.example.demo.model.store.StoreCategory;
 import com.example.demo.services.StoreService;
 import com.example.demo.model.store.Store;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.JsonPath;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+
 import java.util.List;
 import java.util.Random;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -101,5 +113,83 @@ public class StoreControllerTest {
         Long nonExistingId = new Random().nextLong();
         mockMvc.perform(get("/stores/" + nonExistingId.toString()))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void addingAMerchandiseInStoreReturnsTheMerchandiseAnd200Status() throws Exception {
+        Store store = StoreBuilder.aStore().buildWithId();
+        Merchandise merchandise = MerchandiseBuilder.aMerchandise().build();
+        when(storeServiceMock.addMerchandiseToStore(any(), any())).thenReturn(merchandise);
+
+        JSONObject body = generateMerchandiseToAddBody(merchandise);
+        MvcResult mvcResult = mockMvc.perform(post("/stores/addMerchandise")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(String.valueOf(body)))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String response = mvcResult.getResponse().getContentAsString();
+        assertEquals(JsonPath.parse(response).read("name"), merchandise.name());
+        assertEquals(JsonPath.parse(response).read("brand"), merchandise.brand());
+        assertEquals(JsonPath.parse(response).read("price"), merchandise.price());
+        assertEquals(JsonPath.parse(response).read("stock"), merchandise.stock());
+        assertEquals(JsonPath.parse(response).read("category"), merchandise.getCategory().toString());
+        assertEquals(JsonPath.parse(response).read("productImage"), merchandise.imageURL());
+
+    }
+
+    @Test
+    public void addingAMerchandiseInANonExistingStoreReturns404() throws Exception {
+        Merchandise merchandise = MerchandiseBuilder.aMerchandise().build();
+        when(storeServiceMock.addMerchandiseToStore(any(), any())).thenThrow(new NotFoundStoreException());
+
+        JSONObject body = generateMerchandiseToAddBody(merchandise);
+        MvcResult mvcResult = mockMvc.perform(post("/stores/addMerchandise")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(String.valueOf(body)))
+                .andExpect(status().isNotFound())
+                .andReturn();
+    }
+
+    @Test
+    public void addingAnExistingMerchandiseInStoreReturnsBadRequest() throws Exception {
+        Merchandise merchandise = MerchandiseBuilder.aMerchandise().build();
+        when(storeServiceMock.addMerchandiseToStore(any(), any())).thenThrow(new RepeatedMerchandiseInStore());
+
+        JSONObject body = generateMerchandiseToAddBody(merchandise);
+        MvcResult mvcResult = mockMvc.perform(post("/stores/addMerchandise")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(String.valueOf(body)))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
+
+    @Test
+    public void addingAMerchandiseWithInvalidFieldReturnsBadRequest() throws Exception{
+        Merchandise merchandise = MerchandiseBuilder.aMerchandise().withName("").build();
+        when(storeServiceMock.addMerchandiseToStore(any(), any())).thenThrow(new InvalidMerchandiseException());
+
+        JSONObject body = generateMerchandiseToAddBody(merchandise);
+        MvcResult mvcResult = mockMvc.perform(post("/stores/addMerchandise")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(String.valueOf(body)))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
+
+    private JSONObject generateMerchandiseToAddBody(Merchandise merchandise) throws JSONException {
+        merchandise.setId(new Random().nextLong());
+        JSONObject merchandiseJson = new JSONObject();
+
+
+        merchandiseJson.put("id", merchandise.id());
+        merchandiseJson.put("merchandiseName", merchandise.name());
+        merchandiseJson.put("merchandiseBrand", merchandise.brand());
+        merchandiseJson.put("merchandisePrice", merchandise.price());
+        merchandiseJson.put("merchandiseStock", merchandise.stock());
+        merchandiseJson.put("category", merchandise.getCategory().toString());
+        merchandiseJson.put("productImage", merchandise.imageURL());
+        return merchandiseJson;
+
     }
 }

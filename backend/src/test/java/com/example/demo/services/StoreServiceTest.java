@@ -4,6 +4,7 @@ import com.example.demo.builders.MerchandiseBuilder;
 import com.example.demo.builders.StoreBuilder;
 import com.example.demo.builders.DiscountBuilder;
 import com.example.demo.model.discounts.Discount;
+import com.example.demo.model.exceptions.NotFoundStoreException;
 import com.example.demo.model.exceptions.OptionNotAvailableForThisDeliveryType;
 import com.example.demo.model.exceptions.RepeatedMerchandiseInStore;
 import com.example.demo.model.merchandise.Merchandise;
@@ -24,6 +25,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -109,5 +112,13 @@ public class StoreServiceTest {
         storeService.addMerchandiseToStore(store.id(), merchandise);
 
         assertThrows(RepeatedMerchandiseInStore.class , ()-> storeService.addMerchandiseToStore(store.id(), merchandise));
+    }
+
+    @Test
+    public void isNotPossibleToAddAMerchandiseToANonExistingStore() {
+        Merchandise merchandise = MerchandiseBuilder.aMerchandise().build();
+        when(storeRepositoryMock.findById(any())).thenReturn(java.util.Optional.ofNullable(null));
+
+        assertThrows(NotFoundStoreException.class , ()-> storeService.addMerchandiseToStore((long) 0, merchandise));
     }
 }
