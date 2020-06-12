@@ -114,13 +114,11 @@ public class StoreServiceTest {
         assertThrows(RepeatedMerchandiseInStore.class , ()-> storeService.addMerchandiseToStore(store.id(), merchandise));
     }
 
-   /* @Test
+    @Test
     public void isNotPossibleToAddAMerchandiseToANonExistingStore() {
-        Store store = StoreBuilder.aStore().buildWithId();
         Merchandise merchandise = MerchandiseBuilder.aMerchandise().build();
-        when(storeRepositoryMock.findById(any())).thenReturn(java.util.Optional.ofNullable(store));
-        when(merchandiseRepository.save(any())).thenReturn(merchandise);
+        when(storeRepositoryMock.findById(any())).thenReturn(java.util.Optional.ofNullable(null));
 
-        assertThrows(NotFoundStoreException.class , ()-> storeService.addMerchandiseToStore(new Random().nextLong(), merchandise));
-    }*/
+        assertThrows(NotFoundStoreException.class , ()-> storeService.addMerchandiseToStore((long) 0, merchandise));
+    }
 }

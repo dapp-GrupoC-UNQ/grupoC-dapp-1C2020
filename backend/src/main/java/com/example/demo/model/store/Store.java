@@ -120,14 +120,13 @@ public class Store {
     }
 
     public Merchandise addMerchandise(String name, String brand, Double price, Integer stock, MerchandiseCategory aCategory, String imageUrl) {
-        if(this.sellsProduct(name, brand)) { throw new RepeatedMerchandiseInStore();}
         Merchandise newMerchandise = new Merchandise(name, brand, price, stock, aCategory, imageUrl);
+        canAddMerchandise(newMerchandise);
         merchandiseList.add(newMerchandise);
         return newMerchandise;
     }
 
     public void addMerchandise(Merchandise merchandise){
-        if(this.sellsProduct(merchandise.name(), merchandise.brand())) { throw new RepeatedMerchandiseInStore();}
         canAddMerchandise(merchandise);
         merchandiseList.add(merchandise);
     }
@@ -136,6 +135,7 @@ public class Store {
         if(merchandise.name().isEmpty() || merchandise.brand().isEmpty()){
             throw new InvalidMerchandiseException();
         }
+        if(this.sellsProduct(merchandise.name(), merchandise.brand())) { throw new RepeatedMerchandiseInStore();}
         return true;
     }
 

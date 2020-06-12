@@ -52,9 +52,16 @@ public class DatabaseInitializate implements CommandLineRunner {
         Store trufaDorada = generateStore("La trufa dorada", "calle 1 350", 3, storeScheduleRepository, "https://media.malditosnerds.com/adjuntos/290/migration/__export/1543350848181/sites/claro/malditosnerds/img/2015/09/21/aea433_THE_GILDED_TRUFFLE.jpg_875081608.jpg");
         Store luigi = generateStore("Luigi's", "calle 6 5047", 4, storeScheduleRepository, "https://vignette.wikia.nocookie.net/simpsons/images/7/79/Luigi%27s.png/revision/latest/top-crop/width/300/height/300?cb=20150518202729");
         Merchandise fideos = new Merchandise("Fideos", "Marolio", 20.5, 12, MerchandiseCategory.GROCERY, "https://jumboargentina.vteximg.com.br/arquivos/ids/539292-750-750/Fideos-Spaghetti-Marolio-500-Gr-1-44037.jpg?v=636989736779430000");
+        Merchandise mayonesa = new Merchandise("Mayonesa", "Helmanns", 15.0, 12, MerchandiseCategory.GROCERY, "https://cdn11.bigcommerce.com/s-3stx4pub31/images/stencil/608x608/products/492/1313/mayonesa950__07850.1563569504.jpg?c=2");
+        Merchandise mostaza = new Merchandise("Mostaza", "Savora", 21.5, 12, MerchandiseCategory.GROCERY, "https://cdn11.bigcommerce.com/s-3stx4pub31/images/stencil/608x608/products/492/1313/mayonesa950__07850.1563569504.jpg?c=2");
+        Merchandise arroz = new Merchandise("Arroz", "Gallo", 25.0, 12, MerchandiseCategory.GROCERY, "https://cdn11.bigcommerce.com/s-3stx4pub31/images/stencil/608x608/products/492/1313/mayonesa950__07850.1563569504.jpg?c=2");
+
         storeService.addStore(historietas);
         storeService.addMerchandiseToStore(historietas.id(), fideos);
+        storeService.addMerchandiseToStore(historietas.id(), mostaza);
+        storeService.addMerchandiseToStore(historietas.id(),arroz);
         storeService.addStore(kwickEMart);
+        storeService.addMerchandiseToStore(kwickEMart.id(), mayonesa);
         storeService.addStore(leftorium);
         storeService.addStore(cents);
         storeService.addStore(helados);

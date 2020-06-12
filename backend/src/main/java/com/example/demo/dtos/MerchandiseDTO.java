@@ -24,14 +24,14 @@ public class MerchandiseDTO {
     @JsonCreator
     public MerchandiseDTO(@JsonProperty("storeId") Long storeId, @JsonProperty("name")String name, @JsonProperty("brand")String brand,
                           @JsonProperty("price") Double price, @JsonProperty("stock") Integer stock,
-                          @JsonProperty("category") MerchandiseCategory category, @JsonProperty("url") String url){
+                          @JsonProperty("category") MerchandiseCategory category, @JsonProperty("productImage") String imageURL){
         this.storeId = storeId;
         this.merchandiseName = name;
         this.merchandiseBrand = brand;
         this.merchandisePrice = price;
         this.merchandiseStock = stock;
         this.category = category;
-        this.imageURL = url;
+        this.imageURL = imageURL;
     }
 
     public MerchandiseDTO(){};
