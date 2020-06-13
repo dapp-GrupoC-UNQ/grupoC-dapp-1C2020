@@ -10,6 +10,7 @@ import Category from "./category/Category";
 import Store from "./store/Store";
 import Discount from "./discount/Discount";
 import ShoppingCart from "./ShoppingCart/ShoppingCart";
+import UserUpdateModal from "./user-data/UserUpdateModal";
 
 class HomePage extends React.Component {
     constructor(props){
@@ -19,7 +20,8 @@ class HomePage extends React.Component {
             loadingEntitiesState: false,
             entityRenderFunction: this.renderStore,
             showingShoppingCart: false,
-            productsInCart: []
+            productsInCart: [],
+            showUserProfileModal: false
             //Es importante tener toda la estructura del state planteada antes de ir a buscar cosas al backend para evitar undefines.
         }
     }
@@ -98,6 +100,8 @@ class HomePage extends React.Component {
         this.setState({productsInCart: newProductsList})
     }
 
+    showUserProfile = () => this.setState({showUserProfileModal: true})
+
     render() {
         return(
             <div className="homepage">
@@ -106,7 +110,9 @@ class HomePage extends React.Component {
                            showDiscounts={this.showDiscounts}
                            cart={this.showShoppingCart}
                            logOut={this.props.logOut}
+                           showUserProfile={this.showUserProfile}
                   />
+                {this.state.showUserProfileModal && <UserUpdateModal/>}
                 <div className="entities-panel">
                     {this.state.isLoading && <LoadingSpinner isLoading={this.state.loadingEntitiesState}/>}
                     {!this.state.isLoading && !this.state.showingShoppingCart &&
