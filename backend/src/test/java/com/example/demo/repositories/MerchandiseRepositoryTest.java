@@ -17,6 +17,8 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class MerchandiseRepositoryTest {
@@ -38,15 +40,18 @@ public class MerchandiseRepositoryTest {
 
     @Test
     public void getMerchandiseFromSpecificStore() {
-        Store store = StoreBuilder.aStore().buildWithId();
+        Store store = StoreBuilder.aStore().build();
+        store.setId((long) 1);
         Merchandise fideos = MerchandiseBuilder.aMerchandise().withName("Fideos").build();
         Merchandise arroz = MerchandiseBuilder.aMerchandise().withName("Arroz").build();
-        storeRepository.save(store);
-        merchandiseRepository.save(fideos);
+        store.addMerchandise(fideos);
         merchandiseRepository.save(arroz);
+        merchandiseRepository.save(fideos);
+        Long storeId = storeRepository.save(store).id();
         List<Merchandise> merchandiseList = Arrays.asList(fideos);
 
-        Optional<List<Merchandise>> retrivedMerchandiseList = merchandiseRepository.getMerchandiseFromStore(store.id());
+        Optional<List<Merchandise>> retrivedMerchandiseList = merchandiseRepository.getMerchandiseFromStore(storeId);
         assertThat(retrivedMerchandiseList).hasValue(merchandiseList);
+        assertEquals(1, merchandiseList.size());
     }
 }

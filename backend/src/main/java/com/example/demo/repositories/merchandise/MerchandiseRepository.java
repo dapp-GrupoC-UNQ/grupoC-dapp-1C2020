@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface MerchandiseRepository extends JpaRepository<Merchandise, Long> {
 
-    @Query(value = "SELECT DISTINCT FROM (SELECT DISTINCT FROM STORE_MERCHANDISE_LIST INNER JOIN MERCHANDISE ON MERCHANDISE.ID=MERCHANDISE_LIS_ID AND STORE_ID= %:storeId%) AS C",
+    @Query(value = "SELECT * FROM (SELECT * FROM STORE_MERCHANDISE_LIST INNER JOIN MERCHANDISE ON MERCHANDISE.ID=MERCHANDISE_LIST_ID AND STORE_ID= :storeId)",
             nativeQuery = true)
     Optional<List<Merchandise>> getMerchandiseFromStore(@Param("storeId") Long storeId);
 

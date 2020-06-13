@@ -80,17 +80,6 @@ public class StoreControllerTest {
     }
 
     @Test
-    public void gettingStoreProductsListFromExistingStoreReturnsTheListOfProducts() throws Exception{
-        Store store = StoreBuilder.aStore().withName("Coto").build();
-        store.addMerchandise("Pan", "Bimbo", 34.6, 12, MerchandiseCategory.BAKERY, "foto pan");
-        store.setId(new Random().nextLong()); //que onda esto?
-        when(storeServiceMock.getProductsFromStore(any())).thenReturn(store.listOfAvailableMerchandise());
-
-        mockMvc.perform(get("/stores/" + (store.id()).toString() + "/products"))
-               .andExpect(status().isOk()); //FALTA TESTEAR EL CONTENIDO
-    }
-
-    @Test
     public void gettingStoreProductsListFromNonExistingStoreReturns404() throws Exception{
         when(storeServiceMock.getProductsFromStore(any())).thenThrow((new NotFoundStoreException()));
         Long nonExistingId = (new Random().nextLong());
@@ -175,6 +164,25 @@ public class StoreControllerTest {
                 .content(String.valueOf(body)))
                 .andExpect(status().isBadRequest())
                 .andReturn();
+    }
+
+    @Test
+    public void gettingMerchandiseFromASpecificStoreReturnsTheMerchandiseListAnd200Status() throws Exception{
+        Store store = StoreBuilder.aStore().buildWithId();
+        store.addMerchandise("Pan Lactal", "Fargo", 100.0, 1000, MerchandiseCategory.GROCERY, "panFargo");
+        List<Merchandise> merchandiseList = store.listOfAvailableMerchandise();
+        when(storeServiceMock.getProductsFromStore(any())).thenReturn(merchandiseList);
+
+        mockMvc.perform(get("/stores/" + (store.id()).toString() + "/products"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].name", is(merchandiseList.get(0).name())))
+                .andExpect(jsonPath("$[0].brand", is(merchandiseList.get(0).brand())))
+                .andExpect(jsonPath("$[0].price", is(merchandiseList.get(0).price())))
+                .andExpect(jsonPath("$[0].stock", is(merchandiseList.get(0).stock())))
+                .andExpect(jsonPath("$[0].category", is(merchandiseList.get(0).getCategory().toString())))
+                .andExpect(jsonPath("$[0].productImage", is(merchandiseList.get(0).imageURL())));
+
     }
 
     private JSONObject generateMerchandiseToAddBody(Merchandise merchandise) throws JSONException {
