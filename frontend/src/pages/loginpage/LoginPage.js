@@ -26,7 +26,7 @@ class LoginPage extends React.Component {
             LoginService().validateUser({username: this.state.username, password: this.state.password})
                 .then(response => {
                     this.props.onLogin()
-                    this.props.history.push("/homepage")
+                    this.props.history.push("/stores")
                 })
                 .catch( error => {
                     alert("El nombre de usuario o la contraseña no son correctos")

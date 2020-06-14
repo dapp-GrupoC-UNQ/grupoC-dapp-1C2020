@@ -22,7 +22,7 @@ class Product extends React.Component {
     }
     render() {
         return (<div className="entity-card product-card">
-            <div className="product-button">
+            {/*<div className="product-button">
                 {!this.props.productIsInCart(this.props.product) &&
                 <div className="add-to-cart-button">
                     <button  onClick={this.addProductToCart}>
@@ -37,7 +37,7 @@ class Product extends React.Component {
                     </div>
                 </div>
                 }
-            </div>
+            </div>*/}
             <div className='imagen-comercio'>
                 <img src={this.props.product.productImage}/>
             </div>

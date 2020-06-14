@@ -3,10 +3,12 @@ import './pages/loginpage/loginpage.scss';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import './encuarentenados-app.scss'
 import LoginPage from "./pages/loginpage/LoginPage";
-import HomePage from "./pages/homepage/HomePage";
+import HomePage from "./pages/homepage/Stores";
 import ProtectedRoute from "./components/authentication/PrivateRoute";
 import {LanguageContext, LanguageMaps} from "./constants/LanguageMaps";
 import SideBar from "./pages/homepage/side-bar/SideBar";
+import Store from "./pages/homepage/store/Store";
+import StoreProducts from "./pages/homepage/store/StoreProducts";
 
 class App extends React.Component {
     constructor(props) {
@@ -30,30 +32,33 @@ class App extends React.Component {
 
     render() {
         return (
-                <BrowserRouter>
-                    <Switch>
-                        <Route
-                            exact
-                            path="/"
-                            render={() => <LoginPage onLogin={this.logInUser}/>}
-                        />
-                    </Switch>
-                    <React.Fragment>
+            <BrowserRouter>
+                <Switch>
+                    <Route
+                        exact
+                        path="/"
+                        render={() => <LoginPage onLogin={this.logInUser}/>}
+                    />
                         <LanguageContext.Provider value={this.state.language}>
                             <div className='encuarentena2'>
                                 <SideBar changeLanguage={this.changeLanguage}/>
-                                <Switch>
-                                        <ProtectedRoute path='/homepage'
-                                                        loggedIn={this.state.loggedUser}
-                                                        changeLanguage={this.changeLanguage}
-                                                        logOut={this.logOut}
-                                                        component={HomePage}
-                                        />
-                                </Switch>
+                                <ProtectedRoute
+                                                exact
+                                                path='/stores'
+                                                loggedIn={this.state.loggedUser}
+                                                changeLanguage={this.changeLanguage}
+                                                logOut={this.logOut}
+                                                component={HomePage}
+                                />
+                                <Route
+                                    exact
+                                    path="/stores/:id/products"
+                                    component={StoreProducts}
+                                />
                             </div>
                         </LanguageContext.Provider>
-                    </React.Fragment>
-                </BrowserRouter>
+                </Switch>
+            </BrowserRouter>
         );
     }
 }

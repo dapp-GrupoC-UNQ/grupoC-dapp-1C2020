@@ -10,8 +10,8 @@ const StoreService = () => {
         return axios.get(`${SERVICE_URL}stores?category=${category}`)
     }
 
-    const getStoreProducts = (store) => {
-        return axios.get(`${SERVICE_URL}stores/${store.id}/products`)
+    const getStoreProducts = (storeId) => {
+        return axios.get(`${SERVICE_URL}stores/${storeId}/products`)
     }
 
     //Hacer request para traer los stores que tengan X categoria. Buscar como pasar en axios un query param

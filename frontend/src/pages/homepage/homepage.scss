@@ -35,6 +35,10 @@
       align-items: center;
       padding: 10px;
 
+      &.products-entities {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
       .entity-card {
         position: relative;
         height: 300px;
