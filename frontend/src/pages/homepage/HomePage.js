@@ -66,9 +66,9 @@ class HomePage extends React.Component {
             });
     }
 
-    addStoresToProducts = (listOfProducts, store) =>{
+    addStoresToProducts = (listOfProducts, storeId) =>{
         return listOfProducts.map(product => {
-            product.storeName = store.storeName;
+            product.storeId = storeId;
             return product
         })
     }
@@ -76,7 +76,7 @@ class HomePage extends React.Component {
     showStoreProducts = (store) => {
         StoreService().getStoreProducts(store)
             .then(result => {
-                this.setState({entities: this.addStoresToProducts(result.data, store), entityRenderFunction: this.renderProducts, loadingEntitiesState: false})
+                this.setState({entities: this.addStoresToProducts(result.data.merchandises, result.data.storeId), entityRenderFunction: this.renderProducts, loadingEntitiesState: false})
             })
     }
 
@@ -110,9 +110,11 @@ class HomePage extends React.Component {
                 <div className="entities-panel">
                     {this.state.isLoading && <LoadingSpinner isLoading={this.state.loadingEntitiesState}/>}
                     {!this.state.isLoading && !this.state.showingShoppingCart &&
-                    <div className="entities">
-                        {this.state.entities.map(entity => this.state.entityRenderFunction(entity))}
-                    </div>}
+                        <div className="entities">
+                            {this.state.entities === [] && <span>no hay na</span>}
+                            {this.state.entities.map(entity => this.state.entityRenderFunction(entity))}
+                        </div>
+                    }
                     {this.state.showingShoppingCart && <ShoppingCart showCart={this.state.showingShoppingCart} products={this.state.productsInCart} removeFromCart={this.removeFromCart}/>}
                 </div>
             </div>
