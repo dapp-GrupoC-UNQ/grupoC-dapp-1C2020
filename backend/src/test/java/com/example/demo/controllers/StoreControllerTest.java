@@ -167,13 +167,14 @@ public class StoreControllerTest {
 
         mockMvc.perform(get("/stores/" + (store.id()).toString() + "/products"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].name", is(merchandiseList.get(0).name())))
-                .andExpect(jsonPath("$[0].brand", is(merchandiseList.get(0).brand())))
-                .andExpect(jsonPath("$[0].price", is(merchandiseList.get(0).price())))
-                .andExpect(jsonPath("$[0].stock", is(merchandiseList.get(0).stock())))
-                .andExpect(jsonPath("$[0].category", is(merchandiseList.get(0).getCategory().toString())))
-                .andExpect(jsonPath("$[0].productImage", is(merchandiseList.get(0).imageURL())));
+                .andExpect(jsonPath("merchandises", hasSize(1)))
+                .andExpect(jsonPath("storeId", is(store.id())))
+                .andExpect(jsonPath("merchandises[0].name", is(merchandiseList.get(0).name())))
+                .andExpect(jsonPath("merchandises[0].brand", is(merchandiseList.get(0).brand())))
+                .andExpect(jsonPath("merchandises[0].price", is(merchandiseList.get(0).price())))
+                .andExpect(jsonPath("merchandises[0].stock", is(merchandiseList.get(0).stock())))
+                .andExpect(jsonPath("merchandises[0].category", is(merchandiseList.get(0).getCategory().toString())))
+                .andExpect(jsonPath("merchandises[0].productImage", is(merchandiseList.get(0).imageURL())));
 
     }
 
