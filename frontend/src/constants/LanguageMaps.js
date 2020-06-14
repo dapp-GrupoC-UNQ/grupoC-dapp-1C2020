@@ -9,7 +9,9 @@ export const LanguageMaps =
             seeMyCart: 'Ver mi carrito',
             logOut: 'Salir',
             sideBarTitle: 'Busca tu producto',
-            noProducts: '¡Ups! Parece que no hay productos en este comercio'
+            noProducts: '¡Ups! Parece que no hay productos en este comercio',
+            cartTitle: 'Mi Carrito',
+            emptyCartText: 'Su carrito está vacío. Ya compre algo maldita sea'
         },
         english: {
             sideBarStore: 'Stores',
@@ -18,7 +20,9 @@ export const LanguageMaps =
             seeMyCart: 'My shopping cart',
             logOut: 'Log out',
             sideBarTitle: 'Find your products',
-            noProducts: 'Ups! Seems like there are no products in this store'
+            noProducts: 'Ups! Seems like there are no products in this store',
+            cartTitle: 'My Cart',
+            emptyCartText: 'Your cart is empty. Buy something god damn it!'
         }
     }
 

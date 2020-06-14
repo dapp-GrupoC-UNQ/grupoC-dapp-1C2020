@@ -88,7 +88,7 @@ class HomePage extends React.Component {
             })
     }
 
-    showShoppingCart = () => this.setState({showingShoppingCart: true})
+    showShoppingCart = () => this.setState({showingShoppingCart: true, dataToShow: true})
     addToCart = (product) => {
         if(!this.productIsInCart(product)){
             this.setState({productsInCart: [...this.state.productsInCart, product]});
