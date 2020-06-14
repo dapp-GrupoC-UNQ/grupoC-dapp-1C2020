@@ -8,7 +8,8 @@ export const LanguageMaps =
             discounts: 'Ofertas',
             seeMyCart: 'Ver mi carrito',
             logOut: 'Salir',
-            sideBarTitle: 'Busca tu producto'
+            sideBarTitle: 'Busca tu producto',
+            noProducts: '¡Ups! Parece que no hay productos en este comercio'
         },
         english: {
             sideBarStore: 'Stores',
@@ -16,7 +17,8 @@ export const LanguageMaps =
             discounts: 'Discount',
             seeMyCart: 'My shopping cart',
             logOut: 'Log out',
-            sideBarTitle: 'Find your products'
+            sideBarTitle: 'Find your products',
+            noProducts: 'Ups! Seems like there are no products in this store'
         }
     }
 

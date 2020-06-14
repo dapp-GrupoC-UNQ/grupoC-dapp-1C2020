@@ -126,7 +126,7 @@ class HomePage extends React.Component {
                     {!this.state.dataToShow &&
                         <div className="no-products">
                             <FontAwesomeIcon icon={faShoppingBasket}/>
-                            <span>¡Ups! Parece que no hay productos en este comercio.</span>
+                            <span>{this.context.noProducts}</span>
                         </div>
                     }
                     {this.state.showingShoppingCart && <ShoppingCart showCart={this.state.showingShoppingCart} products={this.state.productsInCart} removeFromCart={this.removeFromCart}/>}
