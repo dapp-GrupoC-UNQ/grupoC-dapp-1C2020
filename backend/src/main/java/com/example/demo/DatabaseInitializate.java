@@ -103,13 +103,12 @@ public class DatabaseInitializate implements CommandLineRunner {
         storeService.addStore(donas);
         storeService.addMerchandiseToStore(donas.id(), donuts);
         storeService.addStore(edna);
-        storeService.addMerchandiseToStore(monstruomercado.id(), papitasN);
-        storeService.addMerchandiseToStore(monstruomercado.id(), milaSoja);
-        storeService.addMerchandiseToStore(monstruomercado.id(), coca);
-        storeService.addMerchandiseToStore(monstruomercado.id(), cocaDosLts);
-        storeService.addMerchandiseToStore(monstruomercado.id(), cocaZero);
-        storeService.addMerchandiseToStore(monstruomercado.id(), cocalataZero);
-        storeService.addMerchandiseToStore(monstruomercado.id(), cocaLata);
+        storeService.addMerchandiseToStore(edna.id(), milaSoja);
+        storeService.addMerchandiseToStore(edna.id(), coca);
+        storeService.addMerchandiseToStore(edna.id(), cocaDosLts);
+        storeService.addMerchandiseToStore(edna.id(), cocaZero);
+        storeService.addMerchandiseToStore(edna.id(), cocalataZero);
+        storeService.addMerchandiseToStore(edna.id(), cocaLata);
         storeService.addStore(gorras);
         storeService.addStore(moe);
         storeService.addMerchandiseToStore(moe.id(), cerveza);
@@ -137,7 +136,7 @@ public class DatabaseInitializate implements CommandLineRunner {
         storeService.addMerchandiseToStore(candy.id(), mym );
         storeService.addMerchandiseToStore(candy.id(), chocoPasas);
         storeService.addStore(trufaDorada);
-        storeService.addMerchandiseToStore(monstruomercado.id(), papitasN);
+        storeService.addMerchandiseToStore(trufaDorada.id(), papitasN);
         storeService.addStore(luigi);
     }
 
