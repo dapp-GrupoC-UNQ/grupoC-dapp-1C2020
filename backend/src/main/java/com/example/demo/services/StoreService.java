@@ -12,6 +12,7 @@ import com.example.demo.repositories.storeSchedule.StoreScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,6 +37,9 @@ public class StoreService implements IStoreService {
 
     public List<Merchandise> getProductsFromStore(Long storeId) {
         storeRepository.findById(storeId).orElseThrow(NotFoundStoreException::new);
+        if(storeRepository.findById(storeId).get().listOfAvailableMerchandise().isEmpty()){
+            return new ArrayList<>();
+        }
         return merchandiseRepository.getMerchandiseFromStore(storeId).get();
 
     }
