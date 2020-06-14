@@ -11,8 +11,8 @@ public class ClientUserTest {
 
     @Test
     public void clientKnowsItsUsername(){
-        ClientUser pepe = ClientUserBuilder.user().withUsername("pepe1234").build();
-        assertEquals(pepe.username(), "pepe1234");
+        ClientUser pepe = ClientUserBuilder.user().withUsername("pepe1234@gmail.com").build();
+        assertEquals(pepe.username(), "pepe1234@gmail.com");
     }
 
     @Test

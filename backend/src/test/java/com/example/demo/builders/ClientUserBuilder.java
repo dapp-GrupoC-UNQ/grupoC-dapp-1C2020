@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class ClientUserBuilder {
 
-    private String username = "Pepe";
+    private String username = "Pepe@gmail.com";
     private String password = "123456";
     private String address = "Av. Springfield 111";
 
