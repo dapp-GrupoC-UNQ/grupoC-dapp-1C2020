@@ -38,8 +38,13 @@ class CamposRegistroUsuario extends React.Component {
                             Email
                         </label>
                         <input type="email" id="email" name="email"
-                               onChange={(event) => this.props.onUpdate('username', event.target.value)}/>
+                               onChange={(event) =>  this.props.onUpdate('username', event.target.value)}/>
                     </div>
+                    {!this.props.isValidMail &&
+                    <div className="user-error">
+                        <FontAwesomeIcon icon={faExclamationTriangle}/>
+                        Mail Invalido.
+                    </div>}
                     <div className="campo-a-rellenar">
                         <label>
                             Direccion
@@ -60,13 +65,14 @@ class CamposRegistroUsuario extends React.Component {
                         <FontAwesomeIcon icon={faExclamationTriangle}/>
                         Hay campos sin completar.
                     </div>}
+
                 </div>
                 {this.props.isStore &&
                 <div className="seccion-de-campos">
                     <div className="campo-a-rellenar">
                         <label>
                             Horario de atención
-                        </label>
+                            </label>
                         <div className="horarios">
                             <div className="seleccion-horario">
                                 <input type="time" name="horariocomienzo"
