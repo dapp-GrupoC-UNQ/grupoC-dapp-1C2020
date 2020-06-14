@@ -3,6 +3,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowCircleRight, faShoppingCart, faDoorOpen} from "@fortawesome/free-solid-svg-icons";
 import "./side-bar.scss"
 import {LanguageContext} from "../../../constants/LanguageMaps";
+import english from '../../loginpage/imagenes-home-page/english.png';
+import spanish from '../../loginpage/imagenes-home-page/spanish.png';
 
 class SideBar extends React.Component {
     render() {
@@ -32,6 +34,14 @@ class SideBar extends React.Component {
                     <div className="link">
                         <a className="link-search" onClick={this.props.logOut}>{this.context.logOut}</a>
                         <FontAwesomeIcon onClick={this.props.logOut} icon={faDoorOpen}/>
+                    </div>
+                    <div className="languages">
+                        <div className="language">
+                            <img src={english}/>
+                        </div>
+                        <div className="language">
+                            <img src={spanish}/>
+                        </div>
                     </div>
                 </div>
             </div>

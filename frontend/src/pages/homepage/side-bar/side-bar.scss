@@ -11,6 +11,17 @@
   .links-container {
     margin: 10px;
 
+    .languages {
+      display: flex;
+      margin: 0 14px;
+      .language {
+        margin-right: 5px;
+        img {
+          height: 35px;
+          width: 40px;
+        }
+      }
+    }
     .link {
       margin: 5px;
 
