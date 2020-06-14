@@ -35,6 +35,7 @@ public class StoreService implements IStoreService {
     public List<Store> getStoresWithACategory(StoreCategory category) { return null; }
 
     public List<Merchandise> getProductsFromStore(Long storeId) {
+        storeRepository.findById(storeId).orElseThrow(NotFoundStoreException::new);
         return merchandiseRepository.getMerchandiseFromStore(storeId).get();
 
     }

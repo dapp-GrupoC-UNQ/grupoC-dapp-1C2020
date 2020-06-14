@@ -80,14 +80,6 @@ public class StoreControllerTest {
     }
 
     @Test
-    public void gettingStoreProductsListFromNonExistingStoreReturns404() throws Exception{
-        when(storeServiceMock.getProductsFromStore(any())).thenThrow((new NotFoundStoreException()));
-        Long nonExistingId = (new Random().nextLong());
-        mockMvc.perform(get("/stores/"+ nonExistingId.toString() +"/products"))
-               .andExpect(status().isNotFound());
-    }
-
-    @Test
     public void askingForAnExistingStoreByIdReturnsTheStore() throws Exception {
         Store store = StoreBuilder.aStore().build();
         when(storeServiceMock.getStore(any())).thenReturn(store);
@@ -183,6 +175,15 @@ public class StoreControllerTest {
                 .andExpect(jsonPath("$[0].category", is(merchandiseList.get(0).getCategory().toString())))
                 .andExpect(jsonPath("$[0].productImage", is(merchandiseList.get(0).imageURL())));
 
+    }
+
+    @Test
+    public void gettingStoreProductsListFromNonExistingStoreReturns404() throws Exception{
+        when(storeServiceMock.getProductsFromStore(any())).thenThrow((new NotFoundStoreException()));
+        Long nonExistingId = (new Random().nextLong());
+
+        mockMvc.perform(get("/stores/"+ nonExistingId.toString() +"/products"))
+                .andExpect(status().isNotFound());
     }
 
     private JSONObject generateMerchandiseToAddBody(Merchandise merchandise) throws JSONException {
