@@ -1,10 +1,13 @@
 package com.example.demo.model.user;
 
 import com.example.demo.deserializers.UserJsonDeserializer;
+import com.example.demo.model.exceptions.InvalidMailException;
 import com.example.demo.model.exceptions.InvalidUsernameOrPasswordException;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.persistence.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -25,8 +28,20 @@ public abstract class User {
         if(username.isEmpty() || password.isEmpty()){
             throw new InvalidUsernameOrPasswordException();
         }
+        validateMail(username);
         this.username = username;
         this.password = password;
+    }
+
+    protected void validateMail(String username){
+        Pattern pattern = Pattern
+                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+
+        Matcher mather = pattern.matcher(username);
+        if(!mather.find()){
+            throw new InvalidMailException();
+        }
     }
 
     public User(){};
