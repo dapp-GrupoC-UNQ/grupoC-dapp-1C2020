@@ -101,7 +101,6 @@ class ModalRegistroUsuario extends React.Component {
                                                isValidUser={this.state.isValidUser}
                                                onAddingDay={this.addDay}
                                                onAddingPaymentMethod={this.addPaymentMethod}
-                                               validateMail={this.validateMail}
                                                isValidMail={this.state.isValidMail}
                     />}
                     {this.state.registrationSucceed && <RegistrationSucceed

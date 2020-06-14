@@ -33,7 +33,7 @@ class CamposRegistroUsuario extends React.Component {
                         <input type="text" id="nombreYApellido" name="nombreYApellido"
                                onChange={(event) => this.props.onUpdate('storeName', event.target.value)}/>
                     </div>}
-                    <div className="campo-a-rellenar">
+                    <div className={"campo-a-rellenar" + (this.props.isValidMail ? "" : " error")}>
                         <label>
                             Email
                         </label>

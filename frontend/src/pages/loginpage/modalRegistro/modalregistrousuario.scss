@@ -20,6 +20,17 @@
       margin-top: 10px;
       font-size: initial;
     }
+    &.error {
+      input {
+        width: fit-content;
+        height: 30px;
+        border-radius: 5px;
+        margin-top: 10px;
+        font-size: initial;
+        border-color: #ff0020;
+      }
+    }
+
 
     .horarios {
       margin-top: 10px;
