@@ -8,9 +8,14 @@ const EntitiesValidator = () => {
             && !!state.rubros && !!state.openingDays && !!state.openingTime && !!state.closingTime && !!state.paymentMethods && !!state.deliveryDistance;
     }
 
+    const validateEmail = (state) => {
+        return /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(state.username);
+    }
+
     return {
         validateClientUser: validateClientUser,
-        validateStoreAdmin: validateStoreAdmin
+        validateStoreAdmin: validateStoreAdmin,
+        validateEmail: validateEmail
     }
 }
 
