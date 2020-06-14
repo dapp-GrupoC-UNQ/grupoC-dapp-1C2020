@@ -87,11 +87,6 @@ public class StoreBuilder {
         return this;
     }
 
-    public StoreBuilder withMail(String email) {
-        mail = email;
-        return this;
-    }
-
     public Store withoutDaysInSchedule() {
         Store store = aStore().build();
         store.setEmptyDaysOfWeek();
