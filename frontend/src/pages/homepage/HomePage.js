@@ -12,6 +12,7 @@ import Discount from "./discount/Discount";
 import ShoppingCart from "./ShoppingCart/ShoppingCart";
 import {faShoppingBasket} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {LanguageContext} from "../../constants/LanguageMaps";
 
 class HomePage extends React.Component {
     constructor(props){
@@ -132,7 +133,7 @@ class HomePage extends React.Component {
             </div>
         )
     }
-
 }
+HomePage.contextType = LanguageContext;
 
 export default withRouter(HomePage);

@@ -4,12 +4,14 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import LoginPage from "./pages/loginpage/LoginPage";
 import HomePage from "./pages/homepage/HomePage";
 import ProtectedRoute from "./components/authentication/PrivateRoute";
+import {LanguageContext, LanguageMaps} from "./constants/LanguageMaps";
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loggedUser: JSON.parse(localStorage.getItem('loggedUser')) || false
+            loggedUser: JSON.parse(localStorage.getItem('loggedUser')) || false,
+            language: LanguageMaps.spanish
         }
     }
 
@@ -24,18 +26,20 @@ class App extends React.Component {
 
     render() {
         return (
-            <BrowserRouter>
-                <Switch>
-                    <Route
-                        exact
-                        path="/"
-                        render={() => <LoginPage onLogin={this.logInUser}/>}
-                    />
-                </Switch>
-                <Switch>
-                    <ProtectedRoute path='/homepage' loggedIn={this.state.loggedUser} logOut={this.logOut} component={HomePage} />
-                </Switch>
-            </BrowserRouter>
+                <BrowserRouter>
+                    <Switch>
+                        <Route
+                            exact
+                            path="/"
+                            render={() => <LoginPage onLogin={this.logInUser}/>}
+                        />
+                    </Switch>
+                    <Switch>
+                        <LanguageContext.Provider value={this.state.language}>
+                            <ProtectedRoute path='/homepage' loggedIn={this.state.loggedUser} logOut={this.logOut} component={HomePage} />
+                        </LanguageContext.Provider>
+                    </Switch>
+                </BrowserRouter>
         );
     }
 }
