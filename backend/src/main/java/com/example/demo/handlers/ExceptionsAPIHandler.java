@@ -49,4 +49,9 @@ public class ExceptionsAPIHandler {
     public ResponseEntity<String> invalidMerchandise(Exception exception){
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler({NoProductsAvailableInStore.class})
+    public ResponseEntity<String> noProductsAvailable(Exception exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

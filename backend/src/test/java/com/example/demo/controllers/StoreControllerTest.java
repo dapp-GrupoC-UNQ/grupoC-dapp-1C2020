@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.builders.MerchandiseBuilder;
 import com.example.demo.builders.StoreBuilder;
 import com.example.demo.model.exceptions.InvalidMerchandiseException;
+import com.example.demo.model.exceptions.NoProductsAvailableInStore;
 import com.example.demo.model.exceptions.NotFoundStoreException;
 import com.example.demo.model.exceptions.RepeatedMerchandiseInStore;
 import com.example.demo.model.merchandise.Merchandise;
@@ -27,6 +28,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -184,6 +186,18 @@ public class StoreControllerTest {
 
         mockMvc.perform(get("/stores/"+ nonExistingId.toString() +"/products"))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void gettingStoreProductsListFromStoreWithoutMerchandiseReturnsBadRequest() throws Exception {
+        Store store = StoreBuilder.aStore().buildWithId();
+        when(storeServiceMock.getProductsFromStore(any())).thenReturn(new ArrayList<>());
+
+
+        mockMvc.perform(get("/stores/"+ store.id().toString() +"/products"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(0)))
+                .andExpect(jsonPath("id", is(store.id())));
     }
 
     private JSONObject generateMerchandiseToAddBody(Merchandise merchandise) throws JSONException {
