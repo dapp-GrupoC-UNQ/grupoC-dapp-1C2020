@@ -2,6 +2,7 @@ package com.example.demo.model.user;
 
 import com.example.demo.builders.ClientUserBuilder;
 import com.example.demo.model.exceptions.InvalidAddressException;
+import com.example.demo.model.exceptions.InvalidMailException;
 import com.example.demo.model.exceptions.InvalidUsernameOrPasswordException;
 import org.junit.Test;
 
@@ -40,6 +41,11 @@ public class ClientUserTest {
     @Test
     public void clientCannotHaveAnEmptyAddress(){
         assertThrows(InvalidAddressException.class , () -> ClientUserBuilder.user().withAddress("").build());
+    }
+
+    @Test
+    public void clientEmailCannotHaveAInvalidFormat(){
+        assertThrows(InvalidMailException.class , () -> ClientUserBuilder.user().withUsername("pepe123").build());
     }
 
     @Test
