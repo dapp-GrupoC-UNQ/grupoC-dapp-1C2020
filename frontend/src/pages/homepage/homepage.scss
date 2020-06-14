@@ -11,6 +11,21 @@
       width: 100%;
       height: 100%;
     }
+
+    .no-products {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: x-large;
+      color: #cbb408;
+
+      svg {
+        height: 100px;
+        width: 100px;
+      }
+    }
     .entities {
       display: grid;
       grid-template-columns: repeat(3, 1fr);

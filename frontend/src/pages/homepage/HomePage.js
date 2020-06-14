@@ -10,6 +10,8 @@ import Category from "./category/Category";
 import Store from "./store/Store";
 import Discount from "./discount/Discount";
 import ShoppingCart from "./ShoppingCart/ShoppingCart";
+import {faShoppingBasket} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 class HomePage extends React.Component {
     constructor(props){
@@ -41,7 +43,7 @@ class HomePage extends React.Component {
     showStores = () =>{
         StoreService().getAllStores()
             .then(result => {
-                this.setState({entities: result.data, entityRenderFunction: this.renderStore, loadingEntitiesState: false, showingShoppingCart: false})
+                this.setState({entities: result.data, entityRenderFunction: this.renderStore, loadingEntitiesState: false, showingShoppingCart: false, dataToShow: true})
             })
             .catch(error => {
                 alert("Uy, no pudimos cargar los comercios")
@@ -74,9 +76,14 @@ class HomePage extends React.Component {
     }
 
     showStoreProducts = (store) => {
+        this.setState({loadingEntitiesState: true})
         StoreService().getStoreProducts(store)
             .then(result => {
-                this.setState({entities: this.addStoresToProducts(result.data.merchandises, result.data.storeId), entityRenderFunction: this.renderProducts, loadingEntitiesState: false})
+                if(result.data.merchandises.length === 0) {
+                    this.setState({loadingEntitiesState: false, entities: result.data.merchandises, dataToShow: false})
+                } else {
+                    this.setState({entities: this.addStoresToProducts(result.data.merchandises, result.data.storeId), entityRenderFunction: this.renderProducts, dataToShow: true, loadingEntitiesState: false})
+                }
             })
     }
 
@@ -109,10 +116,15 @@ class HomePage extends React.Component {
                   />
                 <div className="entities-panel">
                     {this.state.isLoading && <LoadingSpinner isLoading={this.state.loadingEntitiesState}/>}
-                    {!this.state.isLoading && !this.state.showingShoppingCart &&
+                    {!this.state.isLoading && !this.state.showingShoppingCart && this.state.dataToShow &&
                         <div className="entities">
-                            {this.state.entities === [] && <span>no hay na</span>}
                             {this.state.entities.map(entity => this.state.entityRenderFunction(entity))}
+                        </div>
+                    }
+                    {!this.state.dataToShow &&
+                        <div className="no-products">
+                            <FontAwesomeIcon icon={faShoppingBasket}/>
+                            <span>¡Ups! Parece que no hay productos en este comercio.</span>
                         </div>
                     }
                     {this.state.showingShoppingCart && <ShoppingCart showCart={this.state.showingShoppingCart} products={this.state.productsInCart} removeFromCart={this.removeFromCart}/>}
