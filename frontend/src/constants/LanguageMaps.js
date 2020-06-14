@@ -10,7 +10,14 @@ export const LanguageMaps =
             logOut: 'Salir',
             sideBarTitle: 'Busca tu producto'
         },
-        english: {}
+        english: {
+            sideBarStore: 'Stores',
+            categories: 'Categories',
+            discounts: 'Discount',
+            seeMyCart: 'My shopping cart',
+            logOut: 'Log out',
+            sideBarTitle: 'Find your products'
+        }
     }
 
 export const LanguageContext = React.createContext(

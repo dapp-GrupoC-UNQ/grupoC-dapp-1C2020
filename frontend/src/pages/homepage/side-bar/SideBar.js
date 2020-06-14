@@ -2,7 +2,7 @@ import * as React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowCircleRight, faShoppingCart, faDoorOpen} from "@fortawesome/free-solid-svg-icons";
 import "./side-bar.scss"
-import {LanguageContext} from "../../../constants/LanguageMaps";
+import {LanguageContext, LanguageMaps} from "../../../constants/LanguageMaps";
 import english from '../../loginpage/imagenes-home-page/english.png';
 import spanish from '../../loginpage/imagenes-home-page/spanish.png';
 
@@ -36,10 +36,10 @@ class SideBar extends React.Component {
                         <FontAwesomeIcon onClick={this.props.logOut} icon={faDoorOpen}/>
                     </div>
                     <div className="languages">
-                        <div className="language">
+                        <div className="language" onClick={() => this.props.changeLanguage(LanguageMaps.english)}>
                             <img src={english}/>
                         </div>
-                        <div className="language">
+                        <div className="language" onClick={() => this.props.changeLanguage(LanguageMaps.spanish)}>
                             <img src={spanish}/>
                         </div>
                     </div>

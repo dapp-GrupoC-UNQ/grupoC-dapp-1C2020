@@ -24,6 +24,8 @@ class App extends React.Component {
         localStorage.setItem('loggedUser', false)
     }
 
+    changeLanguage = (language) => this.setState({language: language})
+
     render() {
         return (
                 <BrowserRouter>
@@ -36,7 +38,12 @@ class App extends React.Component {
                     </Switch>
                     <Switch>
                         <LanguageContext.Provider value={this.state.language}>
-                            <ProtectedRoute path='/homepage' loggedIn={this.state.loggedUser} logOut={this.logOut} component={HomePage} />
+                            <ProtectedRoute path='/homepage'
+                                            loggedIn={this.state.loggedUser}
+                                            changeLanguage={this.changeLanguage}
+                                            logOut={this.logOut}
+                                            component={HomePage}
+                            />
                         </LanguageContext.Provider>
                     </Switch>
                 </BrowserRouter>

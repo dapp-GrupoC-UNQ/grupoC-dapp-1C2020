@@ -114,6 +114,7 @@ class HomePage extends React.Component {
                            showDiscounts={this.showDiscounts}
                            cart={this.showShoppingCart}
                            logOut={this.props.logOut}
+                           changeLanguage={this.props.changeLanguage}
                   />
                 <div className="entities-panel">
                     {this.state.isLoading && <LoadingSpinner isLoading={this.state.loadingEntitiesState}/>}
