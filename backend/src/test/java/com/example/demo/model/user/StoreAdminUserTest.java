@@ -3,6 +3,7 @@ package com.example.demo.model.user;
 import com.example.demo.builders.StoreAdminBuilder;
 import com.example.demo.builders.StoreBuilder;
 import com.example.demo.builders.ClientUserBuilder;
+import com.example.demo.model.exceptions.InvalidMailException;
 import com.example.demo.model.exceptions.InvalidUsernameOrPasswordException;
 import com.example.demo.model.store.Store;
 import org.junit.Test;
@@ -12,7 +13,7 @@ public class StoreAdminUserTest {
 
     @Test
     public void aStoreAdminKnowsItsUsername(){
-        String aUsername = "Coto";
+        String aUsername = "Coto@gmail.com";
         StoreAdminUser storeAdminUser = StoreAdminBuilder.aStoreAdmin().withUsername(aUsername).build();
         assertEquals(storeAdminUser.username(), aUsername);
     }
@@ -32,6 +33,11 @@ public class StoreAdminUserTest {
     @Test
     public void storeAdminCannotHaveAnEmptyPassword(){
         assertThrows(InvalidUsernameOrPasswordException.class , ()->  StoreAdminBuilder.aStoreAdmin().withPassword("").build() );
+    }
+
+    @Test
+    public void storeAdminEmailCannotHaveAInvalidFormat(){
+        assertThrows(InvalidMailException.class , ()->  StoreAdminBuilder.aStoreAdmin().withUsername("coto").build() );
     }
 
     @Test
