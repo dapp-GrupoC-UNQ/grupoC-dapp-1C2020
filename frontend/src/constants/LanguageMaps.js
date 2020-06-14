@@ -11,7 +11,8 @@ export const LanguageMaps =
             sideBarTitle: 'Busca tu producto',
             noProducts: '¡Ups! Parece que no hay productos en este comercio',
             cartTitle: 'Mi Carrito',
-            emptyCartText: 'Su carrito está vacío. Ya compre algo maldita sea'
+            emptyCartText: 'Su carrito está vacío. Ya compre algo maldita sea',
+            loading: 'Cargando...'
         },
         english: {
             sideBarStore: 'Stores',
@@ -22,7 +23,8 @@ export const LanguageMaps =
             sideBarTitle: 'Find your products',
             noProducts: 'Ups! Seems like there are no products in this store',
             cartTitle: 'My Cart',
-            emptyCartText: 'Your cart is empty. Buy something god damn it!'
+            emptyCartText: 'Your cart is empty. Buy something god damn it!',
+            loading: 'Loading...'
         }
     }
 

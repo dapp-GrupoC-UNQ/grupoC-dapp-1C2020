@@ -22,6 +22,7 @@ class HomePage extends React.Component {
             loadingEntitiesState: false,
             entityRenderFunction: this.renderStore,
             showingShoppingCart: false,
+            dataToShow: true,
             productsInCart: []
             //Es importante tener toda la estructura del state planteada antes de ir a buscar cosas al backend para evitar undefines.
         }
@@ -117,13 +118,13 @@ class HomePage extends React.Component {
                            changeLanguage={this.props.changeLanguage}
                   />
                 <div className="entities-panel">
-                    {this.state.isLoading && <LoadingSpinner isLoading={this.state.loadingEntitiesState}/>}
+                    {this.state.loadingEntitiesState && <LoadingSpinner isLoading={this.state.loadingEntitiesState}/>}
                     {!this.state.isLoading && !this.state.showingShoppingCart && this.state.dataToShow &&
                         <div className="entities">
                             {this.state.entities.map(entity => this.state.entityRenderFunction(entity))}
                         </div>
                     }
-                    {!this.state.dataToShow &&
+                    {!this.state.dataToShow && !this.state.loadingEntitiesState &&
                         <div className="no-products">
                             <FontAwesomeIcon icon={faShoppingBasket}/>
                             <span>{this.context.noProducts}</span>
