@@ -4,9 +4,9 @@ class UserUpdateModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: 'belen.amat@gmail.com',
-            address: 'Calle 6 5047',
-            password: '123456'
+            username: this.props.user.username,
+            address: this.props.user.address,
+            password: this.props.user.password
         }
     }
 
@@ -17,7 +17,7 @@ class UserUpdateModal extends React.Component {
                 <div className='modal-card'>
                     <header className="modal-card-head">
                         <p className="modal-card-title">Tu Perfil</p>
-                        <button className="delete" aria-label="close"/>
+                        <button className="delete" aria-label="close" onClick={this.props.onClose}/>
                     </header>
                     <div className="modal-card-body">
                         <div className='seccion-de-campos'>

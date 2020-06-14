@@ -25,7 +25,7 @@ class LoginPage extends React.Component {
         if (this.userIsValid()) {
             LoginService().validateUser({username: this.state.username, password: this.state.password})
                 .then(response => {
-                    this.props.onLogin()
+                    this.props.onLogin(response.data)
                     this.props.history.push("/homepage")
                 })
                 .catch( error => {

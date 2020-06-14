@@ -110,9 +110,8 @@ class HomePage extends React.Component {
                            showDiscounts={this.showDiscounts}
                            cart={this.showShoppingCart}
                            logOut={this.props.logOut}
-                           showUserProfile={this.showUserProfile}
+                           loggedUser={this.props.loggedUser}
                   />
-                {this.state.showUserProfileModal && <UserUpdateModal/>}
                 <div className="entities-panel">
                     {this.state.isLoading && <LoadingSpinner isLoading={this.state.loadingEntitiesState}/>}
                     {!this.state.isLoading && !this.state.showingShoppingCart &&
