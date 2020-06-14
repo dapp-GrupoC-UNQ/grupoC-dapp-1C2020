@@ -12,6 +12,7 @@ import Discount from "./discount/Discount";
 import ShoppingCart from "./ShoppingCart/ShoppingCart";
 import {faShoppingBasket} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {LanguageContext} from "../../constants/LanguageMaps";
 
 class HomePage extends React.Component {
     constructor(props){
@@ -21,6 +22,7 @@ class HomePage extends React.Component {
             loadingEntitiesState: false,
             entityRenderFunction: this.renderStore,
             showingShoppingCart: false,
+            dataToShow: true,
             productsInCart: []
             //Es importante tener toda la estructura del state planteada antes de ir a buscar cosas al backend para evitar undefines.
         }
@@ -87,7 +89,7 @@ class HomePage extends React.Component {
             })
     }
 
-    showShoppingCart = () => this.setState({showingShoppingCart: true})
+    showShoppingCart = () => this.setState({showingShoppingCart: true, dataToShow: true})
     addToCart = (product) => {
         if(!this.productIsInCart(product)){
             this.setState({productsInCart: [...this.state.productsInCart, product]});
@@ -113,18 +115,19 @@ class HomePage extends React.Component {
                            showDiscounts={this.showDiscounts}
                            cart={this.showShoppingCart}
                            logOut={this.props.logOut}
+                           changeLanguage={this.props.changeLanguage}
                   />
                 <div className="entities-panel">
-                    {this.state.isLoading && <LoadingSpinner isLoading={this.state.loadingEntitiesState}/>}
+                    {this.state.loadingEntitiesState && <LoadingSpinner isLoading={this.state.loadingEntitiesState}/>}
                     {!this.state.isLoading && !this.state.showingShoppingCart && this.state.dataToShow &&
                         <div className="entities">
                             {this.state.entities.map(entity => this.state.entityRenderFunction(entity))}
                         </div>
                     }
-                    {!this.state.dataToShow &&
+                    {!this.state.dataToShow && !this.state.loadingEntitiesState &&
                         <div className="no-products">
                             <FontAwesomeIcon icon={faShoppingBasket}/>
-                            <span>¡Ups! Parece que no hay productos en este comercio.</span>
+                            <span>{this.context.noProducts}</span>
                         </div>
                     }
                     {this.state.showingShoppingCart && <ShoppingCart showCart={this.state.showingShoppingCart} products={this.state.productsInCart} removeFromCart={this.removeFromCart}/>}
@@ -132,7 +135,7 @@ class HomePage extends React.Component {
             </div>
         )
     }
-
 }
+HomePage.contextType = LanguageContext;
 
 export default withRouter(HomePage);

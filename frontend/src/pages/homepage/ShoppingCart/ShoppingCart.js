@@ -1,6 +1,7 @@
 import * as React from "react";
 import "./shoppingCart.scss"
 import ShoppingCartProduct from "./ShoppingCartProduct";
+import {LanguageContext} from "../../../constants/LanguageMaps";
 
 class ShoppingCart extends React.Component{
     constructor(props) {
@@ -18,7 +19,7 @@ class ShoppingCart extends React.Component{
         return(
             <div className="shopping-cart-container">
                 <div className="shopping-cart-title">
-                    Mi carrito
+                    {this.context.cartTitle}
                 </div>
                 {this.cartContent()}
             </div>
@@ -29,7 +30,7 @@ class ShoppingCart extends React.Component{
         return <>
             {this.cartIsEmpty() &&
             <div>
-                Su carrito está vacio. Ya compra algo maldita sea
+                {this.context.emptyCartText}
             </div>
             }
             {!this.cartIsEmpty() &&
@@ -44,5 +45,6 @@ class ShoppingCart extends React.Component{
         return this.props.products.length === 0;
     }
 }
+ShoppingCart.contextType = LanguageContext;
 
 export default ShoppingCart;
