@@ -3,7 +3,6 @@ package com.example.demo.controllers;
 import com.example.demo.builders.MerchandiseBuilder;
 import com.example.demo.builders.StoreBuilder;
 import com.example.demo.model.exceptions.InvalidMerchandiseException;
-import com.example.demo.model.exceptions.NoProductsAvailableInStore;
 import com.example.demo.model.exceptions.NotFoundStoreException;
 import com.example.demo.model.exceptions.RepeatedMerchandiseInStore;
 import com.example.demo.model.merchandise.Merchandise;
@@ -13,7 +12,6 @@ import com.example.demo.services.StoreService;
 import com.example.demo.model.store.Store;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -197,8 +195,8 @@ public class StoreControllerTest {
 
         mockMvc.perform(get("/stores/"+ store.id().toString() +"/products"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(0)))
-                .andExpect(jsonPath("id", is(store.id())));
+                .andExpect(jsonPath("merchandises", hasSize(0)))
+                .andExpect(jsonPath("storeId", is(store.id())));
     }
 
     private JSONObject generateMerchandiseToAddBody(Merchandise merchandise) throws JSONException {

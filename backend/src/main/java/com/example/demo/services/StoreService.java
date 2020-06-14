@@ -1,6 +1,5 @@
 package com.example.demo.services;
 
-import com.example.demo.model.exceptions.NoProductsAvailableInStore;
 import com.example.demo.model.exceptions.NotFoundStoreException;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.store.StoreCategory;
