@@ -1,10 +1,12 @@
 import React from 'react';
 import './pages/loginpage/loginpage.scss';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
+import './encuarentenados-app.scss'
 import LoginPage from "./pages/loginpage/LoginPage";
 import HomePage from "./pages/homepage/HomePage";
 import ProtectedRoute from "./components/authentication/PrivateRoute";
 import {LanguageContext, LanguageMaps} from "./constants/LanguageMaps";
+import SideBar from "./pages/homepage/side-bar/SideBar";
 
 class App extends React.Component {
     constructor(props) {
@@ -36,16 +38,21 @@ class App extends React.Component {
                             render={() => <LoginPage onLogin={this.logInUser}/>}
                         />
                     </Switch>
-                    <Switch>
+                    <React.Fragment>
                         <LanguageContext.Provider value={this.state.language}>
-                            <ProtectedRoute path='/homepage'
-                                            loggedIn={this.state.loggedUser}
-                                            changeLanguage={this.changeLanguage}
-                                            logOut={this.logOut}
-                                            component={HomePage}
-                            />
+                            <div className='encuarentena2'>
+                                <SideBar changeLanguage={this.changeLanguage}/>
+                                <Switch>
+                                        <ProtectedRoute path='/homepage'
+                                                        loggedIn={this.state.loggedUser}
+                                                        changeLanguage={this.changeLanguage}
+                                                        logOut={this.logOut}
+                                                        component={HomePage}
+                                        />
+                                </Switch>
+                            </div>
                         </LanguageContext.Provider>
-                    </Switch>
+                    </React.Fragment>
                 </BrowserRouter>
         );
     }

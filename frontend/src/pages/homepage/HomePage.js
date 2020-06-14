@@ -110,13 +110,13 @@ class HomePage extends React.Component {
     render() {
         return(
             <div className="homepage">
-                  <SideBar showStores={this.showStores}
+                  {/*<SideBar showStores={this.showStores}
                            showCategories={this.showCategories}
                            showDiscounts={this.showDiscounts}
                            cart={this.showShoppingCart}
                            logOut={this.props.logOut}
                            changeLanguage={this.props.changeLanguage}
-                  />
+                  />*/}
                 <div className="entities-panel">
                     {this.state.loadingEntitiesState && <LoadingSpinner isLoading={this.state.loadingEntitiesState}/>}
                     {!this.state.isLoading && !this.state.showingShoppingCart && this.state.dataToShow &&
