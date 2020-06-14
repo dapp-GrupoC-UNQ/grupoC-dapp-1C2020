@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dtos.MerchandiseDTO;
+import com.example.demo.dtos.MerchandiseListResponseDTO;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.store.StoreCategory;
 import com.example.demo.services.IStoreService;
@@ -41,7 +42,7 @@ public class StoreController {
     @RequestMapping(path="/stores/{id}/products")
     public ResponseEntity<Object> getProducts(@PathVariable("id") Long storeId) {
         List<Merchandise> merchandises = storeService.getProductsFromStore(storeId);
-        return generateProductsResponse(merchandises);
+        return generateProductsResponse(merchandises, storeId);
     }
 
     @RequestMapping(path="/stores/discounts")
@@ -49,8 +50,8 @@ public class StoreController {
         return storeService.getDiscountFromStores();
     }
 
-    private ResponseEntity<Object> generateProductsResponse(List<Merchandise> merchandises) {
-        return new ResponseEntity<>(merchandises, HttpStatus.OK);
+    private ResponseEntity<Object> generateProductsResponse(List<Merchandise> merchandises, Long storeId) {
+        return new ResponseEntity<>(new MerchandiseListResponseDTO(merchandises, storeId), HttpStatus.OK);
     }
 
     @PostMapping(path="/stores/addMerchandise")
