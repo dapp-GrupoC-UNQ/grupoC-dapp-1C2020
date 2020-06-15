@@ -80,6 +80,16 @@ public class StoreControllerTest {
     }
 
     @Test
+    public void whenThereAreNoStoreWithASpecificCategoryItsReturns404() throws Exception {
+        List<Store> stores = StoreBuilder.storeWithACategoryList(StoreCategory.CLEANING_SUPPLIES);
+        when(storeServiceMock.getStoresWithACategory(StoreCategory.GROCERY.toString())).thenReturn(new ArrayList<>());
+
+        mockMvc.perform(get("/stores?category=GROCERY"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(0)));
+    }
+
+    @Test
     public void askingForAnExistingStoreByIdReturnsTheStore() throws Exception {
         Store store = StoreBuilder.aStore().build();
         when(storeServiceMock.getStore(any())).thenReturn(store);
