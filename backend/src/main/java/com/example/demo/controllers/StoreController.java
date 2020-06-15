@@ -30,7 +30,7 @@ public class StoreController {
         if(category.isEmpty()){
             return storeService.getStores();
         }
-        return storeService.getStoresWithACategory(StoreCategory.valueOf(category));
+        return storeService.getStoresWithACategory(category);
     }
 
     @RequestMapping("/stores/{id}")

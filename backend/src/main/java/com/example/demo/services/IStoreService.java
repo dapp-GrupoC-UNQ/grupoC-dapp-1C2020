@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface IStoreService {
     List<Store> getStores();
-    List<Store> getStoresWithACategory(StoreCategory category);
+
+    List<Store> getStoresWithACategory(String category);
 
     List<Merchandise> getProductsFromStore(Long storeId);
 

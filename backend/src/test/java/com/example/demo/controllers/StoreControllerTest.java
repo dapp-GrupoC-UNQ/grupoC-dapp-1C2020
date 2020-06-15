@@ -71,12 +71,22 @@ public class StoreControllerTest {
     @Test
     public void ifWeAskForStoresWithACategoryWeOnlyGetTheStoresThatHaveThatCategoryList() throws Exception {
         List<Store> stores = StoreBuilder.storeWithACategoryList(StoreCategory.CLEANING_SUPPLIES);
-        when(storeServiceMock.getStoresWithACategory(StoreCategory.CLEANING_SUPPLIES)).thenReturn(stores);
+        when(storeServiceMock.getStoresWithACategory(StoreCategory.CLEANING_SUPPLIES.toString())).thenReturn(stores);
 
         mockMvc.perform(get("/stores?category=CLEANING_SUPPLIES"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].storeName", is(stores.get(0).name())));
+    }
+
+    @Test
+    public void whenThereAreNoStoreWithASpecificCategoryItsReturns404() throws Exception {
+        List<Store> stores = StoreBuilder.storeWithACategoryList(StoreCategory.CLEANING_SUPPLIES);
+        when(storeServiceMock.getStoresWithACategory(StoreCategory.GROCERY.toString())).thenReturn(new ArrayList<>());
+
+        mockMvc.perform(get("/stores?category=GROCERY"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(0)));
     }
 
     @Test
@@ -190,7 +200,7 @@ public class StoreControllerTest {
     }
 
     @Test
-    public void gettingStoreProductsListFromStoreWithoutMerchandiseReturnsBadRequest() throws Exception {
+    public void gettingStoreProductsListFromStoreWithoutMerchandiseReturnsAnEmptyList() throws Exception {
         Store store = StoreBuilder.aStore().buildWithId();
         when(storeServiceMock.getProductsFromStore(any())).thenReturn(new ArrayList<>());
 
