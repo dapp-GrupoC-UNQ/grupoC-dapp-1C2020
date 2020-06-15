@@ -161,7 +161,8 @@ public class StoreControllerTest {
     @Test
     public void gettingMerchandiseFromASpecificStoreReturnsTheMerchandiseListAnd200Status() throws Exception{
         Store store = StoreBuilder.aStore().buildWithId();
-        store.addMerchandise("Pan Lactal", "Fargo", 100.0, 1000, MerchandiseCategory.GROCERY, "panFargo");
+        Merchandise bread = MerchandiseBuilder.aMerchandise().buildWithId();
+        store.addMerchandise(bread);
         List<Merchandise> merchandiseList = store.listOfAvailableMerchandise();
         when(storeServiceMock.getProductsFromStore(any())).thenReturn(merchandiseList);
 
@@ -169,6 +170,7 @@ public class StoreControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("merchandises", hasSize(1)))
                 .andExpect(jsonPath("storeId", is(store.id())))
+                .andExpect(jsonPath("merchandises[0].id", is(merchandiseList.get(0).id())))
                 .andExpect(jsonPath("merchandises[0].name", is(merchandiseList.get(0).name())))
                 .andExpect(jsonPath("merchandises[0].brand", is(merchandiseList.get(0).brand())))
                 .andExpect(jsonPath("merchandises[0].price", is(merchandiseList.get(0).price())))
