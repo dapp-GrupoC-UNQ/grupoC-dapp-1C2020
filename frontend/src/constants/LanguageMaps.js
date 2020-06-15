@@ -15,7 +15,20 @@ export const LanguageMaps =
             loading: 'Cargando...',
             pricePerUnit: 'Precio por unidad:',
             amountInCart: 'Llevas:',
-            maximumDeliveryDistance: 'Este comercio hace deliveries de hasta '
+            maximumDeliveryDistance: 'Este comercio hace deliveries de hasta ',
+            storeCategories: {
+                'HYGIENE_PRODUCTS': 'Higiene personal'
+            },
+            openingDays: {
+                'MONDAY': 'Lunes',
+                'TUESDAY': 'Martes',
+                'WEDNESDAY': 'Miercoles',
+                'THURSDAY': 'Jueves',
+                'FRIDAY': 'Viernes',
+                'SATURDAY': 'Sabado',
+                'SUNDAY': 'Domingo'
+
+            }
         },
         english: {
             sideBarStore: 'Stores',
