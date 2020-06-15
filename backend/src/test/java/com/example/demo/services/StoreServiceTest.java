@@ -55,14 +55,13 @@ public class StoreServiceTest {
         assertEquals(stores, storeService.getStores());
     }
 
- /*   @Test
+    @Test
     public void whenWeAskStoreServiceForStoresWithACategoryItReturnsOnlyTheListOfStoresWithThatCategory() {
         List<Store> stores = StoreBuilder.storeList();
-        when(storeRepositoryMock.getStoresWithACategory(StoreCategory.GROCERY)).thenReturn(stores);
+        when(storeRepositoryMock.getStoresWithACategory(StoreCategory.GROCERY.toString())).thenReturn(stores);
 
         assertEquals(stores, storeService.getStoresWithACategory(StoreCategory.GROCERY));
     }
-*/
    /* @Test
     public void gettingStoreProductsList() {
         Store store = StoreBuilder.aStore().build();
