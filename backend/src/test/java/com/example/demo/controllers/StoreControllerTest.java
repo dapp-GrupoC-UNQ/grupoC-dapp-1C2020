@@ -71,7 +71,7 @@ public class StoreControllerTest {
     @Test
     public void ifWeAskForStoresWithACategoryWeOnlyGetTheStoresThatHaveThatCategoryList() throws Exception {
         List<Store> stores = StoreBuilder.storeWithACategoryList(StoreCategory.CLEANING_SUPPLIES);
-        when(storeServiceMock.getStoresWithACategory(StoreCategory.CLEANING_SUPPLIES)).thenReturn(stores);
+        when(storeServiceMock.getStoresWithACategory(StoreCategory.CLEANING_SUPPLIES.toString())).thenReturn(stores);
 
         mockMvc.perform(get("/stores?category=CLEANING_SUPPLIES"))
                 .andExpect(status().isOk())

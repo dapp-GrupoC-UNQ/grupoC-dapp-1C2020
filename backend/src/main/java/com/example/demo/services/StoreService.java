@@ -33,8 +33,8 @@ public class StoreService implements IStoreService {
         return storeRepository.findAll();
     }
 
-    public List<Store> getStoresWithACategory(StoreCategory category) {
-        return storeRepository.getStoresWithACategory(category.toString());
+    public List<Store> getStoresWithACategory(String category) {
+        return storeRepository.getStoresWithACategory(category);
     }
 
     public List<Merchandise> getProductsFromStore(Long storeId) {

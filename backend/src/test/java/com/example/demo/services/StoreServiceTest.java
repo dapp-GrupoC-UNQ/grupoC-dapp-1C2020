@@ -2,10 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.builders.MerchandiseBuilder;
 import com.example.demo.builders.StoreBuilder;
-import com.example.demo.builders.DiscountBuilder;
-import com.example.demo.model.discounts.Discount;
 import com.example.demo.model.exceptions.NotFoundStoreException;
-import com.example.demo.model.exceptions.OptionNotAvailableForThisDeliveryType;
 import com.example.demo.model.exceptions.RepeatedMerchandiseInStore;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.merchandise.MerchandiseCategory;
@@ -14,18 +11,15 @@ import com.example.demo.repositories.StoreRepository;
 import com.example.demo.model.store.Store;
 import com.example.demo.repositories.merchandise.MerchandiseRepository;
 import com.example.demo.repositories.storeSchedule.StoreScheduleRepository;
-import com.example.demo.services.users.IUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -60,8 +54,17 @@ public class StoreServiceTest {
         List<Store> stores = StoreBuilder.storeList();
         when(storeRepositoryMock.getStoresWithACategory(StoreCategory.GROCERY.toString())).thenReturn(stores);
 
-        assertEquals(stores, storeService.getStoresWithACategory(StoreCategory.GROCERY));
+        assertEquals(stores, storeService.getStoresWithACategory(StoreCategory.GROCERY.toString()));
     }
+
+    @Test
+    public void whenThereAreNoStoreWithASpecificCategoryItsReturnAnEmptyList() {
+        List<Store> stores = StoreBuilder.storeList();
+        when(storeRepositoryMock.getStoresWithACategory(StoreCategory.HYGIENE_PRODUCTS.toString())).thenReturn(new ArrayList<>());
+
+        assertTrue(storeService.getStoresWithACategory(StoreCategory.HYGIENE_PRODUCTS.toString()).isEmpty());
+    }
+
     @Test
     public void gettingStoreProductsList() {
         Store store = StoreBuilder.aStore().buildWithId();
