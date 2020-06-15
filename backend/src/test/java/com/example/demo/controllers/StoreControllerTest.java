@@ -198,7 +198,7 @@ public class StoreControllerTest {
     }
 
     @Test
-    public void gettingStoreProductsListFromStoreWithoutMerchandiseReturnsBadRequest() throws Exception {
+    public void gettingStoreProductsListFromStoreWithoutMerchandiseReturnsAnEmptyList() throws Exception {
         Store store = StoreBuilder.aStore().buildWithId();
         when(storeServiceMock.getProductsFromStore(any())).thenReturn(new ArrayList<>());
 
