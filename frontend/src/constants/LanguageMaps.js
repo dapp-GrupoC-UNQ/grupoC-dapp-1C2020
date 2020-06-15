@@ -12,7 +12,9 @@ export const LanguageMaps =
             noProducts: '¡Ups! Parece que no hay productos en este comercio',
             cartTitle: 'Mi Carrito',
             emptyCartText: 'Su carrito está vacío. Ya compre algo maldita sea',
-            loading: 'Cargando...'
+            loading: 'Cargando...',
+            pricePerUnit: 'Precio por unidad:',
+            amountInCart: 'Llevas:'
         },
         english: {
             sideBarStore: 'Stores',
@@ -24,7 +26,9 @@ export const LanguageMaps =
             noProducts: 'Ups! Seems like there are no products in this store',
             cartTitle: 'My Cart',
             emptyCartText: 'Your cart is empty. Buy something god damn it!',
-            loading: 'Loading...'
+            loading: 'Loading...',
+            pricePerUnit: 'Price per unit:',
+            amountInCart: 'You are taking:'
         }
     }
 

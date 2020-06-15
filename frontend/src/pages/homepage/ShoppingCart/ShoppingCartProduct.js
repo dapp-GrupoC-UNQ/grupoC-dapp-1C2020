@@ -2,6 +2,7 @@ import * as React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMinusCircle, faPlusCircle, faStore, faTimes} from "@fortawesome/free-solid-svg-icons";
 import RemoveProductConfirmation from "./removeProduct/RemoveProductConfirmation";
+import {LanguageContext} from "../../../constants/LanguageMaps";
 
 class ShoppingCartProduct extends React.Component{
     constructor(props) {
@@ -42,11 +43,11 @@ class ShoppingCartProduct extends React.Component{
                 <div className="divider"/>
                 <div className="product-quantity-and-price">
                     <div className="price-per-unit">
-                        Precio por unidad: ${this.props.product.price}
+                        {this.context.pricePerUnit} ${this.props.product.price}
                         <FontAwesomeIcon icon={faTimes} onClick={this.openRemoveProductModal}/>
                     </div>
                     <div className="quantity">
-                        Llevas {this.state.quantity}
+                        {this.context.amountInCart} {this.state.quantity}
                     </div>
                     <div className="add-or-quit-and-total-panel">
                         <div className="increase-decrease-buttons">
@@ -67,5 +68,5 @@ class ShoppingCartProduct extends React.Component{
         )
     }
 }
-
+ShoppingCartProduct.contextType = LanguageContext;
 export default ShoppingCartProduct;
