@@ -62,14 +62,16 @@ public class StoreServiceTest {
 
         assertEquals(stores, storeService.getStoresWithACategory(StoreCategory.GROCERY));
     }
-   /* @Test
+    @Test
     public void gettingStoreProductsList() {
-        Store store = StoreBuilder.aStore().build();
-        store.addMerchandise("Nesquick", "Nestle", 20.4, 30, MerchandiseCategory.GROCERY, "foto nesquik+");
-        when(merchandiseRepositoryMock.findByStoreId(any())).thenReturn(store.listOfAvailableMerchandise());
+        Store store = StoreBuilder.aStore().buildWithId();
+        store.addMerchandise("Nesquick", "Nestle", 20.4, 30, MerchandiseCategory.GROCERY, "foto nesquik");
+        List<Merchandise> merchandiseList = store.listOfAvailableMerchandise();
+        when(storeRepositoryMock.findById(any())).thenReturn(java.util.Optional.of(store));
+        when(merchandiseRepository.getMerchandiseFromStore(any())).thenReturn(java.util.Optional.ofNullable(merchandiseList));
 
-        assertEquals(storeService.getProductsFromStore(store.id()), store.listOfAvailableMerchandise());
-    }*/
+        assertEquals(merchandiseList, storeService.getProductsFromStore(store.id()));
+    }
     @Test
     public void addingAStoreReturnsTheStore() {
         Store store = StoreBuilder.aStore().build();
