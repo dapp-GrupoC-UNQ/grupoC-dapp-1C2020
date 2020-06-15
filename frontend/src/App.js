@@ -7,7 +7,6 @@ import HomePage from "./pages/homepage/Stores";
 import ProtectedRoute from "./components/authentication/PrivateRoute";
 import {LanguageContext, LanguageMaps} from "./constants/LanguageMaps";
 import SideBar from "./pages/homepage/side-bar/SideBar";
-import Store from "./pages/homepage/store/Store";
 import StoreProducts from "./pages/homepage/store/StoreProducts";
 
 class App extends React.Component {
@@ -15,9 +14,17 @@ class App extends React.Component {
         super(props);
         this.state = {
             loggedUser: JSON.parse(localStorage.getItem('loggedUser')) || false,
-            language: LanguageMaps.spanish
+            language: LanguageMaps.spanish,
+            productsInCart: []
         }
     }
+
+    addProductToCart = (product) => {
+        this.setState({productsInCart: [...this.state.productsInCart, product]})
+    }
+
+    productIsInCart = (product) => this.state.productsInCart.some(productInCart => this.sameProduct(productInCart, product))
+    sameProduct = (productA, productB) => productA.name === productB.name && productA.brand === productB.brand && productA.storeName === productB.storeName;
 
     logInUser = () => {
         this.setState({loggedUser: true})
@@ -53,7 +60,10 @@ class App extends React.Component {
                                 <Route
                                     exact
                                     path="/stores/:id/products"
-                                    component={StoreProducts}
+                                    render={props => <StoreProducts {...props}
+                                                                    addProductToCart={this.addProductToCart}
+                                                                    productIsInCart={this.productIsInCart}
+                                    />}
                                 />
                             </div>
                         </LanguageContext.Provider>

@@ -4,6 +4,9 @@ import {withRouter} from "react-router-dom";
 import StoreService from "../../../servicios/StoreService";
 import LoadingSpinner from "../../../components/loading-spinner/LoadingSpinner";
 import Product from "../product/Product";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faShoppingBasket} from "@fortawesome/free-solid-svg-icons";
+import {LanguageContext} from "../../../constants/LanguageMaps";
 
 
 class StoreProducts extends React.Component {
@@ -38,7 +41,7 @@ class StoreProducts extends React.Component {
         })
     }
 
-    renderProducts = (product) => <Product product={product} productIsInCart={this.productIsInCart} onAddToCart={this.addToCart} onRemoveFromCart={this.removeFromCart}/>
+    renderProducts = (product) => <Product product={product} productIsInCart={this.props.productIsInCart} onAddToCart={this.props.addProductToCart} onRemoveFromCart={this.removeFromCart}/>
 
     render() {
         return(
@@ -50,9 +53,16 @@ class StoreProducts extends React.Component {
                         {this.state.products.map(product => this.renderProducts(product))}
                     </div>
                     }
+                    {!this.state.dataToShow && !this.state.loadingEntitiesState &&
+                        <div className="no-products">
+                            <FontAwesomeIcon icon={faShoppingBasket}/>
+                            <span>{this.context.noProducts}</span>
+                        </div>
+                    }
                 </div>
             </div>
         )
     }
 }
+StoreProducts.contextType = LanguageContext;
 export default withRouter(StoreProducts);
