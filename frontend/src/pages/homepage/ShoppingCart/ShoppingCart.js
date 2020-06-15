@@ -4,12 +4,10 @@ import ShoppingCartProduct from "./ShoppingCartProduct";
 import {LanguageContext} from "../../../constants/LanguageMaps";
 
 class ShoppingCart extends React.Component{
-    constructor(props) {
-        super(props);
-    }
-
-    renderProductsInCart = () => this.props.products.map((product) => <ShoppingCartProduct product={product}
-                                                                                           removeProductFromCart={this.removeProductFromCart}/>)
+    renderProductsInCart = () => this.props.productsInCart.map((product) => <ShoppingCartProduct product={product}
+                                                                                                 removeProductFromCart={this.removeProductFromCart}
+                                                                                                 increaseProductQuantity={this.props.increaseProductQuantity}
+                                                                                                 decreaseProductQuantity={this.props.decreaseProductQuantity}/>)
 
     removeProductFromCart = (product) => {
         this.props.removeFromCart(product)
@@ -17,11 +15,13 @@ class ShoppingCart extends React.Component{
 
     render() {
         return(
-            <div className="shopping-cart-container">
-                <div className="shopping-cart-title">
-                    {this.context.cartTitle}
+            <div className="homepage">
+                <div className="shopping-cart-container">
+                    <div className="shopping-cart-title">
+                        {this.context.cartTitle}
+                    </div>
+                    {this.cartContent()}
                 </div>
-                {this.cartContent()}
             </div>
         )
     }
@@ -42,7 +42,7 @@ class ShoppingCart extends React.Component{
     }
 
     cartIsEmpty() {
-        return this.props.products.length === 0;
+        return this.props.productsInCart.length === 0;
     }
 }
 ShoppingCart.contextType = LanguageContext;

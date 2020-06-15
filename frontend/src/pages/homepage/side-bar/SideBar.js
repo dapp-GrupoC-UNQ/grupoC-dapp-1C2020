@@ -1,4 +1,5 @@
 import * as React from "react";
+import {withRouter} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowCircleRight, faShoppingCart, faDoorOpen} from "@fortawesome/free-solid-svg-icons";
 import "./side-bar.scss"
@@ -7,6 +8,14 @@ import english from '../../loginpage/imagenes-home-page/english.png';
 import spanish from '../../loginpage/imagenes-home-page/spanish.png';
 
 class SideBar extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    goToStores = () => this.props.history.push('/stores')
+    goToShoppingCart = () => this.props.history.push('/cart')
+
     render() {
         return (
             <div className="side-bar">
@@ -16,7 +25,7 @@ class SideBar extends React.Component {
                 <div className="links-container">
                     <div className="link">
                         {/*Voy a usar las props para actualizar el estado de mi padre. Es decir, la lista de entidades que muestra mi padre*/}
-                        <a className="link-search" onClick={this.props.showStores}>{this.context.sideBarStore}</a>
+                        <a className="link-search" onClick={this.goToStores}>{this.context.sideBarStore}</a>
                         <FontAwesomeIcon icon={faArrowCircleRight}/>
                     </div>
                     <div className="link">
@@ -28,7 +37,7 @@ class SideBar extends React.Component {
                         <FontAwesomeIcon icon={faArrowCircleRight}/>
                     </div>
                     <div className="link">
-                        <a className="link-search" onClick={this.props.cart}>{this.context.seeMyCart}</a>
+                        <a className="link-search" onClick={this.goToShoppingCart}>{this.context.seeMyCart}</a>
                         <FontAwesomeIcon icon={faShoppingCart}/>
                     </div>
                     <div className="link">
@@ -49,4 +58,4 @@ class SideBar extends React.Component {
     }
 }
 SideBar.contextType = LanguageContext;
-export default  SideBar
+export default  withRouter(SideBar);

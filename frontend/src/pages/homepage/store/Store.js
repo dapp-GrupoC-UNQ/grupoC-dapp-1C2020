@@ -1,11 +1,15 @@
 import * as React from "react";
+import {withRouter} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMapMarkerAlt, faStore} from "@fortawesome/free-solid-svg-icons";
 
 class Store extends React.Component {
+
+    goToStoreProducts = () => this.props.history.push('/stores/' + this.props.store.id + '/products')
+
     render() {
         return (
-            <div className="entity-card" onClick={() => this.props.onShowStoreProducts(this.props.store)}>
+            <div className="entity-card" onClick={this.goToStoreProducts}>
                 <div className='imagen-comercio'>
                     <img src={this.props.store.storeImage}/>
                 </div>
@@ -25,4 +29,4 @@ class Store extends React.Component {
     }
 }
 
-export default Store;
+export default withRouter(Store);

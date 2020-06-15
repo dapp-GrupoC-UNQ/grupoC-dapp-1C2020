@@ -149,7 +149,7 @@ public class DatabaseInitializate implements CommandLineRunner {
     }
 
     private Store generateStore(String name, String address, Integer distanceInKm, StoreScheduleRepository storeScheduleRepository, String imageUrl) {
-        List<StoreCategory> categories = Arrays.asList(StoreCategory.HYGIENE_PRODUCTS);
+        List<StoreCategory> categories = Arrays.asList(StoreCategory.HYGIENE_PRODUCTS, StoreCategory.BAKERY);
         List<String> paymentMethods = Arrays.asList("Efectivo", "Tarjeta de credito");
         List<DayOfWeek> days = Arrays.asList(DayOfWeek.MONDAY, DayOfWeek.THURSDAY);
         StoreSchedule schedule = new StoreSchedule(days, LocalTime.of(9,0), LocalTime.of(17, 0));

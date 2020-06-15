@@ -1,11 +1,12 @@
 .homepage {
+  width: 80%;
   display: flex;
   height: auto;
   background-color: #fafba4;
   min-height: -webkit-fill-available;
 
   .entities-panel {
-    width: 80%;
+    width: 100%;
 
     .nothing-to-show {
       width: 100%;
@@ -33,6 +34,10 @@
       height: 100%;
       align-items: center;
       padding: 10px;
+
+      &.products-entities {
+        grid-template-columns: repeat(4, 1fr);
+      }
 
       .entity-card {
         position: relative;
