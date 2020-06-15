@@ -14,7 +14,8 @@ export const LanguageMaps =
             emptyCartText: 'Su carrito está vacío. Ya compre algo maldita sea',
             loading: 'Cargando...',
             pricePerUnit: 'Precio por unidad:',
-            amountInCart: 'Llevas:'
+            amountInCart: 'Llevas:',
+            maximumDeliveryDistance: 'Este comercio hace deliveries de hasta '
         },
         english: {
             sideBarStore: 'Stores',
@@ -28,7 +29,8 @@ export const LanguageMaps =
             emptyCartText: 'Your cart is empty. Buy something god damn it!',
             loading: 'Loading...',
             pricePerUnit: 'Price per unit:',
-            amountInCart: 'You are taking:'
+            amountInCart: 'You are taking:',
+            maximumDeliveryDistance: 'This store makes deliveries up to '
         }
     }
 
