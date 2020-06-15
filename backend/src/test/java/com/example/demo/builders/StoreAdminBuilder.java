@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class StoreAdminBuilder {
 
-    private String username = "StoreAdmin";
+    private String username = "StoreAdmin@gmail.com";
     private String password = "StoreAdminPassword";
     private Store store = StoreBuilder.aStore().withName("Carrefour").build();
 

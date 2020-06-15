@@ -13,7 +13,8 @@ class ModalRegistroUsuario extends React.Component {
         this.state = {
             registeringUser: true,
             registrationSucceed: false,
-            isValidUser: true
+            isValidUser: true,
+            isValidMail: true
         }
     }
 
@@ -51,6 +52,12 @@ class ModalRegistroUsuario extends React.Component {
         return isValidUser;
     }
 
+    validateMail = () => {
+        const isValidMail = EntitiesValidator().validateEmail(this.state);
+        this.setState({isValidMail: isValidMail})
+        return isValidMail;
+    }
+
     validateStoreUser = () => {
         const isValidUser = EntitiesValidator().validateStoreAdmin(this.state);
         this.setState({isValidUser: isValidUser})
@@ -62,14 +69,14 @@ class ModalRegistroUsuario extends React.Component {
     buildStoreAdmin = () => EntitiesBuilder().buildStoreAdmin(this.state);
 
     registerUser = () => {
-        if(this.state.registeringUser && this.validateUser()){
+        if(this.state.registeringUser && this.validateUser() && this.validateMail()){
             LoginService().registerUser(this.buildUser())
                 .then(() =>{
                     this.setState({registrationSucceed: true})
                 })
                 .catch(error => console.log(error))
         }
-        if(!this.state.registeringUser && this.validateStoreUser()){
+        if(!this.state.registeringUser && this.validateStoreUser() && this.validateMail()){
             LoginService().registerStoreUser(this.buildStoreAdmin())
                 .then(() =>{
                     this.setState({registrationSucceed: true})
@@ -94,6 +101,7 @@ class ModalRegistroUsuario extends React.Component {
                                                isValidUser={this.state.isValidUser}
                                                onAddingDay={this.addDay}
                                                onAddingPaymentMethod={this.addPaymentMethod}
+                                               isValidMail={this.state.isValidMail}
                     />}
                     {this.state.registrationSucceed && <RegistrationSucceed
                                                             registerUser={this.state.registeringUser}/>}
