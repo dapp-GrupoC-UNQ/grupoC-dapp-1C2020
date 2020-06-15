@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/authentication/PrivateRoute";
 import {LanguageContext, LanguageMaps} from "./constants/LanguageMaps";
 import SideBar from "./pages/homepage/side-bar/SideBar";
 import StoreProducts from "./pages/homepage/store/StoreProducts";
+import ShoppingCart from "./pages/homepage/ShoppingCart/ShoppingCart";
 
 class App extends React.Component {
     constructor(props) {
@@ -20,8 +21,21 @@ class App extends React.Component {
     }
 
     addProductToCart = (product) => {
+        product.quantity = 1
         this.setState({productsInCart: [...this.state.productsInCart, product]})
     }
+
+    removeProductFromCart = (product) => {
+        let updatedProducts = this.state.productsInCart;
+        updatedProducts = updatedProducts.filter(p => !this.sameProduct(p, product))
+        this.setState({productsInCart: updatedProducts})
+    }
+
+    increaseProductQuantity = (product) => {
+        product.quantity += product.quantity;
+    }
+
+    decreaseProductQuantity = (product) => product.quantity -= product.quantity;
 
     productIsInCart = (product) => this.state.productsInCart.some(productInCart => this.sameProduct(productInCart, product))
     sameProduct = (productA, productB) => productA.name === productB.name && productA.brand === productB.brand && productA.storeName === productB.storeName;
@@ -63,6 +77,15 @@ class App extends React.Component {
                                     render={props => <StoreProducts {...props}
                                                                     addProductToCart={this.addProductToCart}
                                                                     productIsInCart={this.productIsInCart}
+                                    />}
+                                />
+                                <Route
+                                    exact
+                                    path="/cart"
+                                    render={props => <ShoppingCart {...props} productsInCart={this.state.productsInCart}
+                                                                              removeFromCart={this.removeProductFromCart}
+                                                                              decreaseProductQuantity={this.decreaseProductQuantity}
+                                                                              increaseProductQuantity={this.increaseProductQuantity}
                                     />}
                                 />
                             </div>

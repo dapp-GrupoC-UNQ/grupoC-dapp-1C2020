@@ -31,9 +31,7 @@ class Stores extends React.Component {
 
     renderStore = (store) => <Store store={store}/>
 
-   /* renderProducts = (product) => <Product product={product} productIsInCart={this.productIsInCart} onAddToCart={this.addToCart} onRemoveFromCart={this.removeFromCart}/>
-
-    renderCategory = (category) => <Category category={category} onSelectCategory={this.showStoresWithACategory}/>
+    /*renderCategory = (category) => <Category category={category} onSelectCategory={this.showStoresWithACategory}/>
 
     renderDiscount = (discount) => <Discount discount={discount}/>*/
 
@@ -65,31 +63,6 @@ class Stores extends React.Component {
             });
     }*/
 
-    /*addStoresToProducts = (listOfProducts, storeId) =>{
-        return listOfProducts.map(product => {
-            product.storeId = storeId;
-            return product
-        })
-    }*/
-
-    showShoppingCart = () => this.setState({showingShoppingCart: true, dataToShow: true})
-   /* addToCart = (product) => {
-        if(!this.productIsInCart(product)){
-            this.setState({productsInCart: [...this.state.productsInCart, product]});
-        }
-    }*/
-
-    sameProduct = (productA, productB) => {
-        //UNA MIERDAAAA. HAY QUE CAMBIARLO CUANDO TENGAMOS LOS IDS
-        return productA.name === productB.name && productA.brand === productB.brand && productA.storeName === productB.storeName;
-    }
-
-/*    productIsInCart = (product) => this.state.productsInCart.some(productInCart => this.sameProduct(productInCart, product))
-    removeFromCart = (product) => {
-        const newProductsList = this.state.productsInCart.filter(productInCart => productInCart !== product)
-        this.setState({productsInCart: newProductsList})
-    }*/
-
     render() {
         return(
             <div className="homepage">
@@ -100,15 +73,6 @@ class Stores extends React.Component {
                             {this.state.stores.map(store => this.renderStore(store))}
                         </div>
                     }
-                    {/*{!this.state.dataToShow && !this.state.loadingEntitiesState &&
-                        <div className="no-products">
-                            <FontAwesomeIcon icon={faShoppingBasket}/>
-                            <span>{this.context.noProducts}</span>
-                        </div>
-                    }*/}
-{/*
-                    {this.state.showingShoppingCart && <ShoppingCart showCart={this.state.showingShoppingCart} products={this.state.productsInCart} removeFromCart={this.removeFromCart}/>}
-*/}
                 </div>
             </div>
         )

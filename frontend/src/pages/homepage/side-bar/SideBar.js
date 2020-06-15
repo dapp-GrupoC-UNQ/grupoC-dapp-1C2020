@@ -14,6 +14,7 @@ class SideBar extends React.Component {
     }
 
     goToStores = () => this.props.history.push('/stores')
+    goToShoppingCart = () => this.props.history.push('/cart')
 
     render() {
         return (
@@ -36,7 +37,7 @@ class SideBar extends React.Component {
                         <FontAwesomeIcon icon={faArrowCircleRight}/>
                     </div>
                     <div className="link">
-                        <a className="link-search" onClick={this.props.cart}>{this.context.seeMyCart}</a>
+                        <a className="link-search" onClick={this.goToShoppingCart}>{this.context.seeMyCart}</a>
                         <FontAwesomeIcon icon={faShoppingCart}/>
                     </div>
                     <div className="link">

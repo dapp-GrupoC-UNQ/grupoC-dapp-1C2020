@@ -7,13 +7,13 @@ class ShoppingCartProduct extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            quantity: 1,
+            quantity: this.props.product.quantity,
             removeProductModalOpen: false
         }
     }
 
-    increaseProductQuantity = () => this.setState({quantity: this.state.quantity + 1})
-    decreaseProductQuantity = () => this.setState({quantity: Math.max(1, this.state.quantity - 1)})
+    increaseProductQuantity = () => this.props.increaseProductQuantity(this.props.product);
+    decreaseProductQuantity = () => this.props.decreaseProductQuantity(this.props.product);
     openRemoveProductModal = () => this.setState({removeProductModalOpen: true})
     closeRemoveProductModal = () => this.setState({removeProductModalOpen: false})
     removeProductFromCart = () => {
