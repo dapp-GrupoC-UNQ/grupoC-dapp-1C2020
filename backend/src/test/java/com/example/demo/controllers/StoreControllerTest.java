@@ -170,6 +170,7 @@ public class StoreControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("merchandises", hasSize(1)))
                 .andExpect(jsonPath("storeId", is(store.id())))
+                .andExpect(jsonPath("storeName", is(store.name())))
                 .andExpect(jsonPath("merchandises[0].id", is(merchandiseList.get(0).id())))
                 .andExpect(jsonPath("merchandises[0].name", is(merchandiseList.get(0).name())))
                 .andExpect(jsonPath("merchandises[0].brand", is(merchandiseList.get(0).brand())))

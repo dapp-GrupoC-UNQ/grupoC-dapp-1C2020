@@ -14,14 +14,14 @@ const StoreService = () => {
         return axios.get(`${SERVICE_URL}stores/${storeId}/products`)
     }
 
-    //Hacer request para traer los stores que tengan X categoria. Buscar como pasar en axios un query param
-
+    const getStoreById = (storeId) => {
+        return axios.get(`${SERVICE_URL}stores/${storeId}`)
+    }
     return {
-        //Se pasa la referencia para que solamente se hagan llamadas al backend cuando sea necesario
-        //Cada una de estas funciones al ser invocadas devuelven una promise
         getAllStores: getAllStores,
         getAllStoresWithACategory: getAllStoresWithACategory,
-        getStoreProducts: getStoreProducts
+        getStoreProducts: getStoreProducts,
+        getStoreById: getStoreById
     }
 }
 

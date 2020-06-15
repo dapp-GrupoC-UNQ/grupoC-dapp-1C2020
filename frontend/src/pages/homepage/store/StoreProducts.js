@@ -19,7 +19,18 @@ class StoreProducts extends React.Component {
     }
 
     componentDidMount() {
+        this.getStore(this.state.storeId);
         this.showStoreProducts(this.state.storeId);
+    }
+
+    getStore = (storeId) => {
+        this.setState({loadingEntitiesState: true})
+        StoreService().getStoreById(storeId)
+            .then(response => {
+                this.setState({store: response.data})
+                this.showStoreProducts(storeId)
+            })
+            .catch(error => alert(error))
     }
 
     showStoreProducts = (storeId) => {
@@ -36,6 +47,7 @@ class StoreProducts extends React.Component {
 
     addStoresToProducts = (listOfProducts, storeId) =>{
         return listOfProducts.map(product => {
+            product.storeName = this.state.store.storeName
             product.storeId = storeId;
             return product
         })

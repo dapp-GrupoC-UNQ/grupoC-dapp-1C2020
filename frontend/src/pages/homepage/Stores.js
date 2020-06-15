@@ -13,7 +13,7 @@ class Stores extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            stores: [], //Tengo que inicializar mi estado entonces uso una lista vacia hasta que consiga los comercios
+            stores: [],
             loadingEntitiesState: false,
             entityRenderFunction: this.renderStore,
             showingShoppingCart: false,
