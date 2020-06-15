@@ -5,6 +5,8 @@ import com.example.demo.model.discounts.NoDiscount;
 import com.example.demo.model.merchandise.Merchandise;
 import com.example.demo.model.merchandise.MerchandiseCategory;
 
+import java.util.Random;
+
 public class MerchandiseBuilder {
 
     private String merchandiseName = "Fideos";
@@ -56,5 +58,11 @@ public class MerchandiseBuilder {
     public MerchandiseBuilder withImage(String url) {
         imageUrl = url;
         return this;
+    }
+
+    public Merchandise buildWithId() {
+        Merchandise merchandise = this.build();
+        merchandise.setId(new Random().nextLong());
+        return merchandise;
     }
 }
