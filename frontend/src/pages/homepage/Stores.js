@@ -18,24 +18,23 @@ class Stores extends React.Component {
             entityRenderFunction: this.renderStore,
             showingShoppingCart: false,
             dataToShow: true,
-            productsInCart: []
+            productsInCart: [],
+            storeCategory: this.props.location.search
         }
     }
 
     componentDidMount() {
-        //Esto se va a ejecutar automaticamente despues de que este componente se haya renderizado la primera vez
+        const params = new URLSearchParams(this.state.storeCategory);
+        const category = params.get('category');
         this.setState({ loadingEntitiesState: true });
-        this.showStores();
+        this.showStores(category);
     }
 
     renderStore = (store) => <Store store={store}/>
 
-    /*renderCategory = (category) => <Category category={category} onSelectCategory={this.showStoresWithACategory}/>
 
-    renderDiscount = (discount) => <Discount discount={discount}/>*/
-
-    showStores = () =>{
-        StoreService().getAllStores()
+    showStores = (category) =>{
+        StoreService().getAllStores(category)
             .then(result => {
                 this.setState({stores: result.data, loadingEntitiesState: false, showingShoppingCart: false, dataToShow: true})
             })
@@ -44,23 +43,6 @@ class Stores extends React.Component {
             });
     }
 
-   /* showCategories = () => {
-        this.setState({entities: categories, entityRenderFunction: this.renderCategory, showingShoppingCart: false});
-    }
-
-    showDiscounts = () => {
-        this.setState({entities: discounts, entityRenderFunction: this.renderDiscount, showingShoppingCart: false});
-    }*/
-
-  /*  showStoresWithACategory = (category) => {
-        StoreService().getAllStoresWithACategory(category.categoryName)
-            .then(result => {
-                this.setState({entities: result.data, entityRenderFunction: this.renderStore, loadingEntitiesState: false})
-            })
-            .catch(error => {
-                alert("Uy, no pudimos cargar los comercios de esa categoria")
-            });
-    }*/
 
     render() {
         return(
