@@ -12,6 +12,7 @@ public class MerchandiseJsonSerializer extends JsonSerializer<Merchandise> {
     @Override
     public void serialize(Merchandise merchandise, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
+        jsonGenerator.writeNumberField("id", merchandise.id());
         jsonGenerator.writeStringField("name", merchandise.name());
         jsonGenerator.writeStringField("brand", merchandise.brand());
         jsonGenerator.writeNumberField("price", merchandise.price());
