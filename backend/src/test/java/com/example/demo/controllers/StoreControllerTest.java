@@ -175,11 +175,12 @@ public class StoreControllerTest {
         store.addMerchandise(bread);
         List<Merchandise> merchandiseList = store.listOfAvailableMerchandise();
         when(storeServiceMock.getProductsFromStore(any())).thenReturn(merchandiseList);
+        when(storeServiceMock.getStore(any())).thenReturn(store);
 
         mockMvc.perform(get("/stores/" + (store.id()).toString() + "/products"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("merchandises", hasSize(1)))
-                .andExpect(jsonPath("storeId", is(store.id())))
+                .andExpect(jsonPath("store.id", is(store.id())))
                 .andExpect(jsonPath("merchandises[0].id", is(merchandiseList.get(0).id())))
                 .andExpect(jsonPath("merchandises[0].name", is(merchandiseList.get(0).name())))
                 .andExpect(jsonPath("merchandises[0].brand", is(merchandiseList.get(0).brand())))
@@ -187,7 +188,6 @@ public class StoreControllerTest {
                 .andExpect(jsonPath("merchandises[0].stock", is(merchandiseList.get(0).stock())))
                 .andExpect(jsonPath("merchandises[0].category", is(merchandiseList.get(0).getCategory().toString())))
                 .andExpect(jsonPath("merchandises[0].productImage", is(merchandiseList.get(0).imageURL())));
-
     }
 
     @Test
@@ -203,12 +203,12 @@ public class StoreControllerTest {
     public void gettingStoreProductsListFromStoreWithoutMerchandiseReturnsAnEmptyList() throws Exception {
         Store store = StoreBuilder.aStore().buildWithId();
         when(storeServiceMock.getProductsFromStore(any())).thenReturn(new ArrayList<>());
-
+        when(storeServiceMock.getStore(any())).thenReturn(store);
 
         mockMvc.perform(get("/stores/"+ store.id().toString() +"/products"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("merchandises", hasSize(0)))
-                .andExpect(jsonPath("storeId", is(store.id())));
+                .andExpect(jsonPath("store.id", is(store.id())));
     }
 
     private JSONObject generateMerchandiseToAddBody(Merchandise merchandise) throws JSONException {
