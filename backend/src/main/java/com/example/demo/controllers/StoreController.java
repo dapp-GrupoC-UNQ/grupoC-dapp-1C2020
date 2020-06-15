@@ -41,8 +41,9 @@ public class StoreController {
 
     @RequestMapping(path="/stores/{id}/products")
     public ResponseEntity<Object> getProducts(@PathVariable("id") Long storeId) {
+        Store store = storeService.getStore(storeId);
         List<Merchandise> merchandises = storeService.getProductsFromStore(storeId);
-        return generateProductsResponse(merchandises, storeId);
+        return generateProductsResponse(merchandises, store);
     }
 
     @RequestMapping(path="/stores/discounts")
@@ -50,8 +51,8 @@ public class StoreController {
         return storeService.getDiscountFromStores();
     }
 
-    private ResponseEntity<Object> generateProductsResponse(List<Merchandise> merchandises, Long storeId) {
-        return new ResponseEntity<>(new MerchandiseListResponseDTO(merchandises, storeId), HttpStatus.OK);
+    private ResponseEntity<Object> generateProductsResponse(List<Merchandise> merchandises, Store store) {
+        return new ResponseEntity<>(new MerchandiseListResponseDTO(merchandises, store), HttpStatus.OK);
     }
 
     @PostMapping(path="/stores/addMerchandise")
