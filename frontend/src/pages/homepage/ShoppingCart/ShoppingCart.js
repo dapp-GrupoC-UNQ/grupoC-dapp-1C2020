@@ -4,9 +4,6 @@ import ShoppingCartProduct from "./ShoppingCartProduct";
 import {LanguageContext} from "../../../constants/LanguageMaps";
 
 class ShoppingCart extends React.Component{
-    constructor(props) {
-        super(props);
-    }
     renderProductsInCart = () => this.props.productsInCart.map((product) => <ShoppingCartProduct product={product}
                                                                                                  removeProductFromCart={this.removeProductFromCart}
                                                                                                  increaseProductQuantity={this.props.increaseProductQuantity}

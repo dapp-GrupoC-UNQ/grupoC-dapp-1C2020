@@ -8,7 +8,6 @@ class ShoppingCartProduct extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            quantity: this.props.product.quantity,
             removeProductModalOpen: false
         }
     }
@@ -47,7 +46,7 @@ class ShoppingCartProduct extends React.Component{
                         <FontAwesomeIcon icon={faTimes} onClick={this.openRemoveProductModal}/>
                     </div>
                     <div className="quantity">
-                        {this.context.amountInCart} {this.state.quantity}
+                        {this.context.amountInCart} {this.props.product.quantity}
                     </div>
                     <div className="add-or-quit-and-total-panel">
                         <div className="increase-decrease-buttons">
@@ -55,7 +54,7 @@ class ShoppingCartProduct extends React.Component{
                             <FontAwesomeIcon icon={faMinusCircle} onClick={this.decreaseProductQuantity}/>
                         </div>
                         <div className="total-product-price">
-                            Total: ${this.props.product.price * this.state.quantity}
+                            Total: ${this.props.product.price * this.props.product.quantity}
                         </div>
                     </div>
                 </div>

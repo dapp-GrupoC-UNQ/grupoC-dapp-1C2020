@@ -19,7 +19,6 @@ class Stores extends React.Component {
             showingShoppingCart: false,
             dataToShow: true,
             productsInCart: []
-            //Es importante tener toda la estructura del state planteada antes de ir a buscar cosas al backend para evitar undefines.
         }
     }
 

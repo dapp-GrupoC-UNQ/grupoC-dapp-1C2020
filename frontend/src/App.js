@@ -27,18 +27,23 @@ class App extends React.Component {
 
     removeProductFromCart = (product) => {
         let updatedProducts = this.state.productsInCart;
-        updatedProducts = updatedProducts.filter(p => !this.sameProduct(p, product))
+        updatedProducts = updatedProducts.filter(p => p.id !== product.id)
         this.setState({productsInCart: updatedProducts})
     }
 
     increaseProductQuantity = (product) => {
-        product.quantity += product.quantity;
+        let productToUpdate = this.state.productsInCart.find(p => p.id === product.id);
+        productToUpdate.quantity += 1;
+        this.setState({productsInCart: this.state.productsInCart})
     }
 
-    decreaseProductQuantity = (product) => product.quantity -= product.quantity;
+    decreaseProductQuantity = (product) => {
+        let productToUpdate = this.state.productsInCart.find(p => p.id === product.id);
+        productToUpdate.quantity = Math.max(1, productToUpdate.quantity - 1);
+        this.setState({productsInCart: this.state.productsInCart})
+    }
 
-    productIsInCart = (product) => this.state.productsInCart.some(productInCart => this.sameProduct(productInCart, product))
-    sameProduct = (productA, productB) => productA.name === productB.name && productA.brand === productB.brand && productA.storeName === productB.storeName;
+    productIsInCart = (product) => this.state.productsInCart.some(productInCart => productInCart.id === product.id)
 
     logInUser = () => {
         this.setState({loggedUser: true})
