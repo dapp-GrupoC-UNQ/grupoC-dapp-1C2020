@@ -1,11 +1,8 @@
 import {withRouter} from "react-router-dom";
 import * as React from "react";
 import "./homepage.scss"
-import {categories, discounts} from "../../constants";
 import StoreService from "../../servicios/StoreService";
 import LoadingSpinner from "../../components/loading-spinner/LoadingSpinner";
-import Product from "./product/Product";
-import Category from "./category/Category";
 import Store from "./store/Store";
 import {LanguageContext} from "../../constants/LanguageMaps";
 

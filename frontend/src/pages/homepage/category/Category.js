@@ -11,8 +11,8 @@ class Category extends React.Component {
                 <div className='imagen-comercio'>
                     <img src={this.props.category.categoryImageURL}/>
                 </div>
-                <div className='nombre-comercio'>
-                    {this.props.category.label}
+                <div className='category-name'>
+                    <span>{this.props.category.label}</span>
                 </div>
             </div>
         )

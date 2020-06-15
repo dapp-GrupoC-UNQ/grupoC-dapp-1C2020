@@ -20,19 +20,6 @@ class Categories extends React.Component {
 
     renderCategories = (category) => <Category category={category} />
 
-  /*  showStoresWithACategory = (category) => {
-        this.setState({loadingEntitiesState: true})
-        StoreService().getAllStoresWithACategory(category)
-            .then(result => {
-                if(result.data.stores.length === 0) {
-                    this.setState({loadingEntitiesState: false, dataToShow: false})
-                } else {
-                    this.setState({stores: result.data, dataToShow: true, loadingEntitiesState: false})
-                }
-            }).catch(error => {
-            alert("Uy, no pudimos cargar los comercios de esa categoria")
-        });
-    }*/
 
     render() {
         return (
@@ -47,7 +34,7 @@ class Categories extends React.Component {
                     {!this.state.dataToShow && !this.state.loadingEntitiesState &&
                     <div className="no-products">
                         <FontAwesomeIcon icon={faShoppingBasket}/>
-                        <span>{this.context.noProducts}</span>
+                        <span>{this.context.noStores}</span>
                     </div>
                     }
                 </div>
