@@ -246,6 +246,7 @@ public class UsersControllerTest {
         storeJson.put("storeCategories", storeCategories);
         storeJson.put("availablePaymentMethods", paymentMethods);
         storeJson.put("storeSchedule", storeSchedule);
+        storeJson.put("storeImageURL", "unaURLdementiritas");
         return storeJson;
     }
     private JSONObject generateClientUserBody(ClientUser clientUser) throws JSONException {

@@ -34,7 +34,7 @@ public class StoreJsonDeserializer extends JsonDeserializer<Store> {
 
         StoreSchedule storeSchedule = objectMapper.treeToValue(jsonNode.get("storeSchedule"), StoreSchedule.class);
 
-        String imageUrl = "aStoreImageURL";
+        String imageUrl = jsonNode.get("storeImageURL").textValue();;
         return new Store(storeName, categories, storeAddress, distanceInKm, paymentMethods, storeSchedule, LocalDate.now(), imageUrl);
     };
 }
