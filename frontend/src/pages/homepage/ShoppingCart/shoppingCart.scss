@@ -23,6 +23,12 @@
     align-items: center;
     flex-direction: column;
 
+    .shopping-cart-total {
+      align-self: baseline;
+      font-size: x-large;
+      font-style: inherit;
+    }
+
     .product-in-cart {
       display: flex;
       width: 100%;

@@ -35,9 +35,13 @@ class ShoppingCart extends React.Component{
             }
             {!this.cartIsEmpty() &&
             <div className="shopping-cart-content">
+                <div className="shopping-cart-total">
+                    <span>Total:</span>
+                </div>
                 {this.renderProductsInCart()}
             </div>
             }
+
         </>;
     }
 
