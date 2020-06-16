@@ -117,6 +117,13 @@ class CamposRegistroUsuario extends React.Component {
                         <input type="number" value={this.state.deliveryDistance} id="delivery" name="delivery"
                                onChange={(event) => this.updateDeliveryDistance(parseInt(event.target.value))}/>
                     </div>
+                    <div className="campo-a-rellenar">
+                        <label>
+                            <span>URL de la imagen del comercio</span>
+                        </label>
+                        <input type="text" value={this.state.storeImageURL} id="storeimageURL" name="storeimageURL"
+                               onChange={(event) => this.props.onUpdate('storeImageURL', event.target.value)}/>
+                    </div>
                 </div>
                 }
             </div>
