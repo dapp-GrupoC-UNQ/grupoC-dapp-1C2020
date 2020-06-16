@@ -1,7 +1,5 @@
 import * as React from "react";
 import LoadingSpinner from "../../../components/loading-spinner/LoadingSpinner";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faShoppingBasket} from "@fortawesome/free-solid-svg-icons";
 import {LanguageContext} from "../../../constants/LanguageMaps";
 import Category from "./Category";
 import withRouter from "react-router-dom/es/withRouter";
@@ -29,12 +27,6 @@ class Categories extends React.Component {
                     {!this.state.isLoading && this.state.dataToShow &&
                     <div className="entities">
                         {this.state.categories.map(category => this.renderCategories(category))}
-                    </div>
-                    }
-                    {!this.state.dataToShow && !this.state.loadingEntitiesState &&
-                    <div className="no-products">
-                        <FontAwesomeIcon icon={faShoppingBasket}/>
-                        <span>{this.context.noStores}</span>
                     </div>
                     }
                 </div>
