@@ -42,8 +42,8 @@ class SideBar extends React.Component {
                         <FontAwesomeIcon icon={faShoppingCart}/>
                     </div>
                     <div className="link">
-                        <a className="link-search" onClick={this.props.logOut}>{this.context.logOut}</a>
-                        <FontAwesomeIcon onClick={this.props.logOut} icon={faDoorOpen}/>
+                        <a className="link-search" onClick={this.props.onLogout}>{this.context.logOut}</a>
+                        <FontAwesomeIcon onClick={this.props.onLogout} icon={faDoorOpen}/>
                     </div>
                     <div className="languages">
                         <div className="language" onClick={() => this.props.changeLanguage(LanguageMaps.english)}>

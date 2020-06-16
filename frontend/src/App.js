@@ -69,7 +69,7 @@ class App extends React.Component {
                     />
                     <LanguageContext.Provider value={this.state.language}>
                         <div className='encuarentena2'>
-                            <SideBar changeLanguage={this.changeLanguage}/>
+                            <SideBar changeLanguage={this.changeLanguage} onLogout={this.logOut}/>
                             <ProtectedRoute
                                 exact
                                 path='/stores'
