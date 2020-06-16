@@ -28,7 +28,6 @@ class StoreProducts extends React.Component {
         this.setState({loadingEntitiesState: true})
         StoreService().getStoreProducts(storeId)
             .then(result => {
-                debugger
                 if(result.data.merchandises.length === 0) {
                     this.setState({products: this.addStoresToProducts(result.data.merchandises, result.data.store.id, result.data.store.storeName), loadingEntitiesState: false, dataToShow: false, store: result.data.store })
                 } else {

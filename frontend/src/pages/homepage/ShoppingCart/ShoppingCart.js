@@ -13,6 +13,10 @@ class ShoppingCart extends React.Component{
         this.props.removeFromCart(product)
     }
 
+    calculateTotalPrice = () => {
+        return this.props.productsInCart.map((product) => product.price * product.quantity).reduce((a,b) => a+b)
+    }
+
     render() {
         return(
             <div className="homepage">
@@ -35,9 +39,13 @@ class ShoppingCart extends React.Component{
             }
             {!this.cartIsEmpty() &&
             <div className="shopping-cart-content">
+                <div className="shopping-cart-total">
+                    <span>Total:  $ {this.calculateTotalPrice()}</span>
+                </div>
                 {this.renderProductsInCart()}
             </div>
             }
+
         </>;
     }
 
