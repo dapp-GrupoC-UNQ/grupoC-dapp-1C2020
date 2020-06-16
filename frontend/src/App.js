@@ -9,6 +9,8 @@ import {LanguageContext, LanguageMaps} from "./constants/LanguageMaps";
 import SideBar from "./pages/homepage/side-bar/SideBar";
 import StoreProducts from "./pages/homepage/store/StoreProducts";
 import ShoppingCart from "./pages/homepage/ShoppingCart/ShoppingCart";
+import Category from "./pages/homepage/category/Category";
+import Categories from "./pages/homepage/category/Categories";
 
 class App extends React.Component {
     constructor(props) {
@@ -65,36 +67,44 @@ class App extends React.Component {
                         path="/"
                         render={() => <LoginPage onLogin={this.logInUser}/>}
                     />
-                        <LanguageContext.Provider value={this.state.language}>
-                            <div className='encuarentena2'>
-                                <SideBar changeLanguage={this.changeLanguage}/>
-                                <ProtectedRoute
-                                                exact
-                                                path='/stores'
-                                                loggedIn={this.state.loggedUser}
-                                                changeLanguage={this.changeLanguage}
-                                                logOut={this.logOut}
-                                                component={HomePage}
-                                />
-                                <Route
-                                    exact
-                                    path="/stores/:id/products"
-                                    render={props => <StoreProducts {...props}
-                                                                    addProductToCart={this.addProductToCart}
-                                                                    productIsInCart={this.productIsInCart}
-                                    />}
-                                />
-                                <Route
-                                    exact
-                                    path="/cart"
-                                    render={props => <ShoppingCart {...props} productsInCart={this.state.productsInCart}
-                                                                              removeFromCart={this.removeProductFromCart}
-                                                                              decreaseProductQuantity={this.decreaseProductQuantity}
-                                                                              increaseProductQuantity={this.increaseProductQuantity}
-                                    />}
-                                />
-                            </div>
-                        </LanguageContext.Provider>
+                    <LanguageContext.Provider value={this.state.language}>
+                        <div className='encuarentena2'>
+                            <SideBar changeLanguage={this.changeLanguage}/>
+                            <ProtectedRoute
+                                exact
+                                path='/stores'
+                                loggedIn={this.state.loggedUser}
+                                changeLanguage={this.changeLanguage}
+                                logOut={this.logOut}
+                                component={HomePage}
+                            />
+                            <Route
+                                exact
+                                path="/stores/:id/products"
+                                render={props => <StoreProducts {...props}
+                                                                addProductToCart={this.addProductToCart}
+                                                                productIsInCart={this.productIsInCart}
+                                />}
+                            />
+                            <Route
+                                exact
+                                path="/cart"
+                                render={props => <ShoppingCart {...props} productsInCart={this.state.productsInCart}
+                                                               removeFromCart={this.removeProductFromCart}
+                                                               decreaseProductQuantity={this.decreaseProductQuantity}
+                                                               increaseProductQuantity={this.increaseProductQuantity}
+                                />}
+                            />
+                            <Route
+                                exact
+                                path='/categories'
+                                render={props => <Categories {...props}
+                                />}
+                            />
+
+
+                        </div>
+                    </LanguageContext.Provider>
                 </Switch>
             </BrowserRouter>
         );

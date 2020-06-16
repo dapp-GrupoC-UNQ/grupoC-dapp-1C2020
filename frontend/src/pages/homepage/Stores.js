@@ -1,13 +1,12 @@
 import {withRouter} from "react-router-dom";
 import * as React from "react";
 import "./homepage.scss"
-import {categories, discounts} from "../../constants";
 import StoreService from "../../servicios/StoreService";
 import LoadingSpinner from "../../components/loading-spinner/LoadingSpinner";
-import Product from "./product/Product";
-import Category from "./category/Category";
 import Store from "./store/Store";
 import {LanguageContext} from "../../constants/LanguageMaps";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faStoreSlash} from "@fortawesome/free-solid-svg-icons/faStoreSlash";
 
 class Stores extends React.Component {
     constructor(props){
@@ -18,59 +17,56 @@ class Stores extends React.Component {
             entityRenderFunction: this.renderStore,
             showingShoppingCart: false,
             dataToShow: true,
-            productsInCart: []
+            productsInCart: [],
+            storeCategory: this.props.location.search
         }
     }
 
     componentDidMount() {
-        //Esto se va a ejecutar automaticamente despues de que este componente se haya renderizado la primera vez
+        const params = new URLSearchParams(this.state.storeCategory);
+        const category = params.get('category');
         this.setState({ loadingEntitiesState: true });
-        this.showStores();
+        this.showStores(category);
     }
 
     renderStore = (store) => <Store store={store}/>
 
-    /*renderCategory = (category) => <Category category={category} onSelectCategory={this.showStoresWithACategory}/>
 
-    renderDiscount = (discount) => <Discount discount={discount}/>*/
-
-    showStores = () =>{
-        StoreService().getAllStores()
+    showStores = (category) =>{
+        StoreService().getAllStores(category)
             .then(result => {
-                this.setState({stores: result.data, loadingEntitiesState: false, showingShoppingCart: false, dataToShow: true})
+                if(result.data.length === 0){
+                    this.setState({stores: result.data, loadingEntitiesState: false, showingShoppingCart: false, dataToShow: false})
+                }else {
+                    this.setState({
+                        stores: result.data,
+                        loadingEntitiesState: false,
+                        showingShoppingCart: false,
+                        dataToShow: true
+                    })
+                }
             })
             .catch(error => {
                 alert("Uy, no pudimos cargar los comercios")
             });
     }
 
-   /* showCategories = () => {
-        this.setState({entities: categories, entityRenderFunction: this.renderCategory, showingShoppingCart: false});
-    }
-
-    showDiscounts = () => {
-        this.setState({entities: discounts, entityRenderFunction: this.renderDiscount, showingShoppingCart: false});
-    }*/
-
-  /*  showStoresWithACategory = (category) => {
-        StoreService().getAllStoresWithACategory(category.categoryName)
-            .then(result => {
-                this.setState({entities: result.data, entityRenderFunction: this.renderStore, loadingEntitiesState: false})
-            })
-            .catch(error => {
-                alert("Uy, no pudimos cargar los comercios de esa categoria")
-            });
-    }*/
 
     render() {
         return(
             <div className="homepage">
                 <div className="entities-panel">
                     {this.state.loadingEntitiesState && <LoadingSpinner isLoading={this.state.loadingEntitiesState}/>}
-                    {!this.state.isLoading && !this.state.showingShoppingCart && this.state.dataToShow &&
+                    {!this.state.loadingEntitiesState && !this.state.showingShoppingCart && this.state.dataToShow &&
                         <div className="entities">
                             {this.state.stores.map(store => this.renderStore(store))}
                         </div>
+                    }
+                    {!this.state.dataToShow && !this.state.loadingEntitiesState &&
+                    <div className="no-products">
+                        <FontAwesomeIcon icon={faStoreSlash}/>
+                        <span>{this.context.noStores}</span>
+                    </div>
                     }
                 </div>
             </div>
