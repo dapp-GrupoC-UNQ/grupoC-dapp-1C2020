@@ -1,6 +1,6 @@
 import React from 'react';
 import './pages/loginpage/loginpage.scss';
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Switch, withRouter} from "react-router-dom";
 import './encuarentenados-app.scss'
 import LoginPage from "./pages/loginpage/LoginPage";
 import HomePage from "./pages/homepage/Stores";

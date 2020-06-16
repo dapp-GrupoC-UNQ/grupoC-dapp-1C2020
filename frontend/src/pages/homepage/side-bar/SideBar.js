@@ -16,6 +16,10 @@ class SideBar extends React.Component {
     goToStores = () => this.props.history.push('/stores')
     goToShoppingCart = () => this.props.history.push('/cart')
     goToCategories = () => this.props.history.push('/categories')
+    logOut = () => {
+        this.props.history.push('/')
+        this.props.onLogout();
+    }
 
     render() {
         return (
@@ -42,8 +46,8 @@ class SideBar extends React.Component {
                         <FontAwesomeIcon icon={faShoppingCart}/>
                     </div>
                     <div className="link">
-                        <a className="link-search" onClick={this.props.onLogout}>{this.context.logOut}</a>
-                        <FontAwesomeIcon onClick={this.props.onLogout} icon={faDoorOpen}/>
+                        <a className="link-search" onClick={this.logOut}>{this.context.logOut}</a>
+                        <FontAwesomeIcon onClick={this.logOut} icon={faDoorOpen}/>
                     </div>
                     <div className="languages">
                         <div className="language" onClick={() => this.props.changeLanguage(LanguageMaps.english)}>
