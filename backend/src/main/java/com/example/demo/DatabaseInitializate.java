@@ -63,7 +63,7 @@ public class DatabaseInitializate implements CommandLineRunner {
         Merchandise arroz = new Merchandise("Arroz", "Gallo", 25.0, 12, MerchandiseCategory.GROCERY, "https://statics.dinoonline.com.ar/imagenes/full_600x600_ma/2290212_f.jpg");
         Merchandise lavandina = new Merchandise("Lavandina", "Ayudin", 50.45, 12, MerchandiseCategory.CLEANING_SUPPLIES, "https://statics.dinoonline.com.ar/imagenes/large_460x460/2830186_l.jpg");
         Merchandise trapo = new Merchandise("Trapo de piso", "Me lo llevo del dpto de la costa", 25.0, 12, MerchandiseCategory.CLEANING_SUPPLIES, "http://www.aromenai.com/wp-content/uploads/2017/09/trapo-piso-duramas-gris-630x630.jpg");
-        Merchandise helado = new Merchandise("Chomp", "Frigo", 150.0, 12, MerchandiseCategory.FROZEN_FOOD, "https://supermercado.carrefour.com.ar/media/catalog/product/cache/1/small_image/214x/9df78eab33525d08d6e5fb8d27136e95/7/6/7613034790194_02.jpg");
+        Merchandise helado = new Merchandise("Chomp", "Frigor", 150.0, 12, MerchandiseCategory.FROZEN_FOOD, "https://supermercado.carrefour.com.ar/media/catalog/product/cache/1/small_image/214x/9df78eab33525d08d6e5fb8d27136e95/7/6/7613034790194_02.jpg");
         Merchandise ferne = new Merchandise("Fernet", "Branca", 400.0, 12, MerchandiseCategory.ALCOHOLIC_DRIKS, "https://d26lpennugtm8s.cloudfront.net/stores/447/761/products/fernet-branca-1l-011-2ae9281c7fca470b9515882681698500-1024-1024.jpg");
         Merchandise papitasN = new Merchandise("Papas Noisette", "McCain", 180.0, 12, MerchandiseCategory.FROZEN_FOOD, "http://www.mccain.com.ar/wp-content/uploads/2013/12/xInternaProd_Noisettes2.png.pagespeed.ic.GssU4n5J64.webp");
         Merchandise comidaPerro = new Merchandise("Alimento Balanceado", "Excelent", 500.0, 12, MerchandiseCategory.PET_STUFFS, "https://puppis.vteximg.com.br/arquivos/ids/167600-600-600/150040.jpg?v=637021773071770000");
@@ -92,6 +92,25 @@ public class DatabaseInitializate implements CommandLineRunner {
         Merchandise sobrecitoCachPollo = new Merchandise("Sobrecito Cachorro Sabor Pollo", "Pedigree", 33.0, 12, MerchandiseCategory.PET_STUFFS, "https://puppis.vteximg.com.br/arquivos/ids/163560-600-600/Sobre-Cachorro-01_0010.png?v=636739938081070000");
         Merchandise sobrecitoCachCarne = new Merchandise("Sobrecito Cachorro Sabor Carne", "Pedigree", 33.0, 12, MerchandiseCategory.PET_STUFFS, "https://puppis.vteximg.com.br/arquivos/ids/163560-600-600/Sobre-Cachorro-01_0010.png?v=636739938081070000");
         Merchandise quaker = new Merchandise("Cereales Honey Graham", "Quaker", 175.0, 12, MerchandiseCategory.CEREALS, "https://jumboargentina.vteximg.com.br/arquivos/ids/549670-1000-1000/Cereales-Quaker-Honey-Graham-200-Gr-1-47107.jpg?v=637051080751930000");
+        Merchandise colgate = new Merchandise("Pasta Dental 180gr", "Colgate", 75.0, 12, MerchandiseCategory.CLEANING_SUPPLIES, "https://statics.dinoonline.com.ar/imagenes/full_600x600_ma/2850744_1_f.jpg");
+        Merchandise detergente = new Merchandise("Detergente Lavavajilla Limon 300ml", "Cif", 98.25, 12, MerchandiseCategory.CLEANING_SUPPLIES, "https://www.cif.com.ar/content/dam/unilever/cif/argentina/pack_shot/7791290012189-998917-png.png");
+        Merchandise cepilloDientes = new Merchandise("Cepillo de Dientes", "Oral-B", 119.80, 12, MerchandiseCategory.CLEANING_SUPPLIES, "https://res.cloudinary.com/mtree/image/upload/f_auto,q_auto/OralB_LATAM_ES/es/-/media/OralB_LATAM/Images/Products/ProductPackshots/Cepillo_OralB_Ortodoncia_1200.png?w=118&v=1-201804200647");
+        Merchandise shampoo = new Merchandise("Shampoo", "Pantene", 196.40, 12, MerchandiseCategory.CLEANING_SUPPLIES, "https://www.toymania.com.ar/wp-content/uploads/2019/09/pantenemax-sh-rest-400ml.jpg");
+        Merchandise acondicionador = new Merchandise("Acondicionador", "Pantene", 196.40, 12, MerchandiseCategory.CLEANING_SUPPLIES, "https://perfumeriaspigmento.com.ar/media/catalog/product/cache/image/620x678/e9c3970ab036de70892d86c6d221abfe/7/9/79728.jpg");
+        Merchandise desengrasante = new Merchandise("Antigrasa 450ml", "Cif", 50.0, 12, MerchandiseCategory.CLEANING_SUPPLIES, "https://www.newcasmont.com/12561-large_default/cif-antigrasa-450ml-sachet.jpg");
+        Merchandise jabonTocador = new Merchandise("Jabon de Tocador", "Dove", 45.0, 12, MerchandiseCategory.CLEANING_SUPPLIES, "https://farmaciasdelplata.com/wp-content/uploads/2019/12/7898422746759.jpg");
+        Merchandise jabonRopa = new Merchandise("Jabon Liquido para la Ropa 800ml", "Ariel", 141.0, 12, MerchandiseCategory.CLEANING_SUPPLIES, "https://statics.dinoonline.com.ar/imagenes/full_600x600_ma/2841578_f.jpg");
+
+        Merchandise fideosLuchetti = new Merchandise("Fideos Tirabuzón", "Lucchetti", 45.0, 12, MerchandiseCategory.GROCERY, "https://www.pasosonline.com.ar/wp-content/uploads/2018/08/01AAA-tirabuzon.jpg");
+        Merchandise polenta = new Merchandise("Polenta 500gr", "Presto Pronta", 92.25, 12, MerchandiseCategory.GROCERY, "https://www.multifood.com.ar/images/000Z-001-016-01755780Z-001-016-017-PrestoPronta-Polenta.jpg");
+        Merchandise aceite = new Merchandise("Aceite 900ml", "Natura", 114.25, 12, MerchandiseCategory.GROCERY, "https://statics.dinoonline.com.ar/imagenes/full_600x600_ma/2320031_f.jpg");
+        Merchandise lexe = new Merchandise("Leche Descremada", "Las Tres Niñas", 62.5, 12, MerchandiseCategory.GROCERY, "https://supermercado.carrefour.com.ar/media/catalog/product/cache/1/image/1000x/040ec09b1e35df139433887a97daa66f/7/7/7798338290035_02.jpg");
+        Merchandise rumba = new Merchandise("Galletitas Dulces", "Rumba", 41.0, 12, MerchandiseCategory.GROCERY, "https://don-gaucho.com/wp-content/uploads/2019/01/Rumba.jpg");
+        Merchandise oreo = new Merchandise("Galletitas Dulces", "Oreo", 63.0, 12, MerchandiseCategory.GROCERY, "https://elsuperdelagolosina.com.ar/wp-content/uploads/2018/07/GALLETITAS-OREO-117G1-570x570.jpg");
+        Merchandise oregano = new Merchandise("Oregano", "Alicante", 52.20, 12, MerchandiseCategory.GROCERY, "https://supermercado.carrefour.com.ar/media/catalog/product/cache/1/image/1000x/040ec09b1e35df139433887a97daa66f/7/7/7790150540350_01.jpg");
+        Merchandise cafe = new Merchandise("Cafe Instantaneo", "Dolca", 252.30, 12, MerchandiseCategory.GROCERY, "https://walmartar.vteximg.com.br/arquivos/ids/858334-1000-1000/Cafe-Instantaneo-Dolca-Clasic-Frasco-Nescafe-100-Gr-1-469317.jpg?v=637175918297900000");
+
+
 
         storeService.addStore(historietas);
         storeService.addMerchandiseToStore(historietas.id(), fideos);
@@ -100,6 +119,14 @@ public class DatabaseInitializate implements CommandLineRunner {
         storeService.addMerchandiseToStore(kwickEMart.id(), mayonesa);
         storeService.addMerchandiseToStore(kwickEMart.id(),arroz);
         storeService.addMerchandiseToStore(kwickEMart.id(),pan);
+        storeService.addMerchandiseToStore(kwickEMart.id(), fideosLuchetti);
+        storeService.addMerchandiseToStore(kwickEMart.id(),polenta);
+        storeService.addMerchandiseToStore(kwickEMart.id(),aceite);
+        storeService.addMerchandiseToStore(kwickEMart.id(), lexe);
+        storeService.addMerchandiseToStore(kwickEMart.id(),rumba);
+        storeService.addMerchandiseToStore(kwickEMart.id(),oreo);
+        storeService.addMerchandiseToStore(kwickEMart.id(), oregano);
+        storeService.addMerchandiseToStore(kwickEMart.id(),cafe);
         storeService.addStore(leftorium);
         storeService.addStore(cents);
         storeService.addMerchandiseToStore(cents.id(), manzana);
@@ -121,6 +148,14 @@ public class DatabaseInitializate implements CommandLineRunner {
         storeService.addMerchandiseToStore(cleaner.id(), trapo);
         storeService.addMerchandiseToStore(cleaner.id(), pañales);
         storeService.addMerchandiseToStore(cleaner.id(), rexona);
+        storeService.addMerchandiseToStore(cleaner.id(), colgate);
+        storeService.addMerchandiseToStore(cleaner.id(), detergente);
+        storeService.addMerchandiseToStore(cleaner.id(), cepilloDientes);
+        storeService.addMerchandiseToStore(cleaner.id(), shampoo);
+        storeService.addMerchandiseToStore(cleaner.id(), acondicionador);
+        storeService.addMerchandiseToStore(cleaner.id(), desengrasante);
+        storeService.addMerchandiseToStore(cleaner.id(), jabonTocador);
+        storeService.addMerchandiseToStore(cleaner.id(), jabonRopa);
         storeService.addStore(burger);
         storeService.addStore(monstruomercado);
         storeService.addMerchandiseToStore(monstruomercado.id(), ferne);
