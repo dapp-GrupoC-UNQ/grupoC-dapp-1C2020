@@ -15,7 +15,15 @@ export const LanguageMaps =
             emptyCartText: 'Su carrito está vacío. Ya compre algo maldita sea',
             loading: 'Cargando...',
             pricePerUnit: 'Precio por unidad:',
-            amountInCart: 'Llevas:'
+            amountInCart: 'Llevas:',
+            storeCategories: {
+                'CLEANING_SUPPLIES': 'Limpieza',
+                'BUTCHER': 'Carniceria',
+                'GREENGROCES': 'Verduleria',
+                'HYGIENE_PRODUCTS': 'Perfumeria',
+                'GROCERY': 'Almacen',
+                'BAKERY': 'Panaderia'
+            }
         },
         english: {
             sideBarStore: 'Stores',
@@ -30,7 +38,15 @@ export const LanguageMaps =
             emptyCartText: 'Your cart is empty. Buy something god damn it!',
             loading: 'Loading...',
             pricePerUnit: 'Price per unit:',
-            amountInCart: 'You are taking:'
+            amountInCart: 'You are taking:',
+            storeCategories: {
+                'CLEANING_SUPPLIES': 'Cleaning supplies',
+                'BUTCHER': 'Butchers',
+                'GREENGROCES': 'Greengrocers',
+                'HYGIENE_PRODUCTS': 'Hygiene products',
+                'GROCERY': 'Grocery',
+                'BAKERY': 'Bakery'
+            }
         }
     }
 

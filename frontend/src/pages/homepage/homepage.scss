@@ -62,10 +62,16 @@
           display: block;
           overflow: hidden;
           align-items: center;
-          font-size: x-large;
+          font-size: large;
           font-weight: 200;
           padding: 0px 8px 0px;
           height: 14%;
+
+          span {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+          }
         }
 
         .product-footer {
