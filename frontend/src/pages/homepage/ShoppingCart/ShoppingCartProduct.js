@@ -29,24 +29,24 @@ class ShoppingCartProduct extends React.Component{
                 </div>
                 <div className="product-data">
                     <div className="product-name">
-                        {this.props.product.name}
+                        <span>{this.props.product.name}</span>
                     </div>
                     <div className="product-brand">
-                        {this.props.product.brand}
+                        <span>{this.props.product.brand}</span>
                     </div>
                     <div className="product-store">
                         <FontAwesomeIcon icon={faStore}/>
-                        {this.props.product.storeName}
+                        <span>{this.props.product.storeName}</span>
                     </div>
                 </div>
                 <div className="divider"/>
                 <div className="product-quantity-and-price">
                     <div className="price-per-unit">
-                        {this.context.pricePerUnit} ${this.props.product.price}
+                        <span>{this.context.pricePerUnit} ${this.props.product.price}</span>
                         <FontAwesomeIcon icon={faTimes} onClick={this.openRemoveProductModal}/>
                     </div>
                     <div className="quantity">
-                        {this.context.amountInCart} {this.props.product.quantity}
+                        <span>{this.context.amountInCart} {this.props.product.quantity}</span>
                     </div>
                     <div className="add-or-quit-and-total-panel">
                         <div className="increase-decrease-buttons">
@@ -54,7 +54,7 @@ class ShoppingCartProduct extends React.Component{
                             <FontAwesomeIcon icon={faMinusCircle} onClick={this.decreaseProductQuantity}/>
                         </div>
                         <div className="total-product-price">
-                            Total: ${this.props.product.price * this.props.product.quantity}
+                            <span>Total: ${this.props.product.price * this.props.product.quantity}</span>
                         </div>
                     </div>
                 </div>

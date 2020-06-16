@@ -43,11 +43,11 @@ class Product extends React.Component {
                 <img src={this.props.product.productImage}/>
             </div>
             <div className='product-name'>
-                {this.props.product.name}
+                <span>{this.props.product.name}</span>
             </div>
             <div className="product-footer">
                 <div className='product-brand'>
-                    {this.props.product.brand}
+                    <span>{this.props.product.brand}</span>
                 </div>
                 <div className='product-price'>
                     <p className="price">${this.props.product.price}</p>
