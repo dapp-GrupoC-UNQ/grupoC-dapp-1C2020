@@ -53,15 +53,18 @@
         }
 
         &.category-card {
-          height: 240px;
+          height: 260px;
         }
 
         .product-name {
-          display: flex;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          display: block;
+          overflow: hidden;
           align-items: center;
           font-size: large;
           font-weight: 200;
-          padding: 8px 8px 0px;
+          padding: 0px 8px 0px;
           height: 14%;
 
           span {
@@ -121,6 +124,19 @@
           padding: 8px 8px;
           height: 14%;
         }
+
+        .category-name {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          display: block;
+          overflow: hidden;
+          align-items: center;
+          font-size: x-large;
+          font-weight: 200;
+          padding: 4px 8px;
+          height: 14%;
+        }
+
 
         .distancia-comercio {
           display: flex;

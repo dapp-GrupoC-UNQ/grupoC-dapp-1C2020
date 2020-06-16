@@ -9,6 +9,8 @@ import {faShoppingBasket} from "@fortawesome/free-solid-svg-icons";
 import {LanguageContext} from "../../../constants/LanguageMaps";
 
 
+
+
 class StoreProducts extends React.Component {
     constructor(props) {
         super(props);
@@ -19,35 +21,25 @@ class StoreProducts extends React.Component {
     }
 
     componentDidMount() {
-        this.getStore(this.state.storeId);
         this.showStoreProducts(this.state.storeId);
-    }
-
-    getStore = (storeId) => {
-        this.setState({loadingEntitiesState: true})
-        StoreService().getStoreById(storeId)
-            .then(response => {
-                this.setState({store: response.data})
-                this.showStoreProducts(storeId)
-            })
-            .catch(error => alert(error))
     }
 
     showStoreProducts = (storeId) => {
         this.setState({loadingEntitiesState: true})
         StoreService().getStoreProducts(storeId)
             .then(result => {
+                debugger
                 if(result.data.merchandises.length === 0) {
-                    this.setState({loadingEntitiesState: false, dataToShow: false})
+                    this.setState({products: this.addStoresToProducts(result.data.merchandises, result.data.store.id, result.data.store.storeName), loadingEntitiesState: false, dataToShow: false, store: result.data.store })
                 } else {
-                    this.setState({products: this.addStoresToProducts(result.data.merchandises, result.data.storeId), dataToShow: true, loadingEntitiesState: false})
+                    this.setState({products: this.addStoresToProducts(result.data.merchandises, result.data.store.id, result.data.store.storeName), loadingEntitiesState: false, dataToShow: true, store: result.data.store})
                 }
             })
     }
 
-    addStoresToProducts = (listOfProducts, storeId) =>{
+    addStoresToProducts = (listOfProducts, storeId, storeName) =>{
         return listOfProducts.map(product => {
-            product.storeName = this.state.store.storeName
+            product.storeName = storeName;
             product.storeId = storeId;
             return product
         })
