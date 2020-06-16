@@ -21,8 +21,10 @@ const EntitiesBuilder = () => {
                     openingDays: state.openingDays,
                     openingTime: state.openingTime,
                     closingTime: state.closingTime
-                }
+                },
+                storeImageURL: state.storeImageURL
             }
+
         }
     }
 

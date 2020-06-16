@@ -13,6 +13,7 @@ class ModalRegistroUsuario extends React.Component {
         this.state = {
             registeringUser: true,
             registrationSucceed: false,
+            deliveryDistance: 1,
             isValidUser: true,
             isValidMail: true
         }
